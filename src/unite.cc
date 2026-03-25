@@ -1,48 +1,48 @@
-#include "unit.hh"
+#include "Unite.hh"
 
 /*
  *      Constructeur
  */
-Unit::Unit(int healthPoints, int attackPoints, int travelCapacity) :
-    _healthPoints(healthPoints),
-    _attackPoints(attackPoints),
-    _travelCapacity(travelCapacity)
+Unite::Unite(int pointsVie, int pointsAttaque, int capaciteDeDeplacement) :
+    _pointsVie(pointsVie),
+    _pointsAttaque(pointsAttaque),
+    _capaciteDeDeplacement(capaciteDeDeplacement)
 {}
 
 /*
  *      Getters et Setters
  */
-int Unit::getHealthPoints() const
+int Unite::getPointsVie() const
 {
-    return _healthPoints;
+    return _pointsVie;
 }
 
-int Unit::getAttackPoints() const
+int Unite::getPointsAttaque() const
 {
-    return _attackPoints;
+    return _pointsAttaque;
 }
 
-int Unit::getTravelCapacity() const
+int Unite::getCapaciteDeDeplacement() const
 {
-    return _travelCapacity;
+    return _capaciteDeDeplacement;
 }
 
-void Unit::setHealthPoints(int newHealthPoints)
+void Unite::setPointsVie(int newPointsVie)
 {
-    _healthPoints = newHealthPoints;
+    _pointsVie = newPointsVie;
 }
 
-void Unit::setAttackPoints(int newAttackPoints)
+void Unite::setPointsAttaque(int newPointsAttaque)
 {
-    _attackPoints = newAttackPoints;
+    _pointsAttaque = newPointsAttaque;
 }
 
-void Unit::setTravelCapacity(int newTravelCapacity)
+void Unite::setCapaciteDeDeplacement(int newCapaciteDeDeplacement)
 {
-    _travelCapacity = newTravelCapacity;
+    _capaciteDeDeplacement = newCapaciteDeDeplacement;
 }
 
-void Unit::attackUnit(Unit &unit)
+void Unite::attaquerUnite(Unite &unite)
 {
-    unit.setHealthPoints(unit.getHealthPoints()-_attackPoints);
+    unite.setPointsVie(unite.getPointsVie() - _pointsAttaque);
 }

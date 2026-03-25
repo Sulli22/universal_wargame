@@ -8,11 +8,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(${PROJECT_NAME}
     main.cc
 
-    unit.cc
+    unite.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
-    unit.hh
+    unite.hh
 )
 
 include(GNUInstallDirs)

@@ -2,23 +2,23 @@
 
 //#include <string>
 
-class Unit {
+class Unite {
 public:
-    Unit(int healthPoints, int attackPoints, int travelCapacity);
+    Unite(int pointsVie, int pointsAttaque, int capaciteDeDeplacement);
 
-    int getHealthPoints() const;
-    int getAttackPoints() const;
-    int getTravelCapacity() const;
-    void setHealthPoints(int newHealthPoints);
-    void setAttackPoints(int newAttackPoints);
-    void setTravelCapacity(int newTravelCapacity);
+    int getPointsVie() const;
+    int getPointsAttaque() const;
+    int getCapaciteDeDeplacement() const;
+    void setPointsVie(int nvPointsVie);
+    void setPointsAttaque(int newPointsAttaque);
+    void setCapaciteDeDeplacement(int nvCapaciteDeDeplacement);
 
-    void attackUnit(Unit &unit);
+    void attaquerUnite(Unite &unite);
 
     //virtual std::string getType() const =0;
 
 private:
-    int _healthPoints;
-    int _attackPoints;
-    int _travelCapacity;
+    int _pointsVie;
+    int _pointsAttaque;
+    int _capaciteDeDeplacement;
 };
