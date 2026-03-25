@@ -11,6 +11,7 @@ add_executable(${PROJECT_NAME}
     uniteterrestre.cc
     unitemaritime.cc
     uniteaerienne.cc
+    camp.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
@@ -18,6 +19,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     uniteterrestre.hh
     unitemaritime.hh
     uniteaerienne.hh
+    camp.hh
 )
 
 include(GNUInstallDirs)
