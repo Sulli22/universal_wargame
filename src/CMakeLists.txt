@@ -7,12 +7,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(${PROJECT_NAME}
     main.cc
-
     unite.cc
+    uniteterrestre.cc
+    unitemaritime.cc
+    uniteaerienne.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
     unite.hh
+    uniteterrestre.hh
+    unitemaritime.hh
+    uniteaerienne.hh
 )
 
 include(GNUInstallDirs)
