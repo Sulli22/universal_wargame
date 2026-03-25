@@ -5,7 +5,7 @@
 
 class Unite {
 public:
-    Unite(int pointsVie, int pointsAttaque, int capaciteDeDeplacement);
+    Unite(int pointsVie, int pointsAttaque, int capaciteDeDeplacement, unsigned int distanceAttaque=0);
 
     int getPointsVie() const;
     int getPointsAttaque() const;
@@ -23,4 +23,5 @@ private:
     int _pointsVie;
     int _pointsAttaque;
     int _capaciteDeDeplacement;
+    unsigned int _distanceAttaque;
 };

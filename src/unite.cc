@@ -3,10 +3,11 @@
 /*
  *      Constructeur
  */
-Unite::Unite(int pointsVie, int pointsAttaque, int capaciteDeDeplacement) :
+Unite::Unite(int pointsVie, int pointsAttaque, int capaciteDeDeplacement, unsigned int distanceAttaque) :
     _pointsVie(pointsVie),
     _pointsAttaque(pointsAttaque),
-    _capaciteDeDeplacement(capaciteDeDeplacement)
+    _capaciteDeDeplacement(capaciteDeDeplacement),
+    _distanceAttaque(distanceAttaque)
 {}
 
 /*
