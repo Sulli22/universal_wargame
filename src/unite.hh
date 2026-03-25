@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ostream>
 //#include <string>
 
 class Unite {
@@ -15,6 +16,7 @@ public:
 
     void attaquerUnite(Unite &unite);
 
+    virtual void sortieFlux(std::ostream &os) const;
     //virtual std::string getType() const =0;
 
 private:

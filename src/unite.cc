@@ -1,4 +1,4 @@
-#include "Unite.hh"
+#include "unite.hh"
 
 /*
  *      Constructeur
@@ -46,4 +46,12 @@ void Unite::setCapaciteDeDeplacement(int nvCapaciteDeDeplacement)
 void Unite::attaquerUnite(Unite &unite)
 {
     unite.setPointsVie(unite.getPointsVie() - _pointsAttaque);
+}
+
+void Unite::sortieFlux(std::ostream &os) const
+{
+    os << " pointsVie=" << _pointsVie
+       << " pointsAttaque=" << _pointsAttaque
+       << " capaciteDeDeplacement=" << _capaciteDeDeplacement
+       << std::endl;
 }
