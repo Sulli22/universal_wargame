@@ -10,7 +10,7 @@ public:
     int getPointsAttaque() const;
     int getCapaciteDeDeplacement() const;
     void setPointsVie(int nvPointsVie);
-    void setPointsAttaque(int newPointsAttaque);
+    void setPointsAttaque(int nvPointsAttaque);
     void setCapaciteDeDeplacement(int nvCapaciteDeDeplacement);
 
     void attaquerUnite(Unite &unite);

@@ -27,20 +27,21 @@ int Unite::getCapaciteDeDeplacement() const
     return _capaciteDeDeplacement;
 }
 
-void Unite::setPointsVie(int newPointsVie)
+void Unite::setPointsVie(int nvPointsVie)
 {
-    _pointsVie = newPointsVie;
+    _pointsVie = nvPointsVie;
 }
 
-void Unite::setPointsAttaque(int newPointsAttaque)
+void Unite::setPointsAttaque(int nvPointsAttaque)
 {
-    _pointsAttaque = newPointsAttaque;
+    _pointsAttaque = nvPointsAttaque;
 }
 
-void Unite::setCapaciteDeDeplacement(int newCapaciteDeDeplacement)
+void Unite::setCapaciteDeDeplacement(int nvCapaciteDeDeplacement)
 {
-    _capaciteDeDeplacement = newCapaciteDeDeplacement;
+    _capaciteDeDeplacement = nvCapaciteDeDeplacement;
 }
+
 
 void Unite::attaquerUnite(Unite &unite)
 {
