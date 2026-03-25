@@ -23,7 +23,7 @@ Pointeurs intelligents
 
 ## Langue
 
-* Code en anglais
+* Code en français
 * Commentaires en français
 
 ## Raccourcis
