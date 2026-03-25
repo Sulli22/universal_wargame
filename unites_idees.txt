@@ -3,10 +3,13 @@ artillerie : terrestre
 anti tank : terrestre
 anti air : terrestre
 blindés : terrestres
+constructeur/ingénieurs : terrestres (peuvent construire)
+
 avions de chasses : aériens
 bombardiers : aériens
+
 bateaux : maritimes
-constructeur/ingénieurs : terrestres (peuvent construire)
+
 
 distinction entre des unités avec sans "armure"/"protection"
 
@@ -31,3 +34,7 @@ Constructions :
 	ponts
 	dépots de provisions
 	dépots de munitions
+
+
+Divers:
+	mines
