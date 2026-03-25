@@ -10,9 +10,14 @@ public:
     int getPointsVie() const;
     int getPointsAttaque() const;
     int getCapaciteDeDeplacement() const;
+    unsigned int getDistanceAttaque() const;
+    unsigned int getNbMunitions() const;
+
     void setPointsVie(int nvPointsVie);
     void setPointsAttaque(int nvPointsAttaque);
     void setCapaciteDeDeplacement(int nvCapaciteDeDeplacement);
+    void setDistanceAttaque(unsigned int nvDistanceAttaque);
+    void setNbMunitions(unsigned int nvNbMunitions);
 
     void attaquerUnite(Unite &unite);
 
@@ -24,4 +29,5 @@ private:
     int _pointsAttaque;
     int _capaciteDeDeplacement;
     unsigned int _distanceAttaque;
+    unsigned int _nbMUnitions;
 };
