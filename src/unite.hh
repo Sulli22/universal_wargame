@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ostream>
 //#include <string>
 
 class Unite {
@@ -10,11 +11,12 @@ public:
     int getPointsAttaque() const;
     int getCapaciteDeDeplacement() const;
     void setPointsVie(int nvPointsVie);
-    void setPointsAttaque(int newPointsAttaque);
+    void setPointsAttaque(int nvPointsAttaque);
     void setCapaciteDeDeplacement(int nvCapaciteDeDeplacement);
 
     void attaquerUnite(Unite &unite);
 
+    virtual void sortieFlux(std::ostream &os) const;
     //virtual std::string getType() const =0;
 
 private:
