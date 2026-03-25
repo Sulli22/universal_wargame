@@ -1,0 +1,33 @@
+infanterie : terrestre
+artillerie : terrestre 
+anti tank : terrestre
+anti air : terrestre
+blindés : terrestres
+avions de chasses : aériens
+bombardiers : aériens
+bateaux : maritimes
+constructeur/ingénieurs : terrestres (peuvent construire)
+
+distinction entre des unités avec sans "armure"/"protection"
+
+Attributs : 
+	points d'attaques : "légers" = sans armure / "lourd" = avec armure
+	capacité de vision
+	provisions (carburant/autre) 
+
+
+Mécanisme de jeu = expention de territoire
+-> victoire lorsqu'une quantité de points cruciaux sont dans le territoire (points de victoire)
+-> à chaque tour chaque unité peut faire 1/2 actions (déplacement, attaques, etc)
+
+Terrain :
+	plaine
+	forêt
+	montagne
+	riviere
+	mer
+	
+Constructions :
+	ponts
+	dépots de provisions
+	dépots de munitions
