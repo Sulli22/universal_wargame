@@ -1,0 +1,7 @@
+C:/Users/masia/documents_info/universal_wargame/src/build/MinGW64_MSYS2-Debug/CMakeFiles/src.dir
+C:/Users/masia/documents_info/universal_wargame/src/build/MinGW64_MSYS2-Debug/CMakeFiles/edit_cache.dir
+C:/Users/masia/documents_info/universal_wargame/src/build/MinGW64_MSYS2-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/masia/documents_info/universal_wargame/src/build/MinGW64_MSYS2-Debug/CMakeFiles/list_install_components.dir
+C:/Users/masia/documents_info/universal_wargame/src/build/MinGW64_MSYS2-Debug/CMakeFiles/install.dir
+C:/Users/masia/documents_info/universal_wargame/src/build/MinGW64_MSYS2-Debug/CMakeFiles/install/local.dir
+C:/Users/masia/documents_info/universal_wargame/src/build/MinGW64_MSYS2-Debug/CMakeFiles/install/strip.dir

@@ -5,10 +5,18 @@ project(src LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(src main.cc)
+add_executable(${PROJECT_NAME}
+    main.cc
+
+    unit.cc
+)
+
+target_sources(${PROJECT_NAME} PRIVATE
+    unit.hh
+)
 
 include(GNUInstallDirs)
-install(TARGETS src
+install(TARGETS ${PROJECT_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
