@@ -4,8 +4,7 @@
 
 #include "unite.hh"
 
-class camp
-{
+class camp {
 public:
     camp(const std::string &nom);
 

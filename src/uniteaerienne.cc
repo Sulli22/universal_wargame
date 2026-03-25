@@ -1,6 +1,5 @@
 #include "uniteaerienne.hh"
 
-UniteAerienne::UniteAerienne(int pointsVie, int pointsAttaque, int capaciteDeDeplacement):Unite(pointsVie, pointsAttaque, capaciteDeDeplacement)
-{
-
-}
+UniteAerienne::UniteAerienne(unsigned int pointsVie, unsigned int nbMunitions) :
+    Unite(pointsVie, nbMunitions)
+{}

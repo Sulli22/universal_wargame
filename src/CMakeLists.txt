@@ -7,10 +7,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(${PROJECT_NAME}
     main.cc
+
     unite.cc
     uniteterrestre.cc
     unitemaritime.cc
     uniteaerienne.cc
+
     camp.cc
 )
 
@@ -19,6 +21,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     uniteterrestre.hh
     unitemaritime.hh
     uniteaerienne.hh
+
     camp.hh
 )
 

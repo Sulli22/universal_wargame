@@ -3,71 +3,65 @@
 /*
  *      Constructeur
  */
-Unite::Unite(int pointsVie, int pointsAttaque, int capaciteDeDeplacement, unsigned int distanceAttaque) :
+Unite::Unite(unsigned int pointsVie, unsigned int nbMunitions) :
     _pointsVie(pointsVie),
-    _pointsAttaque(pointsAttaque),
-    _capaciteDeDeplacement(capaciteDeDeplacement),
-    _distanceAttaque(distanceAttaque)
+    _nbMunitions(nbMunitions)
 {}
 
 /*
- *      Getters et Setters
+ *      Getters
  */
 int Unite::getPointsVie() const
 {
     return _pointsVie;
 }
 
-int Unite::getPointsAttaque() const
+unsigned int Unite::getNbMunitions() const
 {
-    return _pointsAttaque;
+    return _nbMunitions;
 }
 
-int Unite::getCapaciteDeDeplacement() const
+/*
+ *
+ */
+bool Unite::estOperationnelle() const
 {
-    return _capaciteDeDeplacement;
+    return _pointsVie > 0;
 }
 
-unsigned int Unite::getDistanceAttaque() const {
-    return _distanceAttaque;
-}
-
-unsigned int Unite::getNbMunitions() const {
-    return _nbMUnitions;
-}
-
-void Unite::setPointsVie(int nvPointsVie)
+/*
+ *
+ */
+void Unite::prendreDegats(unsigned int degats)
 {
-    _pointsVie = nvPointsVie;
+    // A completer avec bouclier
+    _pointsVie -= degats;
 }
 
-void Unite::setPointsAttaque(int nvPointsAttaque)
+
+void Unite::attaquerUnite(std::shared_ptr<Unite> unite)
 {
-    _pointsAttaque = nvPointsAttaque;
+    if (_nbMunitions > 0) {
+        unsigned int pointsAttaque;
+        if (unite->estLegere()) pointsAttaque = getPointsAttaqueLegere();
+        else pointsAttaque = getPointsAttaqueLourde();
+
+        unite->prendreDegats(pointsAttaque);
+        _nbMunitions--;
+    }
+    // else erreur ??
 }
 
-void Unite::setCapaciteDeDeplacement(int nvCapaciteDeDeplacement)
-{
-    _capaciteDeDeplacement = nvCapaciteDeDeplacement;
-}
-
-void Unite::setDistanceAttaque(unsigned int nvDistanceAttaque) {
-    _distanceAttaque = nvDistanceAttaque;
-}
-
-void Unite::setNbMunitions(unsigned int nvNbMunitions) {
-    _nbMUnitions = nvNbMunitions;
-}
-
-void Unite::attaquerUnite(Unite &unite)
-{
-    unite.setPointsVie(unite.getPointsVie() - _pointsAttaque);
-}
-
+/*
+ *      Sortie flux
+ */
 void Unite::sortieFlux(std::ostream &os) const
 {
     os << " pointsVie=" << _pointsVie
-       << " pointsAttaque=" << _pointsAttaque
-       << " capaciteDeDeplacement=" << _capaciteDeDeplacement
+       << " pointsAttaqueLegere=" << getPointsAttaqueLegere()
+       << " pointsAttaqueLourde=" << getPointsAttaqueLourde()
+       << " capaciteDeplacement=" << getCapaciteDeplacement()
+       << " distanceAttaque=" << getDistanceAttaque()
+       << " nbMunitions=" << getNbMunitions()
        << std::endl;
 }

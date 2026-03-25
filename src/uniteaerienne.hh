@@ -1,9 +1,8 @@
 #pragma once
 #include "unite.hh"
 
-class UniteAerienne: public Unite
-{
+class UniteAerienne: public Unite {
 public:
-    UniteAerienne(int pointsVie, int pointsAttaque, int capaciteDeDeplacement);
+    UniteAerienne(unsigned int pointsVie, unsigned int nbMunitions);
 };
 

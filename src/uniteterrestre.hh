@@ -4,8 +4,7 @@
 
 class UniteTerrestre: public Unite {
 public:
-    UniteTerrestre(int pointsVie, int pointsAttaque, int capaciteDeDeplacement, unsigned int taille);
-    unsigned int getTaille() const;
-private:
-    unsigned int _taille;
+    UniteTerrestre(unsigned int pointsVie, unsigned int nbMunitions);
+
+    virtual unsigned int getTaille() const=0;
 };

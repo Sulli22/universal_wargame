@@ -1,33 +1,29 @@
 #pragma once
 
 #include <ostream>
-//#include <string>
+#include <memory>
 
 class Unite {
 public:
-    Unite(int pointsVie, int pointsAttaque, int capaciteDeDeplacement, unsigned int distanceAttaque=0);
+    Unite(unsigned int pointsVie, unsigned int nbMunitions);
 
     int getPointsVie() const;
-    int getPointsAttaque() const;
-    int getCapaciteDeDeplacement() const;
-    unsigned int getDistanceAttaque() const;
     unsigned int getNbMunitions() const;
+    virtual unsigned int getPointsAttaqueLegere() const=0;
+    virtual unsigned int getPointsAttaqueLourde() const=0;
+    virtual unsigned int getCapaciteDeplacement() const=0;
+    virtual unsigned int getDistanceAttaque() const=0;
 
-    void setPointsVie(int nvPointsVie);
-    void setPointsAttaque(int nvPointsAttaque);
-    void setCapaciteDeDeplacement(int nvCapaciteDeDeplacement);
-    void setDistanceAttaque(unsigned int nvDistanceAttaque);
-    void setNbMunitions(unsigned int nvNbMunitions);
+    virtual bool estLegere() const=0;
+    bool estOperationnelle() const;
 
-    void attaquerUnite(Unite &unite);
+    virtual void prendreDegats(unsigned int degats);
+    void attaquerUnite(std::shared_ptr<Unite> unite);
 
     virtual void sortieFlux(std::ostream &os) const;
-    //virtual std::string getType() const =0;
 
 private:
     int _pointsVie;
-    int _pointsAttaque;
-    int _capaciteDeDeplacement;
-    unsigned int _distanceAttaque;
-    unsigned int _nbMUnitions;
+    unsigned int _nbMunitions;
+    // unisigned int _bouclier;
 };
