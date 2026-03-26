@@ -22,6 +22,8 @@ add_executable(${PROJECT_NAME}
     graphe/sommetterrestre.cc
     graphe/sommetmaritime.cc
     graphe/arete.cc
+    graphe/matriceadjacence.cc
+    graphe/graphe.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
@@ -39,6 +41,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     graphe/sommetterrestre.hh
     graphe/sommetmaritime.hh
     graphe/arete.hh
+    graphe/matriceadjacence.hh
+    graphe/graphe.hh
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
