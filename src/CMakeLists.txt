@@ -9,15 +9,22 @@ add_executable(${PROJECT_NAME}
     main.cc
 
     unite.cc
+    unitelegere.cc
+    unitelourde.cc
+
     uniteterrestre.cc
     unitemaritime.cc
     uniteaerienne.cc
 
     camp.cc
+
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
     unite.hh
+    unitelegere.hh
+    unitelourde.hh
+
     uniteterrestre.hh
     unitemaritime.hh
     uniteaerienne.hh

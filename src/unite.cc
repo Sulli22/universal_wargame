@@ -1,17 +1,12 @@
 #include "unite.hh"
 
-/*
- *      Constructeur
- */
-Unite::Unite(unsigned int pointsVie, unsigned int nbMunitions) :
+Unite::Unite(unsigned int pointsVie,
+             unsigned int nbMunitions) :
     _pointsVie(pointsVie),
     _nbMunitions(nbMunitions)
 {}
 
-/*
- *      Getters
- */
-int Unite::getPointsVie() const
+unsigned int Unite::getPointsVie() const
 {
     return _pointsVie;
 }
@@ -21,23 +16,16 @@ unsigned int Unite::getNbMunitions() const
     return _nbMunitions;
 }
 
-/*
- *
- */
 bool Unite::estOperationnelle() const
 {
     return _pointsVie > 0;
 }
 
-/*
- *
- */
 void Unite::prendreDegats(unsigned int degats)
 {
-    // A completer avec bouclier
-    _pointsVie -= degats;
+    int nvPointsVie = _pointsVie - degats;
+    _pointsVie = std::max(0, nvPointsVie);
 }
-
 
 void Unite::attaquerUnite(std::shared_ptr<Unite> unite)
 {
@@ -52,9 +40,6 @@ void Unite::attaquerUnite(std::shared_ptr<Unite> unite)
     // else erreur ??
 }
 
-/*
- *      Sortie flux
- */
 void Unite::sortieFlux(std::ostream &os) const
 {
     os << " pointsVie=" << _pointsVie
