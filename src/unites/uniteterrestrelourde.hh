@@ -4,7 +4,7 @@
 
 class UniteTerrestreLourde : public UniteLourde {
 public:
-    UniteTerrestreLourde(unsigned int pointsVie,
-                         unsigned int nbMunitions,
-                         unsigned int pointsBouclier);
+    UniteTerrestreLourde(usint pointsVie,
+                         usint nbMunitions,
+                         usint pointsBouclier);
 };

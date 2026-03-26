@@ -1,19 +1,39 @@
 #include "unite.hh"
 
-Unite::Unite(unsigned int pointsVie,
-             unsigned int nbMunitions) :
-    _pointsVie(pointsVie),
-    _nbMunitions(nbMunitions)
+Unite::Unite(usint pointsVie, usint nbMunitions) :
+    _pointsVie(pointsVie), _nbMunitions(nbMunitions),
+    _MAX_POINTS_VIE(pointsVie), _MAX_NB_MUNITIONS(nbMunitions)
 {}
 
-unsigned int Unite::getPointsVie() const
+usint Unite::getPointsVie() const
 {
     return _pointsVie;
 }
 
-unsigned int Unite::getNbMunitions() const
+usint Unite::getNbMunitions() const
 {
     return _nbMunitions;
+}
+
+usint Unite::getMaxPointsVie() const
+{
+    return _MAX_POINTS_VIE;
+}
+
+usint Unite::getMaxNbMunitions() const
+{
+    return _MAX_NB_MUNITIONS;
+}
+
+void Unite::regagnerViePartielle()
+{
+    usint viePartielle = _MAX_POINTS_VIE / 5; // un cinquieme
+    _pointsVie += viePartielle;
+}
+
+void Unite::rechargerMunitions()
+{
+    _nbMunitions = _MAX_NB_MUNITIONS;
 }
 
 bool Unite::estOperationnelle() const
@@ -21,7 +41,7 @@ bool Unite::estOperationnelle() const
     return _pointsVie > 0;
 }
 
-void Unite::prendreDegats(unsigned int degats)
+void Unite::prendreDegats(usint degats)
 {
     int nvPointsVie = _pointsVie - degats;
     _pointsVie = std::max(0, nvPointsVie);
@@ -30,14 +50,16 @@ void Unite::prendreDegats(unsigned int degats)
 void Unite::attaquerUnite(std::shared_ptr<Unite> unite)
 {
     if (_nbMunitions > 0) {
-        unsigned int pointsAttaque;
-        if (unite->estLegere()) pointsAttaque = getPointsAttaqueLegere();
-        else pointsAttaque = getPointsAttaqueLourde();
+        usint pointsAttaque;
+        if (unite->estLegere())
+            pointsAttaque = getPointsAttaqueLegere();
+        else
+            pointsAttaque = getPointsAttaqueLourde();
 
         unite->prendreDegats(pointsAttaque);
         _nbMunitions--;
     }
-    // else erreur ??
+    // else erreur pas assez de muntions TODO
 }
 
 void Unite::sortieFlux(std::ostream &os) const

@@ -1,7 +1,6 @@
 #include "unitemaritime.hh"
 
-UniteMaritime::UniteMaritime(unsigned int pointsVie,
-                             unsigned int nbMunitions,
-                             unsigned int pointsBouclier) :
+UniteMaritime::UniteMaritime(usint pointsVie, usint nbMunitions,
+                             usint pointsBouclier) :
     UniteLourde(pointsVie, nbMunitions, pointsBouclier)
 {}

@@ -5,9 +5,8 @@
 class UniteLegere : public Unite
 {
 public:
-    UniteLegere(unsigned int pointsVie,
-                unsigned int nbMunitions);
+    UniteLegere(usint pointsVie, usint nbMunitions);
 
     bool estLegere() const override;
-    virtual unsigned int getTaille() const=0;
+    virtual usint getTaille() const=0;
 };

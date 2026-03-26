@@ -1,6 +1,5 @@
 #include "uniteterrestrelegere.hh"
 
-UniteTerrestreLegere::UniteTerrestreLegere(unsigned int pointsVie,
-                                           unsigned int nbMunitions) :
+UniteTerrestreLegere::UniteTerrestreLegere(usint pointsVie, usint nbMunitions) :
     UniteLegere(pointsVie, nbMunitions)
 {}

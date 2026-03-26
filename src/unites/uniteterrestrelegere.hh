@@ -4,6 +4,6 @@
 
 class UniteTerrestreLegere: public UniteLegere {
 public:
-    UniteTerrestreLegere(unsigned int pointsVie,
-                         unsigned int nbMunitions);
+    UniteTerrestreLegere(usint pointsVie,
+                         usint nbMunitions);
 };

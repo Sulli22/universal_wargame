@@ -4,8 +4,6 @@
 
 class UniteAerienne: public UniteLourde {
 public:
-    UniteAerienne(unsigned int pointsVie,
-                  unsigned int nbMunitions,
-                  unsigned int pointsBouclier);
+    UniteAerienne(usint pointsVie, usint nbMunitions, usint pointsBouclier);
 };
 
