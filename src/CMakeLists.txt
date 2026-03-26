@@ -8,37 +8,42 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(${PROJECT_NAME}
     main.cc
 
-    unite.cc
-    unitelegere.cc
-    unitelourde.cc
+    unites/unite.cc
+    unites/unitelegere.cc
+    unites/unitelourde.cc
 
-    uniteterrestrelegere.cc
-    uniteterrestrelourde.cc
-    unitemaritime.cc
-    uniteaerienne.cc
+    unites/uniteterrestrelegere.cc
+    unites/uniteterrestrelourde.cc
+    unites/unitemaritime.cc
+    unites/uniteaerienne.cc
 
     camp.cc
-    sommet.cc
-    sommetterrestre.cc
-    sommetmaritime.cc
-    arete.cc
+    graphe/sommet.cc
+    graphe/sommetterrestre.cc
+    graphe/sommetmaritime.cc
+    graphe/arete.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
-    unite.hh
-    unitelegere.hh
-    unitelourde.hh
+    unites/unite.hh
+    unites/unitelegere.hh
+    unites/unitelourde.hh
 
-    uniteterrestrelegere.hh
-    uniteterrestrelourde.hh
-    unitemaritime.hh
-    uniteaerienne.hh
+    unites/uniteterrestrelegere.hh
+    unites/uniteterrestrelourde.hh
+    unites/unitemaritime.hh
+    unites/uniteaerienne.hh
 
     camp.hh
-    sommet.hh
-    sommetterrestre.hh
-    sommetmaritime.hh
-    arete.hh
+    graphe/sommet.hh
+    graphe/sommetterrestre.hh
+    graphe/sommetmaritime.hh
+    graphe/arete.hh
+)
+
+target_include_directories(${PROJECT_NAME} PRIVATE
+    unites
+    graphe
 )
 
 include(GNUInstallDirs)
