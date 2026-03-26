@@ -13,6 +13,7 @@ add_executable(${PROJECT_NAME}
     unitelourde.cc
 
     uniteterrestrelegere.cc
+    uniteterrestrelourde.cc
     unitemaritime.cc
     uniteaerienne.cc
 
@@ -21,7 +22,6 @@ add_executable(${PROJECT_NAME}
     sommetterrestre.cc
     sommetmaritime.cc
     arete.cc
-    uniteterrestrelourde.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
