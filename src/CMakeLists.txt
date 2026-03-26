@@ -18,6 +18,13 @@ add_executable(${PROJECT_NAME}
 
     camp.cc
 
+
+
+    sommet.cc
+    sommetterrestre.cc
+    sommetmaritime.cc
+    arete.cc
+
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
@@ -30,6 +37,10 @@ target_sources(${PROJECT_NAME} PRIVATE
     uniteaerienne.hh
 
     camp.hh
+    sommet.hh
+    sommetterrestre.hh
+    sommetmaritime.hh
+    arete.hh
 )
 
 include(GNUInstallDirs)
