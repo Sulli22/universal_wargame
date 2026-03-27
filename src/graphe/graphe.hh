@@ -1,9 +1,8 @@
 #pragma once
+
 #include "matriceadjacence.hh"
 
-
-class Graphe
-{
+class Graphe {
 public:
     Graphe(const MatriceAdjacence & matriceAdj);
     std::vector<std::pair<int, int>> getAretes() const;

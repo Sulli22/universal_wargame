@@ -21,7 +21,7 @@ void UniteLourde::prendreDegats(usint degats)
     if (nvPointsBouclier < 0) {
         _pointsBouclier = 0;
         Unite::prendreDegats(-1 * nvPointsBouclier);
-    } else {
-        _pointsBouclier = nvPointsBouclier;
     }
+    else
+        _pointsBouclier = nvPointsBouclier;
 }

@@ -2,11 +2,10 @@
 
 #include "unite.hh"
 
-class UniteLegere : public Unite
-{
+class UniteLegere : public Unite {
 public:
     UniteLegere(usint pointsVie, usint nbMunitions);
 
     bool estLegere() const override;
-    virtual usint getTaille() const=0;
+    virtual usint getTaille() const =0;
 };

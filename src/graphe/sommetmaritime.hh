@@ -3,13 +3,11 @@
 #include "sommet.hh"
 #include "unitemaritime.hh"
 
-class SommetMaritime : public Sommet
-{
+class SommetMaritime : public Sommet {
 public:
     SommetMaritime();
 
     std::shared_ptr<UniteMaritime> getUniteBasse() const;
-
     void setUniteBasse(std::shared_ptr<UniteMaritime> nvUniteBasse);
 
 private:

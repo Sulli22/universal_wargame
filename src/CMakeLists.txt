@@ -17,11 +17,11 @@ add_executable(${PROJECT_NAME}
     unites/unitemaritime.cc
     unites/uniteaerienne.cc
 
-    camp.cc
+    #camp.cc
     graphe/sommet.cc
     graphe/sommetterrestre.cc
     graphe/sommetmaritime.cc
-    graphe/arete.cc
+    #graphe/arete.cc
     graphe/matriceadjacence.cc
     graphe/graphe.cc
 )
@@ -36,11 +36,11 @@ target_sources(${PROJECT_NAME} PRIVATE
     unites/unitemaritime.hh
     unites/uniteaerienne.hh
 
-    camp.hh
+    #camp.hh
     graphe/sommet.hh
     graphe/sommetterrestre.hh
     graphe/sommetmaritime.hh
-    graphe/arete.hh
+    #graphe/arete.hh
     graphe/matriceadjacence.hh
     graphe/graphe.hh
 )

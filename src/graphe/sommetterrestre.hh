@@ -1,10 +1,9 @@
 #pragma once
-#include <vector>
 
+//#include <vector>
 #include "sommet.hh"
 
-class SommetTerrestre : public Sommet
-{
+class SommetTerrestre : public Sommet {
 public:
     SommetTerrestre();
 
