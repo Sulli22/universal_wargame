@@ -4,6 +4,7 @@
 
 class UniteMaritime: public UniteLourde {
 public:
-    UniteMaritime(usint pointsVie, usint nbMunitions, usint pointsBouclier);
+    UniteMaritime(usint pointsVie, usint nbMunitions, usint nbProvisions,
+                  usint pointsBouclier);
 };
 

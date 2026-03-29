@@ -24,6 +24,7 @@ add_executable(${PROJECT_NAME}
     #graphe/arete.cc
     graphe/matriceadjacence.cc
     graphe/graphe.cc
+    unites/infanterie.hh unites/infanterie.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
@@ -48,6 +49,12 @@ target_sources(${PROJECT_NAME} PRIVATE
 target_include_directories(${PROJECT_NAME} PRIVATE
     unites
     graphe
+)
+
+add_compile_options(
+    -Wall
+    -Wpedantic
+    -Wextra
 )
 
 include(GNUInstallDirs)

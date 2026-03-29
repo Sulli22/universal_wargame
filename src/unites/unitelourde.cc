@@ -1,8 +1,9 @@
 #include "unitelourde.hh"
 
-UniteLourde::UniteLourde(usint pointsVie, usint pointsBouclier,
-                         usint nbMunitions) :
-    Unite(pointsVie, nbMunitions), _pointsBouclier(pointsBouclier)
+UniteLourde::UniteLourde(usint pointsVie, usint nbMunitions, usint nbProvisions,
+                         usint pointsBouclier) :
+    Unite(pointsVie, nbMunitions, nbProvisions),
+    _pointsBouclier(pointsBouclier), _MAX_POINTS_BOUCLIER(pointsBouclier)
 {}
 
 usint UniteLourde::getPointsBouclier() const
@@ -10,9 +11,20 @@ usint UniteLourde::getPointsBouclier() const
     return _pointsBouclier;
 }
 
+void UniteLourde::reparerBouclier()
+{
+    _pointsBouclier = _MAX_POINTS_BOUCLIER;
+}
+
 bool UniteLourde::estLegere() const
 {
     return false;
+}
+
+void UniteLourde::sortieFlux(std::ostream &os) const
+{
+    Unite::sortieFlux(os);
+    os << " pointsBouclier=" << _pointsBouclier << "/" << _MAX_POINTS_BOUCLIER;
 }
 
 void UniteLourde::prendreDegats(usint degats)

@@ -1,8 +1,10 @@
 #include "unite.hh"
 
-Unite::Unite(usint pointsVie, usint nbMunitions) :
+Unite::Unite(usint pointsVie, usint nbMunitions, usint nbProvisions) :
     _pointsVie(pointsVie), _nbMunitions(nbMunitions),
-    _MAX_POINTS_VIE(pointsVie), _MAX_NB_MUNITIONS(nbMunitions)
+    _nbProvisions(nbProvisions),
+    _MAX_POINTS_VIE(pointsVie), _MAX_NB_MUNITIONS(nbMunitions),
+    _MAX_NB_PROVISIONS(nbProvisions)
 {}
 
 usint Unite::getPointsVie() const
@@ -15,6 +17,11 @@ usint Unite::getNbMunitions() const
     return _nbMunitions;
 }
 
+usint Unite::getNbProvisions() const
+{
+    return _nbProvisions;
+}
+
 usint Unite::getMaxPointsVie() const
 {
     return _MAX_POINTS_VIE;
@@ -25,15 +32,25 @@ usint Unite::getMaxNbMunitions() const
     return _MAX_NB_MUNITIONS;
 }
 
+usint Unite::getMaxNbProvisions() const
+{
+    return _MAX_NB_PROVISIONS;
+}
+
 void Unite::regagnerViePartielle()
 {
-    usint viePartielle = _MAX_POINTS_VIE / 5; // un cinquieme
-    _pointsVie += viePartielle;
+    usint nvPointsVie = _pointsVie + (_MAX_POINTS_VIE / 5); // plus un cinquieme
+    _pointsVie = std::min(nvPointsVie, _MAX_POINTS_VIE);
 }
 
 void Unite::rechargerMunitions()
 {
     _nbMunitions = _MAX_NB_MUNITIONS;
+}
+
+void Unite::rechargerProvisions()
+{
+    _nbProvisions = _MAX_NB_PROVISIONS;
 }
 
 bool Unite::estOperationnelle() const
@@ -59,16 +76,23 @@ void Unite::attaquerUnite(std::shared_ptr<Unite> unite)
         unite->prendreDegats(pointsAttaque);
         _nbMunitions--;
     }
-    // else erreur pas assez de muntions TODO
+}
+
+void Unite::utiliserProvisions(usint nbProvisions)
+{
+    int nvNbProvisions = _nbProvisions - nbProvisions;
+    _nbProvisions = std::max(0, nvNbProvisions);
 }
 
 void Unite::sortieFlux(std::ostream &os) const
 {
-    os << " pointsVie=" << _pointsVie
+    os << getNom()
+       << " pointsVie=" << _pointsVie << "/" << _MAX_POINTS_VIE
+       << " nbMunitions=" << getNbMunitions() << "/" << _MAX_NB_MUNITIONS
+       << " nbProvisions=" << getNbProvisions() << "/" << _MAX_NB_PROVISIONS
        << " pointsAttaqueLegere=" << getPointsAttaqueLegere()
        << " pointsAttaqueLourde=" << getPointsAttaqueLourde()
        << " capaciteDeplacement=" << getCapaciteDeplacement()
        << " distanceAttaque=" << getDistanceAttaque()
-       << " nbMunitions=" << getNbMunitions()
-       << std::endl;
+       << " estLegere=" << estLegere();
 }

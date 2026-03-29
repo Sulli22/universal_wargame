@@ -8,7 +8,7 @@ public:
     std::vector<std::pair<int, int>> getAretes() const;
     std::vector<int> getSommets() const;
 
-    void afficher() const;
+    void sortieFlux(std::ostream &os) const;
 
 private:
     MatriceAdjacence _matriceAdj;

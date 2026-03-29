@@ -4,13 +4,18 @@
 
 class UniteLourde : public Unite {
 public:
-    UniteLourde(usint pointsVie, usint nbMunitions, usint pointsBouclier);
+    UniteLourde(usint pointsVie, usint nbMunitions, usint nbProvisions,
+                usint pointsBouclier);
 
     usint getPointsBouclier() const;
 
+    void reparerBouclier();
+
     bool estLegere() const override;
+    void sortieFlux(std::ostream &os) const override;
     void prendreDegats(usint degats) override;
 
 private:
     usint _pointsBouclier;
+    usint _MAX_POINTS_BOUCLIER;
 };

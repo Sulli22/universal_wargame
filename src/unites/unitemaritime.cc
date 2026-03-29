@@ -1,6 +1,6 @@
 #include "unitemaritime.hh"
 
 UniteMaritime::UniteMaritime(usint pointsVie, usint nbMunitions,
-                             usint pointsBouclier) :
-    UniteLourde(pointsVie, nbMunitions, pointsBouclier)
+                             usint nbProvisions, usint pointsBouclier) :
+    UniteLourde(pointsVie, nbMunitions, nbProvisions, pointsBouclier)
 {}

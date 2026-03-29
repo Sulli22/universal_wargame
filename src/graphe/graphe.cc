@@ -28,9 +28,9 @@ std::vector<int> Graphe::getSommets() const
     return sommets;
 }
 
-void Graphe::afficher() const
+void Graphe::sortieFlux(std::ostream &os) const
 {
-    _matriceAdj.afficher();
+    _matriceAdj.sortieFlux(os);
 
     // affichage sommets
     auto sommets = getSommets();
@@ -39,7 +39,7 @@ void Graphe::afficher() const
         strSommets += std::to_string(sommets[i]) + ", ";
     strSommets += std::to_string(sommets[sommets.size()-1]) + " }";
 
-    std::cout << "V = " << strSommets << std::endl;
+    os << "V = " << strSommets << std::endl;
 
     // affichage arêtes
     auto aretes = getAretes();
@@ -54,5 +54,5 @@ void Graphe::afficher() const
     strAretes += "(" + std::to_string(p.first) +
                  ", " + std::to_string(p.second) + ") }";
 
-    std::cout << "E = " << strAretes << std::endl;
+    os << "E = " << strAretes;
 }
