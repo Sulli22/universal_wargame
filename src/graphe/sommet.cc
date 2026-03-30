@@ -1,12 +1,18 @@
 #include "sommet.hh"
 #include <iostream>
 
-Sommet::Sommet()
+unsigned int Sommet::_nextId(0);
+
+Sommet::Sommet():_id(_nextId++)
 {}
 
 std::shared_ptr<UniteAerienne> Sommet::getUniteHaute() const
 {
     return _uniteHaute;
+}
+
+unsigned int Sommet::getId() const {
+    return _id;
 }
 
 void Sommet::setUniteHaute(std::shared_ptr<UniteAerienne> nvUniteHaute)
