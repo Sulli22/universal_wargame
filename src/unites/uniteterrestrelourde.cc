@@ -3,5 +3,7 @@
 UniteTerrestreLourde::UniteTerrestreLourde(usint pointsVie, usint nbMunitions,
                                            usint nbProvisions,
                                            usint pointsBouclier) :
-    UniteLourde(pointsVie, nbMunitions, nbProvisions, pointsBouclier)
+    Unite(pointsVie, nbMunitions, nbProvisions),
+    UniteLourde(pointsVie, nbMunitions, nbProvisions, pointsBouclier),
+    UniteTerrestre(pointsVie, nbMunitions, nbProvisions)
 {}

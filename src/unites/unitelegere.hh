@@ -2,7 +2,7 @@
 
 #include "unite.hh"
 
-class UniteLegere : public Unite {
+class UniteLegere : virtual public Unite {
 public:
     UniteLegere(usint pointsVie, usint nbMunitions, usint nbProvisions);
 

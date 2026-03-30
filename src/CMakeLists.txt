@@ -12,10 +12,13 @@ add_executable(${PROJECT_NAME}
     unites/unitelegere.cc
     unites/unitelourde.cc
 
+    unites/uniteterrestre.cc
     unites/uniteterrestrelegere.cc
     unites/uniteterrestrelourde.cc
     unites/unitemaritime.cc
     unites/uniteaerienne.cc
+
+    unites/infanterie.cc
 
     #camp.cc
     graphe/sommet.cc
@@ -24,7 +27,6 @@ add_executable(${PROJECT_NAME}
     #graphe/arete.cc
     graphe/matriceadjacence.cc
     graphe/graphe.cc
-    unites/infanterie.hh unites/infanterie.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
@@ -32,10 +34,13 @@ target_sources(${PROJECT_NAME} PRIVATE
     unites/unitelegere.hh
     unites/unitelourde.hh
 
+    unites/uniteterrestre.hh
     unites/uniteterrestrelegere.hh
     unites/uniteterrestrelourde.hh
     unites/unitemaritime.hh
     unites/uniteaerienne.hh
+
+    unites/infanterie.hh
 
     #camp.hh
     graphe/sommet.hh

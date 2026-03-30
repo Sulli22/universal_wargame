@@ -1,6 +1,7 @@
 #include "infanterie.hh"
 
 Infanterie::Infanterie(usint pointsVie, usint nbMunitions, usint nbProvisions) :
+    Unite(pointsVie, nbMunitions, nbProvisions),
     UniteTerrestreLegere(pointsVie, nbMunitions, nbProvisions)
 {}
 
