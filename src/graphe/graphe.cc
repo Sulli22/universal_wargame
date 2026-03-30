@@ -4,17 +4,10 @@
 Graphe::Graphe(const MatriceAdjacence & matriceAdj):
     _matriceAdj(matriceAdj)
 {
-    std::shared_ptr<Sommet> sommet1(new Sommet());
-    std::shared_ptr<Sommet> sommet2(new Sommet());
-    std::shared_ptr<Sommet> sommet3(new Sommet());
-    std::shared_ptr<Sommet> sommet4(new Sommet());
-    std::shared_ptr<Sommet> sommet5(new Sommet());
+    for (std::size_t i = 0; i<matriceAdj.getMatrice().size(); i++) {
+        _sommets.push_back(std::shared_ptr<Sommet>(new Sommet()));
+    }
 
-    _sommets.push_back(sommet1);
-    _sommets.push_back(sommet2);
-    _sommets.push_back(sommet3);
-    _sommets.push_back(sommet4);
-    _sommets.push_back(sommet5);
 }
 
 std::vector<std::pair<std::shared_ptr<Sommet>, std::shared_ptr<Sommet>>> Graphe::getAretes() const
@@ -45,10 +38,10 @@ std::vector<std::shared_ptr<Sommet>> Graphe::voisins(std::shared_ptr<Sommet> som
 
         if (matrice[id][j]) {
             voisinsSommet.push_back(_sommets[j]);
-            //std::cout<<_sommets[j]->getId()<<" ";
+            std::cout<<_sommets[j]->getId()<<" ";
         }
     }
-    //std::cout<<std::endl;
+
 
     return voisinsSommet;
 }

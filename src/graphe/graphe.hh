@@ -17,3 +17,8 @@ private:
     MatriceAdjacence _matriceAdj;
 };
 
+// sommets entournés :[(i-1, j-1), (i-1, j), (i, j+1), (i+1, j+1), (i+1, j), (i, j-1)]
+// sommets sur les bords gauches indices impairs : [(i-1, j), (i-1, j+1), (i, j+1),  (i+1, j+1), (i+1, j)]
+// sommets sur les bords gauches indices pairs : [(i-1, j), (i, j+1), (i+1, j)]
+// sommets sur les bords droits indices impairs : [(i-1, j+1), (i-1, j), (i, j-1), (i+1, j), (i+1, j+1)]
+// sommets sur les bords droits indices pairs : [
