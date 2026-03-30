@@ -12,6 +12,5 @@ public:
 
 private:
     std::vector<std::vector<bool>> _matrice;
-    std::size_t _taille;
 };
 

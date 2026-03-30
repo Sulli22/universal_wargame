@@ -11,10 +11,10 @@ std::vector<std::pair<int, int>> Graphe::getAretes() const
     std::vector<std::pair<int, int>> aretes;
 
     for (std::size_t i = 0; i < matrice.size(); i++) {
-        for (std::size_t j = 0; j < matrice.size()-i; j++) {
+        for (std::size_t j = i; j < matrice.size(); j++) {
             if (matrice[i][j])
                 // Le i+j permet d'avoir le bon sommet
-                aretes.push_back(std::make_pair(i, j+i));
+                aretes.push_back(std::make_pair(i, j));
         }
     }
     return aretes;
