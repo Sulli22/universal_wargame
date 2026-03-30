@@ -7,11 +7,16 @@ using usint = unsigned short int;
 
 class Unite {
 public:
-    Unite(usint pointsVie, usint nbMunitions, usint nbProvisions);
+    enum class Visibilite { nulle, partielle, totale };
+
+    Unite(usint pointsVie, usint nbMunitions, usint nbProvisions,
+          Visibilite visibilite = Visibilite::totale);
 
     usint getPointsVie() const;
     usint getNbMunitions() const;
     usint getNbProvisions() const;
+
+    Visibilite getVisibilite() const;
 
     usint getMaxPointsVie() const;
     usint getMaxNbMunitions() const;
@@ -29,10 +34,13 @@ public:
 
     virtual bool estLegere() const =0;
     bool estOperationnelle() const;
+    std::string getChaineVisibilite() const;
+    virtual void sortieFlux(std::ostream &os) const;
+
     virtual void prendreDegats(usint degats);
     void attaquerUnite(std::shared_ptr<Unite> unite);
     void utiliserProvisions(usint nbProvisions);
-    virtual void sortieFlux(std::ostream &os) const;
+    void setVisibilite(Visibilite nvVisibilite);
 
 private:
     usint _pointsVie;
@@ -42,4 +50,6 @@ private:
     usint const _MAX_POINTS_VIE;
     usint const _MAX_NB_MUNITIONS;
     usint const _MAX_NB_PROVISIONS;
+
+    Visibilite _visibilite;
 };

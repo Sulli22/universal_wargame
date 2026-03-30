@@ -1,9 +1,15 @@
 #include "infanterie.hh"
 
-Infanterie::Infanterie(usint pointsVie, usint nbMunitions, usint nbProvisions) :
-    Unite(pointsVie, nbMunitions, nbProvisions),
-    UniteTerrestreLegere(pointsVie, nbMunitions, nbProvisions)
+Infanterie::Infanterie() :
+    Unite(_POINTS_VIE_INIT, _NB_MUNITIONS_INIT, _NB_PROVISIONS_INIT),
+    UniteTerrestreLegere(_POINTS_VIE_INIT, _NB_MUNITIONS_INIT,
+                           _NB_PROVISIONS_INIT)
 {}
+
+std::string Infanterie::getNom() const
+{
+    return "Infanterie";
+}
 
 usint Infanterie::getPointsAttaqueLegere() const
 {
@@ -23,11 +29,6 @@ usint Infanterie::getCapaciteDeplacement() const
 usint Infanterie::getDistanceAttaque() const
 {
     return 1;
-}
-
-std::string Infanterie::getNom() const
-{
-    return "Infanterie";
 }
 
 usint Infanterie::getTaille() const

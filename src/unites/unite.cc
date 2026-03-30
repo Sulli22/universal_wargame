@@ -1,8 +1,9 @@
 #include "unite.hh"
 
-Unite::Unite(usint pointsVie, usint nbMunitions, usint nbProvisions) :
+Unite::Unite(usint pointsVie, usint nbMunitions, usint nbProvisions,
+             Visibilite visibilite) :
     _pointsVie(pointsVie), _nbMunitions(nbMunitions),
-    _nbProvisions(nbProvisions),
+    _nbProvisions(nbProvisions), _visibilite(visibilite),
     _MAX_POINTS_VIE(pointsVie), _MAX_NB_MUNITIONS(nbMunitions),
     _MAX_NB_PROVISIONS(nbProvisions)
 {}
@@ -20,6 +21,11 @@ usint Unite::getNbMunitions() const
 usint Unite::getNbProvisions() const
 {
     return _nbProvisions;
+}
+
+Unite::Visibilite Unite::getVisibilite() const
+{
+    return _visibilite;
 }
 
 usint Unite::getMaxPointsVie() const
@@ -58,6 +64,31 @@ bool Unite::estOperationnelle() const
     return _pointsVie > 0;
 }
 
+std::string Unite::getChaineVisibilite() const
+{
+    switch (_visibilite) {
+        case Visibilite::nulle: return "nulle";
+        case Visibilite::partielle: return "partielle";
+        case Visibilite::totale: return "totale";
+    }
+    return "";
+}
+
+void Unite::sortieFlux(std::ostream &os) const
+{
+    os << getNom()
+    << " pointsVie=" << _pointsVie << "/" << _MAX_POINTS_VIE
+    << " nbMunitions=" << getNbMunitions() << "/" << _MAX_NB_MUNITIONS
+    << " nbProvisions=" << getNbProvisions() << "/" << _MAX_NB_PROVISIONS
+    << " pointsAttaqueLegere=" << getPointsAttaqueLegere()
+    << " pointsAttaqueLourde=" << getPointsAttaqueLourde()
+    << " capaciteDeplacement=" << getCapaciteDeplacement()
+    << " distanceAttaque=" << getDistanceAttaque()
+    << " estLegere=" << estLegere()
+    << " estOperationnelle=" << estOperationnelle()
+    << " visibilite=" << getChaineVisibilite();
+}
+
 void Unite::prendreDegats(usint degats)
 {
     int nvPointsVie = _pointsVie - degats;
@@ -66,7 +97,7 @@ void Unite::prendreDegats(usint degats)
 
 void Unite::attaquerUnite(std::shared_ptr<Unite> unite)
 {
-    if (_nbMunitions > 0) {
+    if (_nbMunitions > 0 && unite) {
         usint pointsAttaque;
         if (unite->estLegere())
             pointsAttaque = getPointsAttaqueLegere();
@@ -84,15 +115,7 @@ void Unite::utiliserProvisions(usint nbProvisions)
     _nbProvisions = std::max(0, nvNbProvisions);
 }
 
-void Unite::sortieFlux(std::ostream &os) const
+void Unite::setVisibilite(Visibilite nvVisibilite)
 {
-    os << getNom()
-       << " pointsVie=" << _pointsVie << "/" << _MAX_POINTS_VIE
-       << " nbMunitions=" << getNbMunitions() << "/" << _MAX_NB_MUNITIONS
-       << " nbProvisions=" << getNbProvisions() << "/" << _MAX_NB_PROVISIONS
-       << " pointsAttaqueLegere=" << getPointsAttaqueLegere()
-       << " pointsAttaqueLourde=" << getPointsAttaqueLourde()
-       << " capaciteDeplacement=" << getCapaciteDeplacement()
-       << " distanceAttaque=" << getDistanceAttaque()
-       << " estLegere=" << estLegere();
+    _visibilite = nvVisibilite;
 }

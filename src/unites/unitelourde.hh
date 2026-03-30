@@ -13,9 +13,10 @@ public:
 
     bool estLegere() const override;
     void sortieFlux(std::ostream &os) const override;
+
     void prendreDegats(usint degats) override;
 
 private:
     usint _pointsBouclier;
-    usint _MAX_POINTS_BOUCLIER;
+    usint const _MAX_POINTS_BOUCLIER;
 };

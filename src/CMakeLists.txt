@@ -15,15 +15,16 @@ add_executable(${PROJECT_NAME}
     unites/uniteterrestre.cc
     unites/uniteterrestrelegere.cc
     unites/uniteterrestrelourde.cc
-    unites/unitemaritime.cc
+    unites/unitemarine.cc
     unites/uniteaerienne.cc
 
     unites/infanterie.cc
+    unites/sousmarin.cc
 
     #camp.cc
     graphe/sommet.cc
     graphe/sommetterrestre.cc
-    graphe/sommetmaritime.cc
+    graphe/sommetmarin.cc
     #graphe/arete.cc
     graphe/matriceadjacence.cc
     graphe/graphe.cc
@@ -37,15 +38,16 @@ target_sources(${PROJECT_NAME} PRIVATE
     unites/uniteterrestre.hh
     unites/uniteterrestrelegere.hh
     unites/uniteterrestrelourde.hh
-    unites/unitemaritime.hh
+    unites/unitemarine.hh
     unites/uniteaerienne.hh
 
     unites/infanterie.hh
+    unites/sousmarin.hh
 
     #camp.hh
     graphe/sommet.hh
     graphe/sommetterrestre.hh
-    graphe/sommetmaritime.hh
+    graphe/sommetmarin.hh
     #graphe/arete.hh
     graphe/matriceadjacence.hh
     graphe/graphe.hh
