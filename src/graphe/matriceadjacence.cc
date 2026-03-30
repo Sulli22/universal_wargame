@@ -29,10 +29,7 @@ std::vector<std::vector<bool>> MatriceAdjacence::getMatrice() const
 void MatriceAdjacence::sortieFlux(std::ostream &os) const
 {
     for (std::size_t i = 0; i < _matrice.size(); i++) {
-        /*
-        for (std::size_t j = 0; j < i; j++)
-            os << "  "; // Permet d'avoir les colonnes au bon endroit
-*/
+
         for (std::size_t k = 0; k < _matrice.size(); k++)
             os << _matrice[i][k] << " ";
         os << std::endl;
