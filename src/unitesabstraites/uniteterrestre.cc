@@ -1,6 +1,6 @@
 #include "uniteterrestre.hh"
 
 UniteTerrestre::UniteTerrestre(usint pointsVie, usint nbMunitions,
-                               usint nbProvisions) :
+                               usint nbProvisions):
     Unite(pointsVie, nbMunitions, nbProvisions)
 {}

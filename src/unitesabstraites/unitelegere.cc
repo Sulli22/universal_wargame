@@ -1,7 +1,7 @@
 #include "unitelegere.hh"
 
 UniteLegere::UniteLegere(usint pointsVie, usint nbMunitions,
-                         usint nbProvisions) :
+                         usint nbProvisions):
     Unite(pointsVie, nbMunitions, nbProvisions)
 {}
 

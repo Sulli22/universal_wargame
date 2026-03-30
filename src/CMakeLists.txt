@@ -5,18 +5,23 @@ project(src LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_compile_options(
+    -Wall
+    -Wpedantic
+    -Wextra
+)
+
 add_executable(${PROJECT_NAME}
     main.cc
 
-    unites/unite.cc
-    unites/unitelegere.cc
-    unites/unitelourde.cc
-
-    unites/uniteterrestre.cc
-    unites/uniteterrestrelegere.cc
-    unites/uniteterrestrelourde.cc
-    unites/unitemarine.cc
-    unites/uniteaerienne.cc
+    unitesabstraites/unite.cc
+    unitesabstraites/unitelegere.cc
+    unitesabstraites/unitelourde.cc
+    unitesabstraites/uniteterrestre.cc
+    unitesabstraites/uniteterrestrelegere.cc
+    unitesabstraites/uniteterrestrelourde.cc
+    unitesabstraites/unitemarine.cc
+    unitesabstraites/uniteaerienne.cc
 
     unites/infanterie.cc
     unites/sousmarin.cc
@@ -31,15 +36,14 @@ add_executable(${PROJECT_NAME}
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
-    unites/unite.hh
-    unites/unitelegere.hh
-    unites/unitelourde.hh
-
-    unites/uniteterrestre.hh
-    unites/uniteterrestrelegere.hh
-    unites/uniteterrestrelourde.hh
-    unites/unitemarine.hh
-    unites/uniteaerienne.hh
+    unitesabstraites/unite.hh
+    unitesabstraites/unitelegere.hh
+    unitesabstraites/unitelourde.hh
+    unitesabstraites/uniteterrestre.hh
+    unitesabstraites/uniteterrestrelegere.hh
+    unitesabstraites/uniteterrestrelourde.hh
+    unitesabstraites/unitemarine.hh
+    unitesabstraites/uniteaerienne.hh
 
     unites/infanterie.hh
     unites/sousmarin.hh
@@ -54,14 +58,9 @@ target_sources(${PROJECT_NAME} PRIVATE
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
+    unitesabstraites
     unites
     graphe
-)
-
-add_compile_options(
-    -Wall
-    -Wpedantic
-    -Wextra
 )
 
 include(GNUInstallDirs)

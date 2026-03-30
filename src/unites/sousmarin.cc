@@ -1,6 +1,6 @@
 #include "sousmarin.hh"
 
-SousMarin::SousMarin() :
+SousMarin::SousMarin():
     Unite(_POINTS_VIE_INIT, _NB_MUNITIONS_INIT, _NB_PROVISIONS_INIT,
             Visibilite::nulle),
     UniteMarine(_POINTS_VIE_INIT, _NB_MUNITIONS_INIT, _NB_PROVISIONS_INIT,

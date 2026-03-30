@@ -1,7 +1,7 @@
 #include "unite.hh"
 
 Unite::Unite(usint pointsVie, usint nbMunitions, usint nbProvisions,
-             Visibilite visibilite) :
+             Visibilite visibilite):
     _pointsVie(pointsVie), _nbMunitions(nbMunitions),
     _nbProvisions(nbProvisions), _visibilite(visibilite),
     _MAX_POINTS_VIE(pointsVie), _MAX_NB_MUNITIONS(nbMunitions),
