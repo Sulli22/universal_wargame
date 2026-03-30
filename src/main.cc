@@ -6,11 +6,14 @@
 int main()
 {
     // test graphe
-    MatriceAdjacence m(5);
+    MatriceAdjacence m(4, 5);
     Graphe g(m);
     g.sortieFlux(std::cout); std::cout << std::endl;
-    std::cout<<"Voisins de 0 : ";
-    g.voisins(g.getSommets()[0]); std::cout << std::endl;
+
+    for (auto s : g.getSommets()) {
+        std::cout<<"Voisins de "<<s->getId()<<" : ";
+           g.voisins(s); std::cout << std::endl;
+    }
 
     // test infanterie
     Infanterie I;

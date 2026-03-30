@@ -5,7 +5,7 @@
 
 class MatriceAdjacence {
 public:
-    MatriceAdjacence(std::size_t taille);
+    MatriceAdjacence(unsigned int nbLignes, unsigned int nbColonnes);
 
     std::vector<std::vector<bool>> getMatrice() const;
     void sortieFlux(std::ostream &os) const;
