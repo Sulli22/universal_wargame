@@ -33,6 +33,9 @@ add_executable(${PROJECT_NAME}
     #graphe/arete.cc
     graphe/matriceadjacence.cc
     graphe/graphe.cc
+    cases/case.hh cases/case.cc
+    carte/carte.hh carte/carte.cc
+    cases/position.hh cases/position.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
@@ -60,7 +63,11 @@ target_sources(${PROJECT_NAME} PRIVATE
 target_include_directories(${PROJECT_NAME} PRIVATE
     unitesabstraites
     unites
+
     graphe
+
+    cases
+    carte
 )
 
 include(GNUInstallDirs)
