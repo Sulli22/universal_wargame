@@ -22,22 +22,44 @@ MatriceAdjacence::MatriceAdjacence(unsigned int nbLignes,unsigned int nbColonnes
     }
     */
 
-   // Pour la premiere ligne du plateau pour le moment la matrice d'adjacence mets tout les sommets à non voisins
-    for (std::size_t j = 0; j < nbColonnes; j++) {
-        std::vector<bool> ligne;
-        ligne.resize(nbColonnes*nbLignes);
-        _matrice.push_back(ligne);
-    }
     // Une idée : faire un dépliage par 2 comme il y a un décalage entre chaque lignes du plateau. Le voisin du haut et bas des lignes d'indices impaires se situe en [(i-1,j),(i-1,j+1), (i+1,j), (i+1, j+1)]
     // Pour les pairs c'est en [(i-1, j-1), (i-1, j), (i+1, j-1), (i+1, j)]. L'idée marche si on a que le meme nombre de lignes et colonnes et que pour les cases avec 6 voisins
     std::vector<bool> case00;
+    case00.resize(nbLignes*nbColonnes);
+    case00[1] = true;
+    case00[nbColonnes] = true;
+    _matrice.push_back(case00);
+
+    // Pour avoir les voisins de chaques cases de la première ligne
+    for (std::size_t j = 1; j<nbColonnes-1; j++) {
+        std::vector<bool> ligne1;
+        ligne1.resize(nbColonnes*nbLignes);
+        ligne1[j-1] = true;
+        ligne1[j+1] = true;
+        ligne1[nbColonnes+j] = true;
+        ligne1[nbColonnes+(j-1)] = true;
+        _matrice.push_back(ligne1);
+    }
+
+    std::vector<bool> premiereLigneDerniereCase;
+    premiereLigneDerniereCase.resize(nbColonnes*nbLignes);
+    premiereLigneDerniereCase[nbColonnes-2] = true;
+    premiereLigneDerniereCase[nbColonnes+(nbColonnes-2)] = true;
+    premiereLigneDerniereCase[nbColonnes+(nbColonnes-1)] = true;
+    _matrice.push_back(premiereLigneDerniereCase);
 
     std::size_t i = 1;
     for (; i < nbLignes-1; i += 2) {
         // Permet de mettre dans la matrice d'adjacence la ligne correspond à la premiere case de la ligne (tout à 0 pour le moment)
-        std::vector<bool> colonne1Plateau1;
-        colonne1Plateau1.resize(nbColonnes*nbLignes);
-        _matrice.push_back(colonne1Plateau1);
+
+        std::vector<bool> premiereColonnePlateau1;
+        premiereColonnePlateau1.resize(nbColonnes*nbLignes);
+        premiereColonnePlateau1[(i-1)*nbColonnes] = true;
+        premiereColonnePlateau1[(i-1)*nbColonnes+1] = true;
+        premiereColonnePlateau1[i*nbColonnes+1] = true;
+        premiereColonnePlateau1[(i+1)*nbColonnes+1] = true;
+        premiereColonnePlateau1[(i+1)*nbColonnes] = true;
+        _matrice.push_back(premiereColonnePlateau1);
 
         for (std::size_t j = 1 ; j < nbColonnes-1; j++) {
             //std::cout<<_matrice.size()<<" ";
@@ -54,11 +76,21 @@ MatriceAdjacence::MatriceAdjacence(unsigned int nbLignes,unsigned int nbColonnes
 
         }
 
-        // Permet d'ajouter la derniere colonne de la ligne i et la premiere de la ligne i+1 (tout false pour le moment)
-        std::vector<bool> derniereColonnePlateau1;
-        derniereColonnePlateau1.resize(nbColonnes*nbLignes);
-        _matrice.push_back(derniereColonnePlateau1);
-        _matrice.push_back(derniereColonnePlateau1);
+        // Permet d'ajouter la derniere colonne de la ligne i
+        std::vector<bool> derniereCaseLigneImpaire;
+        derniereCaseLigneImpaire.resize(nbColonnes*nbLignes);
+        derniereCaseLigneImpaire[(i-1)*nbColonnes+(nbColonnes-1)] = true;
+        derniereCaseLigneImpaire[i*nbColonnes+(nbColonnes-2)] = true;
+        derniereCaseLigneImpaire[(i+1)*nbColonnes+(nbColonnes-1)] = true;
+        _matrice.push_back(derniereCaseLigneImpaire);
+
+        // Ajoute la première case de la ligne i+1
+        std::vector<bool> premiereCaseLignePaire;
+        premiereCaseLignePaire.resize(nbColonnes * nbLignes);
+        premiereCaseLignePaire[(i)*nbColonnes] = true;
+        premiereCaseLignePaire[(i+1)*nbColonnes+1] = true;
+        premiereCaseLignePaire[(i+2)*nbColonnes] = true;
+        _matrice.push_back(premiereCaseLignePaire);
 
         // Boucle pour la ligne i+1
         for (std::size_t j=1; j<nbColonnes-1; j++) {
@@ -74,21 +106,41 @@ MatriceAdjacence::MatriceAdjacence(unsigned int nbLignes,unsigned int nbColonnes
             _matrice.push_back(ligneMatrice2);
         }
 
-        // Permet de mettre dans la matrice d'adjacence la ligne correspond à la dernière case de la ligne (tout à 0 pour le moment)
-        std::vector<bool> derniereColonnePlateau2;
-        derniereColonnePlateau2.resize(nbColonnes*nbLignes);
-        //std::cout<<ligne1.size()<<" ";
-        _matrice.push_back(derniereColonnePlateau2);
-
+        // Ajout de la dernière case des lignes impaires
+        std::vector<bool> derniereCaseLignePaire;
+        derniereCaseLignePaire.resize(nbColonnes * nbLignes);
+        derniereCaseLignePaire[i*nbColonnes+(nbColonnes-1)] = true;
+        derniereCaseLignePaire[i*nbColonnes+(nbColonnes-2)] = true;
+        derniereCaseLignePaire[(i+1)*nbColonnes+(nbColonnes-2)] = true;
+        derniereCaseLignePaire[(i+2)*nbColonnes+(nbColonnes-2)] = true;
+        derniereCaseLignePaire[(i+2)*nbColonnes+(nbColonnes)-1] = true;
+        _matrice.push_back(derniereCaseLignePaire);
     }
 
     // Je fais pareil que pour la premiere ligne mais la c'est la derniere
-    for (std::size_t j = 0; j < nbColonnes; j++) {
-        std::vector<bool> ligne;
-        ligne.resize(nbColonnes*nbLignes);
-        //std::cout<<ligne1.size()<<" ";
-        _matrice.push_back(ligne);
+    std::vector<bool> premiereCaseDerniereLigne;
+    premiereCaseDerniereLigne.resize(nbColonnes * nbLignes);
+    premiereCaseDerniereLigne[(nbLignes-2)*nbColonnes] = true;
+    premiereCaseDerniereLigne[(nbLignes-2)*nbColonnes+1]=true;
+    premiereCaseDerniereLigne[(nbLignes-1)*nbColonnes+1] = true;
+    _matrice.push_back(premiereCaseDerniereLigne);
+
+    // Ajout de la dernière ligne
+    for (std::size_t j = 1; j < nbColonnes-1; j++){
+        std::vector<bool> caseDerniereLigne;
+        caseDerniereLigne.resize(nbColonnes*nbLignes);
+        caseDerniereLigne[(nbLignes-1)*nbColonnes+(j-1)] = true;
+        caseDerniereLigne[(nbLignes-2)*nbColonnes+j] = true;
+        caseDerniereLigne[(nbLignes-2)*nbColonnes+(j+1)] = true;
+        caseDerniereLigne[(nbLignes-1)*nbColonnes+(j+1)] = true;
+        _matrice.push_back(caseDerniereLigne);
     }
+
+    std::vector<bool> derniereCaseDerniereLigne;
+    derniereCaseDerniereLigne.resize(nbColonnes * nbLignes);
+    derniereCaseDerniereLigne[(nbLignes-1)*nbColonnes+(nbColonnes-2)] = true;
+    derniereCaseDerniereLigne[(nbLignes-2)*nbColonnes+(nbColonnes-1)] = true;
+    _matrice.push_back(derniereCaseDerniereLigne);
 }
 
 std::vector<std::vector<bool>> MatriceAdjacence::getMatrice() const
