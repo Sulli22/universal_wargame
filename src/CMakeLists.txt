@@ -29,6 +29,8 @@ add_executable(${PROJECT_NAME}
     constructions/construction.cc
     constructions/infirmerie.cc
     constructions/ravitaillement.cc
+    constructions/pont.cc
+    constructions/depotmunitions.cc
 
     #camp.cc
     #graphe/sommet.cc
@@ -60,6 +62,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     constructions/construction.hh
     constructions/infirmerie.hh
     constructions/ravitaillement.hh
+    constructions/pont.hh
+    constructions/depotmunitions.hh
     #camp.hh
     #graphe/sommet.hh
     #graphe/sommetterrestre.hh
