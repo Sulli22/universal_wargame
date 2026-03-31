@@ -26,6 +26,10 @@ add_executable(${PROJECT_NAME}
     unites/infanterie.cc
     unites/sousmarin.cc
 
+    constructions/construction.cc
+    constructions/infirmerie.cc
+    constructions/ravitaillement.cc
+
     #camp.cc
     graphe/sommet.cc
     graphe/sommetterrestre.cc
@@ -51,6 +55,9 @@ target_sources(${PROJECT_NAME} PRIVATE
     unites/infanterie.hh
     unites/sousmarin.hh
 
+    constructions/construction.hh
+    constructions/infirmerie.hh
+    constructions/ravitaillement.hh
     #camp.hh
     graphe/sommet.hh
     graphe/sommetterrestre.hh
@@ -64,6 +71,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     unitesabstraites
     unites
 
+    constructions
     graphe
 
     cases

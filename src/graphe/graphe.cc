@@ -8,6 +8,7 @@ Graphe::Graphe(const MatriceAdjacence & matriceAdj):
         _sommets.push_back(std::shared_ptr<Sommet>(new Sommet()));
     }
 
+
 }
 
 std::vector<std::pair<std::shared_ptr<Sommet>, std::shared_ptr<Sommet>>> Graphe::getAretes() const
