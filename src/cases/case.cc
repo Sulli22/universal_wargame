@@ -1,7 +1,7 @@
 #include "case.hh"
 #include <iostream>
 
-Case::Case(const Position &pos):
+Case::Case(const Position &pos  ):
     _pos(pos)
 {}
 

@@ -1,6 +1,6 @@
 #include "caseterrestre.hh"
 #include "uniteterrestrelegere.hh"
-CaseTerrestre::CaseTerrestre(const Position &pos, usint espaceDisponible):Case(pos), _espaceDisponible(espaceDisponible)
+CaseTerrestre::CaseTerrestre(const Position &pos,bool verifConstruction, usint espaceDisponible):Case(pos),_verifConstruction(verifConstruction), _espaceDisponible(espaceDisponible)
 {
 
 }
@@ -14,6 +14,29 @@ usint CaseTerrestre::getEspaceDisponible() const {
     return _espaceDisponible;
 }
 
+Construction CaseTerrestre::getConstruction() const {
+    if (_verifConstruction) {
+        return _construction;
+    }
+   // throw "Pas de constructions";
+}
+
+bool CaseTerrestre::getVerifConstruction() const {
+    return _verifConstruction;
+}
+
+void CaseTerrestre::setConstruction(const Construction & nvConstruction) {
+    if (!_verifConstruction) {
+        _construction = nvConstruction;
+    }
+    else {
+        //throw "Déjà une construction";
+    }
+}
+
+void CaseTerrestre::setVerifConstruction(bool nvVerifConstruction) {
+    _verifConstruction = nvVerifConstruction;
+}
 
 bool CaseTerrestre::ajouterUniteTerrestre(std::shared_ptr<UniteTerrestre> nvUniteTerrestre) {
     if (nvUniteTerrestre->estLegere()) {
