@@ -47,9 +47,9 @@ private:
     usint _nbMunitions;
     usint _nbProvisions;
 
+    Visibilite _visibilite;
+
     usint const _MAX_POINTS_VIE;
     usint const _MAX_NB_MUNITIONS;
     usint const _MAX_NB_PROVISIONS;
-
-    Visibilite _visibilite;
 };
