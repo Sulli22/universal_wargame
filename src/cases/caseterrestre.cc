@@ -1,6 +1,10 @@
 #include "caseterrestre.hh"
 #include "uniteterrestrelegere.hh"
-CaseTerrestre::CaseTerrestre(const Position &pos,bool verifConstruction, usint espaceDisponible):Case(pos),_verifConstruction(verifConstruction), _espaceDisponible(espaceDisponible)
+CaseTerrestre::CaseTerrestre(const Position &pos,bool verifConstruction, usint espaceDisponible, typeTerrain terrain):
+    Case(pos),
+    _verifConstruction(verifConstruction),
+    _espaceDisponible(espaceDisponible),
+    _terrain(terrain)
 {
 
 }
@@ -25,6 +29,10 @@ bool CaseTerrestre::getVerifConstruction() const {
     return _verifConstruction;
 }
 
+typeTerrain CaseTerrestre::getTerrain() const {
+    return _terrain;
+}
+
 void CaseTerrestre::setConstruction(const Construction & nvConstruction) {
     if (!_verifConstruction) {
         _construction = nvConstruction;
@@ -38,6 +46,9 @@ void CaseTerrestre::setVerifConstruction(bool nvVerifConstruction) {
     _verifConstruction = nvVerifConstruction;
 }
 
+void CaseTerrestre::setTerrain(typeTerrain nvTerrain) {
+    _terrain = nvTerrain;
+}
 bool CaseTerrestre::ajouterUniteTerrestre(std::shared_ptr<UniteTerrestre> nvUniteTerrestre) {
     if (nvUniteTerrestre->estLegere()) {
         auto uniteTerrestre = std::dynamic_pointer_cast<UniteTerrestreLegere>(nvUniteTerrestre);
