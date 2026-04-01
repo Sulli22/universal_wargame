@@ -1,0 +1,34 @@
+"Pré acceuil":
+    Une page qui s'affiche quelques secondes qui affiche les développeurs
+
+Page d'acceuil:
+    Un bouton "JOUER"
+    Un bouton "PARAMETRES" pour choisir les paramètres du jeu (Langue, volume, luminosité si possible)
+    Un son de fond
+
+
+Page du bouton JOUER :
+    la possibilité de choisir le nombre de joueurs
+    Possibilité de choisir les unités dans le jeu ?
+    Un bouton "DEMARRER"
+
+
+Page du bouton PARAMETRES :
+    Choix de la langue (On met le nom et le drapeau à sa gauche)
+    Régler le volume (Si ça se fait avec Qt)
+
+
+Page du bouton DEMARRER :
+    La partie commence
+    Mettre un menu que l'on peut ouvrir pour l'achat de constructions/unités...
+    Dans le coin en haut à gauche un bouton pour aller aux paramètres
+    Uné sélection sur le plateau d'une case là met en valeur
+    affichage du joueur qui doit jouer en haut au milieu
+    Possibilité d'arrêter la partie avec un bouton dans le coin en haut à droite mais en demandant une confirmation
+    chaque séléction font un petit bruitage (On peut mettre les mêmes pour chaque)
+
+Fin de partie :
+    Affichage de quelques statistiques
+    bouton "ACCEUIL"
+
+
