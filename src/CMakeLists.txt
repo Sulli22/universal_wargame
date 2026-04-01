@@ -25,6 +25,8 @@ add_executable(${PROJECT_NAME}
 
     unites/infanterie.cc
     unites/sousmarin.cc
+    unites/constructeur.cc
+    unites/bombardier.cc
 
     constructions/construction.cc
     constructions/infirmerie.cc
@@ -58,6 +60,8 @@ target_sources(${PROJECT_NAME} PRIVATE
 
     unites/infanterie.hh
     unites/sousmarin.hh
+    unites/constructeur.hh
+    unites/bombardier.hh
 
     constructions/construction.hh
     constructions/infirmerie.hh
