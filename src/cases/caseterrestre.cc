@@ -22,34 +22,53 @@ Construction CaseTerrestre::getConstruction() const {
     if (_verifConstruction) {
         return _construction;
     }
-   // throw "Pas de constructions";
+    throw "Pas de constructions";
 }
 
-bool CaseTerrestre::getVerifConstruction() const {
+bool CaseTerrestre::getVerifConstruction() const
+{
     return _verifConstruction;
 }
 
-typeTerrain CaseTerrestre::getTerrain() const {
+typeTerrain CaseTerrestre::getTerrain() const
+{
     return _terrain;
 }
 
-void CaseTerrestre::setConstruction(const Construction & nvConstruction) {
-    if (!_verifConstruction) {
+void CaseTerrestre::setConstruction(const Construction & nvConstruction)
+{
+    if (!_verifConstruction)
+    {
+        if (_terrain == typeTerrain::riviere)
+        {
+            if (nvConstruction.estPont())
+            {
+                _construction = nvConstruction;
+            }
+            else
+            {
+                throw "La case est une rivière";
+            }
+        }
         _construction = nvConstruction;
     }
-    else {
-        //throw "Déjà une construction";
+    else
+    {
+       throw "Déjà une construction";
     }
 }
 
-void CaseTerrestre::setVerifConstruction(bool nvVerifConstruction) {
+void CaseTerrestre::setVerifConstruction(bool nvVerifConstruction)
+{
     _verifConstruction = nvVerifConstruction;
 }
 
-void CaseTerrestre::setTerrain(typeTerrain nvTerrain) {
+void CaseTerrestre::setTerrain(typeTerrain nvTerrain)
+{
     _terrain = nvTerrain;
 }
-bool CaseTerrestre::ajouterUniteTerrestre(std::shared_ptr<UniteTerrestre> nvUniteTerrestre) {
+bool CaseTerrestre::ajouterUniteTerrestre(std::shared_ptr<UniteTerrestre> nvUniteTerrestre)
+{
     if (nvUniteTerrestre->estLegere()) {
         auto uniteTerrestre = std::dynamic_pointer_cast<UniteTerrestreLegere>(nvUniteTerrestre);
         if (uniteTerrestre->getTaille() >= _espaceDisponible) {
