@@ -2,8 +2,7 @@
 
 #include "construction.hh"
 
-class Ravitaillement : public Construction
-{
+class Ravitaillement : public Construction {
 public:
     Ravitaillement();
 };

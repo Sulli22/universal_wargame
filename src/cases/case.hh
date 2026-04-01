@@ -8,12 +8,12 @@ public:
     Case(const Position &pos);
 
     const Position &getPos() const;
-    std::shared_ptr<UniteAerienne> getUniteHaute() const;
-    void setUniteHaute(std::shared_ptr<UniteAerienne> nvUniteAerienne);
+    std::shared_ptr<UniteAerienne> getUniteAerienne() const;
+    void setUniteAerienne(std::shared_ptr<UniteAerienne> nvUniteAerienne);
 
 private:
     Position _pos;
-    std::shared_ptr<UniteAerienne> _uniteHaute;
+    std::shared_ptr<UniteAerienne> _uniteAerienne;
 };
 
 

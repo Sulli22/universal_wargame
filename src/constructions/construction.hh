@@ -1,8 +1,6 @@
 #pragma once
 
-
-class Construction
-{
+class Construction {
 public:
     Construction();
     virtual bool estPont() const;

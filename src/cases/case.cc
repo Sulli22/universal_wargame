@@ -1,7 +1,7 @@
 #include "case.hh"
 #include <iostream>
 
-Case::Case(const Position &pos  ):
+Case::Case(const Position &pos) :
     _pos(pos)
 {}
 
@@ -11,15 +11,15 @@ const Position &Case::getPos() const
 }
 
 
-std::shared_ptr<UniteAerienne> Case::getUniteHaute() const
+std::shared_ptr<UniteAerienne> Case::getUniteAerienne() const
 {
-    return _uniteHaute;
+    return _uniteAerienne;
 }
 
-void Case::setUniteHaute(std::shared_ptr<UniteAerienne> nvUniteHaute)
+void Case::setUniteAerienne(std::shared_ptr<UniteAerienne> nvUniteAerienne)
 {
-    if (!_uniteHaute && nvUniteHaute)
-        _uniteHaute = nvUniteHaute;
+    if (!_uniteAerienne && nvUniteAerienne)
+        _uniteAerienne = nvUniteAerienne;
     else
         std::cerr << "L'unité n'a pas pu être ajoutée" << std::endl;
 }

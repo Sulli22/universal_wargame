@@ -1,15 +1,16 @@
 #pragma once
+
 #include <vector>
 #include "case.hh"
 #include "uniteterrestre.hh"
 #include "construction.hh"
 
-enum class typeTerrain {plaine, foret, montagne, riviere};
+enum class typeTerrain { plaine, foret, montagne, riviere };
 
-class CaseTerrestre : public Case
-{
+class CaseTerrestre : public Case {
 public:
-    CaseTerrestre(const Position &pos, bool verifConstruction=false, usint espaceDisponible = _MAX_TAILLE, typeTerrain terrain = typeTerrain::plaine);
+    CaseTerrestre(const Position &pos, usint espaceDisponible = _MAX_TAILLE,
+                  typeTerrain terrain = typeTerrain::plaine);
 
     std::vector<std::shared_ptr<UniteTerrestre>> getUniteBasse() const;
     usint getEspaceDisponible() const;
@@ -19,18 +20,15 @@ public:
 
     void setConstruction(const Construction & nvConstrution);
     void setVerifConstruction(bool nvVerifConstruction);
-    void setTerrain(typeTerrain nvTerrain);
     bool ajouterUniteTerrestre(std::shared_ptr<UniteTerrestre> nvUniteTerrestre);
 
-
-
 private:
-    std::vector<std::shared_ptr<UniteTerrestre>> _uniteBasse;
+    std::vector<std::shared_ptr<UniteTerrestre>> _unitesTerrestres;
     Construction _construction;
     bool _verifConstruction;
     usint _espaceDisponible;
     typeTerrain _terrain;
-    static const usint _MAX_TAILLE = 100;
 
+    static const usint _MAX_TAILLE = 100;
 };
 

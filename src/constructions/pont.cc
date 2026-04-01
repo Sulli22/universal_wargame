@@ -1,10 +1,9 @@
 #include "pont.hh"
 
 Pont::Pont()
+{}
+
+bool Pont::estPont() const
 {
-
-}
-
-bool Pont::estPont() const {
     return true;
 }
