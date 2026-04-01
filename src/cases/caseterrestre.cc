@@ -50,7 +50,15 @@ void CaseTerrestre::setConstruction(const Construction & nvConstruction)
                 throw "La case est une rivière";
             }
         }
-        _construction = nvConstruction;
+        else if (!nvConstruction.estPont())
+        {
+              _construction = nvConstruction;
+        }
+        else
+        {
+            throw "La construction ne peut pas être un pont";
+        }
+
     }
     else
     {
