@@ -20,6 +20,8 @@ public:
     void setConstruction(std::unique_ptr<Construction> nvConstruction);
     bool ajouterUniteTerrestre(std::shared_ptr<UniteTerrestre> nvUniteTerrestre);
 
+    void deplacerUnitesTerrestres(CaseTerrestre &arrive);
+
 private:
     std::vector<std::shared_ptr<UniteTerrestre>> _unitesTerrestres;
     usint _espaceDisponible;

@@ -8,7 +8,10 @@ public:
     CaseMarine(const Position &pos);
 
     std::shared_ptr<UniteMarine> getUniteBasse() const;
+
     void setUniteBasse(std::shared_ptr<UniteMarine> nvUniteBasse);
+
+    void deplacerUniteBasse(CaseMarine &arrive);
 
 private:
     std::shared_ptr<UniteMarine> _uniteBasse;

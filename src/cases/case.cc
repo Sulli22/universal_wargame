@@ -23,3 +23,16 @@ void Case::setUniteAerienne(std::shared_ptr<UniteAerienne> nvUniteAerienne)
     else
         std::cerr << "L'unité n'a pas pu être ajoutée" << std::endl;
 }
+
+void Case::deplacerUniteAerienne(Case & arrivee)
+{
+    if (!arrivee.getUniteAerienne())
+    {
+        arrivee.setUniteAerienne(_uniteAerienne);
+        _uniteAerienne = nullptr;
+    }
+    else
+    {
+        throw "Il y a déjà une unité aérienne";
+    }
+}

@@ -67,3 +67,18 @@ bool CaseTerrestre::ajouterUniteTerrestre(std::shared_ptr<UniteTerrestre>
     return false;
 }
 
+void CaseTerrestre::deplacerUnitesTerrestres(CaseTerrestre &arrive)
+{
+    if (_MAX_TAILLE - _espaceDisponible<=arrive.getEspaceDisponible())
+    {
+        for (auto u : _unitesTerrestres)
+        {
+            arrive.ajouterUniteTerrestre(u);
+            _unitesTerrestres.clear();
+        }
+    }
+    else
+    {
+        throw "Il n'y a pas assez d'espaces disponible";
+    }
+}
