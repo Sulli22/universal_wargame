@@ -1,4 +1,5 @@
 #include "infirmerie.hh"
 
-Infirmerie::Infirmerie()
+Infirmerie::Infirmerie():
+    Construction(30)
 {}

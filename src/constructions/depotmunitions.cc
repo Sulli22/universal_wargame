@@ -1,4 +1,5 @@
 #include "depotmunitions.hh"
 
-DepotMunitions::DepotMunitions()
+DepotMunitions::DepotMunitions():
+    Construction(30)
 {}

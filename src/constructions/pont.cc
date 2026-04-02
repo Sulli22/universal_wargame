@@ -1,6 +1,7 @@
 #include "pont.hh"
 
-Pont::Pont()
+Pont::Pont():
+    Construction(10)
 {}
 
 bool Pont::estPont() const

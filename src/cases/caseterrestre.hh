@@ -12,23 +12,20 @@ public:
     CaseTerrestre(const Position &pos, usint espaceDisponible = _MAX_TAILLE,
                   typeTerrain terrain = typeTerrain::plaine);
 
-    std::vector<std::shared_ptr<UniteTerrestre>> getUniteBasse() const;
+    std::vector<std::shared_ptr<UniteTerrestre>> getUnitesTerrestres() const;
     usint getEspaceDisponible() const;
-    Construction getConstruction() const;
-    bool getVerifConstruction() const;
+    const std::unique_ptr<Construction> &getConstruction() const;
     typeTerrain getTerrain() const;
 
-    void setConstruction(const Construction & nvConstrution);
-    void setVerifConstruction(bool nvVerifConstruction);
+    void setConstruction(std::unique_ptr<Construction> nvConstruction);
     bool ajouterUniteTerrestre(std::shared_ptr<UniteTerrestre> nvUniteTerrestre);
 
 private:
     std::vector<std::shared_ptr<UniteTerrestre>> _unitesTerrestres;
-    Construction _construction;
-    bool _verifConstruction;
     usint _espaceDisponible;
     typeTerrain _terrain;
+    std::unique_ptr<Construction> _construction;
 
-    static const usint _MAX_TAILLE = 100;
+    static const usint _MAX_TAILLE = 5;
 };
 

@@ -30,7 +30,7 @@ add_executable(${PROJECT_NAME}
 
     constructions/construction.cc
     constructions/infirmerie.cc
-    constructions/ravitaillement.cc
+    constructions/depotprovisions.cc
     constructions/pont.cc
     constructions/depotmunitions.cc
 
@@ -65,9 +65,10 @@ target_sources(${PROJECT_NAME} PRIVATE
 
     constructions/construction.hh
     constructions/infirmerie.hh
-    constructions/ravitaillement.hh
+    constructions/depotprovisions.hh
     constructions/pont.hh
     constructions/depotmunitions.hh
+
     #camp.hh
     #graphe/sommet.hh
     #graphe/sommetterrestre.hh
@@ -75,8 +76,9 @@ target_sources(${PROJECT_NAME} PRIVATE
     #graphe/arete.hh
     #graphe/matriceadjacence.hh
     #graphe/graphe.hh
-    cases/case.hh
+
     carte/carte.hh
+    cases/case.hh
     cases/position.hh
     cases/casemarine.hh
     cases/caseterrestre.hh
@@ -87,7 +89,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     unites
 
     constructions
-    graphe
+    #graphe
 
     cases
     carte
