@@ -44,6 +44,8 @@ add_executable(${PROJECT_NAME}
     carte/carte.cc
     carte/lecteur.cc
     carte/createurcases.cc
+
+    jeu.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
@@ -75,6 +77,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     carte/carte.hh
     carte/lecteur.hh
     carte/createurcases.hh 
+
+    jeu.hh
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
