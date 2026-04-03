@@ -46,6 +46,8 @@ add_executable(${PROJECT_NAME}
     cases/position.cc
     cases/casemarine.cc
     cases/caseterrestre.cc
+
+    jeu.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
@@ -82,6 +84,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     cases/position.hh
     cases/casemarine.hh
     cases/caseterrestre.hh
+
+    jeu.hh
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
