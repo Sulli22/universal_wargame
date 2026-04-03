@@ -7,13 +7,15 @@ class CaseMarine : public Case {
 public:
     CaseMarine(const Position &pos);
 
-    std::shared_ptr<UniteMarine> getUniteBasse() const;
+    const UniteMarine *getUniteBasse() const;
 
-    void setUniteBasse(std::shared_ptr<UniteMarine> nvUniteBasse);
+    void setUniteBasse(std::unique_ptr<UniteMarine> nvUniteBasse);
 
     void deplacerUniteBasse(CaseMarine &arrive);
 
+    usint coupDeplacement(std::unique_ptr<Unite> unite) const override;
+
 private:
-    std::shared_ptr<UniteMarine> _uniteBasse;
+    std::unique_ptr<UniteMarine> _uniteBasse;
 };
 

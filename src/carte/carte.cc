@@ -1,4 +1,9 @@
 #include "carte.hh"
+#include "lecteur.hh"
+#include "createurcases.hh"
+#include <sstream>
+
+#include <iostream>
 
 const std::vector<Position> Carte::_DIRECTIONS = {
             {0, -1},
@@ -7,20 +12,39 @@ const std::vector<Position> Carte::_DIRECTIONS = {
             {0,  1},
 };
 
-Carte::Carte(std::size_t largeur, std::size_t hauteur):
-    _largeur(largeur), _hauteur(hauteur)
+Carte::Carte(std::string nomFichier)
 {
-    _contenu.reserve(hauteur);
+    auto lignes = Lecteur::lireLignes(nomFichier);
 
-    for (std::size_t r = 0; r < hauteur; ++r) {
-        std::vector<Case> ligne;
-        ligne.reserve(largeur);
+    std::size_t q = 0;
+    std::size_t r = 0;
 
-        for (std::size_t q = 0; q < largeur; ++q)
-            ligne.emplace_back(Position(q, r));
+    for (const auto& ligne : lignes) {
+        r++;
+        std::stringstream ss(ligne);
+        std::string token;
+        std::vector<std::unique_ptr<Case>> cases;
 
-        _contenu.push_back(std::move(ligne));
+        q = 0;
+        while (ss >> token) {
+            if (token.size() < 2) continue; // sécurité
+
+            char type = token[0];
+            int nombre = std::stoi(token.substr(1));
+
+            for (int i = 0; i < nombre; ++i) {
+                cases.push_back(CreateurCases::creer(type, Position(q, r)));
+                q++;
+            }
+
+        }
+        _contenu.push_back(std::move(cases));
     }
+
+    std::cout << q << " " << r <<std::endl;
+
+    _largeur = q;
+    _hauteur = r;
 }
 
 std::size_t Carte::getLargeur() const
@@ -33,14 +57,14 @@ std::size_t Carte::getHauteur() const
     return _hauteur;
 }
 
-const std::vector<std::vector<Case>> &Carte::getContenu() const
+const std::vector<std::vector<std::unique_ptr<Case>>> &Carte::getContenu() const
 {
     return _contenu;
 }
 
-Case *Carte::accesCase(const Position &pos)
+Case* Carte::accesCase(const Position &pos)
 {
-    return &_contenu[pos.getR()][pos.getQ()];
+    return _contenu[pos.getR()][pos.getQ()].get();
 }
 
 bool Carte::positionValide(const Position &pos) const
@@ -53,16 +77,16 @@ bool Carte::positionValide(const Position &pos) const
         && (r >= 0 && r < static_cast<int>(_hauteur));
 }
 
-std::vector<Case> Carte::getVoisins(const Case &c) const
+std::vector<Case *> Carte::getVoisins(const Case &c) const
 {
-    std::vector<Case> voisins;
+    std::vector<Case *> voisins;
 
     auto pos = c.getPos();
 
     for (const auto &d : _DIRECTIONS) {
         auto voisin = pos + d;
         if (positionValide(voisin))
-            voisins.push_back(_contenu[voisin.getR()][voisin.getQ()]);
+            voisins.push_back(_contenu[voisin.getR()][voisin.getQ()].get());
     }
 
     return voisins;
@@ -70,19 +94,15 @@ std::vector<Case> Carte::getVoisins(const Case &c) const
 
 void Carte::soriteFlux(std::ostream &os) const
 {
-    /*for (std::size_t r = 0; r < _hauteur; ++r) {
-        for (std::size_t q = 0; q < _largeur; ++q) {
-            _contenu[r][q].getPos().sortieFlux(os);
-            os << " ";
-        }
-        os << std::endl;
-    }*/
-
     for (std::size_t r = 0; r < _hauteur; ++r)
     {
         // Ligne des colonnes impaires
-        for (std::size_t q = 1; q < _largeur; q += 2)
-            os << "\t(" << q << "," << r << ")" << std::endl;
+        for (std::size_t q = 1; q < _largeur; q += 2) {
+            os << "\t(" << q << "," << r << ")";
+            if (q + 2 < _largeur)
+                os << "\t"; // espace entre les colonnes
+        }
+        os << std::endl;
 
         // Ligne des colonnes paires
         for (std::size_t q = 0; q < _largeur; q += 2) {

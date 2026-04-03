@@ -1,13 +1,15 @@
 #include "caseterrestre.hh"
+#include "unitemarine.hh"
 #include "uniteterrestrelegere.hh"
+#include <limits>
 
-CaseTerrestre::CaseTerrestre(const Position &pos, usint espaceDisponible,
-                             typeTerrain terrain):
+CaseTerrestre::CaseTerrestre(const Position &pos, typeTerrain terrain,
+                             usint espaceDisponible):
     Case(pos), _espaceDisponible(espaceDisponible), _terrain(terrain)
 {}
 
-std::vector<std::shared_ptr<UniteTerrestre>>
-CaseTerrestre::getUnitesTerrestres() const
+const std::vector<std::unique_ptr<UniteTerrestre>>
+    &CaseTerrestre::getUnitesTerrestres() const
 {
     return _unitesTerrestres;
 }
@@ -17,9 +19,9 @@ usint CaseTerrestre::getEspaceDisponible() const
     return _espaceDisponible;
 }
 
-const std::unique_ptr<Construction> &CaseTerrestre::getConstruction() const
+const Construction &CaseTerrestre::getConstruction() const
 {
-   return _construction;
+   return *_construction;
 }
 
 typeTerrain CaseTerrestre::getTerrain() const
@@ -46,39 +48,60 @@ void CaseTerrestre::setConstruction(std::unique_ptr<Construction>
        throw "Déjà une construction";
 }
 
-bool CaseTerrestre::ajouterUniteTerrestre(std::shared_ptr<UniteTerrestre>
+bool CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
                                               nvUniteTerrestre)
 {
     if (nvUniteTerrestre->estLegere()) {
-        auto uniteTerrestre = std::dynamic_pointer_cast<UniteTerrestreLegere>
-            (nvUniteTerrestre);
+        auto uniteTerrestre = dynamic_cast<UniteTerrestreLegere *>
+            (nvUniteTerrestre.get());
 
         if (uniteTerrestre->getTaille() >= _espaceDisponible) {
-            _unitesTerrestres.push_back(nvUniteTerrestre);
+            _unitesTerrestres.push_back(std::move(nvUniteTerrestre));
             _espaceDisponible -= uniteTerrestre->getTaille();
             return true;
         }
     }
     else if (_espaceDisponible == _MAX_TAILLE) {
-        _unitesTerrestres.push_back(nvUniteTerrestre);
+        _unitesTerrestres.push_back(std::move(nvUniteTerrestre));
         _espaceDisponible = 0;
         return true;
     }
     return false;
 }
-
-void CaseTerrestre::deplacerUnitesTerrestres(CaseTerrestre &arrive)
+/*
+void CaseTerrestre::deplacerUnitesTerrestres(CaseTerrestre &arrivee)
 {
-    if (_MAX_TAILLE - _espaceDisponible<=arrive.getEspaceDisponible())
-    {
-        for (auto u : _unitesTerrestres)
-        {
-            arrive.ajouterUniteTerrestre(u);
+    if (_MAX_TAILLE - _espaceDisponible <= arrivee.getEspaceDisponible()) {
+        for (auto u : _unitesTerrestres) {
+            arrivee.ajouterUniteTerrestre(u);
             _unitesTerrestres.clear();
         }
     }
     else
-    {
         throw "Il n'y a pas assez d'espaces disponible";
+}
+*/
+usint CaseTerrestre::coupDeplacement(std::unique_ptr<Unite> unite) const
+{
+    auto pUniteAerienne = dynamic_cast<UniteAerienne *>(unite.get());
+    if (pUniteAerienne)
+        return 1;
+
+    auto pUniteMarine = dynamic_cast<UniteMarine *>(unite.get());
+    auto inf = std::numeric_limits<usint>::infinity();
+    if (pUniteMarine)
+        return inf;
+
+    switch (_terrain) {
+        case typeTerrain::plaine:
+            return 1;
+        case typeTerrain::foret:
+            return unite->estLegere() ? 1 : 2;
+        case typeTerrain::riviere:
+            return inf;
+        case typeTerrain::montagne:
+            return inf;
     }
+
+    return inf;
 }

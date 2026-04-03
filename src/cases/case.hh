@@ -8,14 +8,16 @@ public:
     Case(const Position &pos);
 
     const Position &getPos() const;
-    std::shared_ptr<UniteAerienne> getUniteAerienne() const;
-    void setUniteAerienne(std::shared_ptr<UniteAerienne> nvUniteAerienne);
+    const UniteAerienne *getUniteAerienne() const;
+    void setUniteAerienne(std::unique_ptr<UniteAerienne> nvUniteAerienne);
 
     void deplacerUniteAerienne(Case &arrive);
 
+    virtual usint coupDeplacement(std::unique_ptr<Unite> unite) const =0;
+
 private:
     Position _pos;
-    std::shared_ptr<UniteAerienne> _uniteAerienne;
+    std::unique_ptr<UniteAerienne> _uniteAerienne;
 };
 
 

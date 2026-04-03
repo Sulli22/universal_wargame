@@ -10,16 +10,15 @@ const Position &Case::getPos() const
     return _pos;
 }
 
-
-std::shared_ptr<UniteAerienne> Case::getUniteAerienne() const
+const UniteAerienne *Case::getUniteAerienne() const
 {
-    return _uniteAerienne;
+    return _uniteAerienne.get();
 }
 
-void Case::setUniteAerienne(std::shared_ptr<UniteAerienne> nvUniteAerienne)
+void Case::setUniteAerienne(std::unique_ptr<UniteAerienne> nvUniteAerienne)
 {
     if (!_uniteAerienne && nvUniteAerienne)
-        _uniteAerienne = nvUniteAerienne;
+        _uniteAerienne = std::move(nvUniteAerienne);
     else
         std::cerr << "L'unité n'a pas pu être ajoutée" << std::endl;
 }
@@ -27,12 +26,7 @@ void Case::setUniteAerienne(std::shared_ptr<UniteAerienne> nvUniteAerienne)
 void Case::deplacerUniteAerienne(Case & arrivee)
 {
     if (!arrivee.getUniteAerienne())
-    {
-        arrivee.setUniteAerienne(_uniteAerienne);
-        _uniteAerienne = nullptr;
-    }
+        arrivee.setUniteAerienne(std::move(_uniteAerienne));
     else
-    {
         throw "Il y a déjà une unité aérienne";
-    }
 }

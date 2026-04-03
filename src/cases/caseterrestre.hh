@@ -9,21 +9,25 @@ enum class typeTerrain { plaine, foret, montagne, riviere };
 
 class CaseTerrestre : public Case {
 public:
-    CaseTerrestre(const Position &pos, usint espaceDisponible = _MAX_TAILLE,
-                  typeTerrain terrain = typeTerrain::plaine);
+    CaseTerrestre(const Position &pos,
+                  typeTerrain terrain = typeTerrain::plaine,
+                  usint espaceDisponible = _MAX_TAILLE);
 
-    std::vector<std::shared_ptr<UniteTerrestre>> getUnitesTerrestres() const;
+    const std::vector<std::unique_ptr<UniteTerrestre>>
+        &getUnitesTerrestres() const;
     usint getEspaceDisponible() const;
-    const std::unique_ptr<Construction> &getConstruction() const;
+    const Construction &getConstruction() const;
     typeTerrain getTerrain() const;
 
     void setConstruction(std::unique_ptr<Construction> nvConstruction);
-    bool ajouterUniteTerrestre(std::shared_ptr<UniteTerrestre> nvUniteTerrestre);
+    bool ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre> nvUniteTerrestre);
 
-    void deplacerUnitesTerrestres(CaseTerrestre &arrive);
+    //void deplacerUnitesTerrestres(CaseTerrestre &arrivee);
+
+    usint coupDeplacement(std::unique_ptr<Unite> unite) const override;
 
 private:
-    std::vector<std::shared_ptr<UniteTerrestre>> _unitesTerrestres;
+    std::vector<std::unique_ptr<UniteTerrestre>> _unitesTerrestres;
     usint _espaceDisponible;
     typeTerrain _terrain;
     std::unique_ptr<Construction> _construction;

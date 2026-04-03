@@ -11,6 +11,8 @@ add_compile_options(
     -Wextra
 )
 
+file(COPY data DESTINATION ${CMAKE_BINARY_DIR})
+
 add_executable(${PROJECT_NAME}
     main.cc
 
@@ -34,18 +36,14 @@ add_executable(${PROJECT_NAME}
     constructions/pont.cc
     constructions/depotmunitions.cc
 
-    #camp.cc
-    #graphe/sommet.cc
-    #graphe/sommetterrestre.cc
-    #graphe/sommetmarin.cc
-    #graphe/arete.cc
-    #graphe/matriceadjacence.cc
-    #graphe/graphe.cc
     cases/case.cc
-    carte/carte.cc
     cases/position.cc
     cases/casemarine.cc
     cases/caseterrestre.cc
+    
+    carte/carte.cc
+    carte/lecteur.cc
+    carte/createurcases.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
@@ -69,30 +67,23 @@ target_sources(${PROJECT_NAME} PRIVATE
     constructions/pont.hh
     constructions/depotmunitions.hh
 
-    #camp.hh
-    #graphe/sommet.hh
-    #graphe/sommetterrestre.hh
-    #graphe/sommetmarin.hh
-    #graphe/arete.hh
-    #graphe/matriceadjacence.hh
-    #graphe/graphe.hh
-
-    carte/carte.hh
     cases/case.hh
     cases/position.hh
     cases/casemarine.hh
     cases/caseterrestre.hh
+
+    carte/carte.hh
+    carte/lecteur.hh
+    carte/createurcases.hh 
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     unitesabstraites
     unites
-
     constructions
-    #graphe
-
     cases
     carte
+    data
 )
 
 include(GNUInstallDirs)

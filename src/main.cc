@@ -18,20 +18,20 @@ int main()
     }*/
 
     // test carte et voisins
-    Carte carte(3, 3);
+    Carte carte("data/map0.txt");
     carte.soriteFlux(std::cout);
-    for (int q = 0; q < (int)carte.getLargeur(); ++q) {
+    /*for (int q = 0; q < (int)carte.getLargeur(); ++q) {
         for (int r = 0; r < (int)carte.getHauteur(); ++r) {
             auto c = carte.accesCase({q, r});
             auto voisins = carte.getVoisins(*c);
             std::cout << "Voisins de (" << q << "," << r << ") : ";
             for (const auto &v : voisins) {
-                v.getPos().sortieFlux(std::cout);
+                v->getPos().sortieFlux(std::cout);
                 std::cout << " ";
             }
             std::cout << std::endl;
         }
-    }
+    }*/
 
     // test unites
     Infanterie I;
