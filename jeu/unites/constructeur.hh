@@ -1,0 +1,13 @@
+#pragma once
+
+#include <infanterie.hh>
+
+class Constructeur : public Infanterie {
+public:
+    Constructeur(usint pointsVie = _POINTS_VIE_INIT/2,
+                 usint nbMunitions = _NB_MUNITIONS_INIT/2,
+                 usint nbProvisions = _NB_PROVISIONS_INIT*2);
+
+    std::string getNom() const override;
+};
+
