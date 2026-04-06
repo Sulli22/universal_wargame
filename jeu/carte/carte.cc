@@ -20,7 +20,6 @@ Carte::Carte(std::string nomFichier)
     std::size_t r = 0;
 
     for (const auto& ligne : lignes) {
-        r++;
         std::stringstream ss(ligne);
         std::string token;
         std::vector<std::unique_ptr<Case>> cases;
@@ -39,9 +38,8 @@ Carte::Carte(std::string nomFichier)
 
         }
         _contenu.push_back(std::move(cases));
+        r++;
     }
-
-    std::cout << q << " " << r <<std::endl;
 
     _largeur = q;
     _hauteur = r;
@@ -98,17 +96,16 @@ void Carte::soriteFlux(std::ostream &os) const
     {
         // Ligne des colonnes impaires
         for (std::size_t q = 1; q < _largeur; q += 2) {
-            os << "\t(" << q << "," << r << ")";
-            if (q + 2 < _largeur)
-                os << "\t"; // espace entre les colonnes
+            os << "\t";
+            _contenu[r][q]->getPos().sortieFlux(os);
+            os << "\t";
         }
         os << std::endl;
 
         // Ligne des colonnes paires
         for (std::size_t q = 0; q < _largeur; q += 2) {
-            os << "(" << q << "," << r << ")";
-            if (q + 2 < _largeur)
-                os << "\t\t"; // espace entre les colonnes
+            _contenu[r][q]->getPos().sortieFlux(os);
+            os << "\t\t";
         }
         os << std::endl;
     }

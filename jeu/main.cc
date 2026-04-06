@@ -7,20 +7,10 @@
 
 int main()
 {
-    // test graphe
-    /*MatriceAdjacence m(4, 5);
-    Graphe g(m);
-    g.sortieFlux(std::cout); std::cout << std::endl;
-
-    for (auto s : g.getSommets()) {
-        std::cout<<"Voisins de "<<s->getId()<<" : ";
-           g.voisins(s); std::cout << std::endl;
-    }*/
-
     // test carte et voisins
     Carte carte("data/map0.txt");
     carte.soriteFlux(std::cout);
-    /*for (int q = 0; q < (int)carte.getLargeur(); ++q) {
+    for (int q = 0; q < (int)carte.getLargeur(); ++q) {
         for (int r = 0; r < (int)carte.getHauteur(); ++r) {
             auto c = carte.accesCase({q, r});
             auto voisins = carte.getVoisins(*c);
@@ -31,7 +21,7 @@ int main()
             }
             std::cout << std::endl;
         }
-    }*/
+    }
 
     // test unites
     Infanterie I;
