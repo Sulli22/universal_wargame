@@ -10,18 +10,7 @@ int main()
     // test carte et voisins
     Carte carte("data/map0.txt");
     carte.soriteFlux(std::cout);
-    for (int q = 0; q < (int)carte.getLargeur(); ++q) {
-        for (int r = 0; r < (int)carte.getHauteur(); ++r) {
-            auto c = carte.accesCase({q, r});
-            auto voisins = carte.getVoisines(*c);
-            std::cout << "Voisins de (" << q << "," << r << ") : ";
-            for (const auto &v : voisins) {
-                v->getPos().sortieFlux(std::cout);
-                std::cout << " ";
-            }
-            std::cout << std::endl;
-        }
-    }
+    carte.afficherDetails(std::cout);
 
     // test unites
     Infanterie I;

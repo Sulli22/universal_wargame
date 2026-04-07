@@ -138,8 +138,8 @@ std::map<Case *, int> Carte::getCasesAtteignables(Case *depart, Unite *unite) co
 
 void Carte::soriteFlux(std::ostream &os) const
 {
-    for (std::size_t r = 0; r < _hauteur; ++r)
-    {
+    os << "[largeur=" << _largeur << ", hauteur=" << _hauteur << "]" << std::endl;
+    for (std::size_t r = 0; r < _hauteur; ++r) {
         // Ligne des colonnes impaires
         for (std::size_t q = 1; q < _largeur; q += 2) {
             os << "\t";
@@ -154,5 +154,24 @@ void Carte::soriteFlux(std::ostream &os) const
             os << "\t\t";
         }
         os << std::endl;
+    }
+}
+
+void Carte::afficherDetails(std::ostream &os)
+{
+    for (std::size_t q = 0; q < _largeur; ++q) {
+        for (std::size_t r = 0; r < _hauteur; ++r) {
+            auto c = accesCase({(int)q, (int)r});
+
+            c->afficherDetails(os); os << std::endl;
+
+            auto voisines = getVoisines(*c);
+            os << "Voisines : ";
+            for (const auto &v : voisines) {
+                v->sortieFlux(os);
+                os << " ";
+            }
+            os << std::endl;
+        }
     }
 }

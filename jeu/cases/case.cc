@@ -33,5 +33,15 @@ void Case::deplacerUniteAerienne(Case & arrivee)
 
 void Case::sortieFlux(std::ostream &os) const
 {
-    //_pos.sortieFlux(os);
+    _pos.sortieFlux(os);
+}
+
+void Case::afficherDetails(std::ostream &os) const
+{
+    os << "-> Carte : "; sortieFlux(os);
+    if (_uniteAerienne) {
+        os << "Unite aerienne = [";
+        _uniteAerienne->sortieFlux(os);
+        os << "]" << std::endl;
+    }
 }

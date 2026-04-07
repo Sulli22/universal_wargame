@@ -20,6 +20,8 @@ public:
 
     void soriteFlux(std::ostream &os) const;
 
+    void afficherDetails(std::ostream &os);
+
 private:
     std::size_t _largeur;
     std::size_t _hauteur;

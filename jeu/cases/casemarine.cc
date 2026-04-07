@@ -37,8 +37,13 @@ usint CaseMarine::coutDeplacement(Unite *unite) const
     return std::numeric_limits<usint>::infinity();
 }
 
-void CaseMarine::sortieFlux(std::ostream &os) const
+void CaseMarine::afficherDetails(std::ostream &os) const
 {
-    Case::sortieFlux(os);
-    os << "E";
+    Case::afficherDetails(os); os << std::endl;
+    os << "Type = Eau" << std::endl;
+    if (_uniteBasse) {
+        os << "Unite Basse = [";
+        _uniteBasse->sortieFlux(os);
+        os << "]" << std::endl;
+    }
 }

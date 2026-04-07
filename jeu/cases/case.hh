@@ -14,7 +14,8 @@ public:
     void deplacerUniteAerienne(Case &arrive);
 
     virtual usint coutDeplacement(Unite *unite) const =0;
-    virtual void sortieFlux(std::ostream &os) const;
+    void sortieFlux(std::ostream &os) const;
+    virtual void afficherDetails(std::ostream &os) const;
 
 private:
     Position _pos;
