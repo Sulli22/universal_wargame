@@ -38,7 +38,7 @@ void Case::sortieFlux(std::ostream &os) const
 
 void Case::afficherDetails(std::ostream &os) const
 {
-    os << "-> Carte : "; sortieFlux(os);
+    os << "-> Case : "; sortieFlux(os);
     if (_uniteAerienne) {
         os << "Unite aerienne = [";
         _uniteAerienne->sortieFlux(os);
