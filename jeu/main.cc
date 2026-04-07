@@ -13,7 +13,7 @@ int main()
     for (int q = 0; q < (int)carte.getLargeur(); ++q) {
         for (int r = 0; r < (int)carte.getHauteur(); ++r) {
             auto c = carte.accesCase({q, r});
-            auto voisins = carte.getVoisins(*c);
+            auto voisins = carte.getVoisines(*c);
             std::cout << "Voisins de (" << q << "," << r << ") : ";
             for (const auto &v : voisins) {
                 v->getPos().sortieFlux(std::cout);

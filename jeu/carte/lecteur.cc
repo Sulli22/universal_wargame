@@ -6,7 +6,8 @@ std::vector<std::string> Lecteur::lireLignes(const std::string &nomFichier) {
     std::ifstream fich(nomFichier);
 
     if (!fich)
-        throw std::runtime_error("Erreur : impossible d'ouvrir le fichier '" + nomFichier + "'.");
+        throw std::runtime_error("Erreur : impossible d'ouvrir le fichier '"
+                                 + nomFichier + "'.");
 
     std::vector<std::string> lignes;
     std::string ligne;

@@ -70,8 +70,9 @@ std::string Unite::getChaineVisibilite() const
         case Visibilite::nulle: return "nulle";
         case Visibilite::partielle: return "partielle";
         case Visibilite::totale: return "totale";
+        default:
+            throw std::runtime_error("Erreur : Visibilite inconnue");
     }
-    return "";
 }
 
 void Unite::sortieFlux(std::ostream &os) const

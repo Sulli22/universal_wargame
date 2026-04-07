@@ -28,5 +28,10 @@ void Case::deplacerUniteAerienne(Case & arrivee)
     if (!arrivee.getUniteAerienne())
         arrivee.setUniteAerienne(std::move(_uniteAerienne));
     else
-        throw "Il y a déjà une unité aérienne";
+        throw std::runtime_error("Erreur : Il y a déjà une unité aérienne");
+}
+
+void Case::sortieFlux(std::ostream &os) const
+{
+    //_pos.sortieFlux(os);
 }

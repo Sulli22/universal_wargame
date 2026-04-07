@@ -25,6 +25,7 @@ public:
     //void deplacerUnitesTerrestres(CaseTerrestre &arrivee);
 
     usint coutDeplacement(Unite *unite) const override;
+    void sortieFlux(std::ostream &os) const override;
 
 private:
     std::vector<std::unique_ptr<UniteTerrestre>> _unitesTerrestres;

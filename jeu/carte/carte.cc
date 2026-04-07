@@ -16,32 +16,45 @@ Carte::Carte(std::string nomFichier)
 {
     auto lignes = Lecteur::lireLignes(nomFichier);
 
-    std::size_t q = 0;
     std::size_t r = 0;
+    std::size_t largeur_attendue = 0;
 
     for (const auto& ligne : lignes) {
         std::stringstream ss(ligne);
         std::string token;
         std::vector<std::unique_ptr<Case>> cases;
 
-        q = 0;
+        std::size_t q = 0;
+
         while (ss >> token) {
-            if (token.size() < 2) continue; // sécurité
+            if (token.size() < 2)
+                throw std::runtime_error("Erreur : token invalide.");
 
             char type = token[0];
             int nombre = std::stoi(token.substr(1));
+
+            if (nombre <= 0)
+                throw std::runtime_error("Erreur : nombre invalide.");
 
             for (int i = 0; i < nombre; ++i) {
                 cases.push_back(CreateurCases::creer(type, Position(q, r)));
                 q++;
             }
-
         }
+
+        // Vérification de la largeur
+        if (r == 0)
+            largeur_attendue = q; // première ligne = référence
+        else {
+            if (q != largeur_attendue)
+                throw std::runtime_error("Erreur : lignes de tailles differentes.");
+        }
+
         _contenu.push_back(std::move(cases));
         r++;
     }
 
-    _largeur = q;
+    _largeur = largeur_attendue;
     _hauteur = r;
 }
 
@@ -130,14 +143,14 @@ void Carte::soriteFlux(std::ostream &os) const
         // Ligne des colonnes impaires
         for (std::size_t q = 1; q < _largeur; q += 2) {
             os << "\t";
-            _contenu[r][q]->getPos().sortieFlux(os);
+            _contenu[r][q]->sortieFlux(os);
             os << "\t";
         }
         os << std::endl;
 
         // Ligne des colonnes paires
         for (std::size_t q = 0; q < _largeur; q += 2) {
-            _contenu[r][q]->getPos().sortieFlux(os);
+            _contenu[r][q]->sortieFlux(os);
             os << "\t\t";
         }
         os << std::endl;

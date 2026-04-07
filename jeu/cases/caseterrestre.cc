@@ -105,3 +105,14 @@ usint CaseTerrestre::coutDeplacement(Unite *unite) const
 
     return inf;
 }
+
+void CaseTerrestre::sortieFlux(std::ostream &os) const
+{
+    Case::sortieFlux(os);
+    switch (_terrain) {
+        case typeTerrain::plaine: os << "P"; break;
+        case typeTerrain::foret: os << "F"; break;
+        case typeTerrain::montagne: os << "M"; break;
+        case typeTerrain::riviere: os << "R"; break;
+    }
+}

@@ -36,3 +36,9 @@ usint CaseMarine::coutDeplacement(Unite *unite) const
         return 1;
     return std::numeric_limits<usint>::infinity();
 }
+
+void CaseMarine::sortieFlux(std::ostream &os) const
+{
+    Case::sortieFlux(os);
+    os << "E";
+}

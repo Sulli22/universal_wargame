@@ -14,6 +14,7 @@ public:
     void deplacerUniteBasse(CaseMarine &arrive);
 
     usint coutDeplacement(Unite *unite) const override;
+    void sortieFlux(std::ostream &os) const override;
 
 private:
     std::unique_ptr<UniteMarine> _uniteBasse;
