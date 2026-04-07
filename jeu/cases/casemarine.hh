@@ -13,7 +13,7 @@ public:
 
     void deplacerUniteBasse(CaseMarine &arrive);
 
-    usint coupDeplacement(std::unique_ptr<Unite> unite) const override;
+    usint coutDeplacement(Unite *unite) const override;
 
 private:
     std::unique_ptr<UniteMarine> _uniteBasse;

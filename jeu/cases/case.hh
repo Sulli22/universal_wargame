@@ -13,7 +13,7 @@ public:
 
     void deplacerUniteAerienne(Case &arrive);
 
-    virtual usint coupDeplacement(std::unique_ptr<Unite> unite) const =0;
+    virtual usint coutDeplacement(Unite *unite) const =0;
 
 private:
     Position _pos;

@@ -2,8 +2,8 @@
 #include "lecteur.hh"
 #include "createurcases.hh"
 #include <sstream>
-
-#include <iostream>
+#include <queue>
+#include <limits>
 
 const std::vector<Position> Carte::_DIRECTIONS = {
             {0, -1},
@@ -75,7 +75,7 @@ bool Carte::positionValide(const Position &pos) const
         && (r >= 0 && r < static_cast<int>(_hauteur));
 }
 
-std::vector<Case *> Carte::getVoisins(const Case &c) const
+std::vector<Case *> Carte::getVoisines(const Case &c) const
 {
     std::vector<Case *> voisins;
 
@@ -88,6 +88,39 @@ std::vector<Case *> Carte::getVoisins(const Case &c) const
     }
 
     return voisins;
+}
+
+std::map<Case *, int> Carte::getCasesAtteignables(Case *depart, Unite *unite) const
+{
+    std::queue<Case *> file;
+    std::map<Case *, int> coutJusqua;
+
+    // Initialisation
+    file.push(depart);
+    coutJusqua[depart] = 0;
+
+    while (!file.empty()) {
+        Case* courant = file.front();
+        file.pop();
+
+        for (Case* caseVoisine : getVoisines(*courant)) {
+            int coutMvt = caseVoisine->coutDeplacement(unite);
+            if (coutMvt == std::numeric_limits<int>::max()) continue;
+
+            int nouveauCout = coutJusqua[courant] + coutMvt;
+
+            // Trop loin
+            if (nouveauCout > unite->getCapaciteDeplacement()) continue;
+
+            // Si jamais vu OU meilleur chemin
+            if (!coutJusqua.count(caseVoisine) || nouveauCout < coutJusqua[caseVoisine]) {
+                coutJusqua[caseVoisine] = nouveauCout;
+                file.push(caseVoisine);
+            }
+        }
+    }
+
+    return coutJusqua;
 }
 
 void Carte::soriteFlux(std::ostream &os) const

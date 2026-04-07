@@ -26,10 +26,10 @@ void CaseMarine::deplacerUniteBasse(CaseMarine &arrive)
         throw "Il y a déjà une untité basse sur cette case";
 }
 
-usint CaseMarine::coupDeplacement(std::unique_ptr<Unite> unite) const
+usint CaseMarine::coutDeplacement(Unite *unite) const
 {
-    auto pUniteMarine = dynamic_cast<UniteMarine *>(unite.get());
-    auto pUniteAerienne = dynamic_cast<UniteAerienne *>(unite.get());
+    auto pUniteMarine = dynamic_cast<UniteMarine *>(unite);
+    auto pUniteAerienne = dynamic_cast<UniteAerienne *>(unite);
 
     // seules les unités marines et aeriennes peuvent passer
     if (pUniteMarine || pUniteAerienne)

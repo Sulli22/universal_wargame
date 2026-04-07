@@ -24,7 +24,7 @@ public:
 
     //void deplacerUnitesTerrestres(CaseTerrestre &arrivee);
 
-    usint coupDeplacement(std::unique_ptr<Unite> unite) const override;
+    usint coutDeplacement(Unite *unite) const override;
 
 private:
     std::vector<std::unique_ptr<UniteTerrestre>> _unitesTerrestres;

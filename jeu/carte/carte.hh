@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <ostream>
+#include <map>
 #include "case.hh"
 
 class Carte {
@@ -14,7 +15,8 @@ public:
 
     Case *accesCase(const Position &pos);
     bool positionValide(const Position &pos) const;
-    std::vector<Case *> getVoisins(const Case &c) const;
+    std::vector<Case *> getVoisines(const Case &c) const;
+    std::map<Case *, int> getCasesAtteignables(Case *depart, Unite *unite) const;
 
     void soriteFlux(std::ostream &os) const;
 

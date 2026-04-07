@@ -81,13 +81,13 @@ void CaseTerrestre::deplacerUnitesTerrestres(CaseTerrestre &arrivee)
         throw "Il n'y a pas assez d'espaces disponible";
 }
 */
-usint CaseTerrestre::coupDeplacement(std::unique_ptr<Unite> unite) const
+usint CaseTerrestre::coutDeplacement(Unite *unite) const
 {
-    auto pUniteAerienne = dynamic_cast<UniteAerienne *>(unite.get());
+    auto pUniteAerienne = dynamic_cast<UniteAerienne *>(unite);
     if (pUniteAerienne)
         return 1;
 
-    auto pUniteMarine = dynamic_cast<UniteMarine *>(unite.get());
+    auto pUniteMarine = dynamic_cast<UniteMarine *>(unite);
     auto inf = std::numeric_limits<usint>::infinity();
     if (pUniteMarine)
         return inf;
