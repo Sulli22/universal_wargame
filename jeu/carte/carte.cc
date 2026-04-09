@@ -138,7 +138,9 @@ std::map<Case *, int> Carte::getCasesAtteignables(Case *depart, Unite *unite) co
 bool Carte::caseDansZocEnnemie(Case *caseCible, Unite *uniteEnDeplacement) const
 {
     for (const auto &voisine : getVoisines(*caseCible)) {
-        if (unite)
+        if (caseCible->getFaction() != Faction::neutre &&
+            uniteEnDeplacement->getFaction() != voisine->getFaction())
+            return true;
     }
     return false;
 }
