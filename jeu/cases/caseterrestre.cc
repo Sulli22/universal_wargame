@@ -59,12 +59,13 @@ bool CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
         throw std::invalid_argument("Erreur : La nouvelle unite n'appartient pas à la faction.");
 
     if (nvUniteTerrestre->estLegere()) {
-        auto puniteTerrestre = dynamic_cast<UniteTerrestreLegere *>
+        auto uniteTerrestre = dynamic_cast<UniteTerrestreLegere *>
             (nvUniteTerrestre.get());
 
-        if (puniteTerrestre->getTaille() >= _espaceDisponible) {
+        if (uniteTerrestre->getTaille() >= _espaceDisponible) {
+            nvUniteTerrestre->setVisibilite(Unite::Visibilite::partielle);
             _unitesTerrestres.push_back(std::move(nvUniteTerrestre));
-            _espaceDisponible -= puniteTerrestre->getTaille();
+            _espaceDisponible -= uniteTerrestre->getTaille();
             return true;
         }
     }

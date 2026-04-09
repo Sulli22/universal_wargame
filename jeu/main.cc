@@ -1,4 +1,6 @@
+#include "artillerie.hh"
 #include "carte.hh"
+#include "charassaut.hh"
 #include "fregate.hh"
 #include "infanterie.hh"
 #include "sousmarin.hh"
@@ -32,6 +34,12 @@ int main()
 
     Fregate F(Faction::bleu);
     F.sortieFlux(std::cout); std::cout << std::endl;
+
+    CharAssaut CA(Faction::bleu);
+    CA.sortieFlux(std::cout); std::cout << std::endl;
+
+    Artillerie A(Faction::rouge);
+    A.sortieFlux(std::cout); std::cout << std::endl;
 
     return 0;
 }
