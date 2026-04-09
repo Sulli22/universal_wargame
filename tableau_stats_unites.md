@@ -1,7 +1,8 @@
 
 
-|stats \\ nom|Infanterie|Constructeur|Fregate|Sous-Marin|Chasseur|Bombardier|Char d'assaut|Artillerie|
+|stats \\ nom|Infanterie|Genie|Fregate|Sous-Marin|Chasseur|Bombardier|Char d'assaut|Artillerie|
 |-|-|-|-|-|-|-|-|-|
+|char|I|G|F|S|C|B|T|A|
 |PV|30|15|60|100|35|50|40|35|
 |nb mun|16|8|12|25|20|16|8|12|
 |nb prov|30|60|45|150|80|40|30|30|

@@ -27,7 +27,7 @@ add_executable(${PROJECT_NAME}
 
     unites/infanterie.cc
     unites/sousmarin.cc
-    unites/constructeur.cc
+    unites/genie.cc
     unites/bombardier.cc
     unites/chasseur.cc
     unites/fregate.cc
@@ -64,7 +64,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 
     unites/infanterie.hh
     unites/sousmarin.hh
-    unites/constructeur.hh
+    unites/genie.hh
     unites/bombardier.hh
     unites/chasseur.hh
     unites/fregate.hh
