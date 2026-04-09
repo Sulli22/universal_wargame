@@ -1,5 +1,5 @@
 #include "jeu.hh"
 
-Jeu::Jeu(const std::string &nomGuerre):
-    _plateau(nomGuerre)
+Jeu::Jeu(unsigned int idGuerre):
+    _plateau(idGuerre)
 {}

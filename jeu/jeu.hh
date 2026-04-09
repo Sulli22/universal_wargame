@@ -3,7 +3,7 @@
 
 class Jeu {
 public:
-    Jeu(const std::string &nomGuerre);
+    Jeu(unsigned int idGuerre);
 
 private:
     Carte _plateau;

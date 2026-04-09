@@ -12,9 +12,12 @@ const std::vector<Position> Carte::_DIRECTIONS = {
             {0,  1},
 };
 
-Carte::Carte(const std::string &nomFichier)
+Carte::Carte(unsigned int idGuerre)
 {
-    auto lignes = Lecteur::lireLignes(nomFichier);
+    auto prefixe = "data/guerre" + std::to_string(idGuerre) + "/";
+    auto nomFichierCases = prefixe + "cases.txt";
+    auto nomfichierUnites = prefixe + "unites.txt";
+    auto lignes = Lecteur::lireLignes(nomFichierCases);
 
     std::size_t r = 0;
     std::size_t largeur_attendue = 0;
@@ -45,10 +48,8 @@ Carte::Carte(const std::string &nomFichier)
         // vérification de la largeur
         if (r == 0)
             largeur_attendue = q; // première ligne = référence
-        else {
-            if (q != largeur_attendue)
-                throw std::runtime_error("Erreur : lignes de tailles differentes.");
-        }
+        else if (q != largeur_attendue)
+            throw std::runtime_error("Erreur : lignes de tailles differentes.");
 
         _contenu.push_back(std::move(cases));
         r++;
@@ -122,6 +123,12 @@ std::map<Case *, int> Carte::getCasesAtteignables(Case *depart, Unite *unite) co
 
             // trop loin
             if (nouveauCout > unite->getCapaciteDeplacement()) continue;
+
+            // zoc ennemie atteinte
+            if (caseDansZocEnnemie(caseVoisine, unite)) {
+                coutJusqua[caseVoisine] = nouveauCout;
+                continue;
+            }
 
             // si jamais vu ou meilleur chemin
             if (!coutJusqua.count(caseVoisine) ||

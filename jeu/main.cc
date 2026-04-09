@@ -8,9 +8,9 @@
 int main()
 {
     // test carte et voisins
-    Carte carte("data/map0.txt");
+    Carte carte(0);
     carte.soriteFlux(std::cout);
-    carte.afficherDetails(std::cout);
+    //carte.afficherDetails(std::cout);
 
     // test unites
     Infanterie I(Faction::bleu);

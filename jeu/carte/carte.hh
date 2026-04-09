@@ -7,7 +7,7 @@
 
 class Carte {
 public:
-    Carte(const std::string &nomFichier);
+    Carte(unsigned int idGuerre);
 
     std::size_t getLargeur() const;
     std::size_t getHauteur() const;
