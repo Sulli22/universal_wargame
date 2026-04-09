@@ -6,5 +6,6 @@
 class UniteTerrestreLegere: public UniteLegere, public UniteTerrestre {
 public:
     UniteTerrestreLegere(Faction faction, usint pointsVie, usint nbMunitions,
-                         usint nbProvisions);
+                         usint nbProvisions,
+                         Visibilite visibilite = Visibilite::totale);
 };

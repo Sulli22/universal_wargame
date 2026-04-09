@@ -5,7 +5,7 @@
 class UniteLegere : virtual public Unite {
 public:
     UniteLegere(Faction faction, usint pointsVie, usint nbMunitions,
-                usint nbProvisions);
+                usint nbProvisions, Visibilite visibilite = Visibilite::totale);
 
     virtual usint getTaille() const =0;
 

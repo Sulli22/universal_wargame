@@ -5,7 +5,8 @@
 class UniteLourde : virtual public Unite {
 public:
     UniteLourde(Faction faction, usint pointsVie, usint nbMunitions,
-                usint nbProvisions, usint pointsBouclier);
+                usint nbProvisions, usint pointsBouclier,
+                Visibilite visibilite = Visibilite::totale);
 
     usint getPointsBouclier() const;
 

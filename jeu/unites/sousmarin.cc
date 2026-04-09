@@ -3,7 +3,7 @@
 SousMarin::SousMarin(Faction faction, usint pointsVie, usint nbMunitions,
                      usint nbProvisions, usint pointsBouclier):
     Unite(faction, pointsVie, nbMunitions, nbProvisions, Visibilite::nulle),
-    UniteMarine(faction, pointsVie, nbMunitions, nbProvisions, pointsBouclier)
+    UniteMarine(faction, pointsVie, nbMunitions, nbProvisions, pointsBouclier, Visibilite::nulle)
 {}
 
 std::string SousMarin::getNom() const
