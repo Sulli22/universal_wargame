@@ -14,12 +14,12 @@ std::string Chasseur::getNom() const
 
 usint Chasseur::getPointsAttaqueLegere() const
 {
-    return 10;
+    return 12;
 }
 
 usint Chasseur::getPointsAttaqueLourde() const
 {
-    return 7;
+    return 18;
 }
 
 usint Chasseur::getCapaciteDeplacement() const

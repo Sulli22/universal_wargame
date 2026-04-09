@@ -18,7 +18,7 @@ usint Infanterie::getPointsAttaqueLegere() const
 
 usint Infanterie::getPointsAttaqueLourde() const
 {
-    return 15;
+    return 12;
 }
 
 usint Infanterie::getCapaciteDeplacement() const

@@ -28,5 +28,5 @@ usint SousMarin::getCapaciteDeplacement() const
 
 usint SousMarin::getDistanceAttaque() const
 {
-    return 20;
+    return 15;
 }

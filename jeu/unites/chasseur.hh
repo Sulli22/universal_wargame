@@ -18,6 +18,6 @@ public:
 private:
     static const usint _POINTS_VIE_INIT = 35;
     static const usint _NB_MUNITIONS_INIT = 20;
-    static const usint _NB_PROVISIONS_INIT = 22;
+    static const usint _NB_PROVISIONS_INIT = 80;
     static const usint _POINTS_BOUCLIER_INIT = 5;
 };

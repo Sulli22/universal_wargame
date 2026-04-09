@@ -13,12 +13,12 @@ std::string Fregate::getNom() const
 
 usint Fregate::getPointsAttaqueLegere() const
 {
-    return 2;
+    return 5;
 }
 
 usint Fregate::getPointsAttaqueLourde() const
 {
-    return 10;
+    return 18;
 }
 
 usint Fregate::getCapaciteDeplacement() const

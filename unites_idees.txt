@@ -1,15 +1,11 @@
-infanterie : terrestre
-artillerie : terrestre 
-anti tank : terrestre
-anti air : terrestre
-blindés : terrestres
-constructeur/ingénieurs : terrestres (peuvent construire)
-
+infanterie : terrestre leg
+artillerie : terrestre leg
+char d'assaut : terrestres lourd
+constructeur/ingénieurs : infanterie (peuvent construire)
 avions de chasses : aériens
 bombardiers : aériens
-
-bateaux : maritimes
-
+sousmarins : maritimes
+fregates
 
 distinction entre des unités avec sans "armure"/"protection"
 

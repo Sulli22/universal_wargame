@@ -17,7 +17,7 @@ public:
     usint getTaille() const override;
 
 protected:
-    static const usint _POINTS_VIE_INIT = 50;
+    static const usint _POINTS_VIE_INIT = 30;
     static const usint _NB_MUNITIONS_INIT = 16;
-    static const usint _NB_PROVISIONS_INIT = 12;
+    static const usint _NB_PROVISIONS_INIT = 30;
 };

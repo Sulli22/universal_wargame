@@ -17,8 +17,8 @@ public:
     usint getDistanceAttaque() const override;
 
 private:
-    static const usint _POINTS_VIE_INIT = 30;
+    static const usint _POINTS_VIE_INIT = 60;
     static const usint _NB_MUNITIONS_INIT = 12;
-    static const usint _NB_PROVISIONS_INIT = 20;
-    static const usint _POINTS_BOUCLIER_INIT = 5;
+    static const usint _NB_PROVISIONS_INIT = 45;
+    static const usint _POINTS_BOUCLIER_INIT = 30;
 };

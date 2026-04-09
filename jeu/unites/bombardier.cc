@@ -23,7 +23,7 @@ usint Bombardier::getPointsAttaqueLourde() const
 
 usint Bombardier::getCapaciteDeplacement() const
 {
-    return 6;
+    return 4;
 }
 
 usint Bombardier::getDistanceAttaque() const
