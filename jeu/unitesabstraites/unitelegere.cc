@@ -1,8 +1,8 @@
 #include "unitelegere.hh"
 
-UniteLegere::UniteLegere(usint pointsVie, usint nbMunitions,
+UniteLegere::UniteLegere(Faction faction, usint pointsVie, usint nbMunitions,
                          usint nbProvisions):
-    Unite(pointsVie, nbMunitions, nbProvisions)
+    Unite(faction, pointsVie, nbMunitions, nbProvisions)
 {}
 
 bool UniteLegere::estLegere() const

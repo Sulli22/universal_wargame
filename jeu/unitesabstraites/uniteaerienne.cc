@@ -1,6 +1,7 @@
 #include "uniteaerienne.hh"
 
-UniteAerienne::UniteAerienne(usint pointsVie, usint nbMunitions,
-                             usint nbProvisions, usint pointsBouclier):
-    UniteLourde(pointsVie, nbMunitions, nbProvisions, pointsBouclier)
+UniteAerienne::UniteAerienne(Faction faction, usint pointsVie,
+                             usint nbMunitions, usint nbProvisions,
+                             usint pointsBouclier):
+    UniteLourde(faction, pointsVie, nbMunitions, nbProvisions, pointsBouclier)
 {}

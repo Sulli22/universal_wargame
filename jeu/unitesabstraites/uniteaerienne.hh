@@ -4,7 +4,7 @@
 
 class UniteAerienne: public UniteLourde {
 public:
-    UniteAerienne(usint pointsVie, usint nbMunitions, usint nbProvisions,
-                  usint pointsBouclier);
+    UniteAerienne(Faction faction, usint pointsVie, usint nbMunitions,
+                  usint nbProvisions, usint pointsBouclier);
 };
 

@@ -17,10 +17,11 @@ const UniteAerienne *Case::getUniteAerienne() const
 
 void Case::setUniteAerienne(std::unique_ptr<UniteAerienne> nvUniteAerienne)
 {
-    if (!_uniteAerienne && nvUniteAerienne)
-        _uniteAerienne = std::move(nvUniteAerienne);
-    else
-        std::cerr << "L'unité n'a pas pu être ajoutée" << std::endl;
+    if (_uniteAerienne)
+        throw std::runtime_error("Erreur : La place est deja occupee.");
+    if (!nvUniteAerienne)
+        throw std::invalid_argument("Erreur : Une unite nulle ne peut pas etre ajoutee.");
+    _uniteAerienne = std::move(nvUniteAerienne);
 }
 
 void Case::deplacerUniteAerienne(Case & arrivee)
@@ -28,7 +29,12 @@ void Case::deplacerUniteAerienne(Case & arrivee)
     if (!arrivee.getUniteAerienne())
         arrivee.setUniteAerienne(std::move(_uniteAerienne));
     else
-        throw std::runtime_error("Erreur : Il y a déjà une unité aérienne");
+        throw std::runtime_error("Erreur : La place est deja occupee.");
+}
+
+Faction Case::getFaction() const
+{
+    return _uniteAerienne ? _uniteAerienne->getFaction() : Faction::neutre;
 }
 
 void Case::sortieFlux(std::ostream &os) const

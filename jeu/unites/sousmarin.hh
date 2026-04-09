@@ -4,7 +4,11 @@
 
 class SousMarin : public UniteMarine {
 public:
-    SousMarin();
+    SousMarin(Faction faction,
+              usint pointsVie = _POINTS_BOUCLIER_INIT,
+              usint nbMunitions = _NB_MUNITIONS_INIT,
+              usint nbProvisions = _NB_PROVISIONS_INIT,
+              usint pointsBouclier = _POINTS_BOUCLIER_INIT);
 
     std::string getNom() const override;
     usint getPointsAttaqueLegere() const override;

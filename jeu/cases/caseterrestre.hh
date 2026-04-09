@@ -25,6 +25,7 @@ public:
     //void deplacerUnitesTerrestres(CaseTerrestre &arrivee);
 
     usint coutDeplacement(Unite *unite) const override;
+    Faction getFaction() const override;
     void afficherDetails(std::ostream &os) const override;
 
 private:

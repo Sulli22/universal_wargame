@@ -37,27 +37,34 @@ void CaseTerrestre::setConstruction(std::unique_ptr<Construction>
             if (nvConstruction->estPont())
                 _construction = std::move(nvConstruction);
             else
-                throw "La case est une rivière";
+                throw std::runtime_error("Erreur : La case est une rivière.");
         }
         else if (!nvConstruction->estPont())
             _construction = std::move(nvConstruction);
         else
-            throw "La construction ne peut pas être un pont";
+            throw std::invalid_argument("Erreur : La construction ne peut pas etre un pont");
     }
     else
-       throw "Déjà une construction";
+       throw std::runtime_error("Erreur : La place est déja prise.");
 }
 
 bool CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
                                               nvUniteTerrestre)
 {
+    if (!nvUniteTerrestre)
+        throw  std::invalid_argument("Erreur : une unite nulle ne peut pas être ajoutée");
+
+    if (getFaction() != Faction::neutre &&
+        nvUniteTerrestre->getFaction() != getFaction())
+        throw std::invalid_argument("Erreur : La nouvelle unite n'appartient pas à la faction.");
+
     if (nvUniteTerrestre->estLegere()) {
-        auto uniteTerrestre = dynamic_cast<UniteTerrestreLegere *>
+        auto puniteTerrestre = dynamic_cast<UniteTerrestreLegere *>
             (nvUniteTerrestre.get());
 
-        if (uniteTerrestre->getTaille() >= _espaceDisponible) {
+        if (puniteTerrestre->getTaille() >= _espaceDisponible) {
             _unitesTerrestres.push_back(std::move(nvUniteTerrestre));
-            _espaceDisponible -= uniteTerrestre->getTaille();
+            _espaceDisponible -= puniteTerrestre->getTaille();
             return true;
         }
     }
@@ -101,9 +108,17 @@ usint CaseTerrestre::coutDeplacement(Unite *unite) const
             return inf;
         case typeTerrain::montagne:
             return inf;
+        default:
+            throw std::runtime_error("Erreur : Impossible de calculer le cout de deplacement");
     }
+}
 
-    return inf;
+Faction CaseTerrestre::getFaction() const
+{
+    auto faction = Case::getFaction();
+    if (faction != Faction::neutre) return faction;
+    if (!_unitesTerrestres.empty()) return _unitesTerrestres[0]->getFaction();
+    return Faction::neutre;
 }
 
 void CaseTerrestre::afficherDetails(std::ostream &os) const
@@ -112,7 +127,7 @@ void CaseTerrestre::afficherDetails(std::ostream &os) const
     os << "Type = ";
     switch (_terrain) {
         case typeTerrain::plaine: os << "Plaine"; break;
-        case typeTerrain::foret: os << "foret"; break;
+        case typeTerrain::foret: os << "Foret"; break;
         case typeTerrain::riviere: os << "Riviere"; break;
         case typeTerrain::montagne: os << "Montagne"; break;
     }

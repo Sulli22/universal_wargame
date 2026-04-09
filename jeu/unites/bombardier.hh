@@ -4,7 +4,8 @@
 
 class Bombardier : public UniteAerienne {
 public:
-    Bombardier(usint pointsVie = _POINTS_VIE_INIT,
+    Bombardier(Faction faction,
+               usint pointsVie = _POINTS_VIE_INIT,
                usint nbMunitions = _NB_MUNITIONS_INIT,
                usint nbProvisions = _NB_PROVISIONS_INIT,
                usint pointsBouclier = _POINTS_BOUCLIER_INIT);

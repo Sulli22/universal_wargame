@@ -5,6 +5,6 @@
 
 class UniteTerrestreLourde: public UniteLourde, public UniteTerrestre {
 public:
-    UniteTerrestreLourde(usint pointsVie, usint nbMunitions, usint nbProvisions,
-                         usint pointsBouclier);
+    UniteTerrestreLourde(Faction faction, usint pointsVie, usint nbMunitions,
+                         usint nbProvisions, usint pointsBouclier);
 };

@@ -14,6 +14,7 @@ public:
     void deplacerUniteBasse(CaseMarine &arrive);
 
     usint coutDeplacement(Unite *unite) const override;
+    Faction getFaction() const override;
     void afficherDetails(std::ostream &os) const override;
 
 private:

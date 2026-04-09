@@ -1,8 +1,8 @@
 #include "unitelourde.hh"
 
-UniteLourde::UniteLourde(usint pointsVie, usint nbMunitions, usint nbProvisions,
-                         usint pointsBouclier):
-    Unite(pointsVie, nbMunitions, nbProvisions),
+UniteLourde::UniteLourde(Faction faction, usint pointsVie, usint nbMunitions,
+                         usint nbProvisions, usint pointsBouclier):
+    Unite(faction, pointsVie, nbMunitions, nbProvisions),
     _pointsBouclier(pointsBouclier), _MAX_POINTS_BOUCLIER(pointsBouclier)
 {}
 

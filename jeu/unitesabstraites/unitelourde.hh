@@ -4,8 +4,8 @@
 
 class UniteLourde : virtual public Unite {
 public:
-    UniteLourde(usint pointsVie, usint nbMunitions, usint nbProvisions,
-                usint pointsBouclier);
+    UniteLourde(Faction faction, usint pointsVie, usint nbMunitions,
+                usint nbProvisions, usint pointsBouclier);
 
     usint getPointsBouclier() const;
 

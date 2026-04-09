@@ -4,7 +4,8 @@
 
 class Infanterie : public UniteTerrestreLegere {
 public:
-    Infanterie(usint pointsVie = _POINTS_VIE_INIT,
+    Infanterie(Faction faction,
+               usint pointsVie = _POINTS_VIE_INIT,
                usint nbMunitions = _NB_MUNITIONS_INIT,
                usint nbProvisions = _NB_PROVISIONS_INIT);
 

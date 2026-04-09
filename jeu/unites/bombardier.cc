@@ -1,9 +1,9 @@
 #include "bombardier.hh"
 
-Bombardier::Bombardier(usint pointsVie, usint nbMunitions, usint nbProvisions,
-                       usint pointsBouclier):
-    Unite(pointsVie, nbMunitions, nbProvisions),
-    UniteAerienne(pointsVie, nbMunitions, nbProvisions, pointsBouclier)
+Bombardier::Bombardier(Faction faction, usint pointsVie, usint nbMunitions,
+                       usint nbProvisions, usint pointsBouclier):
+    Unite(faction, pointsVie, nbMunitions, nbProvisions),
+    UniteAerienne(faction, pointsVie, nbMunitions, nbProvisions, pointsBouclier)
 {}
 
 std::string Bombardier::getNom() const

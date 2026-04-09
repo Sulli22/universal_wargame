@@ -4,7 +4,8 @@
 
 class Constructeur : public Infanterie {
 public:
-    Constructeur(usint pointsVie = _POINTS_VIE_INIT/2,
+    Constructeur(Faction faction,
+                 usint pointsVie = _POINTS_VIE_INIT/2,
                  usint nbMunitions = _NB_MUNITIONS_INIT/2,
                  usint nbProvisions = _NB_PROVISIONS_INIT*2);
 

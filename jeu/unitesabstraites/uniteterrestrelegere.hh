@@ -5,6 +5,6 @@
 
 class UniteTerrestreLegere: public UniteLegere, public UniteTerrestre {
 public:
-    UniteTerrestreLegere(usint pointsVie, usint nbMunitions,
+    UniteTerrestreLegere(Faction faction, usint pointsVie, usint nbMunitions,
                          usint nbProvisions);
 };

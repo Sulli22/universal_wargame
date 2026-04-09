@@ -4,5 +4,6 @@
 
 class UniteTerrestre : virtual public Unite {
 public:
-    UniteTerrestre(usint pointsVie, usint nbMunitions, usint nbProvisions);
+    UniteTerrestre(Faction faction, usint pointsVie, usint nbMunitions,
+                   usint nbProvisions);
 };

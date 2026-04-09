@@ -1,8 +1,9 @@
 #include "infanterie.hh"
 
-Infanterie::Infanterie(usint pointsVie, usint nbMunitions, usint nbProvisions):
-    Unite(pointsVie, nbMunitions, nbProvisions),
-    UniteTerrestreLegere(pointsVie, nbMunitions, nbProvisions)
+Infanterie::Infanterie(Faction faction, usint pointsVie, usint nbMunitions,
+                       usint nbProvisions):
+    Unite(faction, pointsVie, nbMunitions, nbProvisions),
+    UniteTerrestreLegere(faction, pointsVie, nbMunitions, nbProvisions)
 {}
 
 std::string Infanterie::getNom() const

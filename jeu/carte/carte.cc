@@ -12,7 +12,7 @@ const std::vector<Position> Carte::_DIRECTIONS = {
             {0,  1},
 };
 
-Carte::Carte(std::string nomFichier)
+Carte::Carte(const std::string &nomFichier)
 {
     auto lignes = Lecteur::lireLignes(nomFichier);
 
@@ -42,7 +42,7 @@ Carte::Carte(std::string nomFichier)
             }
         }
 
-        // Vérification de la largeur
+        // vérification de la largeur
         if (r == 0)
             largeur_attendue = q; // première ligne = référence
         else {
@@ -107,8 +107,6 @@ std::map<Case *, int> Carte::getCasesAtteignables(Case *depart, Unite *unite) co
 {
     std::queue<Case *> file;
     std::map<Case *, int> coutJusqua;
-
-    // Initialisation
     file.push(depart);
     coutJusqua[depart] = 0;
 
@@ -122,11 +120,12 @@ std::map<Case *, int> Carte::getCasesAtteignables(Case *depart, Unite *unite) co
 
             int nouveauCout = coutJusqua[courant] + coutMvt;
 
-            // Trop loin
+            // trop loin
             if (nouveauCout > unite->getCapaciteDeplacement()) continue;
 
-            // Si jamais vu OU meilleur chemin
-            if (!coutJusqua.count(caseVoisine) || nouveauCout < coutJusqua[caseVoisine]) {
+            // si jamais vu ou meilleur chemin
+            if (!coutJusqua.count(caseVoisine) ||
+                nouveauCout < coutJusqua[caseVoisine]) {
                 coutJusqua[caseVoisine] = nouveauCout;
                 file.push(caseVoisine);
             }
@@ -136,11 +135,19 @@ std::map<Case *, int> Carte::getCasesAtteignables(Case *depart, Unite *unite) co
     return coutJusqua;
 }
 
+bool Carte::caseDansZocEnnemie(Case *caseCible, Unite *uniteEnDeplacement) const
+{
+    for (const auto &voisine : getVoisines(*caseCible)) {
+        if (unite)
+    }
+    return false;
+}
+
 void Carte::soriteFlux(std::ostream &os) const
 {
     os << "[largeur=" << _largeur << ", hauteur=" << _hauteur << "]" << std::endl;
     for (std::size_t r = 0; r < _hauteur; ++r) {
-        // Ligne des colonnes impaires
+        // ligne des colonnes impaires
         for (std::size_t q = 1; q < _largeur; q += 2) {
             os << "\t";
             _contenu[r][q]->sortieFlux(os);
@@ -148,7 +155,7 @@ void Carte::soriteFlux(std::ostream &os) const
         }
         os << std::endl;
 
-        // Ligne des colonnes paires
+        // ligne des colonnes paires
         for (std::size_t q = 0; q < _largeur; q += 2) {
             _contenu[r][q]->sortieFlux(os);
             os << "\t\t";

@@ -1,12 +1,18 @@
 #include "unite.hh"
 
-Unite::Unite(usint pointsVie, usint nbMunitions, usint nbProvisions,
-             Visibilite visibilite):
+Unite::Unite(Faction faction, usint pointsVie, usint nbMunitions,
+             usint nbProvisions, Visibilite visibilite):
+    _faction(faction),
     _pointsVie(pointsVie), _nbMunitions(nbMunitions),
     _nbProvisions(nbProvisions), _visibilite(visibilite),
     _MAX_POINTS_VIE(pointsVie), _MAX_NB_MUNITIONS(nbMunitions),
     _MAX_NB_PROVISIONS(nbProvisions)
 {}
+
+Faction Unite::getFaction() const
+{
+    return _faction;
+}
 
 usint Unite::getPointsVie() const
 {
@@ -78,6 +84,7 @@ std::string Unite::getChaineVisibilite() const
 void Unite::sortieFlux(std::ostream &os) const
 {
     os << getNom()
+    << " faction=" << (_faction == Faction::bleu ? "bleu" : "rouge")
     << " pointsVie=" << _pointsVie << "/" << _MAX_POINTS_VIE
     << " nbMunitions=" << getNbMunitions() << "/" << _MAX_NB_MUNITIONS
     << " nbProvisions=" << getNbProvisions() << "/" << _MAX_NB_PROVISIONS

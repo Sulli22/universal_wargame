@@ -13,16 +13,16 @@ int main()
     carte.afficherDetails(std::cout);
 
     // test unites
-    Infanterie I;
+    Infanterie I(Faction::bleu);
     I.sortieFlux(std::cout); std::cout << std::endl;
 
-    SousMarin SM;
+    SousMarin SM(Faction::bleu);
     SM.sortieFlux(std::cout); std::cout << std::endl;
 
-    Bombardier B;
+    Bombardier B(Faction::rouge);
     B.sortieFlux(std::cout); std::cout << std::endl;
 
-    Constructeur C;
+    Constructeur C(Faction::rouge);
     C.sortieFlux(std::cout); std::cout << std::endl;
 
     return 0;

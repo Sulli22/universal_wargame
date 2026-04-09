@@ -5,12 +5,16 @@
 
 using usint = unsigned short int;
 
+enum class Faction { rouge, bleu, neutre };
+
 class Unite {
 public:
     enum class Visibilite { nulle, partielle, totale };
 
-    Unite(usint pointsVie, usint nbMunitions, usint nbProvisions,
-          Visibilite visibilite = Visibilite::totale);
+    Unite(Faction faction, usint pointsVie, usint nbMunitions,
+          usint nbProvisions, Visibilite visibilite = Visibilite::totale);
+
+    Faction getFaction() const;
 
     usint getPointsVie() const;
     usint getNbMunitions() const;
@@ -43,6 +47,8 @@ public:
     void setVisibilite(Visibilite nvVisibilite);
 
 private:
+    Faction _faction;
+
     usint _pointsVie;
     usint _nbMunitions;
     usint _nbProvisions;

@@ -1,7 +1,7 @@
 #include "uniteterrestrelegere.hh"
 
-UniteTerrestreLegere::UniteTerrestreLegere(usint pointsVie, usint nbMunitions,
-                                           usint nbProvisions):
-    UniteLegere(pointsVie, nbMunitions, nbProvisions),
-    UniteTerrestre(pointsVie, nbMunitions, nbProvisions)
+UniteTerrestreLegere::UniteTerrestreLegere(Faction faction, usint pointsVie,
+                                           usint nbMunitions, usint nbProvisions):
+    UniteLegere(faction, pointsVie, nbMunitions, nbProvisions),
+    UniteTerrestre(faction, pointsVie, nbMunitions, nbProvisions)
 {}

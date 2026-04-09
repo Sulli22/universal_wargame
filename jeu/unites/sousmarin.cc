@@ -1,10 +1,9 @@
 #include "sousmarin.hh"
 
-SousMarin::SousMarin():
-    Unite(_POINTS_VIE_INIT, _NB_MUNITIONS_INIT, _NB_PROVISIONS_INIT,
-            Visibilite::nulle),
-    UniteMarine(_POINTS_VIE_INIT, _NB_MUNITIONS_INIT, _NB_PROVISIONS_INIT,
-                  _POINTS_BOUCLIER_INIT)
+SousMarin::SousMarin(Faction faction, usint pointsVie, usint nbMunitions,
+                     usint nbProvisions, usint pointsBouclier):
+    Unite(faction, pointsVie, nbMunitions, nbProvisions, Visibilite::nulle),
+    UniteMarine(faction, pointsVie, nbMunitions, nbProvisions, pointsBouclier)
 {}
 
 std::string SousMarin::getNom() const

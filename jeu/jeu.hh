@@ -1,12 +1,11 @@
 #pragma once
 #include "carte.hh"
 
-class Jeu
-{
+class Jeu {
 public:
-    Jeu();
+    Jeu(const std::string &nomGuerre);
 
 private:
-    //Carte _plateau;
+    Carte _plateau;
 };
 

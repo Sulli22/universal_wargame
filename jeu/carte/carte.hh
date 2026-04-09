@@ -7,7 +7,7 @@
 
 class Carte {
 public:
-    Carte(std::string nomFichier);
+    Carte(const std::string &nomFichier);
 
     std::size_t getLargeur() const;
     std::size_t getHauteur() const;
@@ -17,6 +17,7 @@ public:
     bool positionValide(const Position &pos) const;
     std::vector<Case *> getVoisines(const Case &c) const;
     std::map<Case *, int> getCasesAtteignables(Case *depart, Unite *unite) const;
+    bool caseDansZocEnnemie(Case *caseCible, Unite *uniteEnDeplacement) const;
 
     void soriteFlux(std::ostream &os) const;
 
