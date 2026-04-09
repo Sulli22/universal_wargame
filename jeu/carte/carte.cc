@@ -16,13 +16,15 @@ Carte::Carte(unsigned int idGuerre)
 {
     auto prefixe = "data/guerre" + std::to_string(idGuerre) + "/";
     auto nomFichierCases = prefixe + "cases.txt";
-    auto nomfichierUnites = prefixe + "unites.txt";
-    auto lignes = Lecteur::lireLignes(nomFichierCases);
+    auto nomFichierUnites = prefixe + "unites.txt";
+
+    // Cases
+    auto lignesCases = Lecteur::lireLignes(nomFichierCases);
 
     std::size_t r = 0;
     std::size_t largeur_attendue = 0;
 
-    for (const auto& ligne : lignes) {
+    for (const auto& ligne : lignesCases) {
         std::stringstream ss(ligne);
         std::string token;
         std::vector<std::unique_ptr<Case>> cases;
@@ -57,6 +59,11 @@ Carte::Carte(unsigned int idGuerre)
 
     _largeur = largeur_attendue;
     _hauteur = r;
+
+    // Unites
+    auto lignesUnites = Lecteur::lireLignes(nomFichierUnites);
+
+    // TODO
 }
 
 std::size_t Carte::getLargeur() const
