@@ -1,6 +1,7 @@
 #include "carte.hh"
 #include "lecteur.hh"
 #include "createurcases.hh"
+#include "createurunites.hh"
 #include <sstream>
 #include <queue>
 #include <limits>
@@ -63,7 +64,21 @@ Carte::Carte(unsigned int idGuerre)
     // Unites
     auto lignesUnites = Lecteur::lireLignes(nomFichierUnites);
 
-    // TODO
+    for (const auto& ligne : lignesUnites) {
+        std::stringstream ss(ligne);
+        int q;
+        int r;
+        char type;
+        char faction;
+
+        while (ss >> q && ss >> r && ss >> type && ss >> faction) {
+            Case *c = accesCase({q, r});
+            if (type == 'C' || type == 'B')
+                c->setUniteAerienne(CreateurUnites::creerAerienne(type, faction));
+            else if (type == 'F'|| type == 'S')
+                continue; //TODO X
+        }
+    }
 }
 
 std::size_t Carte::getLargeur() const

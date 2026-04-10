@@ -48,6 +48,7 @@ add_executable(${PROJECT_NAME}
     carte/carte.cc
     carte/lecteur.cc
     carte/createurcases.cc
+    carte/createurunites.cc
 
     jeu.cc
 )
@@ -84,7 +85,8 @@ target_sources(${PROJECT_NAME} PRIVATE
 
     carte/carte.hh
     carte/lecteur.hh
-    carte/createurcases.hh 
+    carte/createurcases.hh
+    carte/createurunites.hh
 
     jeu.hh
 )
