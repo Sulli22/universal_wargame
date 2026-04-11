@@ -7,5 +7,5 @@ Genie::Genie(Faction faction, usint pointsVie, usint nbMuntions, usint nbProvisi
 
 std::string Genie::getNom() const
 {
-    return Infanterie::getNom() + " - Constructeur";
+    return Infanterie::getNom() + " - Genie";
 }

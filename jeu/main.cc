@@ -1,12 +1,4 @@
-#include "artillerie.hh"
 #include "carte.hh"
-#include "charassaut.hh"
-#include "fregate.hh"
-#include "infanterie.hh"
-#include "sousmarin.hh"
-#include "bombardier.hh"
-#include "genie.hh"
-#include "chasseur.hh"
 #include <iostream>
 
 int main()
@@ -14,32 +6,7 @@ int main()
     // test carte et voisins
     Carte carte(0);
     carte.soriteFlux(std::cout);
-    //carte.afficherDetails(std::cout);
-
-    // test unites
-    Infanterie I(Faction::bleu);
-    I.sortieFlux(std::cout); std::cout << std::endl;
-
-    SousMarin S(Faction::bleu);
-    S.sortieFlux(std::cout); std::cout << std::endl;
-
-    Bombardier B(Faction::rouge);
-    B.sortieFlux(std::cout); std::cout << std::endl;
-
-    Genie G(Faction::rouge);
-    G.sortieFlux(std::cout); std::cout << std::endl;
-
-    Chasseur C(Faction::rouge);
-    C.sortieFlux(std::cout); std::cout << std::endl;
-
-    Fregate F(Faction::bleu);
-    F.sortieFlux(std::cout); std::cout << std::endl;
-
-    CharAssaut T(Faction::bleu);
-    T.sortieFlux(std::cout); std::cout << std::endl;
-
-    Artillerie A(Faction::rouge);
-    A.sortieFlux(std::cout); std::cout << std::endl;
+    carte.afficherDetails(std::cout);
 
     return 0;
 }

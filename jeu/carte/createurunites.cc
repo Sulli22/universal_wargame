@@ -26,7 +26,8 @@ std::unique_ptr<UniteMarine> CreateurUnites::creerMarine(char type,
 {
     auto faction = charToFaction(factionChar);
     if (type == 'F') return std::make_unique<Fregate>(faction);
-    return std::make_unique<SousMarin>(faction);
+    if (type == 'S') return std::make_unique<SousMarin>(faction);
+    throw std::runtime_error("Erreur : Impossible de creer cette unite.");
 }
 
 std::unique_ptr<UniteTerrestre> CreateurUnites::creerTerrestre(char type,
@@ -36,5 +37,6 @@ std::unique_ptr<UniteTerrestre> CreateurUnites::creerTerrestre(char type,
     if (type == 'I') return std::make_unique<Infanterie>(faction);
     if (type == 'A') return std::make_unique<Artillerie>(faction);
     if (type == 'T') return std::make_unique<CharAssaut>(faction);
-    return std::make_unique<Genie>(faction);
+    if (type == 'G') return std::make_unique<Genie>(faction);
+    throw std::runtime_error("Erreur : Impossible de creer cette unite.");
 }

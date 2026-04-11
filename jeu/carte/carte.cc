@@ -1,4 +1,6 @@
 #include "carte.hh"
+#include "casemarine.hh"
+#include "caseterrestre.hh"
 #include "lecteur.hh"
 #include "createurcases.hh"
 #include "createurunites.hh"
@@ -73,10 +75,21 @@ Carte::Carte(unsigned int idGuerre)
 
         while (ss >> q && ss >> r && ss >> type && ss >> faction) {
             Case *c = accesCase({q, r});
+            if (!c)
+                throw std::runtime_error("Erreur : Case invalide "
+                                         + std::to_string(q) + ","
+                                         + std::to_string(r));
+
             if (type == 'C' || type == 'B')
                 c->setUniteAerienne(CreateurUnites::creerAerienne(type, faction));
-            else if (type == 'F'|| type == 'S')
-                continue; //TODO X
+            else {
+                if (CaseMarine *cm = dynamic_cast<CaseMarine *>(c))
+                    cm->setUniteBasse(CreateurUnites::creerMarine(type, faction));
+                else if (CaseTerrestre *ct = dynamic_cast<CaseTerrestre *>(c))
+                    ct->ajouterUniteTerrestre(CreateurUnites::creerTerrestre(type, faction));
+                else
+                    throw std::runtime_error("Erreur : type de case inconnu");
+            }
         }
     }
 }
@@ -201,7 +214,7 @@ void Carte::afficherDetails(std::ostream &os)
         for (std::size_t r = 0; r < _hauteur; ++r) {
             auto c = accesCase({(int)q, (int)r});
 
-            c->afficherDetails(os); os << std::endl;
+            c->afficherDetails(os);
 
             auto voisines = getVoisines(*c);
             os << "Voisines : ";

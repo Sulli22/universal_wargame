@@ -13,6 +13,7 @@ public:
 
     Unite(Faction faction, usint pointsVie, usint nbMunitions,
           usint nbProvisions, Visibilite visibilite = Visibilite::totale);
+    virtual ~Unite() =default;
 
     Faction getFaction() const;
 

@@ -46,8 +46,8 @@ void Case::afficherDetails(std::ostream &os) const
 {
     os << "-> Case : "; sortieFlux(os);
     if (_uniteAerienne) {
-        os << "Unite aerienne = [";
+        os << std::endl << "Unite aerienne = [";
         _uniteAerienne->sortieFlux(os);
-        os << "]" << std::endl;
+        os << "]";
     }
 }

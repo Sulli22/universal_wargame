@@ -20,7 +20,7 @@ public:
     typeTerrain getTerrain() const;
 
     void setConstruction(std::unique_ptr<Construction> nvConstruction);
-    bool ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre> nvUniteTerrestre);
+    void ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre> nvUniteTerrestre);
 
     //void deplacerUnitesTerrestres(CaseTerrestre &arrivee);
 

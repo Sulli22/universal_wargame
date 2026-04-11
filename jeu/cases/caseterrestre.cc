@@ -48,7 +48,7 @@ void CaseTerrestre::setConstruction(std::unique_ptr<Construction>
        throw std::runtime_error("Erreur : La place est déja prise.");
 }
 
-bool CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
+void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
                                               nvUniteTerrestre)
 {
     if (!nvUniteTerrestre)
@@ -62,19 +62,20 @@ bool CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
         auto uniteTerrestre = dynamic_cast<UniteTerrestreLegere *>
             (nvUniteTerrestre.get());
 
-        if (uniteTerrestre->getTaille() >= _espaceDisponible) {
-            nvUniteTerrestre->setVisibilite(Unite::Visibilite::partielle);
+        if (uniteTerrestre->getTaille() <= _espaceDisponible) {
+            //nvUniteTerrestre->setVisibilite(Unite::Visibilite::partielle);
             _unitesTerrestres.push_back(std::move(nvUniteTerrestre));
             _espaceDisponible -= uniteTerrestre->getTaille();
-            return true;
         }
+        else
+            throw std::runtime_error("Erreur : Ajout impossible, place est insufisante");
     }
     else if (_espaceDisponible == _MAX_TAILLE) {
         _unitesTerrestres.push_back(std::move(nvUniteTerrestre));
         _espaceDisponible = 0;
-        return true;
     }
-    return false;
+    else
+        throw std::runtime_error("Erreur : Ajout impossible, place est insufisante (toute la place est necessaire pour une unite lourde)");
 }
 /*
 void CaseTerrestre::deplacerUnitesTerrestres(CaseTerrestre &arrivee)
