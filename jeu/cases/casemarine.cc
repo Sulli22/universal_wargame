@@ -30,6 +30,14 @@ void CaseMarine::deplacerUniteBasse(CaseMarine &arrive)
         throw std::runtime_error("Erreur : La place est deja occupee.");
 }
 
+std::vector<Unite *> CaseMarine::getUnites() const
+{
+    auto unites = Case::getUnites();
+    if (_uniteBasse)
+        unites.push_back(_uniteBasse.get());
+    return unites;
+}
+
 usint CaseMarine::coutDeplacement(Unite *unite) const
 {
     auto uniteMarine = dynamic_cast<UniteMarine *>(unite);

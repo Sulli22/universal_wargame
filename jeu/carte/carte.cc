@@ -173,7 +173,6 @@ std::map<Case *, int> Carte::getCasesAtteignables(Case *depart, Unite *unite) co
             }
         }
     }
-
     return coutJusqua;
 }
 
@@ -217,7 +216,7 @@ void Carte::afficherDetails(std::ostream &os)
             c->afficherDetails(os);
 
             auto voisines = getVoisines(*c);
-            os << "Voisines : ";
+            os << "Voisines = ";
             for (const auto &v : voisines) {
                 v->sortieFlux(os);
                 os << " ";

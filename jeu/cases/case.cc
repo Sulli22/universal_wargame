@@ -32,6 +32,14 @@ void Case::deplacerUniteAerienne(Case & arrivee)
         throw std::runtime_error("Erreur : La place est deja occupee.");
 }
 
+std::vector<Unite *> Case::getUnites() const
+{
+    std::vector<Unite *> unites;
+    if (_uniteAerienne)
+        unites.push_back(_uniteAerienne.get());
+    return unites;
+}
+
 Faction Case::getFaction() const
 {
     return _uniteAerienne ? _uniteAerienne->getFaction() : Faction::neutre;
@@ -44,7 +52,8 @@ void Case::sortieFlux(std::ostream &os) const
 
 void Case::afficherDetails(std::ostream &os) const
 {
-    os << "-> Case : "; sortieFlux(os);
+    os << "-> Case : "; sortieFlux(os); os << std::endl;
+    os << "Nb unites = " << getUnites().size();
     if (_uniteAerienne) {
         os << std::endl << "Unite aerienne = [";
         _uniteAerienne->sortieFlux(os);

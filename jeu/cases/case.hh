@@ -2,6 +2,7 @@
 
 #include "position.hh"
 #include "uniteaerienne.hh"
+#include <vector>
 
 class Case {
 public:
@@ -12,6 +13,8 @@ public:
     void setUniteAerienne(std::unique_ptr<UniteAerienne> nvUniteAerienne);
 
     void deplacerUniteAerienne(Case &arrive);
+
+    virtual std::vector<Unite *> getUnites() const;
 
     virtual usint coutDeplacement(Unite *unite) const =0;
     virtual Faction getFaction() const;

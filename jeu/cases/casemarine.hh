@@ -13,6 +13,8 @@ public:
 
     void deplacerUniteBasse(CaseMarine &arrive);
 
+    std::vector<Unite *> getUnites() const override;
+
     usint coutDeplacement(Unite *unite) const override;
     Faction getFaction() const override;
     void afficherDetails(std::ostream &os) const override;

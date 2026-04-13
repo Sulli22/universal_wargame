@@ -63,7 +63,8 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
             (nvUniteTerrestre.get());
 
         if (uniteTerrestre->getTaille() <= _espaceDisponible) {
-            //nvUniteTerrestre->setVisibilite(Unite::Visibilite::partielle);
+            if (_terrain == typeTerrain::foret)
+                nvUniteTerrestre->setVisibilite(Unite::Visibilite::partielle);
             _unitesTerrestres.push_back(std::move(nvUniteTerrestre));
             _espaceDisponible -= uniteTerrestre->getTaille();
         }
@@ -76,6 +77,14 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
     }
     else
         throw std::runtime_error("Erreur : Ajout impossible, place est insufisante (toute la place est necessaire pour une unite lourde)");
+}
+
+std::vector<Unite *> CaseTerrestre::getUnites() const
+{
+    auto unites = Case::getUnites();
+    for (auto &u : _unitesTerrestres)
+        unites.push_back(u.get());
+    return unites;
 }
 /*
 void CaseTerrestre::deplacerUnitesTerrestres(CaseTerrestre &arrivee)
@@ -134,6 +143,8 @@ void CaseTerrestre::afficherDetails(std::ostream &os) const
         case typeTerrain::montagne: os << "Montagne"; break;
     }
     os << std::endl;
+
+    os << "Espace dispo = " << _espaceDisponible << std::endl;
 
     for (const auto &unite : _unitesTerrestres) {
         os << "Unite = [";
