@@ -11,10 +11,10 @@ public:
 
     void setUniteBasse(std::unique_ptr<UniteMarine> nvUniteBasse);
 
-    void deplacerUniteBasse(CaseMarine &arrive);
+    void deplacerUniteBasse(CaseMarine *arrivee);
 
     std::vector<Unite *> getUnites() const override;
-
+    void deplacerUnite(std::size_t indUnite, Case *arrivee) override;
     usint coutDeplacement(Unite *unite) const override;
     Faction getFaction() const override;
     void afficherDetails(std::ostream &os) const override;

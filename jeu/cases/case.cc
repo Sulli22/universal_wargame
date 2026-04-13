@@ -19,17 +19,26 @@ void Case::setUniteAerienne(std::unique_ptr<UniteAerienne> nvUniteAerienne)
 {
     if (_uniteAerienne)
         throw std::runtime_error("Erreur : La place est deja occupee.");
+
     if (!nvUniteAerienne)
         throw std::invalid_argument("Erreur : Une unite nulle ne peut pas etre ajoutee.");
+
     _uniteAerienne = std::move(nvUniteAerienne);
 }
 
-void Case::deplacerUniteAerienne(Case & arrivee)
+void Case::deplacerUniteAerienne(Case *arrive)
 {
-    if (!arrivee.getUniteAerienne())
-        arrivee.setUniteAerienne(std::move(_uniteAerienne));
-    else
-        throw std::runtime_error("Erreur : La place est deja occupee.");
+    try {
+        arrive->setUniteAerienne(std::move(_uniteAerienne));
+    }
+    catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+    }
+}
+
+Unite *Case::getUnite(std::size_t indUnite)
+{
+    return getUnites().at(indUnite);
 }
 
 std::vector<Unite *> Case::getUnites() const

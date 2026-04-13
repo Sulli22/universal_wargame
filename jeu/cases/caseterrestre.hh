@@ -13,19 +13,17 @@ public:
                   typeTerrain terrain = typeTerrain::plaine,
                   usint espaceDisponible = _MAX_TAILLE);
 
-    const std::vector<std::unique_ptr<UniteTerrestre>>
-        &getUnitesTerrestres() const;
+    const std::vector<std::unique_ptr<UniteTerrestre>>&getUnitesTerrestres() const;
     usint getEspaceDisponible() const;
-    const Construction &getConstruction() const;
     typeTerrain getTerrain() const;
+    const Construction &getConstruction() const;
 
     void setConstruction(std::unique_ptr<Construction> nvConstruction);
+
     void ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre> nvUniteTerrestre);
-
-    //void deplacerUnitesTerrestres(CaseTerrestre &arrivee);
-
+    void deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee);
     std::vector<Unite *> getUnites() const override;
-
+    void deplacerUnite(std::size_t indUnite, Case *arrivee) override;
     usint coutDeplacement(Unite *unite) const override;
     Faction getFaction() const override;
     void afficherDetails(std::ostream &os) const override;
