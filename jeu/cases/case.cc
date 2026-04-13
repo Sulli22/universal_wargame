@@ -28,12 +28,7 @@ void Case::setUniteAerienne(std::unique_ptr<UniteAerienne> nvUniteAerienne)
 
 void Case::deplacerUniteAerienne(Case *arrive)
 {
-    try {
-        arrive->setUniteAerienne(std::move(_uniteAerienne));
-    }
-    catch (const std::exception &e) {
-        std::cerr << e.what() << std::endl;
-    }
+    arrive->setUniteAerienne(std::move(_uniteAerienne));
 }
 
 Unite *Case::getUnite(std::size_t indUnite)

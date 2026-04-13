@@ -27,12 +27,7 @@ void CaseMarine::setUniteBasse(std::unique_ptr<UniteMarine> nvUniteBasse)
 
 void CaseMarine::deplacerUniteBasse(CaseMarine *arrivee)
 {
-    try {
-        arrivee->setUniteBasse(std::move(_uniteBasse));
-    }
-    catch (const std::exception &e) {
-        std::cerr << e.what() << std::endl;
-    }
+    arrivee->setUniteBasse(std::move(_uniteBasse));
 }
 
 std::vector<Unite *> CaseMarine::getUnites() const
@@ -45,14 +40,27 @@ std::vector<Unite *> CaseMarine::getUnites() const
 
 void CaseMarine::deplacerUnite(std::size_t indUnite, Case *arrivee)
 {
-    if (indUnite == 0)
-        Case::deplacerUniteAerienne(arrivee);
-    else if (indUnite == 1) {
+    if (indUnite >= 2)
+        throw std::invalid_argument("Erreur : Indice incorrecte");
+
+    if (getUniteAerienne()) {
+        if (indUnite == 0)
+            Case::deplacerUniteAerienne(arrivee);
+        else {
+            auto cm = dynamic_cast<CaseMarine *>(arrivee);
+            if (!cm)
+                throw std::invalid_argument("Erreur : Deplacement impossible vers une case terrestre");
+            deplacerUniteBasse(cm);
+        }
+    }
+    else if (indUnite == 1)
+        throw std::invalid_argument("Erreur : Indice incorrecte");
+    else {
         auto cm = dynamic_cast<CaseMarine *>(arrivee);
+        if (!cm)
+            throw std::invalid_argument("Erreur : Deplacement impossible vers une case terrestre");
         deplacerUniteBasse(cm);
     }
-    else
-        throw std::invalid_argument("Erreur : Indice incorrecte");
 }
 
 usint CaseMarine::coutDeplacement(Unite *unite) const

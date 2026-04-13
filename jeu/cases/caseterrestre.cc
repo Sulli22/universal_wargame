@@ -59,14 +59,16 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
         throw std::invalid_argument("Erreur : La nouvelle unite n'appartient pas à la faction.");
 
     if (nvUniteTerrestre->estLegere()) {
-        auto uniteTerrestre = dynamic_cast<UniteTerrestreLegere *>
+        auto uniteTerrestreLeg = dynamic_cast<UniteTerrestreLegere *>
             (nvUniteTerrestre.get());
 
-        if (uniteTerrestre->getTaille() <= _espaceDisponible) {
+        if (uniteTerrestreLeg->getTaille() <= _espaceDisponible) {
             if (_terrain == typeTerrain::foret)
                 nvUniteTerrestre->setVisibilite(Unite::Visibilite::partielle);
+            else
+                nvUniteTerrestre->setVisibilite(Unite::Visibilite::totale);
             _unitesTerrestres.push_back(std::move(nvUniteTerrestre));
-            _espaceDisponible -= uniteTerrestre->getTaille();
+            _espaceDisponible -= uniteTerrestreLeg->getTaille();
         }
         else
             throw std::runtime_error("Erreur : Ajout impossible, place est insufisante");
@@ -81,7 +83,15 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
 
 void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee)
 {
+    if (_unitesTerrestres.at(indUnite)->estLegere()) {
+        auto uniteTerrestreLeg = dynamic_cast<UniteTerrestreLegere *>
+            (_unitesTerrestres.at(indUnite).get());
+        _espaceDisponible += uniteTerrestreLeg->getTaille();
+    }
+    else
+        _espaceDisponible = _MAX_TAILLE;
     arrivee->ajouterUniteTerrestre(std::move(_unitesTerrestres.at(indUnite)));
+    _unitesTerrestres.erase(_unitesTerrestres.begin() + indUnite);
 }
 
 std::vector<Unite *> CaseTerrestre::getUnites() const
