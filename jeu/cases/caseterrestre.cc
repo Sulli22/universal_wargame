@@ -135,6 +135,7 @@ Faction CaseTerrestre::getFaction() const
 void CaseTerrestre::afficherDetails(std::ostream &os) const
 {
     Case::afficherDetails(os); os << std::endl;
+
     os << "Type = ";
     switch (_terrain) {
         case typeTerrain::plaine: os << "Plaine"; break;
@@ -145,10 +146,4 @@ void CaseTerrestre::afficherDetails(std::ostream &os) const
     os << std::endl;
 
     os << "Espace dispo = " << _espaceDisponible << std::endl;
-
-    for (const auto &unite : _unitesTerrestres) {
-        os << "Unite = [";
-        unite ->sortieFlux(os);
-        os << "]" << std::endl;
-    }
 }

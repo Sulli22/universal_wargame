@@ -61,9 +61,4 @@ void CaseMarine::afficherDetails(std::ostream &os) const
 {
     Case::afficherDetails(os); os << std::endl;
     os << "Type = Eau" << std::endl;
-    if (_uniteBasse) {
-        os << "Unite Basse = [";
-        _uniteBasse->sortieFlux(os);
-        os << "]" << std::endl;
-    }
 }

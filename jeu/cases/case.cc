@@ -52,11 +52,12 @@ void Case::sortieFlux(std::ostream &os) const
 
 void Case::afficherDetails(std::ostream &os) const
 {
-    os << "-> Case : "; sortieFlux(os); os << std::endl;
-    os << "Nb unites = " << getUnites().size();
-    if (_uniteAerienne) {
-        os << std::endl << "Unite aerienne = [";
-        _uniteAerienne->sortieFlux(os);
+    os << "-> Case : "; sortieFlux(os);
+
+    auto unites = getUnites();
+    for (std::size_t i = 0; i < unites.size(); ++i) {
+        os << std::endl << "Unite " << i << " = [";
+        unites[i]->sortieFlux(os);
         os << "]";
     }
 }
