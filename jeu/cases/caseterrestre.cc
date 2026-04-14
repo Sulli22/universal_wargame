@@ -1,6 +1,7 @@
 #include "caseterrestre.hh"
 #include "unitemarine.hh"
 #include "uniteterrestrelegere.hh"
+#include "uniteterrestrelourde.hh"
 #include <limits>
 
 CaseTerrestre::CaseTerrestre(const Position &pos, typeTerrain terrain,
@@ -46,6 +47,23 @@ void CaseTerrestre::setConstruction(std::unique_ptr<Construction>
     }
     else
        throw std::runtime_error("Erreur : La place est déja prise.");
+}
+
+bool CaseTerrestre::peutAccueillir(Unite *unite) const
+{
+    auto ua = dynamic_cast<UniteAerienne *>(unite);
+    if (ua && !getUniteAerienne())
+        return true;
+
+    auto utLeg = dynamic_cast<UniteTerrestreLegere *>(unite);
+    if (utLeg && (_espaceDisponible >= utLeg->getTaille()))
+        return true;
+
+    auto utLourde = dynamic_cast<UniteTerrestreLourde *>(unite);
+    if (utLourde && (_espaceDisponible == _MAX_TAILLE))
+        return true;
+
+    return false;
 }
 
 void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
@@ -114,14 +132,17 @@ void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee)
 
 usint CaseTerrestre::coutDeplacement(Unite *unite) const
 {
+    auto max = std::numeric_limits<usint>::max();
+    if (!peutAccueillir(unite))
+        return max;
+
     auto pUniteAerienne = dynamic_cast<UniteAerienne *>(unite);
     if (pUniteAerienne)
         return 1;
 
     auto pUniteMarine = dynamic_cast<UniteMarine *>(unite);
-    auto inf = std::numeric_limits<usint>::infinity();
     if (pUniteMarine)
-        return inf;
+        return max;
 
     switch (_terrain) {
         case typeTerrain::plaine:
@@ -129,9 +150,9 @@ usint CaseTerrestre::coutDeplacement(Unite *unite) const
         case typeTerrain::foret:
             return unite->estLegere() ? 1 : 2;
         case typeTerrain::riviere:
-            return inf;
+            return max;
         case typeTerrain::montagne:
-            return inf;
+            return max;
         default:
             throw std::runtime_error("Erreur : Impossible de calculer le cout de deplacement");
     }

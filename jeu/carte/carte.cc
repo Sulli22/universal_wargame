@@ -151,10 +151,10 @@ std::map<Case *, int> Carte::getCasesAtteignables(Case *depart, Unite *unite) co
         file.pop();
 
         for (Case* caseVoisine : getVoisines(*courant)) {
-            int coutMvt = caseVoisine->coutDeplacement(unite);
-            if (coutMvt == std::numeric_limits<int>::max()) continue;
+            usint coutMvt = caseVoisine->coutDeplacement(unite);
+            if (coutMvt == std::numeric_limits<usint>::max()) continue;
 
-            int nouveauCout = coutJusqua[courant] + coutMvt;
+            usint nouveauCout = coutJusqua[courant] + coutMvt;
 
             // trop loin
             if (nouveauCout > unite->getCapaciteDeplacement()) continue;
@@ -222,6 +222,17 @@ void Carte::afficherDetails(std::ostream &os)
                 os << " ";
             }
             os << std::endl;
+
+            auto unites = c->getUnites();
+            for (const auto &u : unites) {
+                os << "Atteignable par " << u->getNom() << " = ";
+                auto casesAtt = getCasesAtteignables(c, u);
+                for (const auto &ca : casesAtt) {
+                    ca.first->sortieFlux(os);
+                    os <<  "(" << ca.second << ") ";
+                }
+                os << std::endl;
+            }
         }
     }
 }

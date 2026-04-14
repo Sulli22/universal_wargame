@@ -25,6 +25,19 @@ void CaseMarine::setUniteBasse(std::unique_ptr<UniteMarine> nvUniteBasse)
     _uniteBasse = std::move(nvUniteBasse);
 }
 
+bool CaseMarine::peutAccueillir(Unite *unite) const
+{
+    auto ua = dynamic_cast<UniteAerienne *>(unite);
+    if (ua && !getUniteAerienne())
+        return true;
+
+    auto um = dynamic_cast<UniteMarine *>(unite);
+    if (um && !_uniteBasse)
+        return true;
+
+    return false;
+}
+
 void CaseMarine::deplacerUniteBasse(CaseMarine *arrivee)
 {
     arrivee->setUniteBasse(std::move(_uniteBasse));
@@ -46,6 +59,7 @@ void CaseMarine::deplacerUnite(std::size_t indUnite, Case *arrivee)
     if (getUniteAerienne()) {
         if (indUnite == 0)
             Case::deplacerUniteAerienne(arrivee);
+
         else {
             auto cm = dynamic_cast<CaseMarine *>(arrivee);
             if (!cm)
@@ -53,8 +67,10 @@ void CaseMarine::deplacerUnite(std::size_t indUnite, Case *arrivee)
             deplacerUniteBasse(cm);
         }
     }
+
     else if (indUnite == 1)
         throw std::invalid_argument("Erreur : Indice incorrecte");
+
     else {
         auto cm = dynamic_cast<CaseMarine *>(arrivee);
         if (!cm)
@@ -65,13 +81,9 @@ void CaseMarine::deplacerUnite(std::size_t indUnite, Case *arrivee)
 
 usint CaseMarine::coutDeplacement(Unite *unite) const
 {
-    auto uniteMarine = dynamic_cast<UniteMarine *>(unite);
-    auto uniteAerienne = dynamic_cast<UniteAerienne *>(unite);
-
-    // seules les unites marines et aeriennes peuvent passer
-    if (uniteMarine || uniteAerienne)
+    if (peutAccueillir(unite))
         return 1;
-    return std::numeric_limits<usint>::infinity();
+    return std::numeric_limits<usint>::max();
 }
 
 Faction CaseMarine::getFaction() const

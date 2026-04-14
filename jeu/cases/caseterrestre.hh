@@ -20,6 +20,7 @@ public:
 
     void setConstruction(std::unique_ptr<Construction> nvConstruction);
 
+    bool peutAccueillir(Unite *unite) const override;
     void ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre> nvUniteTerrestre);
     void deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee);
     std::vector<Unite *> getUnites() const override;

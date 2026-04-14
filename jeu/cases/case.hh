@@ -13,6 +13,7 @@ public:
 
     void setUniteAerienne(std::unique_ptr<UniteAerienne> nvUniteAerienne);
 
+    virtual bool peutAccueillir(Unite *unite) const =0;
     void deplacerUniteAerienne(Case *arrive);
     virtual Unite *getUnite(std::size_t indUnite);
     virtual void deplacerUnite(std::size_t indUnite, Case *arrivee) =0;
