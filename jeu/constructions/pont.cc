@@ -11,5 +11,6 @@ bool Pont::estPont() const
 
 void Pont::effectuerAction(Unite *unite) const
 {
+    (void)unite;
     // ne fait rien
 }
