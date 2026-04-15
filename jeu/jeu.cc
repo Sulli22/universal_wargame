@@ -11,7 +11,7 @@ Jeu::Jeu(unsigned int idGuerre, Faction faction1, Faction faction2):
         throw std::invalid_argument("Erreur : les factions doivent etre adverses");
 }
 
-bool Jeu::factionAPerdue(Faction faction) const
+bool Jeu::factionEstPerdante(Faction faction) const
 {
     if (faction == _faction1)
         return _plateau.nbUnites(_faction1) < _seuilDefaiteFaction1;
@@ -24,15 +24,15 @@ bool Jeu::factionAPerdue(Faction faction) const
 
 bool Jeu::partieFinie() const
 {
-    return factionAPerdue(_faction1) || factionAPerdue(_faction2);
+    return factionEstPerdante(_faction1) || factionEstPerdante(_faction2);
 }
 
-Faction Jeu::factionGagante() const
+Faction Jeu::factionVictorieuse() const
 {
     if (!partieFinie())
         throw std::runtime_error("La partie n'est pas finie");
 
-    return factionAPerdue(_faction2) ? _faction1 : _faction2;
+    return factionEstPerdante(_faction2) ? _faction1 : _faction2;
 }
 
 void Jeu::jouerTour()

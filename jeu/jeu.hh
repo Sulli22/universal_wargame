@@ -8,9 +8,9 @@ public:
         Faction faction1 = Faction::bleu,
         Faction faction2 = Faction::rouge);
 
-    bool factionAPerdue(Faction faction) const;
+    bool factionEstPerdante(Faction faction) const;
     bool partieFinie() const;
-    Faction factionGagante() const;
+    Faction factionVictorieuse() const;
 
     void jouerTour();
     void jouerPartie();
