@@ -1,10 +1,38 @@
 #include "jeu.hh"
 
 Jeu::Jeu(unsigned int idGuerre, Faction faction1, Faction faction2):
-    _plateau(idGuerre), _faction1(faction1), _faction2(faction2)
+    _plateau(idGuerre), _faction1(faction1), _faction2(faction2),
+
+    // seuil de defaite = 5% du nb initial
+    _seuilDefaiteFaction1(_plateau.nbUnites(_faction1) * 0.05),
+    _seuilDefaiteFaction2(_plateau.nbUnites(_faction2) * 0.05)
 {
     if (_faction1 == _faction2)
         throw std::invalid_argument("Erreur : les factions doivent etre adverses");
+}
+
+bool Jeu::factionAPerdue(Faction faction) const
+{
+    if (faction == _faction1)
+        return _plateau.nbUnites(_faction1) < _seuilDefaiteFaction1;
+
+    if(faction == _faction2)
+        return _plateau.nbUnites(_faction2) < _seuilDefaiteFaction2;
+
+    throw std::invalid_argument("Erreur : la faction est incorrecte");
+}
+
+bool Jeu::partieFinie() const
+{
+    return factionAPerdue(_faction1) || factionAPerdue(_faction2);
+}
+
+Faction Jeu::factionGagante() const
+{
+    if (!partieFinie())
+        throw std::runtime_error("La partie n'est pas finie");
+
+    return factionAPerdue(_faction2) ? _faction1 : _faction2;
 }
 
 void Jeu::jouerTour()
