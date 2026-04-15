@@ -18,6 +18,7 @@ public:
     usint coutDeplacement(Unite *unite) const override;
     Faction getFaction() const override;
     void afficherDetails(std::ostream &os) const override;
+    usint nbUnites() const override;
 
 private:
     std::unique_ptr<UniteMarine> _uniteBasse;

@@ -259,6 +259,21 @@ void Carte::effectuerActionsCases() const
     }
 }
 
+usint Carte::nbUnites(Faction faction) const
+{
+    usint sum = 0;
+    for (std::size_t r = 0; r < _hauteur; ++r) {
+        for (std::size_t q = 0; q < _largeur; ++q) {
+            Case *c = accesCase({(int)q, (int)r});
+
+            if (c->getFaction() == faction)
+                sum += c->nbUnites();
+        }
+    }
+
+    return sum;
+}
+
 void Carte::soriteFlux(std::ostream &os) const
 {
     os << "[largeur=" << _largeur << ", hauteur=" << _hauteur << "]" << std::endl;

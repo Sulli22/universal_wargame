@@ -99,3 +99,8 @@ void CaseMarine::afficherDetails(std::ostream &os) const
     Case::afficherDetails(os); os << std::endl;
     os << "Type = Eau" << std::endl;
 }
+
+usint CaseMarine::nbUnites() const
+{
+    return Case::nbUnites() + (_uniteBasse ? 1 : 0);
+}

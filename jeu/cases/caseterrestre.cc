@@ -168,6 +168,11 @@ Faction CaseTerrestre::getFaction() const
     return Faction::neutre;
 }
 
+usint CaseTerrestre::nbUnites() const
+{
+    return Case::nbUnites() + _unitesTerrestres.size();
+}
+
 void CaseTerrestre::effectuerActionConstruction()
 {
     if (!_construction)

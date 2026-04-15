@@ -20,6 +20,7 @@ public:
     virtual std::vector<Unite *> getUnites() const;
     virtual usint coutDeplacement(Unite *unite) const =0;
     virtual Faction getFaction() const;
+    virtual usint nbUnites() const;
 
     void sortieFlux(std::ostream &os) const;
     virtual void afficherDetails(std::ostream &os) const;

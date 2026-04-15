@@ -49,6 +49,11 @@ Faction Case::getFaction() const
     return _uniteAerienne ? _uniteAerienne->getFaction() : Faction::neutre;
 }
 
+usint Case::nbUnites() const
+{
+    return _uniteAerienne ? 1 : 0;
+}
+
 void Case::sortieFlux(std::ostream &os) const
 {
     _pos.sortieFlux(os);

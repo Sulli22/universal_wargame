@@ -27,7 +27,7 @@ public:
     void deplacerUnite(std::size_t indUnite, Case *arrivee) override;
     usint coutDeplacement(Unite *unite) const override;
     Faction getFaction() const override;
-
+    usint nbUnites() const override;
     void effectuerActionConstruction();
     //std::string constructionsPossibles() const;
 

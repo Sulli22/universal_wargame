@@ -22,8 +22,8 @@ public:
     std::vector<Case *> getChemin(Case *depart, Case *arrivee, Unite *uniteEnDeplacement) const;
     bool caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement) const;
     std::map<Case *, std::set<Faction> > getZOC() const;
-
     void effectuerActionsCases() const;
+    usint nbUnites(Faction faction) const;
 
     void soriteFlux(std::ostream &os) const;
     void afficherDetails(std::ostream &os);
