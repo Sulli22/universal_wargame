@@ -43,7 +43,7 @@ public:
     virtual void sortieFlux(std::ostream &os) const;
 
     virtual void prendreDegats(usint degats);
-    void attaquerUnite(std::shared_ptr<Unite> unite);
+    void attaquerUnite(Unite *unite);
     void utiliserProvisions(usint nbProvisions);
     void setVisibilite(Visibilite nvVisibilite);
 

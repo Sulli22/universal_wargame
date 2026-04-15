@@ -20,9 +20,9 @@ usint CaseTerrestre::getEspaceDisponible() const
     return _espaceDisponible;
 }
 
-const Construction &CaseTerrestre::getConstruction() const
+const Construction *CaseTerrestre::getConstruction() const
 {
-   return *_construction;
+   return _construction.get();
 }
 
 typeTerrain CaseTerrestre::getTerrain() const
@@ -30,23 +30,25 @@ typeTerrain CaseTerrestre::getTerrain() const
     return _terrain;
 }
 
-void CaseTerrestre::setConstruction(std::unique_ptr<Construction>
-                                        nvConstruction)
+void CaseTerrestre::setConstruction(std::unique_ptr<Construction> nvConstruction)
 {
-    if (_construction) {
-        if (_terrain == typeTerrain::riviere) {
-            if (nvConstruction->estPont())
-                _construction = std::move(nvConstruction);
-            else
-                throw std::runtime_error("Erreur : La case est une rivière.");
-        }
-        else if (!nvConstruction->estPont())
+    if (_construction)
+        throw std::runtime_error("Erreur : La place est déja prise");
+
+    if (_terrain == typeTerrain::riviere) {
+        if (nvConstruction->estPont())
             _construction = std::move(nvConstruction);
         else
-            throw std::invalid_argument("Erreur : La construction ne peut pas etre un pont");
+            throw std::runtime_error("Erreur : La case est une rivière");
     }
-    else
-       throw std::runtime_error("Erreur : La place est déja prise.");
+
+    else if (_terrain != typeTerrain::plaine)
+        throw std::runtime_error("Erreur : Ce type de case n'est pas constructible");
+
+    if (nvConstruction->estPont())
+        throw std::invalid_argument("Erreur : La construction ne peut pas etre un pont");
+
+    _construction = std::move(nvConstruction);
 }
 
 bool CaseTerrestre::peutAccueillir(Unite *unite) const
@@ -164,6 +166,14 @@ Faction CaseTerrestre::getFaction() const
     if (faction != Faction::neutre) return faction;
     if (!_unitesTerrestres.empty()) return _unitesTerrestres[0]->getFaction();
     return Faction::neutre;
+}
+
+void CaseTerrestre::effectuerActionConstruction()
+{
+    if (!_construction)
+        throw std::runtime_error("Erreur : aucune construction");
+
+    _construction->effectuerAction(getUnites());
 }
 
 void CaseTerrestre::afficherDetails(std::ostream &os) const

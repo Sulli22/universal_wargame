@@ -103,7 +103,7 @@ void Unite::prendreDegats(usint degats)
     _pointsVie = std::max(0, nvPointsVie);
 }
 
-void Unite::attaquerUnite(std::shared_ptr<Unite> unite)
+void Unite::attaquerUnite(Unite *unite)
 {
     if (_nbMunitions > 0 && unite) {
         usint pointsAttaque;
