@@ -2,6 +2,7 @@
 
 #include "position.hh"
 #include "uniteaerienne.hh"
+#include <memory>
 #include <vector>
 
 class Case {

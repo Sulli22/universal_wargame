@@ -40,9 +40,31 @@ Faction Model::factionVictorieuse() const
     return factionEstPerdante(_faction2) ? _faction1 : _faction2;
 }
 
-void Model::ChangementJoueur()
+void Model::changementJoueur()
 {
     Faction factionTmp = _factionAttaquante;
     _factionAttaquante = _factionAttaquee;
     _factionAttaquee = factionTmp;
+}
+
+void Model::sortieFlux(std::ostream &os) const
+{
+    os << "Faction attaquante = " << factionToString(_factionAttaquante) << std::endl
+       << "Faction attaquee = " << factionToString(_factionAttaquee) << std::endl
+       << "Partie finie ? " << partieFinie() << " (0 = Non, 1 = Oui)" << std::endl
+       << "==> Plateau" << std::endl;
+
+    _plateau.soriteFlux(os);
+    _plateau.afficherDetails(os);
+}
+
+std::string Model::factionToString(Faction faction)
+{
+    switch (faction) {
+        case Faction::bleue: return "bleue";
+        case Faction::rouge: return "rouge";
+        case Faction::neutre: return "neutre";
+        default:
+            throw std::invalid_argument("Erreur : faction invalide");
+    }
 }

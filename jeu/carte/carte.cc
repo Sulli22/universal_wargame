@@ -295,7 +295,7 @@ void Carte::soriteFlux(std::ostream &os) const
     }
 }
 
-void Carte::afficherDetails(std::ostream &os)
+void Carte::afficherDetails(std::ostream &os) const
 {
     for (std::size_t r = 0; r < _hauteur; ++r) {
         for (std::size_t q = 0; q < _largeur; ++q) {

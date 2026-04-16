@@ -1,11 +1,10 @@
 #pragma once
 
 #include <ostream>
-#include <memory>
 
 using usint = unsigned short int;
 
-enum class Faction { rouge, bleu, neutre };
+enum class Faction { rouge, bleue, neutre };
 
 class Unite {
 public:

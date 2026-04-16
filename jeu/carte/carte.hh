@@ -26,7 +26,7 @@ public:
     usint nbUnites(Faction faction) const;
 
     void soriteFlux(std::ostream &os) const;
-    void afficherDetails(std::ostream &os);
+    void afficherDetails(std::ostream &os) const;
 
 private:
     static usint distance(const Case &a, const Case &b);

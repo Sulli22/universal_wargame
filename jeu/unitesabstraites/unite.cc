@@ -84,7 +84,7 @@ std::string Unite::getChaineVisibilite() const
 void Unite::sortieFlux(std::ostream &os) const
 {
     os << getNom()
-    << " faction=" << (_faction == Faction::bleu ? "bleu" : "rouge")
+    << " faction=" << (_faction == Faction::bleue ? "bleue" : "rouge")
     << " pointsVie=" << _pointsVie << "/" << _MAX_POINTS_VIE
     << " nbMunitions=" << getNbMunitions() << "/" << _MAX_NB_MUNITIONS
     << " nbProvisions=" << getNbProvisions() << "/" << _MAX_NB_PROVISIONS

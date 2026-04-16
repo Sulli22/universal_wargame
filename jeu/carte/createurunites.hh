@@ -3,6 +3,7 @@
 #include "uniteaerienne.hh"
 #include "unitemarine.hh"
 #include "uniteterrestre.hh"
+#include <memory>
 
 class CreateurUnites {
 public:

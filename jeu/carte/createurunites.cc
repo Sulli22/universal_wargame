@@ -10,7 +10,7 @@
 
 Faction CreateurUnites::charToFaction(char factionChar)
 {
-    return (factionChar == 'B') ? Faction::bleu : Faction::rouge;
+    return (factionChar == 'B') ? Faction::bleue : Faction::rouge;
 }
 
 std::unique_ptr<UniteAerienne> CreateurUnites::creerAerienne(char type,
