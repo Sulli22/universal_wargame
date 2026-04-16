@@ -50,7 +50,7 @@ add_executable(${PROJECT_NAME}
     carte/createurcases.cc
     carte/createurunites.cc
 
-    jeu.cc
+    model.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
@@ -88,7 +88,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     carte/createurcases.hh
     carte/createurunites.hh
 
-    jeu.hh
+    model.hh
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE

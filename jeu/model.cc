@@ -1,17 +1,22 @@
-#include "jeu.hh"
+#include "model.hh"
 
-Jeu::Jeu(unsigned int idGuerre, Faction faction1, Faction faction2):
+Model::Model(unsigned int idGuerre, Faction faction1, Faction faction2):
     _plateau(idGuerre), _faction1(faction1), _faction2(faction2),
 
     // seuil de defaite = 5% du nb initial
     _seuilDefaiteFaction1(_plateau.nbUnites(_faction1) * 0.05),
-    _seuilDefaiteFaction2(_plateau.nbUnites(_faction2) * 0.05)
+    _seuilDefaiteFaction2(_plateau.nbUnites(_faction2) * 0.05),
+
+    _factionAttaquante(_faction1), _factionAttaquee(_faction2)
 {
     if (_faction1 == _faction2)
         throw std::invalid_argument("Erreur : les factions doivent etre adverses");
+
+    if (_faction1 == Faction::neutre || _faction2 == Faction::neutre)
+        throw std::invalid_argument("Erreur : les factions ne peuvent pas etre neutres");
 }
 
-bool Jeu::factionEstPerdante(Faction faction) const
+bool Model::factionEstPerdante(Faction faction) const
 {
     if (faction == _faction1)
         return _plateau.nbUnites(_faction1) < _seuilDefaiteFaction1;
@@ -22,34 +27,22 @@ bool Jeu::factionEstPerdante(Faction faction) const
     throw std::invalid_argument("Erreur : la faction est incorrecte");
 }
 
-bool Jeu::partieFinie() const
+bool Model::partieFinie() const
 {
     return factionEstPerdante(_faction1) || factionEstPerdante(_faction2);
 }
 
-Faction Jeu::factionVictorieuse() const
+Faction Model::factionVictorieuse() const
 {
     if (!partieFinie())
-        throw std::runtime_error("La partie n'est pas finie");
+        throw std::runtime_error("Erreur : la partie n'est pas finie");
 
     return factionEstPerdante(_faction2) ? _faction1 : _faction2;
 }
 
-void Jeu::jouerTour()
+void Model::ChangementJoueur()
 {
-    // actions cases
-
-    // Faction 1
-
-    // Faction 2
-}
-
-void Jeu::jouerPartie()
-{
-    // TODO
-    /*
-     * while() {
-     *  jouerTour();
-     * }
-     */
+    Faction factionTmp = _factionAttaquante;
+    _factionAttaquante = _factionAttaquee;
+    _factionAttaquee = factionTmp;
 }

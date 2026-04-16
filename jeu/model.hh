@@ -2,9 +2,9 @@
 
 #include "carte.hh"
 
-class Jeu {
+class Model {
 public:
-    Jeu(unsigned int idGuerre,
+    Model(unsigned int idGuerre,
         Faction faction1 = Faction::bleu,
         Faction faction2 = Faction::rouge);
 
@@ -12,8 +12,7 @@ public:
     bool partieFinie() const;
     Faction factionVictorieuse() const;
 
-    void jouerTour();
-    void jouerPartie();
+    void ChangementJoueur();
 
 private:
     Carte _plateau;
@@ -22,5 +21,7 @@ private:
     const Faction _faction2;
     const usint _seuilDefaiteFaction1;
     const usint _seuilDefaiteFaction2;
-};
 
+    Faction _factionAttaquante;
+    Faction _factionAttaquee;
+};
