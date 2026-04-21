@@ -7,5 +7,14 @@ int main()
 
     monModel.sortieFlux(std::cout);
 
+    monModel.selectionnerCase({0, 0});
+    monModel.sortieFlux(std::cout);
+
+    monModel.selectionnerCase({0, 0});
+    monModel.sortieFlux(std::cout);
+
+    monModel.selectionnerCase({0, 0});
+    monModel.sortieFlux(std::cout);
+
     return 0;
 }

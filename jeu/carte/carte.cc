@@ -111,6 +111,9 @@ const std::vector<std::vector<std::unique_ptr<Case>>> &Carte::getContenu() const
 
 Case* Carte::accesCase(const Position &pos) const
 {
+    if (!positionValide(pos))
+        throw std::invalid_argument("Erreur : la position n'est pas valide");
+
     return _contenu[pos.getR()][pos.getQ()].get();
 }
 
@@ -126,17 +129,17 @@ bool Carte::positionValide(const Position &pos) const
 
 std::vector<Case *> Carte::getVoisines(const Case &c) const
 {
-    std::vector<Case *> voisins;
+    std::vector<Case *> voisines;
 
     auto pos = c.getPos();
 
     for (const auto &d : _DIRECTIONS) {
-        auto voisin = pos + d;
-        if (positionValide(voisin))
-            voisins.push_back(_contenu[voisin.getR()][voisin.getQ()].get());
+        auto posVoisine = pos + d;
+        if (positionValide(posVoisine))
+            voisines.push_back(accesCase(posVoisine));
     }
 
-    return voisins;
+    return voisines;
 }
 
 std::map<Case *, usint> Carte::getCasesAtteignables(Case *depart, Unite *uniteEnDeplacement) const
@@ -236,6 +239,7 @@ std::map<Case *, std::set<Faction>> Carte::getZOC() const
     for (std::size_t r = 0; r < _hauteur; ++r) {
         for (std::size_t q = 0; q < _largeur; ++q) {
             Case *c = accesCase({(int)q, (int)r});
+            zoc[c].insert(c->getFaction());
 
             for (Case *v : getVoisines(*c))
                 zoc[v].insert(c->getFaction());
@@ -262,6 +266,7 @@ void Carte::effectuerActionsCases() const
 usint Carte::nbUnites(Faction faction) const
 {
     usint sum = 0;
+
     for (std::size_t r = 0; r < _hauteur; ++r) {
         for (std::size_t q = 0; q < _largeur; ++q) {
             Case *c = accesCase({(int)q, (int)r});
@@ -272,6 +277,17 @@ usint Carte::nbUnites(Faction faction) const
     }
 
     return sum;
+}
+
+std::vector<Case *> Carte::getCasesFaction(Faction faction) const
+{
+    std::vector<Case *> cases;
+
+    for (const auto &[c, factions] : getZOC())
+        if (factions.find(faction) != factions.end())
+            cases.push_back(c);
+
+    return cases;
 }
 
 void Carte::soriteFlux(std::ostream &os) const

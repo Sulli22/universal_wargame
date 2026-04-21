@@ -65,6 +65,11 @@ void Unite::rechargerProvisions()
     _nbProvisions = _MAX_NB_PROVISIONS;
 }
 
+usint Unite::getNbActionsPossibles() const
+{
+    return 2;   // deplacement et attaque
+}
+
 bool Unite::estOperationnelle() const
 {
     return _pointsVie > 0;

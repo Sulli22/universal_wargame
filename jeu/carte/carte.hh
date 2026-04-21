@@ -24,6 +24,7 @@ public:
     std::map<Case *, std::set<Faction> > getZOC() const;
     void effectuerActionsCases() const;
     usint nbUnites(Faction faction) const;
+    std::vector<Case *> getCasesFaction(Faction faction) const;
 
     void soriteFlux(std::ostream &os) const;
     void afficherDetails(std::ostream &os) const;

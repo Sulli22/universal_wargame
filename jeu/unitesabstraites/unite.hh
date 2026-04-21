@@ -35,6 +35,7 @@ public:
     virtual usint getPointsAttaqueLourde() const =0;
     virtual usint getCapaciteDeplacement() const =0;
     virtual usint getDistanceAttaque() const =0;
+    virtual usint getNbActionsPossibles() const;
 
     virtual bool estLegere() const =0;
     bool estOperationnelle() const;

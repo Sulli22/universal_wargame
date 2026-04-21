@@ -10,6 +10,11 @@ std::string Genie::getNom() const
     return Infanterie::getNom() + " - Genie";
 }
 
+usint Genie::getNbActionsPossibles() const
+{
+    return Unite::getNbActionsPossibles() + 1;  // on ajoute la construction
+}
+
 void Genie::construire(CaseTerrestre *caseOuConstruire, std::unique_ptr<Construction> construction) const
 {
     caseOuConstruire->setConstruction(std::move(construction));
