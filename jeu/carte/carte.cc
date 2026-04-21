@@ -150,15 +150,15 @@ std::map<Case *, usint> Carte::getCasesAtteignables(Case *depart, Unite *uniteEn
     coutJusqua[depart] = 0;
 
     while (!file.empty()) {
-        Case* courant = file.front();
+        Case* courante = file.front();
         file.pop();
 
-        for (Case* caseVoisine : getVoisines(*courant)) {
+        for (Case* caseVoisine : getVoisines(*courante)) {
             usint coutMvt = caseVoisine->coutDeplacement(uniteEnDeplacement);
             if (coutMvt == std::numeric_limits<usint>::max())
                 continue;
 
-            usint nouveauCout = coutJusqua[courant] + coutMvt;
+            usint nouveauCout = coutJusqua[courante] + coutMvt;
 
             // trop loin
             if (nouveauCout > uniteEnDeplacement->getCapaciteDeplacement())
@@ -178,6 +178,43 @@ std::map<Case *, usint> Carte::getCasesAtteignables(Case *depart, Unite *uniteEn
         }
     }
     return coutJusqua;
+}
+
+std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaquante) const
+{
+    std::vector<Case*> casesAttaquables;
+
+    usint portee = uniteAttaquante->getDistanceAttaque();
+
+    std::queue<std::pair<Case*, usint>> file;
+    std::set<Case*> visitees;
+
+    file.push({depart, 0});
+    visitees.insert(depart);
+
+    while (!file.empty()) {
+        auto [courante, distance] = file.front();
+        file.pop();
+
+        // On ignore la case de départ pour l'attaque
+        if (distance > 0
+            && courante->nbUnites() > 0
+            && courante->getFaction() != uniteAttaquante->getFaction())
+                casesAttaquables.push_back(courante);
+
+        // Stop si on atteint la portée max
+        if (distance >= portee)
+            continue;
+
+        for (Case* voisine : getVoisines(*courante)) {
+            if (!visitees.count(voisine)) {
+                visitees.insert(voisine);
+                file.push({voisine, distance + 1});
+            }
+        }
+    }
+
+    return casesAttaquables;
 }
 
 // algo type A*

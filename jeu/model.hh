@@ -4,21 +4,29 @@
 
 class Model {
 public:
+    enum class etat {
+        selection,      // selection unite
+        deplacement,    // selection case où se déplacer parmi les atteignables
+        attaque,        // selection case où attaquer parmi les attaquables
+        construction    // selection case où construire parmi les voisines
+    };
+
     Model(unsigned int idGuerre,
-        Faction faction1 = Faction::bleue,
-        Faction faction2 = Faction::rouge);
+        Faction faction1 = Faction::bleue, Faction faction2 = Faction::rouge);
 
     Faction getFaction1() const;
     Faction getFaction2() const;
     Faction getFactionAttaquante() const;
     Faction getFactionAttaquee() const;
 
+    void setEtat(etat nvEtat);
+
     bool factionEstPerdante(Faction faction) const;
     bool partieFinie() const;
     Faction factionVictorieuse() const;
 
     void changementJoueur();
-    std::vector<Case *> getCasesFactionAttaquante() const;
+    std::vector<Case *> getCasesConcernees() const;
     void selectionnerCase(const Position &pos);
     Unite *getUniteSelectionee() const;
     usint getNbActionsPossibles() const;
@@ -29,8 +37,9 @@ public:
 
 private:
     static std::string factionToString(Faction faction);
+    static std::vector<Case *> keysFromMap(const std::map<Case *, usint> &map);
 
-private:
+
     Carte _plateau;
 
     const Faction _faction1;
@@ -43,6 +52,9 @@ private:
 
     Case *_caseSelectionnee;
     usint _indUniteSelectionnee;
+    Case *_caseCible;
 
     std::set<Unite *> _unitesAyantJoue;
+
+    etat _etat;
 };

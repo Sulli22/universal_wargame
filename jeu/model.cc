@@ -10,7 +10,10 @@ Model::Model(unsigned int idGuerre, Faction faction1, Faction faction2):
 
     _factionAttaquante(_faction1), _factionAttaquee(_faction2),
 
-    _caseSelectionnee(nullptr), _indUniteSelectionnee(0)
+    _caseSelectionnee(nullptr), _indUniteSelectionnee(0),
+    _caseCible(nullptr),
+
+    _etat(etat::selection)
 {
     if (_faction1 == _faction2)
         throw std::invalid_argument("Erreur : les factions doivent etre adverses");
@@ -37,6 +40,11 @@ Faction Model::getFactionAttaquante() const
 Faction Model::getFactionAttaquee() const
 {
     return _factionAttaquee;
+}
+
+void Model::setEtat(etat nvEtat)
+{
+    _etat = nvEtat;
 }
 
 bool Model::factionEstPerdante(Faction faction) const
@@ -74,9 +82,29 @@ void Model::changementJoueur()
     _factionAttaquee = factionTmp;
 }
 
-std::vector<Case *> Model::getCasesFactionAttaquante() const
+std::vector<Case *> Model::getCasesConcernees() const
 {
-    return _plateau.getCasesFaction(_factionAttaquante);
+    std::vector<Case *> res;
+
+    switch (_etat) {
+        case etat::selection:
+            res = _plateau.getCasesFaction(_factionAttaquante);
+            break;
+
+        case etat::deplacement:
+            res = keysFromMap(_plateau.getCasesAtteignables(_caseSelectionnee, getUniteSelectionee()));
+            break;
+
+        case etat::attaque:
+            res = _plateau.getCasesAttaquables(_caseSelectionnee, getUniteSelectionee());
+            break;
+
+        case etat::construction:
+            res = _plateau.getVoisines(*_caseSelectionnee);
+            break;
+    }
+
+    return res;
 }
 
 void Model::selectionnerCase(const Position &pos)
@@ -86,18 +114,29 @@ void Model::selectionnerCase(const Position &pos)
     if (!c)
         throw std::runtime_error("Erreur : la nouvelle case selectionnee est invalide");
 
-    auto casesFactionAttaquante = getCasesFactionAttaquante();
-    auto itc = std::find(casesFactionAttaquante.begin(), casesFactionAttaquante.end(), c);
-    if (itc != casesFactionAttaquante.end()) {
-        if (_caseSelectionnee != c) {   // si on change de case selectionnee
-            _caseSelectionnee = c;
-            _indUniteSelectionnee = 0;
-        }
-        else    // sinon on reste sur la meme case
-            _indUniteSelectionnee = (_indUniteSelectionnee + 1) % (_caseSelectionnee->nbUnites() + 1);
+    auto casesConcernees = getCasesConcernees();
+    auto itc = std::find(casesConcernees.begin(), casesConcernees.end(), c);
+
+    switch (_etat) {
+        case etat::selection:
+            if (itc != casesConcernees.end()) {
+                if (_caseSelectionnee != c) {   // si on change de case selectionnee
+                    _caseSelectionnee = c;
+                    _indUniteSelectionnee = 0;
+                }
+                else    // sinon on reste sur la meme case
+                    _indUniteSelectionnee = (_indUniteSelectionnee + 1) % (_caseSelectionnee->nbUnites() + 1);
+            }
+            else    // on considere que aucune case n'est selectionnee
+                _caseSelectionnee = nullptr;
+            break;
+
+        case etat::deplacement:
+        case etat::attaque:
+        case etat::construction:
+            _caseCible = (itc != casesConcernees.end()) ? c : nullptr;
+            break;
     }
-    else
-        _caseSelectionnee = nullptr;    // on considere que aucune case n'est selectionnee
 }
 
 Unite *Model::getUniteSelectionee() const
@@ -138,24 +177,35 @@ void Model::sortieFlux(std::ostream &os) const
     os << "Faction attaquante = " << factionToString(_factionAttaquante) << std::endl
        << "Faction attaquee = " << factionToString(_factionAttaquee) << std::endl
        << "Partie finie ? " << partieFinie() << " (0 = Non, 1 = Oui)" << std::endl
-       << "==> Plateau" << std::endl;
+       << "Etat = ";
 
-    //_plateau.soriteFlux(os);
+    switch (_etat) {
+        case etat::selection: os << "selection"; break;
+        case etat::deplacement: os<< "deplacement"; break;
+        case etat::attaque: os << "attaque"; break;
+        case etat::construction: os << "construction"; break;
+    }
+    os << std::endl;
 
-    //_plateau.afficherDetails(os);
-
-    os << "Cases de la faction attaquante : ";
-    for (const auto &c : getCasesFactionAttaquante())
+    os << "Cases concernees : ";
+    for (const auto &c : getCasesConcernees())
         c->sortieFlux(os);
     os << std::endl;
 
-    if (_caseSelectionnee){
+    if (_caseSelectionnee) {
         os << "Case selectionnee : ";
         _caseSelectionnee->sortieFlux(os); os << std::endl;
         os << "Indice unite : " << _indUniteSelectionnee << std::endl;
     }
     else
         os << "Aucune case selectionnee" << std::endl;
+
+    if (_caseCible) {
+        os << "Case cible : ";
+        _caseCible->sortieFlux(os); os << std::endl;
+    }
+    else
+        os << "Aucune case cible" << std::endl;
 }
 
 std::string Model::factionToString(Faction faction)
@@ -167,4 +217,12 @@ std::string Model::factionToString(Faction faction)
         default:
             throw std::invalid_argument("Erreur : faction invalide");
     }
+}
+
+std::vector<Case *> Model::keysFromMap(const std::map<Case *, usint> &map)
+{
+    std::vector<Case *> keys;
+    for (const auto &[key, val] : map)
+        keys.push_back(key);
+    return keys;
 }
