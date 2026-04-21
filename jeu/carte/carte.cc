@@ -366,12 +366,18 @@ void Carte::afficherDetails(std::ostream &os) const
 
             auto unites = c->getUnites();
             for (const auto &u : unites) {
-                os << "Atteignable par " << u->getNom() << " = ";
-                auto casesAtt = getCasesAtteignables(c, u);
-                for (const auto &ca : casesAtt) {
+                os << "Atteignables par " << u->getNom() << " = ";
+                auto casesAtte = getCasesAtteignables(c, u);
+                for (const auto &ca : casesAtte) {
                     ca.first->sortieFlux(os);
                     os <<  "(" << ca.second << ") ";
                 }
+                os << std::endl;
+
+                os << "Attaquables par " << u->getNom() << " = ";
+                auto casesAtta = getCasesAttaquables(c, u);
+                for (const auto &ca : casesAtta)
+                    ca->sortieFlux(os);
                 os << std::endl;
             }
         }

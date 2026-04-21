@@ -14,12 +14,14 @@ int main()
     monModel.choixAction(0);
     std::cout << std::endl << "-> Choix action 0" << std::endl;
     monModel.sortieFlux(std::cout);
-/*
-    monModel.selectionnerCase({0, 0});
+
+    monModel.selectionnerCase({1, 0});
+    std::cout << std::endl << "-> Selection {1, 0}" << std::endl;
     monModel.sortieFlux(std::cout);
 
-    monModel.selectionnerCase({0, 0});
-    monModel.sortieFlux(std::cout);*/
+    monModel.effectuerAction();
+    std::cout << std::endl << "-> Action" << std::endl;
+    monModel.sortieFlux(std::cout);
 
     return 0;
 }

@@ -26,8 +26,9 @@ void Case::setUniteAerienne(std::unique_ptr<UniteAerienne> nvUniteAerienne)
     _uniteAerienne = std::move(nvUniteAerienne);
 }
 
-void Case::deplacerUniteAerienne(Case *arrive)
+void Case::deplacerUniteAerienne(Case *arrive, usint cout)
 {
+    _uniteAerienne->utiliserProvisions(cout);
     arrive->setUniteAerienne(std::move(_uniteAerienne));
 }
 

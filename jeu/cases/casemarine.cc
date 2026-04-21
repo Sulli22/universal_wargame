@@ -38,8 +38,9 @@ bool CaseMarine::peutAccueillir(Unite *unite) const
     return false;
 }
 
-void CaseMarine::deplacerUniteBasse(CaseMarine *arrivee)
+void CaseMarine::deplacerUniteBasse(CaseMarine *arrivee, usint cout)
 {
+    _uniteBasse->utiliserProvisions(cout);
     arrivee->setUniteBasse(std::move(_uniteBasse));
 }
 
@@ -51,20 +52,20 @@ std::vector<Unite *> CaseMarine::getUnites() const
     return unites;
 }
 
-void CaseMarine::deplacerUnite(std::size_t indUnite, Case *arrivee)
+void CaseMarine::deplacerUnite(std::size_t indUnite, Case *arrivee, usint cout)
 {
     if (indUnite >= 2)
         throw std::invalid_argument("Erreur : Indice incorrecte");
 
     if (getUniteAerienne()) {
         if (indUnite == 0)
-            Case::deplacerUniteAerienne(arrivee);
+            Case::deplacerUniteAerienne(arrivee, cout);
 
         else {
             auto cm = dynamic_cast<CaseMarine *>(arrivee);
             if (!cm)
                 throw std::invalid_argument("Erreur : Deplacement impossible vers une case terrestre");
-            deplacerUniteBasse(cm);
+            deplacerUniteBasse(cm, cout);
         }
     }
 
@@ -75,7 +76,7 @@ void CaseMarine::deplacerUnite(std::size_t indUnite, Case *arrivee)
         auto cm = dynamic_cast<CaseMarine *>(arrivee);
         if (!cm)
             throw std::invalid_argument("Erreur : Deplacement impossible vers une case terrestre");
-        deplacerUniteBasse(cm);
+        deplacerUniteBasse(cm, cout);
     }
 }
 

@@ -15,9 +15,9 @@ public:
     void setUniteAerienne(std::unique_ptr<UniteAerienne> nvUniteAerienne);
 
     virtual bool peutAccueillir(Unite *unite) const =0;
-    void deplacerUniteAerienne(Case *arrive);
+    void deplacerUniteAerienne(Case *arrive, usint cout);
     virtual Unite *getUnite(std::size_t indUnite);
-    virtual void deplacerUnite(std::size_t indUnite, Case *arrivee) =0;
+    virtual void deplacerUnite(std::size_t indUnite, Case *arrivee, usint cout) =0;
     virtual std::vector<Unite *> getUnites() const;
     virtual usint coutDeplacement(Unite *unite) const =0;
     virtual Faction getFaction() const;

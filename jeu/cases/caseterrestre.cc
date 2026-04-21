@@ -101,7 +101,7 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
         throw std::runtime_error("Erreur : Ajout impossible, place est insufisante (toute la place est necessaire pour une unite lourde)");
 }
 
-void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee)
+void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, usint cout)
 {
     if (_unitesTerrestres.at(indUnite)->estLegere()) {
         auto uniteTerrestreLeg = dynamic_cast<UniteTerrestreLegere *>
@@ -111,6 +111,7 @@ void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *
     else
         _espaceDisponible = _MAX_TAILLE;
 
+    _unitesTerrestres.at(indUnite)->utiliserProvisions(cout);
     arrivee->ajouterUniteTerrestre(std::move(_unitesTerrestres.at(indUnite)));
     _unitesTerrestres.erase(_unitesTerrestres.begin() + indUnite);
 }
@@ -123,13 +124,13 @@ std::vector<Unite *> CaseTerrestre::getUnites() const
     return unites;
 }
 
-void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee)
+void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, usint cout)
 {
     if (indUnite == 0)
-        Case::deplacerUniteAerienne(arrivee);
+        Case::deplacerUniteAerienne(arrivee, cout);
     else {
         auto ct = dynamic_cast<CaseTerrestre *>(arrivee);
-        deplacerUniteTerrestre(indUnite-1, ct);
+        deplacerUniteTerrestre(indUnite-1, ct, cout);
     }
 }
 

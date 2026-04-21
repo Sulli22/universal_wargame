@@ -195,13 +195,33 @@ void Model::effectuerAction()
         throw std::runtime_error("Erreur : aucune case cible");
 
     switch (_etat) {
-    case etat::selection:
-        throw std::runtime_error("Erreur : ");
     case etat::deplacement:
-    case etat::attaque:
-    case etat::construction:
+        // pas tres clair, la deuxieme ligne recupere la distance de deplacement
+        _caseSelectionnee->deplacerUnite(_indUniteSelectionnee, _caseCible,
+            _plateau.getCasesAtteignables(_caseSelectionnee, getUniteSelectionee()).at(getCaseCible()));
         break;
+
+    case etat::attaque:
+        for (auto &unite : _caseCible->getUnites())
+            getUniteSelectionee()->attaquerUnite(unite);
+        break;
+
+    case etat::construction:
+        //auto genie = dynamic_cast<Genie *>(getUniteSelectionee());
+        //genie->construire(_caseCible, )
+        break;
+
+    default:
+        throw std::runtime_error("Erreur : impossible d'effectuer l'action");
     }
+
+    //_unitesAyantJoue.insert(getUniteSelectionee());
+    _caseSelectionnee = nullptr;
+    _caseCible = nullptr;
+    setEtat(etat::selection);
+
+    if (_unitesAyantJoue.size() == _plateau.nbUnites(_factionAttaquante))
+        changementJoueur();
 }
 
 void Model::sortieFlux(std::ostream &os) const
@@ -239,6 +259,8 @@ void Model::sortieFlux(std::ostream &os) const
     }
     else
         os << "Aucune case cible" << std::endl;
+
+    _plateau.accesCase({1, 0})->afficherDetails(os);
 }
 
 std::string Model::factionToString(Faction faction)
