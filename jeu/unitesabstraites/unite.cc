@@ -78,11 +78,12 @@ bool Unite::estOperationnelle() const
 std::string Unite::getChaineVisibilite() const
 {
     switch (_visibilite) {
-        case Visibilite::nulle: return "nulle";
-        case Visibilite::partielle: return "partielle";
-        case Visibilite::totale: return "totale";
-        default:
-            throw std::runtime_error("Erreur : Visibilite inconnue");
+    case Visibilite::nulle:     return "nulle";
+    case Visibilite::partielle: return "partielle";
+    case Visibilite::totale:    return "totale";
+
+    default:
+        throw std::runtime_error("Erreur : Visibilite inconnue");
     }
 }
 

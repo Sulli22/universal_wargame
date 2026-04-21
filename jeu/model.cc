@@ -42,6 +42,16 @@ Faction Model::getFactionAttaquee() const
     return _factionAttaquee;
 }
 
+Case *Model::getCaseSelectionnee() const
+{
+    return _caseSelectionnee;
+}
+
+Case *Model::getCaseCible() const
+{
+    return _caseCible;
+}
+
 void Model::setEtat(etat nvEtat)
 {
     _etat = nvEtat;
@@ -73,7 +83,9 @@ Faction Model::factionVictorieuse() const
 
 void Model::changementJoueur()
 {
-    // raz unites ayant joue
+    // raz
+    _caseSelectionnee = nullptr;
+    _caseCible = nullptr;
     _unitesAyantJoue.clear();
 
     // permutation factions
@@ -87,21 +99,21 @@ std::vector<Case *> Model::getCasesConcernees() const
     std::vector<Case *> res;
 
     switch (_etat) {
-        case etat::selection:
-            res = _plateau.getCasesFaction(_factionAttaquante);
-            break;
+    case etat::selection:
+        res = _plateau.getCasesFaction(_factionAttaquante);
+        break;
 
-        case etat::deplacement:
-            res = keysFromMap(_plateau.getCasesAtteignables(_caseSelectionnee, getUniteSelectionee()));
-            break;
+    case etat::deplacement:
+        res = keysFromMap(_plateau.getCasesAtteignables(_caseSelectionnee, getUniteSelectionee()));
+        break;
 
-        case etat::attaque:
-            res = _plateau.getCasesAttaquables(_caseSelectionnee, getUniteSelectionee());
-            break;
+    case etat::attaque:
+        res = _plateau.getCasesAttaquables(_caseSelectionnee, getUniteSelectionee());
+        break;
 
-        case etat::construction:
-            res = _plateau.getVoisines(*_caseSelectionnee);
-            break;
+    case etat::construction:
+        res = _plateau.getVoisines(*_caseSelectionnee);
+        break;
     }
 
     return res;
@@ -118,31 +130,31 @@ void Model::selectionnerCase(const Position &pos)
     auto itc = std::find(casesConcernees.begin(), casesConcernees.end(), c);
 
     switch (_etat) {
-        case etat::selection:
-            if (itc != casesConcernees.end()) {
-                if (_caseSelectionnee != c) {   // si on change de case selectionnee
-                    _caseSelectionnee = c;
-                    _indUniteSelectionnee = 0;
-                }
-                else    // sinon on reste sur la meme case
-                    _indUniteSelectionnee = (_indUniteSelectionnee + 1) % (_caseSelectionnee->nbUnites() + 1);
+    case etat::selection:
+        if (itc != casesConcernees.end()) {
+            if (_caseSelectionnee != c) {   // si on change de case selectionnee
+                _caseSelectionnee = c;
+                _indUniteSelectionnee = 0;
             }
-            else    // on considere que aucune case n'est selectionnee
-                _caseSelectionnee = nullptr;
-            break;
+            else    // sinon on reste sur la meme case
+                _indUniteSelectionnee = (_indUniteSelectionnee + 1) % (_caseSelectionnee->nbUnites() + 1);
+        }
+        else    // on considere que aucune case n'est selectionnee
+            _caseSelectionnee = nullptr;
+        break;
 
-        case etat::deplacement:
-        case etat::attaque:
-        case etat::construction:
-            _caseCible = (itc != casesConcernees.end()) ? c : nullptr;
-            break;
+    case etat::deplacement:
+    case etat::attaque:
+    case etat::construction:
+        _caseCible = (itc != casesConcernees.end()) ? c : nullptr;
+        break;
     }
 }
 
 Unite *Model::getUniteSelectionee() const
 {
     if (!_caseSelectionnee)
-        std::runtime_error("Erreur : Aucune case n'est selectionee");
+        throw std::runtime_error("Erreur : Aucune case n'est selectionee");
 
     return _caseSelectionnee->getUnite(_indUniteSelectionnee);
 }
@@ -156,19 +168,39 @@ usint Model::getNbActionsPossibles() const
 
 bool Model::uniteSelectioneeAJoue() const
 {
+    if (_unitesAyantJoue.empty())
+        return false;
+
     return _unitesAyantJoue.find(getUniteSelectionee()) == _unitesAyantJoue.end();
 }
 
-void Model::effectuerAction(usint indAction)
+void Model::choixAction(usint indAction)
 {
     if (indAction >= getNbActionsPossibles())
         throw std::invalid_argument("Erreur : l'indice est incorrecte");
 
     switch (indAction) {
-        case 0: break;
-        case 1: break;
-        case 2: break;
-        default: break;
+    case 0:     setEtat(etat::deplacement);     break;
+    case 1:     setEtat(etat::attaque);         break;
+    case 2:     setEtat(etat::construction);    break;
+    }
+}
+
+void Model::effectuerAction()
+{
+    if (!_caseSelectionnee)
+        throw std::runtime_error("Erreur : aucune case selectionnee");
+
+    if (!_caseCible)
+        throw std::runtime_error("Erreur : aucune case cible");
+
+    switch (_etat) {
+    case etat::selection:
+        throw std::runtime_error("Erreur : ");
+    case etat::deplacement:
+    case etat::attaque:
+    case etat::construction:
+        break;
     }
 }
 
@@ -196,6 +228,7 @@ void Model::sortieFlux(std::ostream &os) const
         os << "Case selectionnee : ";
         _caseSelectionnee->sortieFlux(os); os << std::endl;
         os << "Indice unite : " << _indUniteSelectionnee << std::endl;
+        os << "Nombre actions possibles = " << getNbActionsPossibles() << std::endl;
     }
     else
         os << "Aucune case selectionnee" << std::endl;
@@ -211,11 +244,12 @@ void Model::sortieFlux(std::ostream &os) const
 std::string Model::factionToString(Faction faction)
 {
     switch (faction) {
-        case Faction::bleue: return "bleue";
-        case Faction::rouge: return "rouge";
-        case Faction::neutre: return "neutre";
-        default:
-            throw std::invalid_argument("Erreur : faction invalide");
+    case Faction::bleue:    return "bleue";
+    case Faction::rouge:    return "rouge";
+    case Faction::neutre:   return "neutre";
+
+    default:
+        throw std::invalid_argument("Erreur : faction invalide");
     }
 }
 

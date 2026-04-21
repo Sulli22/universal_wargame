@@ -19,6 +19,9 @@ public:
     Faction getFactionAttaquante() const;
     Faction getFactionAttaquee() const;
 
+    Case *getCaseSelectionnee() const;
+    Case *getCaseCible() const;
+
     void setEtat(etat nvEtat);
 
     bool factionEstPerdante(Faction faction) const;
@@ -31,7 +34,8 @@ public:
     Unite *getUniteSelectionee() const;
     usint getNbActionsPossibles() const;
     bool uniteSelectioneeAJoue() const;
-    void effectuerAction(usint indAction);
+    void choixAction(usint indAction);
+    void effectuerAction();
 
     void sortieFlux(std::ostream &os) const;
 

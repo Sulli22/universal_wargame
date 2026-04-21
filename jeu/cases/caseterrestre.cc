@@ -110,6 +110,7 @@ void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *
     }
     else
         _espaceDisponible = _MAX_TAILLE;
+
     arrivee->ajouterUniteTerrestre(std::move(_unitesTerrestres.at(indUnite)));
     _unitesTerrestres.erase(_unitesTerrestres.begin() + indUnite);
 }
@@ -147,16 +148,13 @@ usint CaseTerrestre::coutDeplacement(Unite *unite) const
         return max;
 
     switch (_terrain) {
-        case typeTerrain::plaine:
-            return 1;
-        case typeTerrain::foret:
-            return unite->estLegere() ? 1 : 2;
-        case typeTerrain::riviere:
-            return max;
-        case typeTerrain::montagne:
-            return max;
-        default:
-            throw std::runtime_error("Erreur : Impossible de calculer le cout de deplacement");
+    case typeTerrain::plaine:   return 1;
+    case typeTerrain::foret:    return unite->estLegere() ? 1 : 2;
+    case typeTerrain::riviere:  return max;
+    case typeTerrain::montagne: return max;
+
+    default:
+        throw std::runtime_error("Erreur : Impossible de calculer le cout de deplacement");
     }
 }
 
@@ -187,10 +185,10 @@ void CaseTerrestre::afficherDetails(std::ostream &os) const
 
     os << "Type = ";
     switch (_terrain) {
-        case typeTerrain::plaine: os << "Plaine"; break;
-        case typeTerrain::foret: os << "Foret"; break;
-        case typeTerrain::riviere: os << "Riviere"; break;
-        case typeTerrain::montagne: os << "Montagne"; break;
+    case typeTerrain::plaine:   os << "Plaine";     break;
+    case typeTerrain::foret:    os << "Foret";      break;
+    case typeTerrain::riviere:  os << "Riviere";    break;
+    case typeTerrain::montagne: os << "Montagne";   break;
     }
     os << std::endl;
 
