@@ -1,7 +1,7 @@
 #include "infirmerie.hh"
 
 Infirmerie::Infirmerie():
-    Construction(30)
+    Construction(10)
 {}
 
 void Infirmerie:: effectuerAction(Unite *unite) const

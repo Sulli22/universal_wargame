@@ -15,6 +15,7 @@ public:
     Model(unsigned int idGuerre,
         Faction faction1 = Faction::bleue, Faction faction2 = Faction::rouge);
 
+    const Carte& getPlateau() const;
     Faction getFaction1() const;
     Faction getFaction2() const;
     Faction getFactionAttaquante() const;

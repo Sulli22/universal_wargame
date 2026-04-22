@@ -27,6 +27,11 @@ Model::Model(unsigned int idGuerre, Faction faction1, Faction faction2):
         throw std::invalid_argument("Erreur : les factions ne peuvent pas etre neutres");
 }
 
+const Carte &Model::getPlateau() const
+{
+    return _plateau;
+}
+
 Faction Model::getFaction1() const
 {
     return _faction1;
@@ -309,8 +314,6 @@ void Model::sortieFlux(std::ostream &os) const
     }
     else
         os << "Aucune case cible" << std::endl;
-
-    _plateau.accesCase({1, 0})->afficherDetails(os);
 }
 
 std::string Model::factionToString(Faction faction)

@@ -1,7 +1,7 @@
 #include "depotprovisions.hh"
 
 DepotProvisions::DepotProvisions():
-    Construction(40)
+    Construction(15)
 {}
 
 void DepotProvisions:: effectuerAction(Unite *unite) const

@@ -1,7 +1,7 @@
 #include "depotmunitions.hh"
 
 DepotMunitions::DepotMunitions():
-    Construction(30)
+    Construction(10)
 {}
 
 void DepotMunitions:: effectuerAction(Unite *unite) const

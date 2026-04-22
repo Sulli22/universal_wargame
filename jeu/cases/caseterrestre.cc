@@ -174,10 +174,8 @@ usint CaseTerrestre::nbUnites() const
 
 void CaseTerrestre::effectuerActionConstruction()
 {
-    if (!_construction)
-        throw std::runtime_error("Erreur : aucune construction");
-
-    _construction->effectuerAction(getUnites());
+    if (_construction)
+        _construction->effectuerAction(getUnites());
 }
 
 usint CaseTerrestre::nbConstructionsPossibles() const
@@ -218,4 +216,6 @@ void CaseTerrestre::afficherDetails(std::ostream &os) const
     os << std::endl;
 
     os << "Espace dispo = " << _espaceDisponible << std::endl;
+
+    os <<  "Construction ? " << (_construction != nullptr) << std::endl;
 }
