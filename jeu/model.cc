@@ -1,5 +1,11 @@
 #include "model.hh"
+#include "depotmunitions.hh"
+#include "depotprovisions.hh"
+#include "genie.hh"
+#include "infirmerie.hh"
+#include "pont.hh"
 #include <algorithm>
+#include <iostream>
 
 Model::Model(unsigned int idGuerre, Faction faction1, Faction faction2):
     _plateau(idGuerre), _faction1(faction1), _faction2(faction2),
@@ -86,7 +92,11 @@ void Model::changementJoueur()
     // raz
     _caseSelectionnee = nullptr;
     _caseCible = nullptr;
+    _aConstruire = nullptr;
     _unitesAyantJoue.clear();
+
+    // actions des cases
+    _plateau.effectuerActionsCases();
 
     // permutation factions
     Faction factionTmp = _factionAttaquante;
@@ -112,7 +122,7 @@ std::vector<Case *> Model::getCasesConcernees() const
         break;
 
     case etat::construction:
-        res = _plateau.getVoisines(*_caseSelectionnee);
+        res = _plateau.getVoisinesConstructibles(*_caseSelectionnee);
         break;
     }
 
@@ -149,6 +159,13 @@ void Model::selectionnerCase(const Position &pos)
         _caseCible = (itc != casesConcernees.end()) ? c : nullptr;
         break;
     }
+}
+
+void Model::annulerSelections()
+{
+    _caseSelectionnee = nullptr;
+    _caseCible = nullptr;
+    _aConstruire = nullptr;
 }
 
 Unite *Model::getUniteSelectionee() const
@@ -194,34 +211,67 @@ void Model::effectuerAction()
     if (!_caseCible)
         throw std::runtime_error("Erreur : aucune case cible");
 
-    switch (_etat) {
-    case etat::deplacement:
-        // pas tres clair, la deuxieme ligne recupere la distance de deplacement
-        _caseSelectionnee->deplacerUnite(_indUniteSelectionnee, _caseCible,
-            _plateau.getCasesAtteignables(_caseSelectionnee, getUniteSelectionee()).at(getCaseCible()));
-        break;
+    _unitesAyantJoue.insert(getUniteSelectionee());
 
-    case etat::attaque:
-        for (auto &unite : _caseCible->getUnites())
-            getUniteSelectionee()->attaquerUnite(unite);
-        break;
-
-    case etat::construction:
-        //auto genie = dynamic_cast<Genie *>(getUniteSelectionee());
-        //genie->construire(_caseCible, )
-        break;
-
-    default:
-        throw std::runtime_error("Erreur : impossible d'effectuer l'action");
+    if (_etat == etat::deplacement) {
+        auto path = getChemin();
+        usint distance = path.size();
+        _caseSelectionnee->deplacerUnite(_indUniteSelectionnee, _caseCible, distance);
     }
 
-    //_unitesAyantJoue.insert(getUniteSelectionee());
+    else if (_etat == etat::attaque) {
+        for (auto &unite : _caseCible->getUnites())
+            getUniteSelectionee()->attaquerUnite(unite);
+    }
+
+    else if (_etat == etat::construction && _aConstruire) {
+        auto genie = dynamic_cast<Genie *>(getUniteSelectionee());
+        auto caseCibleTerrestre = dynamic_cast<CaseTerrestre *>(_caseCible);
+        genie->construire(caseCibleTerrestre, std::move(_aConstruire));
+    }
+
+    else
+        throw std::runtime_error("Erreur : impossible d'effectuer une action");
+
     _caseSelectionnee = nullptr;
     _caseCible = nullptr;
     setEtat(etat::selection);
 
     if (_unitesAyantJoue.size() == _plateau.nbUnites(_factionAttaquante))
         changementJoueur();
+}
+
+usint Model::getNbConstructionsPossibles() const
+{
+    if (_etat != etat::construction || !_caseCible)
+        throw std::runtime_error("Erreur : impossible de calculer les constructions possibles");
+
+    return _caseCible->nbConstructionsPossibles();
+}
+
+void Model::choixConstruction(usint indConstruction)
+{
+    if (_etat != etat::construction || indConstruction >= getNbConstructionsPossibles())
+        throw std::runtime_error("Erreur : impossible de choisir une construction");
+
+    if (getNbConstructionsPossibles() == 1)
+        _aConstruire = std::make_unique<Pont>();
+
+    else {
+        switch (indConstruction) {
+        case 0:     _aConstruire = std::make_unique<DepotMunitions>();  break;
+        case 1:     _aConstruire = std::make_unique<DepotProvisions>(); break;
+        case 2:     _aConstruire = std::make_unique<Infirmerie>();      break;
+        }
+    }
+}
+
+std::vector<Case *> Model::getChemin() const
+{
+    if (_etat != etat::deplacement || !_caseSelectionnee || !_caseCible)
+        throw std::runtime_error("Erreur : aucun chemin ne peut etre trouve");
+
+    return _plateau.getChemin(_caseSelectionnee, _caseCible, getUniteSelectionee());
 }
 
 void Model::sortieFlux(std::ostream &os) const

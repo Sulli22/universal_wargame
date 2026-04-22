@@ -22,6 +22,8 @@ public:
     virtual usint coutDeplacement(Unite *unite) const =0;
     virtual Faction getFaction() const;
     virtual usint nbUnites() const;
+    bool estConstructible() const;
+    virtual usint nbConstructionsPossibles() const =0;
 
     void sortieFlux(std::ostream &os) const;
     virtual void afficherDetails(std::ostream &os) const;

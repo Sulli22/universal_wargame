@@ -55,6 +55,11 @@ usint Case::nbUnites() const
     return _uniteAerienne ? 1 : 0;
 }
 
+bool Case::estConstructible() const
+{
+    return nbConstructionsPossibles() > 0;
+}
+
 void Case::sortieFlux(std::ostream &os) const
 {
     _pos.sortieFlux(os);

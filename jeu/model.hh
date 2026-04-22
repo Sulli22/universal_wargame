@@ -1,6 +1,7 @@
 #pragma once
 
 #include "carte.hh"
+#include "construction.hh"
 
 class Model {
 public:
@@ -22,28 +23,32 @@ public:
     Case *getCaseSelectionnee() const;
     Case *getCaseCible() const;
 
-    void setEtat(etat nvEtat);
-
-    bool factionEstPerdante(Faction faction) const;
     bool partieFinie() const;
     Faction factionVictorieuse() const;
 
     void changementJoueur();
     std::vector<Case *> getCasesConcernees() const;
+    std::vector<Case *> getChemin() const;
     void selectionnerCase(const Position &pos);
+    void annulerSelections();
     Unite *getUniteSelectionee() const;
     usint getNbActionsPossibles() const;
-    bool uniteSelectioneeAJoue() const;
     void choixAction(usint indAction);
     void effectuerAction();
+    usint getNbConstructionsPossibles() const;
+    void choixConstruction(usint indConstruction);
 
     void sortieFlux(std::ostream &os) const;
 
 private:
+    void setEtat(etat nvEtat);
+    bool factionEstPerdante(Faction faction) const;
+    bool uniteSelectioneeAJoue() const;
+
     static std::string factionToString(Faction faction);
     static std::vector<Case *> keysFromMap(const std::map<Case *, usint> &map);
 
-
+// attributs
     Carte _plateau;
 
     const Faction _faction1;
@@ -57,8 +62,7 @@ private:
     Case *_caseSelectionnee;
     usint _indUniteSelectionnee;
     Case *_caseCible;
-
+    std::unique_ptr<Construction> _aConstruire;
     std::set<Unite *> _unitesAyantJoue;
-
     etat _etat;
 };

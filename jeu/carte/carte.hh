@@ -17,6 +17,7 @@ public:
     bool positionValide(const Position &pos) const;
     Case *accesCase(const Position &pos) const;
     std::vector<Case *> getVoisines(const Case &c) const;
+    std::vector<Case *> getVoisinesConstructibles(const Case &c) const;
     std::map<Case *, usint> getCasesAtteignables(Case *depart, Unite *uniteEnDeplacement) const;
     std::vector<Case *> getCasesAttaquables(Case *depart, Unite *uniteAttaquante) const;
     std::vector<Case *> getChemin(Case *depart, Case *arrivee, Unite *uniteEnDeplacement) const;
@@ -34,7 +35,7 @@ private:
     static std::vector<Case *> reconstruitChemin(const std::map<Case *, Case*> &vientDe,
                                                  Case *depart, Case *arrivee);
 
-private:
+// attributs
     std::size_t _largeur;
     std::size_t _hauteur;
     std::vector<std::vector<std::unique_ptr<Case>>> _contenu;

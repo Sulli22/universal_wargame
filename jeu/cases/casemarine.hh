@@ -19,6 +19,7 @@ public:
     Faction getFaction() const override;
     void afficherDetails(std::ostream &os) const override;
     usint nbUnites() const override;
+    usint nbConstructionsPossibles() const override;
 
 private:
     std::unique_ptr<UniteMarine> _uniteBasse;

@@ -13,6 +13,7 @@ public:
     std::string getNom() const override;
     usint getNbActionsPossibles() const override;
 
-    void construire(CaseTerrestre *caseOuConstruire, std::unique_ptr<Construction> construction) const;
+    void construire(CaseTerrestre *caseOuConstruire,
+                    std::unique_ptr<Construction> construction);
 };
 

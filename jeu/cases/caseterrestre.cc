@@ -180,6 +180,19 @@ void CaseTerrestre::effectuerActionConstruction()
     _construction->effectuerAction(getUnites());
 }
 
+usint CaseTerrestre::nbConstructionsPossibles() const
+{
+    if (_construction
+        || _terrain == typeTerrain::foret
+        || _terrain == typeTerrain::montagne)
+        return 0;   // rien ne peut etre construit
+
+    if (_terrain == typeTerrain::riviere)
+        return 1;   // pont uniquement
+
+    return 3; // depots et infirmerie
+}
+
 void CaseTerrestre::afficherDetails(std::ostream &os) const
 {
     Case::afficherDetails(os); os << std::endl;

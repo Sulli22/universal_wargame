@@ -15,7 +15,8 @@ usint Genie::getNbActionsPossibles() const
     return Unite::getNbActionsPossibles() + 1;  // on ajoute la construction
 }
 
-void Genie::construire(CaseTerrestre *caseOuConstruire, std::unique_ptr<Construction> construction) const
+void Genie::construire(CaseTerrestre *caseOuConstruire, std::unique_ptr<Construction> construction)
 {
+    utiliserProvisions(construction->getCout());
     caseOuConstruire->setConstruction(std::move(construction));
 }

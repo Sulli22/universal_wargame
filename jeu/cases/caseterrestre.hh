@@ -29,7 +29,7 @@ public:
     Faction getFaction() const override;
     usint nbUnites() const override;
     void effectuerActionConstruction();
-    //std::string constructionsPossibles() const;
+    usint nbConstructionsPossibles() const override;
 
     void afficherDetails(std::ostream &os) const override;
 

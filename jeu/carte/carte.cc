@@ -142,6 +142,19 @@ std::vector<Case *> Carte::getVoisines(const Case &c) const
     return voisines;
 }
 
+std::vector<Case *> Carte::getVoisinesConstructibles(const Case &c) const
+{
+    std::vector<Case *> res;
+
+    auto voisines = getVoisines(c);
+    for(const auto &v : voisines) {
+        if (v->estConstructible())
+            res.push_back(v);
+    }
+
+    return res;
+}
+
 std::map<Case *, usint> Carte::getCasesAtteignables(Case *depart, Unite *uniteEnDeplacement) const
 {
     std::queue<Case *> file;

@@ -105,3 +105,8 @@ usint CaseMarine::nbUnites() const
 {
     return Case::nbUnites() + (_uniteBasse ? 1 : 0);
 }
+
+usint CaseMarine::nbConstructionsPossibles() const
+{
+    return 0;
+}
