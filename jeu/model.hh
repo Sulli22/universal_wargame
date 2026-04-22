@@ -19,13 +19,11 @@ public:
     Faction getFaction2() const;
     Faction getFactionAttaquante() const;
     Faction getFactionAttaquee() const;
-
     Case *getCaseSelectionnee() const;
     Case *getCaseCible() const;
 
     bool partieFinie() const;
     Faction factionVictorieuse() const;
-
     void changementJoueur();
     std::vector<Case *> getCasesConcernees() const;
     std::vector<Case *> getChemin() const;
@@ -38,6 +36,7 @@ public:
     usint getNbConstructionsPossibles() const;
     void choixConstruction(usint indConstruction);
 
+// sortie flux
     void sortieFlux(std::ostream &os) const;
 
 private:
@@ -55,7 +54,6 @@ private:
     const Faction _faction2;
     const usint _seuilDefaiteFaction1;
     const usint _seuilDefaiteFaction2;
-
     Faction _factionAttaquante;
     Faction _factionAttaquee;
 

@@ -11,11 +11,11 @@ public:
     usint getPointsBouclier() const;
 
     void reparerBouclier();
-
     bool estLegere() const override;
-    void sortieFlux(std::ostream &os) const override;
-
     void prendreDegats(usint degats) override;
+
+// sortie flux
+    void sortieFlux(std::ostream &os) const override;
 
 private:
     usint _pointsBouclier;

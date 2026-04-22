@@ -110,3 +110,10 @@ usint CaseMarine::nbConstructionsPossibles() const
 {
     return 0;
 }
+
+void CaseMarine::supprimeNonUnitesOperationnelles()
+{
+    Case::supprimeNonUnitesOperationnelles();
+    if (_uniteBasse && !_uniteBasse->estOperationnelle())
+        _uniteBasse = nullptr;
+}

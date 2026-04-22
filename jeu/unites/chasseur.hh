@@ -15,6 +15,7 @@ public:
     usint getPointsAttaqueLourde() const override;
     usint getCapaciteDeplacement() const override;
     usint getDistanceAttaque() const override;
+
 private:
     static const usint _POINTS_VIE_INIT = 35;
     static const usint _NB_MUNITIONS_INIT = 20;

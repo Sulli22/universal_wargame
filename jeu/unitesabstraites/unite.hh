@@ -40,12 +40,14 @@ public:
     virtual bool estLegere() const =0;
     bool estOperationnelle() const;
     std::string getChaineVisibilite() const;
-    virtual void sortieFlux(std::ostream &os) const;
 
     virtual void prendreDegats(usint degats);
     void attaquerUnite(Unite *unite);
     void utiliserProvisions(usint nbProvisions);
     void setVisibilite(Visibilite nvVisibilite);
+
+// sortie flux
+    virtual void sortieFlux(std::ostream &os) const;
 
 private:
     Faction _faction;

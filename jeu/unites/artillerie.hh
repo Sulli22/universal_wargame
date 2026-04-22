@@ -16,7 +16,7 @@ public:
     usint getDistanceAttaque() const override;
     usint getTaille() const override;
 
-protected:
+private:
     static const usint _POINTS_VIE_INIT = 35;
     static const usint _NB_MUNITIONS_INIT = 12;
     static const usint _NB_PROVISIONS_INIT = 30;

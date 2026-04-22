@@ -60,6 +60,12 @@ bool Case::estConstructible() const
     return nbConstructionsPossibles() > 0;
 }
 
+void Case::supprimeNonUnitesOperationnelles()
+{
+    if (_uniteAerienne && !_uniteAerienne->estOperationnelle())
+        _uniteAerienne = nullptr;
+}
+
 void Case::sortieFlux(std::ostream &os) const
 {
     _pos.sortieFlux(os);

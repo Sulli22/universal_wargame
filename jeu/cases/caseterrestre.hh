@@ -22,7 +22,6 @@ public:
 
     bool peutAccueillir(Unite *unite) const override;
     void ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre> nvUniteTerrestre);
-    void deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, usint cout);
     std::vector<Unite *> getUnites() const override;
     void deplacerUnite(std::size_t indUnite, Case *arrivee, usint cout) override;
     usint coutDeplacement(Unite *unite) const override;
@@ -30,10 +29,15 @@ public:
     usint nbUnites() const override;
     void effectuerActionConstruction();
     usint nbConstructionsPossibles() const override;
+    void supprimeNonUnitesOperationnelles() override;
 
+// sortie flux
     void afficherDetails(std::ostream &os) const override;
 
 private:
+    void deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, usint cout);
+
+// attributs
     std::vector<std::unique_ptr<UniteTerrestre>> _unitesTerrestres;
     usint _espaceDisponible;
     typeTerrain _terrain;

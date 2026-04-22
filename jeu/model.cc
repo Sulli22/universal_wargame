@@ -13,11 +13,10 @@ Model::Model(unsigned int idGuerre, Faction faction1, Faction faction2):
     // seuil de defaite = 5% du nb initial
     _seuilDefaiteFaction1(_plateau.nbUnites(_faction1) * 0.05),
     _seuilDefaiteFaction2(_plateau.nbUnites(_faction2) * 0.05),
-
     _factionAttaquante(_faction1), _factionAttaquee(_faction2),
 
     _caseSelectionnee(nullptr), _indUniteSelectionnee(0),
-    _caseCible(nullptr),
+    _caseCible(nullptr), _aConstruire(nullptr),
 
     _etat(etat::selection)
 {
@@ -222,6 +221,7 @@ void Model::effectuerAction()
     else if (_etat == etat::attaque) {
         for (auto &unite : _caseCible->getUnites())
             getUniteSelectionee()->attaquerUnite(unite);
+        _caseCible->supprimeNonUnitesOperationnelles();
     }
 
     else if (_etat == etat::construction && _aConstruire) {

@@ -193,6 +193,17 @@ usint CaseTerrestre::nbConstructionsPossibles() const
     return 3; // depots et infirmerie
 }
 
+void CaseTerrestre::supprimeNonUnitesOperationnelles()
+{
+    Case::supprimeNonUnitesOperationnelles();
+    for (auto it = _unitesTerrestres.begin(); it != _unitesTerrestres.end(); ) {
+        if (!(*it)->estOperationnelle())
+            it = _unitesTerrestres.erase(it);
+        else
+            ++it;
+    }
+}
+
 void CaseTerrestre::afficherDetails(std::ostream &os) const
 {
     Case::afficherDetails(os); os << std::endl;

@@ -11,6 +11,7 @@ public:
 
     Position operator+(const Position &pos) const;
 
+// sortie flux
     void sortieFlux(std::ostream &os) const;
 
 private:

@@ -10,5 +10,7 @@ public:
     virtual usint getTaille() const =0;
 
     bool estLegere() const override;
+
+// sortie flux
     void sortieFlux(std::ostream &os) const override;
 };

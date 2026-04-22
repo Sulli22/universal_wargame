@@ -27,6 +27,7 @@ public:
     usint nbUnites(Faction faction) const;
     std::vector<Case *> getCasesFaction(Faction faction) const;
 
+// sortie flux
     void soriteFlux(std::ostream &os) const;
     void afficherDetails(std::ostream &os) const;
 
