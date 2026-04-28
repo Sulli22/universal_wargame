@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="france">france.png</file>
+        <file alias="royaumeunis">royaumeunis.png</file>
+        <file alias="waterloo">waterloo.PNG</file>
+        <file>bouton.wav</file>
+    </qresource>
+</RCC>
