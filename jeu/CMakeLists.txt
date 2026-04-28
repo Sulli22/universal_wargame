@@ -101,7 +101,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     modele
 )
 
-include(GNUInstallDirs)
 install(TARGETS ${PROJECT_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
