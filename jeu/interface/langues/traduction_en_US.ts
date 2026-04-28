@@ -64,7 +64,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.qml" line="24"/>
+        <location filename="../main.qml" line="25"/>
         <source>Wargame</source>
         <translation type="unfinished"></translation>
     </message>
