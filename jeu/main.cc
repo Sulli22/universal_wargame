@@ -3,8 +3,9 @@
 
 int main()
 {
-    Model monModel(0);
-
+    Model monModel(2);
+    monModel.sortieFlux(std::cout);
+/*
     monModel.changementJoueur();
     monModel.sortieFlux(std::cout);
 
@@ -27,6 +28,6 @@ int main()
     monModel.effectuerAction();
     std::cout << std::endl << "-> Action" << std::endl;
     monModel.sortieFlux(std::cout);
-
+*/
     return 0;
 }

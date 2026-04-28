@@ -112,7 +112,7 @@ const std::vector<std::vector<std::unique_ptr<Case>>> &Carte::getContenu() const
 Case* Carte::accesCase(const Position &pos) const
 {
     if (!positionValide(pos))
-        throw std::invalid_argument("Erreur : la position n'est pas valide");
+        throw std::invalid_argument("Erreur : la position n'est pas valide" + std::to_string(pos.getQ()) + std::to_string(pos.getR()));
 
     return _contenu[pos.getR()][pos.getQ()].get();
 }
@@ -216,7 +216,7 @@ std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaqua
                 casesAttaquables.push_back(courante);
 
         // Stop si on atteint la portée max
-        if (distance >= portee)
+        if (distance > portee)
             continue;
 
         for (Case* voisine : getVoisines(*courante)) {
