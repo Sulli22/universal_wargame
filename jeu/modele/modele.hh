@@ -3,7 +3,7 @@
 #include "carte.hh"
 #include "construction.hh"
 
-class Model {
+class Modele {
 public:
     enum class etat {
         selection,      // selection unite
@@ -12,7 +12,7 @@ public:
         construction    // selection case où construire parmi les voisines
     };
 
-    Model(unsigned int idGuerre,
+    Modele(unsigned int idGuerre,
         Faction faction1 = Faction::bleue, Faction faction2 = Faction::rouge);
 
     const Carte& getPlateau() const;

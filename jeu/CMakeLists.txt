@@ -11,93 +11,94 @@ add_compile_options(
     -Wextra
 )
 
-file(COPY data DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY modele/data DESTINATION ${CMAKE_BINARY_DIR})
 
 add_executable(${PROJECT_NAME}
     main.cc
 
-    unitesabstraites/unite.cc
-    unitesabstraites/unitelegere.cc
-    unitesabstraites/unitelourde.cc
-    unitesabstraites/uniteterrestre.cc
-    unitesabstraites/uniteterrestrelegere.cc
-    unitesabstraites/uniteterrestrelourde.cc
-    unitesabstraites/unitemarine.cc
-    unitesabstraites/uniteaerienne.cc
+    modele/unitesabstraites/unite.cc
+    modele/unitesabstraites/unitelegere.cc
+    modele/unitesabstraites/unitelourde.cc
+    modele/unitesabstraites/uniteterrestre.cc
+    modele/unitesabstraites/uniteterrestrelegere.cc
+    modele/unitesabstraites/uniteterrestrelourde.cc
+    modele/unitesabstraites/unitemarine.cc
+    modele/unitesabstraites/uniteaerienne.cc
 
-    unites/infanterie.cc
-    unites/sousmarin.cc
-    unites/genie.cc
-    unites/bombardier.cc
-    unites/chasseur.cc
-    unites/fregate.cc
-    unites/charassaut.cc
-    unites/artillerie.cc
+    modele/unites/infanterie.cc
+    modele/unites/sousmarin.cc
+    modele/unites/genie.cc
+    modele/unites/bombardier.cc
+    modele/unites/chasseur.cc
+    modele/unites/fregate.cc
+    modele/unites/charassaut.cc
+    modele/unites/artillerie.cc
 
-    constructions/construction.cc
-    constructions/infirmerie.cc
-    constructions/depotprovisions.cc
-    constructions/pont.cc
-    constructions/depotmunitions.cc
+    modele/constructions/construction.cc
+    modele/constructions/infirmerie.cc
+    modele/constructions/depotprovisions.cc
+    modele/constructions/pont.cc
+    modele/constructions/depotmunitions.cc
 
-    cases/case.cc
-    cases/position.cc
-    cases/casemarine.cc
-    cases/caseterrestre.cc
+    modele/cases/case.cc
+    modele/cases/position.cc
+    modele/cases/casemarine.cc
+    modele/cases/caseterrestre.cc
     
-    carte/carte.cc
-    carte/lecteur.cc
-    carte/createurcases.cc
-    carte/createurunites.cc
+    modele/carte/carte.cc
+    modele/carte/lecteur.cc
+    modele/carte/createurcases.cc
+    modele/carte/createurunites.cc
 
-    model.cc
+    modele/modele.cc
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
-    unitesabstraites/unite.hh
-    unitesabstraites/unitelegere.hh
-    unitesabstraites/unitelourde.hh
-    unitesabstraites/uniteterrestre.hh
-    unitesabstraites/uniteterrestrelegere.hh
-    unitesabstraites/uniteterrestrelourde.hh
-    unitesabstraites/unitemarine.hh
-    unitesabstraites/uniteaerienne.hh
+    modele/unitesabstraites/unite.hh
+    modele/unitesabstraites/unitelegere.hh
+    modele/unitesabstraites/unitelourde.hh
+    modele/unitesabstraites/uniteterrestre.hh
+    modele/unitesabstraites/uniteterrestrelegere.hh
+    modele/unitesabstraites/uniteterrestrelourde.hh
+    modele/unitesabstraites/unitemarine.hh
+    modele/unitesabstraites/uniteaerienne.hh
 
-    unites/infanterie.hh
-    unites/sousmarin.hh
-    unites/genie.hh
-    unites/bombardier.hh
-    unites/chasseur.hh
-    unites/fregate.hh
-    unites/charassaut.hh
-    unites/artillerie.hh
+    modele/unites/infanterie.hh
+    modele/unites/sousmarin.hh
+    modele/unites/genie.hh
+    modele/unites/bombardier.hh
+    modele/unites/chasseur.hh
+    modele/unites/fregate.hh
+    modele/unites/charassaut.hh
+    modele/unites/artillerie.hh
 
-    constructions/construction.hh
-    constructions/infirmerie.hh
-    constructions/depotprovisions.hh
-    constructions/pont.hh
-    constructions/depotmunitions.hh
+    modele/constructions/construction.hh
+    modele/constructions/infirmerie.hh
+    modele/constructions/depotprovisions.hh
+    modele/constructions/pont.hh
+    modele/constructions/depotmunitions.hh
 
-    cases/case.hh
-    cases/position.hh
-    cases/casemarine.hh
-    cases/caseterrestre.hh
+    modele/cases/case.hh
+    modele/cases/position.hh
+    modele/cases/casemarine.hh
+    modele/cases/caseterrestre.hh
 
-    carte/carte.hh
-    carte/lecteur.hh
-    carte/createurcases.hh
-    carte/createurunites.hh
+    modele/carte/carte.hh
+    modele/carte/lecteur.hh
+    modele/carte/createurcases.hh
+    modele/carte/createurunites.hh
 
-    model.hh
+    modele/modele.hh
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
-    unitesabstraites
-    unites
-    constructions
-    cases
-    carte
-    data
+    modele/unitesabstraites
+    modele/unites
+    modele/constructions
+    modele/cases
+    modele/carte
+    modele/data
+    modele
 )
 
 include(GNUInstallDirs)

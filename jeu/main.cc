@@ -1,10 +1,10 @@
-#include "model.hh"
+#include "modele.hh"
 #include <iostream>
 
 int main()
 {
-    Model monModel(2);
-    monModel.sortieFlux(std::cout);
+    Modele monModele(2);
+    monModele.sortieFlux(std::cout);
 /*
     monModel.changementJoueur();
     monModel.sortieFlux(std::cout);

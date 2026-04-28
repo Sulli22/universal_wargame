@@ -1,4 +1,4 @@
-#include "model.hh"
+#include "modele.hh"
 #include "depotmunitions.hh"
 #include "depotprovisions.hh"
 #include "genie.hh"
@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <iostream>
 
-Model::Model(unsigned int idGuerre, Faction faction1, Faction faction2):
+Modele::Modele(unsigned int idGuerre, Faction faction1, Faction faction2):
     _plateau(idGuerre), _faction1(faction1), _faction2(faction2),
 
     // seuil de defaite = 5% du nb initial
@@ -27,47 +27,47 @@ Model::Model(unsigned int idGuerre, Faction faction1, Faction faction2):
         throw std::invalid_argument("Erreur : les factions ne peuvent pas etre neutres");
 }
 
-const Carte &Model::getPlateau() const
+const Carte &Modele::getPlateau() const
 {
     return _plateau;
 }
 
-Faction Model::getFaction1() const
+Faction Modele::getFaction1() const
 {
     return _faction1;
 }
 
-Faction Model::getFaction2() const
+Faction Modele::getFaction2() const
 {
     return _faction2;
 }
 
-Faction Model::getFactionAttaquante() const
+Faction Modele::getFactionAttaquante() const
 {
     return _factionAttaquante;
 }
 
-Faction Model::getFactionAttaquee() const
+Faction Modele::getFactionAttaquee() const
 {
     return _factionAttaquee;
 }
 
-Case *Model::getCaseSelectionnee() const
+Case *Modele::getCaseSelectionnee() const
 {
     return _caseSelectionnee;
 }
 
-Case *Model::getCaseCible() const
+Case *Modele::getCaseCible() const
 {
     return _caseCible;
 }
 
-void Model::setEtat(etat nvEtat)
+void Modele::setEtat(etat nvEtat)
 {
     _etat = nvEtat;
 }
 
-bool Model::factionEstPerdante(Faction faction) const
+bool Modele::factionEstPerdante(Faction faction) const
 {
     if (faction == _faction1)
         return _plateau.nbUnites(_faction1) < _seuilDefaiteFaction1;
@@ -78,12 +78,12 @@ bool Model::factionEstPerdante(Faction faction) const
     throw std::invalid_argument("Erreur : la faction est incorrecte");
 }
 
-bool Model::partieFinie() const
+bool Modele::partieFinie() const
 {
     return factionEstPerdante(_faction1) || factionEstPerdante(_faction2);
 }
 
-Faction Model::factionVictorieuse() const
+Faction Modele::factionVictorieuse() const
 {
     if (!partieFinie())
         throw std::runtime_error("Erreur : la partie n'est pas finie");
@@ -91,7 +91,7 @@ Faction Model::factionVictorieuse() const
     return factionEstPerdante(_faction2) ? _faction1 : _faction2;
 }
 
-void Model::changementJoueur()
+void Modele::changementJoueur()
 {
     // raz
     _caseSelectionnee = nullptr;
@@ -108,7 +108,7 @@ void Model::changementJoueur()
     _factionAttaquee = factionTmp;
 }
 
-std::vector<Case *> Model::getCasesConcernees() const
+std::vector<Case *> Modele::getCasesConcernees() const
 {
     std::vector<Case *> res;
 
@@ -133,7 +133,7 @@ std::vector<Case *> Model::getCasesConcernees() const
     return res;
 }
 
-void Model::selectionnerCase(const Position &pos)
+void Modele::selectionnerCase(const Position &pos)
 {
     Case *c = _plateau.accesCase(pos);
 
@@ -165,14 +165,14 @@ void Model::selectionnerCase(const Position &pos)
     }
 }
 
-void Model::annulerSelections()
+void Modele::annulerSelections()
 {
     _caseSelectionnee = nullptr;
     _caseCible = nullptr;
     _aConstruire = nullptr;
 }
 
-Unite *Model::getUniteSelectionee() const
+Unite *Modele::getUniteSelectionee() const
 {
     if (!_caseSelectionnee)
         throw std::runtime_error("Erreur : Aucune case n'est selectionee");
@@ -180,14 +180,14 @@ Unite *Model::getUniteSelectionee() const
     return _caseSelectionnee->getUnite(_indUniteSelectionnee);
 }
 
-usint Model::getNbActionsPossibles() const
+usint Modele::getNbActionsPossibles() const
 {
     if (uniteSelectioneeAJoue())
         return 0;
     return getUniteSelectionee()->getNbActionsPossibles();
 }
 
-bool Model::uniteSelectioneeAJoue() const
+bool Modele::uniteSelectioneeAJoue() const
 {
     if (_unitesAyantJoue.empty())
         return false;
@@ -195,7 +195,7 @@ bool Model::uniteSelectioneeAJoue() const
     return _unitesAyantJoue.find(getUniteSelectionee()) == _unitesAyantJoue.end();
 }
 
-void Model::choixAction(usint indAction)
+void Modele::choixAction(usint indAction)
 {
     if (indAction >= getNbActionsPossibles())
         throw std::invalid_argument("Erreur : l'indice est incorrecte");
@@ -207,7 +207,7 @@ void Model::choixAction(usint indAction)
     }
 }
 
-void Model::effectuerAction()
+void Modele::effectuerAction()
 {
     if (!_caseSelectionnee)
         throw std::runtime_error("Erreur : aucune case selectionnee");
@@ -246,7 +246,7 @@ void Model::effectuerAction()
         changementJoueur();
 }
 
-usint Model::getNbConstructionsPossibles() const
+usint Modele::getNbConstructionsPossibles() const
 {
     if (_etat != etat::construction || !_caseCible)
         throw std::runtime_error("Erreur : impossible de calculer les constructions possibles");
@@ -254,7 +254,7 @@ usint Model::getNbConstructionsPossibles() const
     return _caseCible->nbConstructionsPossibles();
 }
 
-void Model::choixConstruction(usint indConstruction)
+void Modele::choixConstruction(usint indConstruction)
 {
     if (_etat != etat::construction || indConstruction >= getNbConstructionsPossibles())
         throw std::runtime_error("Erreur : impossible de choisir une construction");
@@ -271,7 +271,7 @@ void Model::choixConstruction(usint indConstruction)
     }
 }
 
-std::vector<Case *> Model::getChemin() const
+std::vector<Case *> Modele::getChemin() const
 {
     if (_etat != etat::deplacement || !_caseSelectionnee || !_caseCible)
         throw std::runtime_error("Erreur : aucun chemin ne peut etre trouve");
@@ -279,7 +279,7 @@ std::vector<Case *> Model::getChemin() const
     return _plateau.getChemin(_caseSelectionnee, _caseCible, getUniteSelectionee());
 }
 
-void Model::sortieFlux(std::ostream &os) const
+void Modele::sortieFlux(std::ostream &os) const
 {
     os << "Faction attaquante = " << factionToString(_factionAttaquante) << std::endl
        << "Faction attaquee = " << factionToString(_factionAttaquee) << std::endl
@@ -316,7 +316,7 @@ void Model::sortieFlux(std::ostream &os) const
         os << "Aucune case cible" << std::endl;
 }
 
-std::string Model::factionToString(Faction faction)
+std::string Modele::factionToString(Faction faction)
 {
     switch (faction) {
     case Faction::bleue:    return "bleue";
@@ -328,7 +328,7 @@ std::string Model::factionToString(Faction faction)
     }
 }
 
-std::vector<Case *> Model::keysFromMap(const std::map<Case *, usint> &map)
+std::vector<Case *> Modele::keysFromMap(const std::map<Case *, usint> &map)
 {
     std::vector<Case *> keys;
     for (const auto &[key, val] : map)
