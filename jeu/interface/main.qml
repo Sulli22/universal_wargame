@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Window
 import QtMultimedia
+import "divers"
 
 Window {
     id: racine

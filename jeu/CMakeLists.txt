@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.16)
 
 project(jeu LANGUAGES CXX)
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_compile_options(
@@ -11,11 +14,15 @@ add_compile_options(
     -Wextra
 )
 
+find_package(Qt6 6.2 COMPONENTS Quick QuickControls2 Multimedia Core LinguistTools REQUIRED)
+
+set(TS_FILES interface/langues/traduction_en_US.ts)
+qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+
 file(COPY modele/data DESTINATION ${CMAKE_BINARY_DIR})
 
-add_executable(${PROJECT_NAME}
+qt_add_executable(appjeu
     main.cc
-
     modele/unitesabstraites/unite.cc
     modele/unitesabstraites/unitelegere.cc
     modele/unitesabstraites/unitelourde.cc
@@ -44,16 +51,22 @@ add_executable(${PROJECT_NAME}
     modele/cases/position.cc
     modele/cases/casemarine.cc
     modele/cases/caseterrestre.cc
-    
+
     modele/carte/carte.cc
     modele/carte/lecteur.cc
     modele/carte/createurcases.cc
     modele/carte/createurunites.cc
 
     modele/modele.cc
+    interface/langues/languagemanager.h
+    interface/langues/languageManager.cc
+    interface/ressources/images.qrc
+    ${TS_FILES}
+    ${QM_FILES}
 )
 
-target_sources(${PROJECT_NAME} PRIVATE
+
+target_sources(appjeu PRIVATE
     modele/unitesabstraites/unite.hh
     modele/unitesabstraites/unitelegere.hh
     modele/unitesabstraites/unitelourde.hh
@@ -91,7 +104,21 @@ target_sources(${PROJECT_NAME} PRIVATE
     modele/modele.hh
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE
+qt_add_qml_module(appjeu
+    URI ${PROJECT_NAME}
+    VERSION 1.0
+    QML_FILES interface/main.qml
+    interface/pages/PreAccueil.qml
+    interface/pages/Accueil.qml interface/composantsAccueil/BoutonAccueil.qml
+    interface/pages/Parametres.qml interface/composantsParametres/ParametresVolume.qml interface/composantsParametres/ParametresLangue.qml
+    interface/composantsParametres/CheckBoxVolume.qml interface/composantsParametres/SliderVolume.qml
+    interface/pages/PageChoixGuerre.qml interface/composantsChoixGuerre/BoutonChoixGuerre.qml
+    interface/pages/PageJeu.qml
+    interface/divers/Background.qml
+   # RESOURCES interface/ressources/warzone.mp3
+)
+
+target_include_directories(appjeu PRIVATE
     modele/unitesabstraites
     modele/unites
     modele/constructions
@@ -99,10 +126,14 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     modele/carte
     modele/data
     modele
+    interface/
 )
 
-include(GNUInstallDirs)
-install(TARGETS ${PROJECT_NAME}
+target_link_libraries(appjeu
+    PRIVATE Qt6::Quick Qt6::QuickControls2 Qt6::Multimedia Qt6::Core)
+
+install(TARGETS appjeu
+    BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
