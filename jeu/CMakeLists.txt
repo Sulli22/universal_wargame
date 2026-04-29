@@ -74,6 +74,7 @@ qt_add_executable(${PROJECT_NAME}
     interface/langues/languagemanager.h
     interface/langues/languageManager.cc
     interface/ressources/images.qrc
+    ${QM_FILES}
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
@@ -115,8 +116,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 )
 
 set(TS_FILES interface/langues/traduction_en_UK.ts)
-qt_add_lupdate(target SOURCE_TARGETS ${PROJECT_NAME} TS_FILES ${TS_FILES})
-qt_add_lrelease(TS_FILES ${TS_FILES} QM_FILES_OUTPUT_VARIABLE QM_FILES)
+qt_add_translation(QM_FILES ${TS_FILES} )
 
 #qt_policy(SET QTP0004 OLD)
 qt6_add_qml_module(${PROJECT_NAME}
