@@ -121,7 +121,7 @@ target_sources(appJeu PRIVATE
 #qt_policy(SET QTP0004 OLD)
 qt6_add_qml_module(appJeu
 
-    URI "appJeu"
+    URI ${PROJECT_NAME}
 
     VERSION 1.0
 
