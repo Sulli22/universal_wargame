@@ -136,8 +136,11 @@ qt6_add_qml_module(appJeu
         interface/pages/PageChoixGuerre.qml
         interface/composantsChoixGuerre/BoutonChoixGuerre.qml
         interface/pages/PageJeu.qml
+        interface/pages/PopupQuitter.qml
         interface/divers/Background.qml
     RESOURCE_PREFIX "/qt/qml"
+    SOURCES interface/openGL/MonRender.h interface/openGL/MonRender.cpp
+    SOURCES interface/openGL/MonWidgetGL.h interface/openGL/MonWidgetGL.cpp
 )
 
 target_precompile_headers(appJeu PRIVATE ${PCH_HEADERS})
