@@ -15,7 +15,7 @@ add_compile_options(
 )
 
 
-find_package(Qt6 6.8 COMPONENTS Quick QuickControls2 Multimedia Core LinguistTools REQUIRED)
+find_package(Qt6 6.2 COMPONENTS Quick QuickControls2 Multimedia Core LinguistTools REQUIRED)
 
 set(PCH_HEADERS
     <QString>
