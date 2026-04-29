@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Controls
 
 Item {
-
     Slider {
         id: slider
         from: 0
@@ -40,7 +39,6 @@ Item {
             implicitHeight: 25
             implicitWidth: 25
             radius: implicitWidth/2
-
         }
     }
 

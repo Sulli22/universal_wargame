@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Window
 import QtMultimedia
+
 import "divers"
 
 Window {
@@ -12,8 +13,6 @@ Window {
     property bool desactiverVolumeBouton: false
     property bool desactiverVolumeMusique: false
     property int indiceLangue: 0
-
-    //property int i: 0
 
     signal onAnimationTerminee()
     signal onBoutonParametreClique()
@@ -98,8 +97,6 @@ Window {
                 pageLoader.source = "pages/PageJeu.qml"
             }
        }
-
-
    }
 
 function lancerBruitBouton() {

@@ -21,7 +21,6 @@ Item {
             Layout.preferredHeight: racineJeu.largeurRectangle
             Layout.maximumHeight: racineJeu.largeurRectangle
 
-
             Button {
                 id: boutonParametres
                 text: "Paramètres"
@@ -33,14 +32,12 @@ Item {
                 onClicked: {
                     parametreJeu.visible = true
                 }
-
             }
 
             Rectangle {
                 color: couleur
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-
             }
 
             Button {

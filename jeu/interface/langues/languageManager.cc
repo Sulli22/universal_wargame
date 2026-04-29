@@ -1,24 +1,24 @@
 #include "languagemanager.h"
 
-LanguageManager::LanguageManager(){
+LanguageManager::LanguageManager()
+{}
 
-}
-
-QString LanguageManager::getChaineVide() const {
+QString LanguageManager::getChaineVide() const
+{
     return QString();
 }
 
-void LanguageManager::majLangue(QString langue) {
+void LanguageManager::majLangue(QString langue)
+{
     if (langue == "en") {
-        if(_traduction.load(QGuiApplication::applicationDirPath()+"/traduction_en_US.qm")) {
+        if(_traduction.load(QGuiApplication::applicationDirPath() + "/traduction_en_US.qm"))
             qApp->installTranslator(&_traduction);
-        }
-        else {
+        else
             qDebug() << "Pas anglais";
-        }
     }
-    else {
+
+    else
         qApp->removeTranslator(&_traduction);
-    }
+
     emit langueChange();
 }

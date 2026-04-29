@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Window
+
 Item {
     id: racinePreAccueil
     signal animationTerminee()

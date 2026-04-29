@@ -14,7 +14,6 @@ add_compile_options(
     -Wextra
 )
 
-
 find_package(Qt6 6.8 COMPONENTS Quick QuickControls2 Multimedia Core LinguistTools REQUIRED)
 
 set(PCH_HEADERS
@@ -77,7 +76,6 @@ qt_add_executable(appjeu
     ${QM_FILES}
 )
 
-
 target_sources(appjeu PRIVATE
     modele/unitesabstraites/unite.hh
     modele/unitesabstraites/unitelegere.hh
@@ -120,6 +118,7 @@ qt_add_qml_module(appjeu
     URI ${PROJECT_NAME}
     VERSION 1.0
     QML_FILES interface/main.qml
+
     interface/pages/PreAccueil.qml
     interface/pages/Accueil.qml interface/composantsAccueil/BoutonAccueil.qml
     interface/pages/Parametres.qml interface/composantsParametres/ParametresVolume.qml interface/composantsParametres/ParametresLangue.qml
@@ -138,10 +137,9 @@ target_include_directories(appjeu PRIVATE
     modele/cases
     modele/carte
     modele/data
-    modele
-    interface/
-)
 
+    interface
+)
 
 target_link_libraries(appjeu
     PRIVATE Qt6::Quick Qt6::QuickControls2 Qt6::Multimedia Qt6::Core)

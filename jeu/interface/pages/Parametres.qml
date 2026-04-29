@@ -1,8 +1,10 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+
 import "../composantsParametres"
 import "../divers"
+
 Item {
     id: racineParametres
 
