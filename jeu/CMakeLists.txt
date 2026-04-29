@@ -33,7 +33,7 @@ set(PCH_HEADERS
 file(COPY interface/ressources/warzone.mp3 DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY modele/data DESTINATION ${CMAKE_BINARY_DIR})
 
-qt6_add_executable(${PROJECT_NAME}
+qt_add_executable(${PROJECT_NAME}
     main.cc
     modele/unitesabstraites/unite.cc
     modele/unitesabstraites/unitelegere.cc
@@ -115,11 +115,11 @@ target_sources(${PROJECT_NAME} PRIVATE
 )
 
 set(TS_FILES interface/langues/traduction_en_UK.ts)
-qt6_add_lupdate(SOURCE_TARGETS ${PROJECT_NAME} TS_FILES ${TS_FILES})
-qt6_add_lrelease(TS_FILES ${TS_FILES} QM_FILES_OUTPUT_VARIABLE QM_FILES)
+qt_add_lupdate(target SOURCE_TARGETS ${PROJECT_NAME} TS_FILES ${TS_FILES})
+qt_add_lrelease(TS_FILES ${TS_FILES} QM_FILES_OUTPUT_VARIABLE QM_FILES)
 
 qt_policy(SET QTP0004 OLD)
-qt6_add_qml_module(${PROJECT_NAME}
+qt_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION 1.0
     QML_FILES
