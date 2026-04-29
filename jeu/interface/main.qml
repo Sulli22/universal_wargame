@@ -26,7 +26,7 @@ Window {
 
     MediaPlayer {
         id: sonMusique
-        source: "qrc:/jeu/interface/ressources/warzone.mp3"
+        source:"file://" + applicationDirPath + "/warzone.mp3"
         loops: MediaPlayer.Infinite
         audioOutput: AudioOutput {
             volume: racine.desactiverVolumeMusique ? 0 : racine.volumeMusique

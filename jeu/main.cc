@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
     LanguageManager languageManager;
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("languageManager", &languageManager);
+    engine.rootContext()->setContextProperty("applicationDirPath", QGuiApplication::applicationDirPath());
 
     const QUrl url("qrc:/jeu/interface/main.qml");
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

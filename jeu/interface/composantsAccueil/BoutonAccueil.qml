@@ -11,6 +11,7 @@ Item {
     Layout.alignment: Qt.AlignHCenter
 
 
+
     Button {
         id: boutonGuerre
 
