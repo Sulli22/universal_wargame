@@ -126,7 +126,6 @@ qt_add_qml_module(appjeu
     interface/pages/PageChoixGuerre.qml interface/composantsChoixGuerre/BoutonChoixGuerre.qml
     interface/pages/PageJeu.qml
     interface/divers/Background.qml
-    #RESOURCES interface/ressources/warzone.mp3
 )
 
 target_precompile_headers(appjeu PRIVATE ${PCH_HEADERS})
@@ -141,6 +140,7 @@ target_include_directories(appjeu PRIVATE
     modele
     interface/
 )
+
 
 target_link_libraries(appjeu
     PRIVATE Qt6::Quick Qt6::QuickControls2 Qt6::Multimedia Qt6::Core)
