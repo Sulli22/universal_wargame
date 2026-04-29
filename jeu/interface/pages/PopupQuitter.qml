@@ -25,6 +25,7 @@ Popup {
         Label {
             id: labelQuitter
             text: qsTr("Voulez vous vraiment quitter ?") + languageManager.chaineVide
+            color: "black"
             font.pointSize: 20
             font.bold: true
         }
@@ -33,6 +34,7 @@ Popup {
             Layout.alignment: Qt.AlignHCenter
             Button {
                 text: qsTr("Quitter") + languageManager.chaineVide
+                palette.buttonText: "black"
                // Layout.alignment: Qt.AlignHCenter
                 onClicked: Qt.quit()
                 font.bold: true
@@ -49,6 +51,7 @@ Popup {
 
             Button {
                 text: qsTr("Annuler")
+                palette.buttonText: "black"
                 font.bold: true
                 onClicked: {
                     close()
