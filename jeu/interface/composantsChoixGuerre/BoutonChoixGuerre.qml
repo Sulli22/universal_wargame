@@ -11,8 +11,6 @@ Item {
 
     Layout.fillWidth: true
 
-
-
     Rectangle {
         color: "transparent"
         anchors.fill: parent
@@ -25,9 +23,11 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
+
                 onEntered: {
                     rectangleTemp.visible = true
                 }
+
                 onExited: {
                     rectangleTemp.visible = false
                 }
@@ -35,9 +35,7 @@ Item {
                 onClicked: {
                     racineBoutonChoixGuerre.clique()
                 }
-
             }
-
         }
 
         Rectangle {
@@ -57,7 +55,4 @@ Item {
         color: "white"
         font.bold: true
     }
-
-
-
 }

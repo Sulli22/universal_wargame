@@ -15,7 +15,8 @@ add_compile_options(
 )
 
 find_package(Qt6 6.2 COMPONENTS
-    Quick QuickControls2 Multimedia Core LinguistTools
+        Quick QuickControls2 Multimedia Core LinguistTools
+        OpenGL
     REQUIRED)
 
 set(PCH_HEADERS
@@ -29,13 +30,10 @@ set(PCH_HEADERS
     <QMediaPlayer>
 )
 
-set(TS_FILES interface/langues/traduction_en_US.ts)
-qt6_add_translation(QM_FILES ${TS_FILES})
-
-file(COPY modele/data DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY interface/ressources/warzone.mp3 DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY modele/data DESTINATION ${CMAKE_BINARY_DIR})
 
-qt_add_executable(appjeu
+qt6_add_executable(${PROJECT_NAME}
     main.cc
     modele/unitesabstraites/unite.cc
     modele/unitesabstraites/unitelegere.cc
@@ -72,13 +70,13 @@ qt_add_executable(appjeu
     modele/carte/createurunites.cc
 
     modele/modele.cc
+
     interface/langues/languagemanager.h
     interface/langues/languageManager.cc
     interface/ressources/images.qrc
-    ${QM_FILES}
 )
 
-target_sources(appjeu PRIVATE
+target_sources(${PROJECT_NAME} PRIVATE
     modele/unitesabstraites/unite.hh
     modele/unitesabstraites/unitelegere.hh
     modele/unitesabstraites/unitelourde.hh
@@ -116,23 +114,34 @@ target_sources(appjeu PRIVATE
     modele/modele.hh
 )
 
-qt_add_qml_module(appjeu
+set(TS_FILES interface/langues/traduction_en_UK.ts)
+qt6_add_lupdate(SOURCE_TARGETS ${PROJECT_NAME} TS_FILES ${TS_FILES})
+qt6_add_lrelease(TS_FILES ${TS_FILES} QM_FILES_OUTPUT_VARIABLE QM_FILES)
+
+qt_policy(SET QTP0004 OLD)
+qt6_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION 1.0
-    QML_FILES interface/main.qml
-
-    interface/pages/PreAccueil.qml
-    interface/pages/Accueil.qml interface/composantsAccueil/BoutonAccueil.qml
-    interface/pages/Parametres.qml interface/composantsParametres/ParametresVolume.qml interface/composantsParametres/ParametresLangue.qml
-    interface/composantsParametres/CheckBoxVolume.qml interface/composantsParametres/SliderVolume.qml
-    interface/pages/PageChoixGuerre.qml interface/composantsChoixGuerre/BoutonChoixGuerre.qml
-    interface/pages/PageJeu.qml
-    interface/divers/Background.qml
+    QML_FILES
+        interface/main.qml
+        interface/pages/PreAccueil.qml
+        interface/pages/Accueil.qml
+        interface/composantsAccueil/BoutonAccueil.qml
+        interface/pages/Parametres.qml
+        interface/composantsParametres/ParametresVolume.qml
+        interface/composantsParametres/ParametresLangue.qml
+        interface/composantsParametres/CheckBoxVolume.qml
+        interface/composantsParametres/SliderVolume.qml
+        interface/pages/PageChoixGuerre.qml
+        interface/composantsChoixGuerre/BoutonChoixGuerre.qml
+        interface/pages/PageJeu.qml
+        interface/divers/Background.qml
+    RESOURCE_PREFIX "/qt/qml"
 )
 
-target_precompile_headers(appjeu PRIVATE ${PCH_HEADERS})
+target_precompile_headers(${PROJECT_NAME} PRIVATE ${PCH_HEADERS})
 
-target_include_directories(appjeu PRIVATE
+target_include_directories(${PROJECT_NAME} PRIVATE
     modele/unitesabstraites
     modele/unites
     modele/constructions
@@ -143,10 +152,11 @@ target_include_directories(appjeu PRIVATE
     interface
 )
 
-target_link_libraries(appjeu
-    PRIVATE Qt6::Quick Qt6::QuickControls2 Qt6::Multimedia Qt6::Core)
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    Qt6::Quick Qt6::QuickControls2 Qt6::Multimedia Qt6::Core
+    Qt6::OpenGL)
 
-install(TARGETS appjeu
+install(TARGETS ${PROJECT_NAME}
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

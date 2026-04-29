@@ -58,7 +58,6 @@ Item {
             id: milieuPage
             Layout.fillWidth: true
             Layout.fillHeight: true
-            //Layout.alignment: Qt.AlignTop
             Rectangle {
                 color: couleur
                 Layout.fillHeight: true
@@ -89,7 +88,6 @@ Item {
                 Layout.fillWidth: true
                 Layout.preferredHeight: racineJeu.largeurRectangle
             }
-
         }
     }
 

@@ -32,7 +32,7 @@ Item {
             model: ListModel {
                 id: cbItems
                 ListElement {text:"Français"; image: "qrc:/france"}
-                ListElement {text:"English"; image: "qrc:/royaumeunis"}
+                ListElement {text:"English"; image: "qrc:/royaumeuni"}
             }
 
             textRole: "text"
@@ -79,7 +79,6 @@ Item {
                         font.bold: true
                         Layout.fillWidth: true
                     }
-
                 }
                 // Permet que celui qui est sélectionné soit mis en valeur
                 highlighted: selectionLangue.highlightedIndex === index
