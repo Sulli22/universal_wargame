@@ -122,6 +122,7 @@ qt_policy(SET QTP0004 OLD)
 qt_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION 1.0
+
     QML_FILES
         interface/main.qml
         interface/pages/PreAccueil.qml
