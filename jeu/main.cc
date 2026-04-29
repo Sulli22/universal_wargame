@@ -1,7 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include <QLocale>
 #include <QTranslator>
 
 #include <QQmlContext>
@@ -16,6 +15,7 @@ int main(int argc, char *argv[])
     LanguageManager languageManager;
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("languageManager", &languageManager);
+    engine.rootContext()->setContextProperty("applicationDirPath", QGuiApplication::applicationDirPath());
 
     const QUrl url(u"qrc:/jeu/interface/main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

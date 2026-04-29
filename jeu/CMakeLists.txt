@@ -14,12 +14,24 @@ add_compile_options(
     -Wextra
 )
 
+set(PCH_HEADERS
+    <QString>
+    <QVector>
+    <QDebug>
+    <QGuiApplication>
+    <QQmlApplicationEngine>
+    <QTranslator>
+    <QQuickStyle>
+    <QMediaPlayer>
+)
+
 find_package(Qt6 6.2 COMPONENTS Quick QuickControls2 Multimedia Core LinguistTools REQUIRED)
 
 set(TS_FILES interface/langues/traduction_en_US.ts)
-qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+qt6_add_translation(QM_FILES ${TS_FILES})
 
 file(COPY modele/data DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY interface/ressources/warzone.mp3 DESTINATION ${CMAKE_BINARY_DIR})
 
 qt_add_executable(appjeu
     main.cc
@@ -61,7 +73,6 @@ qt_add_executable(appjeu
     interface/langues/languagemanager.h
     interface/langues/languageManager.cc
     interface/ressources/images.qrc
-    ${TS_FILES}
     ${QM_FILES}
 )
 
@@ -115,8 +126,10 @@ qt_add_qml_module(appjeu
     interface/pages/PageChoixGuerre.qml interface/composantsChoixGuerre/BoutonChoixGuerre.qml
     interface/pages/PageJeu.qml
     interface/divers/Background.qml
-   # RESOURCES interface/ressources/warzone.mp3
+    #RESOURCES interface/ressources/warzone.mp3
 )
+
+target_precompile_headers(appjeu PRIVATE ${PCH_HEADERS})
 
 target_include_directories(appjeu PRIVATE
     modele/unitesabstraites
