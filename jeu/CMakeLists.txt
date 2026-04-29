@@ -126,6 +126,7 @@ qt_add_qml_module(appjeu
     interface/composantsParametres/CheckBoxVolume.qml interface/composantsParametres/SliderVolume.qml
     interface/pages/PageChoixGuerre.qml interface/composantsChoixGuerre/BoutonChoixGuerre.qml
     interface/pages/PageJeu.qml
+    interface/pages/PopupQuitter.qml
     interface/divers/Background.qml
 )
 

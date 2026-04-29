@@ -28,6 +28,8 @@ Item {
                 palette.buttonText: "#f5f5dc"
                 background: Rectangle {
                     color: couleur
+                    border.color: "#f5f5dc"
+                    border.width: 1
                 }
                 Layout.fillHeight: true
                 onClicked: {
@@ -49,11 +51,19 @@ Item {
                 padding: 0
                 Layout.alignment: Qt.AlignRight
                 background: Rectangle {
-                    color: "red"
+                    gradient: Gradient {
+                        orientation: Gradient.Horizontal
+                        GradientStop {position: 0.0; color:"red"}
+                        GradientStop {position: 0.5; color: "#de7307"}
+                        GradientStop {position: 1.0; color: "red"}
+                    }
                 }
                 Layout.fillHeight: true
                 Layout.preferredWidth: racineJeu.largeurRectangle
-                onClicked: Qt.quit()
+                onClicked: {
+                    confirmationQuitter.open()
+                    rectangleOpacite.visible = true
+                }
             }
         }
 
@@ -73,6 +83,14 @@ Item {
                 id:plateau
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+
+                MouseArea {
+                    id: zoneClique
+                    anchors.fill: parent
+                    onClicked: {
+                        console.log("("+mouseX+","+mouseY+")")
+                    }
+                }
             }
 
             Rectangle {
@@ -100,6 +118,18 @@ Item {
         id: parametreJeu
         visible: false
         onBoutonRetourClique: visible = false
+    }
+
+    Rectangle {
+        id: rectangleOpacite
+        color: "grey"
+        opacity: 0.2
+        anchors.fill: parent
+        visible: false
+    }
+
+    PopupQuitter {
+        id: confirmationQuitter
     }
 
 }
