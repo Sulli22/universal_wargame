@@ -118,7 +118,7 @@ set(TS_FILES interface/langues/traduction_en_UK.ts)
 qt6_add_lupdate(SOURCE_TARGETS ${PROJECT_NAME} TS_FILES ${TS_FILES})
 qt6_add_lrelease(TS_FILES ${TS_FILES} QM_FILES_OUTPUT_VARIABLE QM_FILES)
 
-qt_policy(SET QTP0004 OLD)
+#qt_policy(SET QTP0004 OLD)
 qt6_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION 1.0
