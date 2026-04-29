@@ -114,11 +114,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     modele/modele.hh
 )
 
-set(TS_FILES interface/langues/traduction_en_UK.ts)
-qt_add_lupdate(target SOURCE_TARGETS ${PROJECT_NAME} TS_FILES ${TS_FILES})
-qt_add_lrelease(TS_FILES ${TS_FILES} QM_FILES_OUTPUT_VARIABLE QM_FILES)
-
-qt_policy(SET QTP0004 OLD)
+#qt_policy(SET QTP0004 OLD)
 qt_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION 1.0
