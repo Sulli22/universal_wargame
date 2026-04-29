@@ -76,6 +76,8 @@ qt_add_executable(appJeu
 
     interface/langues/languagemanager.h
     interface/langues/languageManager.cc
+    interface/openGL/MonRender.h interface/openGL/MonRender.cpp
+    interface/openGL/MonWidgetGL.h interface/openGL/MonWidgetGL.cpp
     interface/ressources/images.qrc
     ${QM_FILES}
 )
