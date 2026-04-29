@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+
 import "../composantsChoixGuerre"
 
 Item {
@@ -31,7 +32,6 @@ Item {
         ColumnLayout {
             id: layoutBoutonsChoix
 
-
             BoutonChoixGuerre {
                 id: boutonGuerre1
                 Layout.preferredHeight: Math.max(10, ((racineChoixGuerre.height/2)/2))
@@ -58,14 +58,10 @@ Item {
                 nomGuerre: "Guerre 3"
                 onClique : racineChoixGuerre.boutonGuerre3Clique()
             }
-
-
         }
 
         Item {
             Layout.fillHeight: true
         }
     }
-
-
 }

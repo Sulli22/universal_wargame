@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Window
 import QtMultimedia
+
 import "divers"
 
 Window {
@@ -13,8 +14,6 @@ Window {
     property bool desactiverVolumeMusique: false
     property int indiceLangue: 0
 
-    //property int i: 0
-
     signal onAnimationTerminee()
     signal onBoutonParametreClique()
 
@@ -26,7 +25,7 @@ Window {
 
     MediaPlayer {
         id: sonMusique
-        source:"file://" + applicationDirPath + "/warzone.mp3"
+        source: "file://" + applicationDirPath + "/warzone.mp3"
         loops: MediaPlayer.Infinite
         audioOutput: AudioOutput {
             volume: racine.desactiverVolumeMusique ? 0 : racine.volumeMusique
@@ -98,8 +97,6 @@ Window {
                 pageLoader.source = "pages/PageJeu.qml"
             }
        }
-
-
    }
 
 function lancerBruitBouton() {

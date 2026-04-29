@@ -21,7 +21,6 @@ Item {
             Layout.preferredHeight: racineJeu.largeurRectangle
             Layout.maximumHeight: racineJeu.largeurRectangle
 
-
             Button {
                 id: boutonParametres
                 text: "Paramètres"
@@ -35,14 +34,12 @@ Item {
                 onClicked: {
                     parametreJeu.visible = true
                 }
-
             }
 
             Rectangle {
                 color: couleur
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-
             }
 
             Button {
@@ -71,7 +68,6 @@ Item {
             id: milieuPage
             Layout.fillWidth: true
             Layout.fillHeight: true
-            //Layout.alignment: Qt.AlignTop
             Rectangle {
                 color: couleur
                 Layout.fillHeight: true
@@ -110,7 +106,6 @@ Item {
                 Layout.fillWidth: true
                 Layout.preferredHeight: racineJeu.largeurRectangle
             }
-
         }
     }
 

@@ -4,6 +4,7 @@ import QtQuick.Controls
 CheckBox {
     id: checkBoxDesactive
     font.bold: true
+
     indicator: Rectangle {
         implicitWidth: 26
         implicitHeight: 26

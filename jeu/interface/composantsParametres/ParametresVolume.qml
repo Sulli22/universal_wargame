@@ -3,16 +3,13 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 Item {
-
     Layout.alignment: Qt.AlignHCenter
-
 
     Rectangle {
         anchors.fill: parent
         color: "transparent"
         border.color: "black"
         border.width: 2
-
     }
 
     ColumnLayout {
@@ -28,7 +25,6 @@ Item {
             font.bold: true
             font.pointSize: Math.max(racine.height/40, 10)
             Layout.alignment: Qt.AlignHCenter
-
         }
 
         ColumnLayout {
@@ -37,16 +33,11 @@ Item {
             Layout.fillWidth: true
             Layout.margins: 8
 
-
-
             SliderVolume {
                 id: sliderVolume
                 Layout.fillHeight: true
                 Layout.fillWidth: true
             }
-
-
-
 
             RowLayout {
                 spacing: 100
@@ -60,8 +51,6 @@ Item {
                     }
                 }
 
-
-
                 CheckBoxVolume {
                     id: checkBoxDesactiveBruit
                     text: qsTr("Désactiver bruitage") + languageManager.chaineVide
@@ -71,7 +60,6 @@ Item {
                         racine.desactiverVolumeBouton = checked
                     }
                 }
-
                 Layout.alignment: Qt.AlignHCenter
             }
 
@@ -80,7 +68,5 @@ Item {
                 Layout.fillHeight: true
             }
         }
-
-
     }
 }
