@@ -36,7 +36,7 @@ qt_add_translation(QM_FILES ${TS_FILES})
 file(COPY interface/ressources/warzone.mp3 DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY modele/data DESTINATION ${CMAKE_BINARY_DIR})
 
-qt_add_executable(${PROJECT_NAME}
+qt_add_executable(appJeu
     main.cc
     modele/unitesabstraites/unite.cc
     modele/unitesabstraites/unitelegere.cc
@@ -80,7 +80,7 @@ qt_add_executable(${PROJECT_NAME}
     ${QM_FILES}
 )
 
-target_sources(${PROJECT_NAME} PRIVATE
+target_sources(appJeu PRIVATE
     modele/unitesabstraites/unite.hh
     modele/unitesabstraites/unitelegere.hh
     modele/unitesabstraites/unitelourde.hh
@@ -119,7 +119,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 )
 
 #qt_policy(SET QTP0004 OLD)
-qt6_add_qml_module(${PROJECT_NAME}
+qt6_add_qml_module(appJeu
     URI ${PROJECT_NAME}
     VERSION 1.0
 
@@ -136,13 +136,14 @@ qt6_add_qml_module(${PROJECT_NAME}
         interface/pages/PageChoixGuerre.qml
         interface/composantsChoixGuerre/BoutonChoixGuerre.qml
         interface/pages/PageJeu.qml
+        interface/pages/PopupQuitter.qml
         interface/divers/Background.qml
     RESOURCE_PREFIX "/qt/qml"
 )
 
-target_precompile_headers(${PROJECT_NAME} PRIVATE ${PCH_HEADERS})
+target_precompile_headers(appJeu PRIVATE ${PCH_HEADERS})
 
-target_include_directories(${PROJECT_NAME} PRIVATE
+target_include_directories(appJeu PRIVATE
     modele/unitesabstraites
     modele/unites
     modele/constructions
@@ -153,11 +154,11 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     interface
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
+target_link_libraries(appJeu PRIVATE
     Qt6::Quick Qt6::QuickControls2 Qt6::Multimedia Qt6::Core
     Qt6::OpenGL)
 
-install(TARGETS ${PROJECT_NAME}
+install(TARGETS appJeu
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
