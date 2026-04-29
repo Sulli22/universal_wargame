@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 3.16)
 project(jeu LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_compile_options(
@@ -14,7 +14,7 @@ add_compile_options(
     -Wextra
 )
 
-find_package(Qt6 6.2 COMPONENTS Quick QuickControls2 Multimedia Core LinguistTools REQUIRED)
+find_package(Qt6 6.8 COMPONENTS Quick QuickControls2 Multimedia Core LinguistTools REQUIRED)
 
 set(TS_FILES interface/langues/traduction_en_US.ts)
 qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})

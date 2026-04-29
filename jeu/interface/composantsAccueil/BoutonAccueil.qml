@@ -6,7 +6,7 @@ import QtQuick.Layouts
 Item {
     id: racineBoutonAccueil
     signal clique
-    property alias  textBouton: boutonGuerre.text
+    property alias textBouton: boutonGuerre.text
 
     Layout.alignment: Qt.AlignHCenter
 
