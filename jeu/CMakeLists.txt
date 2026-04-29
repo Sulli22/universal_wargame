@@ -30,6 +30,9 @@ set(PCH_HEADERS
     <QMediaPlayer>
 )
 
+set(TS_FILES interface/langues/traduction_en_UK.ts)
+qt_add_translation(QM_FILES ${TS_FILES})
+
 file(COPY interface/ressources/warzone.mp3 DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY modele/data DESTINATION ${CMAKE_BINARY_DIR})
 
@@ -74,6 +77,7 @@ qt_add_executable(${PROJECT_NAME}
     interface/langues/languagemanager.h
     interface/langues/languageManager.cc
     interface/ressources/images.qrc
+    ${QM_FILES}
 )
 
 target_sources(${PROJECT_NAME} PRIVATE
@@ -115,7 +119,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 )
 
 #qt_policy(SET QTP0004 OLD)
-qt_add_qml_module(${PROJECT_NAME}
+qt6_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION 1.0
 
