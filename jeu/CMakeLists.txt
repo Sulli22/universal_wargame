@@ -74,10 +74,9 @@ qt_add_executable(appJeu
 
     modele/modele.cc
 
-    interface/langues/languagemanager.h
     interface/langues/languageManager.cc
-    interface/openGL/MonRender.h interface/openGL/MonRender.cpp
-    interface/openGL/MonWidgetGL.h interface/openGL/MonWidgetGL.cpp
+    interface/openGL/MonRender.cpp
+    interface/openGL/MonWidgetGL.cpp
     interface/ressources/images.qrc
     ${QM_FILES}
 )
@@ -118,6 +117,10 @@ target_sources(appJeu PRIVATE
     modele/carte/createurunites.hh
 
     modele/modele.hh
+
+    interface/langues/languagemanager.h
+    interface/openGL/MonRender.h
+    interface/openGL/MonWidgetGL.h
 )
 
 #qt_policy(SET QTP0004 OLD)
