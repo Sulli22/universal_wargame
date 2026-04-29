@@ -76,6 +76,8 @@ qt_add_executable(appJeu
 
     interface/langues/languagemanager.h
     interface/langues/languageManager.cc
+    interface/openGL/MonRender.h interface/openGL/MonRender.cpp
+    interface/openGL/MonWidgetGL.h interface/openGL/MonWidgetGL.cpp
     interface/ressources/images.qrc
     ${QM_FILES}
 )
@@ -120,9 +122,7 @@ target_sources(appJeu PRIVATE
 
 #qt_policy(SET QTP0004 OLD)
 qt6_add_qml_module(appJeu
-
-    URI "appJeu"
-
+    URI ${PROJECT_NAME}
     VERSION 1.0
 
     QML_FILES
@@ -141,8 +141,6 @@ qt6_add_qml_module(appJeu
         interface/pages/PopupQuitter.qml
         interface/divers/Background.qml
     RESOURCE_PREFIX "/qt/qml"
-    SOURCES interface/openGL/MonRender.h interface/openGL/MonRender.cpp
-    SOURCES interface/openGL/MonWidgetGL.h interface/openGL/MonWidgetGL.cpp
 )
 
 target_precompile_headers(appJeu PRIVATE ${PCH_HEADERS})
