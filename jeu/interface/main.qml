@@ -27,25 +27,24 @@ Window {
         id: sonMusique
         source: "file://" + applicationDirPath + "/warzone.mp3"
         loops: MediaPlayer.Infinite
+
         audioOutput: AudioOutput {
             volume: racine.desactiverVolumeMusique ? 0 : racine.volumeMusique
         }
 
-        Component.onCompleted: {
-            sonMusique.play()
-        }
+        Component.onCompleted: sonMusique.play()
     }
 
     Component {
         id: composantSon
         MediaPlayer {
             source: "qrc:/bouton.wav"
+
             audioOutput: AudioOutput {
                 volume: racine.desactiverVolumeBouton ? 0 : racine.volumeBouton
             }
         }
     }
-
 
     Background {
         anchors.fill: parent
@@ -76,24 +75,26 @@ Window {
                 pageLoader.source = "pages/Parametres.qml"
             }
 
-
             function onBoutonRetourClique() {
                 lancerBruitBouton()
                 pageLoader.source = "pages/Accueil.qml"
             }
 
+            function onBoutonGuerre0Clique() {
+                lancerBruitBouton()
+                modeleQML.setModele(0);
+                pageLoader.source = "pages/PageJeu.qml"
+            }
+
             function onBoutonGuerre1Clique() {
                 lancerBruitBouton()
+                modeleQML.setModele(1);
                 pageLoader.source = "pages/PageJeu.qml"
             }
 
             function onBoutonGuerre2Clique() {
                 lancerBruitBouton()
-                pageLoader.source = "pages/PageJeu.qml"
-            }
-
-            function onBoutonGuerre3Clique() {
-                lancerBruitBouton()
+                modeleQML.setModele(2)
                 pageLoader.source = "pages/PageJeu.qml"
             }
        }

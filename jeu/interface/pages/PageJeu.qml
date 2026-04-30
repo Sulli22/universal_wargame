@@ -27,12 +27,14 @@ Item {
                 id: boutonParametres
                 text: "Paramètres"
                 palette.buttonText: "#f5f5dc"
+                Layout.fillHeight: true
+
                 background: Rectangle {
                     color: couleur
                     border.color: "#f5f5dc"
                     border.width: 1
                 }
-                Layout.fillHeight: true
+
                 onClicked: {
                     parametreJeu.visible = true
                 }
@@ -49,6 +51,7 @@ Item {
                 text: "X"
                 padding: 0
                 Layout.alignment: Qt.AlignRight
+
                 background: Rectangle {
                     gradient: Gradient {
                         orientation: Gradient.Horizontal
@@ -57,8 +60,10 @@ Item {
                         GradientStop {position: 1.0; color: "red"}
                     }
                 }
+
                 Layout.fillHeight: true
                 Layout.preferredWidth: racineJeu.largeurRectangle
+
                 onClicked: {
                     confirmationQuitter.open()
                     rectangleOpacite.visible = true
@@ -78,6 +83,7 @@ Item {
             }
 
             MonOpenGLItem {
+                modele: modeleQML
                 id: plateau
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -103,6 +109,7 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: racineJeu.largeurRectangle
             Layout.maximumHeight: racineJeu.largeurRectangle
+
             Rectangle {
                 color: couleur
                 Layout.fillWidth: true

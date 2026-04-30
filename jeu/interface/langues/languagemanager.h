@@ -7,6 +7,7 @@
 class LanguageManager: public QObject {
     Q_OBJECT
     Q_PROPERTY(QString chaineVide READ getChaineVide NOTIFY langueChange)
+
 public:
     LanguageManager();
     QString getChaineVide() const;

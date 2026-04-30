@@ -20,6 +20,7 @@ Item {
             width: parent.width
             height: parent.height
             anchors.fill: parent
+
             MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
@@ -32,9 +33,7 @@ Item {
                     rectangleTemp.visible = false
                 }
 
-                onClicked: {
-                    racineBoutonChoixGuerre.clique()
-                }
+                onClicked: racineBoutonChoixGuerre.clique()
             }
         }
 

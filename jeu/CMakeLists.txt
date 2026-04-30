@@ -143,8 +143,8 @@ qt6_add_qml_module(appJeu
         interface/pages/PageJeu.qml
         interface/pages/PopupQuitter.qml
         interface/divers/Background.qml
-        interface/pages/TestGL.qml
     RESOURCE_PREFIX "/qt/qml"
+    SOURCES interface/modelePourQML/modelepourqml.h interface/modelePourQML/modelepourqml.cpp
 )
 
 target_precompile_headers(appJeu PRIVATE ${PCH_HEADERS})

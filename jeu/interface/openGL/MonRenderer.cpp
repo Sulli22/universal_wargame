@@ -3,7 +3,8 @@
 #include <QOpenGLFramebufferObjectFormat>
 #include <GL/gl.h>
 
-MonRenderer::MonRenderer()
+MonRenderer::MonRenderer(ModelePourQML *modele):
+    _modele(modele)
 {
     initializeOpenGLFunctions();
     glEnable(GL_DEPTH);
@@ -16,17 +17,33 @@ void MonRenderer::render()
     glClearColor(0.f, 0.f, 0.f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    // PROJECTION
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
+    const Carte &plateau = _modele->getPlateau();
+    auto hauteur = plateau.getHauteur();
+    auto largeur = plateau.getLargeur();
+    glOrtho(0.0,  largeur-1,
+            0.0,  hauteur-1,
+            -1.0, 1.0);
+
+    // MODELVIEW
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    glBegin(GL_TRIANGLES);
+    // Display
+    glPointSize(10.f);
+    glBegin(GL_POINTS);
     {
-        glColor3f(1, 0, 0); glVertex2f(0.0f, 0.6f);
-        glColor3f(0, 1, 0); glVertex2f(-0.6f, -0.6f);
-        glColor3f(0, 0, 1); glVertex2f(0.6f, -0.6f);
+        glColor3f(1.f, 0.f, 0.f); glVertex2f(0., 0.);   // origine
+
+        glColor3f(0.f, 1.f, 0.f);
+        for (std::size_t r = 0; r < hauteur; ++r) {
+            for (std::size_t q = 0; q < largeur; ++q) {
+                glVertex2f(q, r);
+            }
+        }
     }
     glEnd();
 
