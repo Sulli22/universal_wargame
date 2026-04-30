@@ -25,7 +25,8 @@ Item {
 
             Button {
                 id: boutonParametres
-                text: "Paramètres"
+                text: qsTr("Paramètres") + languageManager.chaineVide
+                font.bold: true
                 palette.buttonText: "#f5f5dc"
                 Layout.fillHeight: true
 
