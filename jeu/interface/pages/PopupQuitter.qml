@@ -4,6 +4,10 @@ import QtQuick.Layouts
 
 Popup {
     id: racinePopup
+
+    property bool fenetre: true
+    signal retourAccueilPopup()
+
     anchors.centerIn: parent
     width: parent.width*0.3
     height: parent.height*0.3
@@ -24,7 +28,7 @@ Popup {
 
         Label {
             id: labelQuitter
-            text: qsTr("Voulez vous vraiment quitter ?") + languageManager.chaineVide
+            text: racinePopup.fenetre ? qsTr("Voulez vous vraiment quitter le jeu ?") + languageManager.chaineVide: qsTr("Voulez vous vraiment quitter la partie?") + languageManager.chaineVide
             color: "black"
             font.pointSize: 20
             font.bold: true
@@ -37,7 +41,8 @@ Popup {
                 palette.buttonText: "black"
                 Layout.preferredWidth: racinePopup.width*0.2
                // Layout.alignment: Qt.AlignHCenter
-                onClicked: Qt.quit()
+                onClicked: racinePopup.retourAccueilPopup()
+
                 font.bold: true
                 background: Rectangle {
                     radius: height/2

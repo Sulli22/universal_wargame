@@ -27,24 +27,6 @@ Item {
 
         font.pointSize: Math.max(10,racineBoutonAccueil.height*0.4)
         font.bold: true
-        /*
-        clip: true
-        anchors.right: parent.right
-        PropertyAnimation { id: animation;
-                              target: boutonAccueil;
-                              property: "width";
-                              from:0;
-                              to: racineBoutonAccueil.width
-                              duration: 1000;
-                              easing.type: Easing.OutBack
-
-        }
-
-
-        Component.onCompleted: {
-            animation.running = true
-        }
-        */
 
         onClicked: racineBoutonAccueil.clique()
     }

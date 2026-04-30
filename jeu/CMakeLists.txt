@@ -143,7 +143,8 @@ qt6_add_qml_module(appJeu
         interface/pages/PageJeu.qml
         interface/pages/PopupQuitter.qml
         interface/divers/Background.qml
-        interface/pages/TestGL.qml
+        interface/composantsJeu/BoutonAction.qml
+
     RESOURCE_PREFIX "/qt/qml"
 )
 

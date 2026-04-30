@@ -96,6 +96,15 @@ Window {
                 lancerBruitBouton()
                 pageLoader.source = "pages/PageJeu.qml"
             }
+
+            function onRetourAccueil(fenetre) {
+                if (fenetre) {
+                    Qt.quit()
+                }
+                else {
+                    pageLoader.source = "pages/Accueil.qml"
+                }
+            }
        }
    }
 

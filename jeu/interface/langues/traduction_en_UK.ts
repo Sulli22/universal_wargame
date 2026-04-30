@@ -30,9 +30,8 @@
 <context>
     <name>PageJeu</name>
     <message>
-        <location filename="../pages/PageJeu.qml" line="26"/>
         <source>Paramètres</source>
-        <translation>Settings</translation>
+        <translation type="vanished">Settings</translation>
     </message>
 </context>
 <context>
@@ -72,17 +71,26 @@
 <context>
     <name>PopupQuitter</name>
     <message>
-        <location filename="../pages/PopupQuitter.qml" line="27"/>
         <source>Voulez vous vraiment quitter ?</source>
-        <translation>Do you want really to quit ?</translation>
+        <translation type="vanished">Do you want really to quit ?</translation>
     </message>
     <message>
-        <location filename="../pages/PopupQuitter.qml" line="36"/>
+        <location filename="../pages/PopupQuitter.qml" line="31"/>
+        <source>Voulez vous vraiment quitter la partie?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pages/PopupQuitter.qml" line="31"/>
+        <source>Voulez vous vraiment quitter le jeu ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pages/PopupQuitter.qml" line="40"/>
         <source>Quitter</source>
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="../pages/PopupQuitter.qml" line="54"/>
+        <location filename="../pages/PopupQuitter.qml" line="59"/>
         <source>Annuler</source>
         <translation>Cancel</translation>
     </message>
