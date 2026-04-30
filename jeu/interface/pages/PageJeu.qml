@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import MonGL 1.0
+
 Item {
     id: racineJeu
 
@@ -69,15 +71,15 @@ Item {
             id: milieuPage
             Layout.fillWidth: true
             Layout.fillHeight: true
+
             Rectangle {
                 color: couleur
                 Layout.fillHeight: true
                 Layout.preferredWidth: racineJeu.largeurRectangle
             }
 
-            // Cette partie deviendra le plateau de jeu
-            Item {
-                id:plateau
+            MonOpenGLItem {
+                id: plateau
                 Layout.fillHeight: true
                 Layout.fillWidth: true
 
@@ -127,6 +129,4 @@ Item {
     PopupQuitter {
         id: confirmationQuitter
     }
-
 }
-

@@ -19,6 +19,8 @@ find_package(Qt6 6.2 COMPONENTS
         OpenGL
     REQUIRED)
 
+find_package(OpenGL REQUIRED)
+
 set(PCH_HEADERS
     <QString>
     <QVector>
@@ -75,9 +77,9 @@ qt_add_executable(appJeu
     modele/modele.cc
 
     interface/langues/languageManager.cc
-    interface/openGL/MonRender.cpp
-    interface/openGL/MonWidgetGL.cpp
     interface/ressources/images.qrc
+    interface/openGL/MonOpenGLItem.cpp
+    interface/openGL/MonRenderer.cpp
     ${QM_FILES}
 )
 
@@ -119,17 +121,13 @@ target_sources(appJeu PRIVATE
     modele/modele.hh
 
     interface/langues/languagemanager.h
-    interface/openGL/MonRender.h
-    interface/openGL/MonWidgetGL.h
+    interface/openGL/MonOpenGLItem.h
+    interface/openGL/MonRenderer.h
 )
 
-#qt_policy(SET QTP0004 OLD)
 qt6_add_qml_module(appJeu
-
     URI ${PROJECT_NAME}
-
     VERSION 1.0
-
     QML_FILES
         interface/main.qml
         interface/pages/PreAccueil.qml
@@ -145,6 +143,7 @@ qt6_add_qml_module(appJeu
         interface/pages/PageJeu.qml
         interface/pages/PopupQuitter.qml
         interface/divers/Background.qml
+        interface/pages/TestGL.qml
     RESOURCE_PREFIX "/qt/qml"
 )
 
@@ -163,7 +162,7 @@ target_include_directories(appJeu PRIVATE
 
 target_link_libraries(appJeu PRIVATE
     Qt6::Quick Qt6::QuickControls2 Qt6::Multimedia Qt6::Core
-    Qt6::OpenGL)
+    Qt6::OpenGL OpenGL::GL)
 
 install(TARGETS appJeu
     BUNDLE DESTINATION .
