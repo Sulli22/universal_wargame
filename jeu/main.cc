@@ -8,6 +8,7 @@
 
 #include "langues/languagemanager.h"
 #include "openGL/MonOpenGLItem.h"
+#include "modelePourQML/modelepourqml.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,26 +17,31 @@ int main(int argc, char *argv[])
     format.setVersion(2, 1);
     format.setProfile(QSurfaceFormat::CompatibilityProfile);
     QSurfaceFormat::setDefaultFormat(format);
+    qputenv("QSG_RHI_BACKEND", "opengl");
 
     QGuiApplication app(argc, argv);
     QQuickStyle::setStyle("Basic");
-
-    qputenv("QSG_RHI_BACKEND", "opengl");
-    qmlRegisterType<MonOpenGLItem>("MonGL", 1, 0, "MonOpenGLItem");
 
     LanguageManager languageManager;
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("languageManager", &languageManager);
     engine.rootContext()->setContextProperty("applicationDirPath", QGuiApplication::applicationDirPath());
 
-    //engine.load(QUrl("qrc:/qt/qml/jeu/interface/pages/TestGL.qml"));
+    ModelePourQML modeleQML;
+    engine.rootContext()->setContextProperty("modeleQML", &modeleQML);
+    qmlRegisterType<MonOpenGLItem>("MonGL", 1, 0, "MonOpenGLItem");
+
     const QUrl url("qrc:/qt/qml/jeu/interface/main.qml");
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app,
+                     [url](QObject *obj, const QUrl &objUrl) {
+                        if (!obj && url == objUrl)
+                            QCoreApplication::exit(-1);
+                     },
+        Qt::QueuedConnection);
     engine.load(url);
+
+    if (engine.rootObjects().isEmpty())
+        return -1;
 
     return app.exec();
 }

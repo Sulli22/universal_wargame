@@ -25,9 +25,11 @@ Item {
             Layout.maximumHeight: racineJeu.largeurRectangle
 
             Button {
+
                 id: boutonAutre
                 text: "="
                 palette.buttonText: racine.couleurTexte
+
                 background: Rectangle {
                     color: parent.hovered ? "#d6d6d6" : "#2C3E50"
                     border.color: "#c5b358"
@@ -77,6 +79,7 @@ Item {
                 text: "X"
                 padding: 0
                 Layout.alignment: Qt.AlignRight
+
                 background: Rectangle {
                     gradient: Gradient {
                         orientation: Gradient.Horizontal
@@ -85,8 +88,10 @@ Item {
                         GradientStop {position: 1.0; color: "red"}
                     }
                 }
+
                 Layout.fillHeight: true
                 Layout.preferredWidth: racineJeu.largeurRectangle
+
                 onClicked: {
                     confirmationQuitter.fenetre = true
                     confirmationQuitter.open()
@@ -102,6 +107,7 @@ Item {
             spacing: 0
 
             MonOpenGLItem {
+                modele: modeleQML
                 id: plateau
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -180,6 +186,21 @@ Item {
             }
         }
 
+<<<<<<< HEAD
+=======
+        RowLayout {
+            id: basPage
+            Layout.fillWidth: true
+            Layout.preferredHeight: racineJeu.largeurRectangle
+            Layout.maximumHeight: racineJeu.largeurRectangle
+
+            Rectangle {
+                color: couleur
+                Layout.fillWidth: true
+                Layout.preferredHeight: racineJeu.largeurRectangle
+            }
+        }
+>>>>>>> 179588cd66d24f965cb4a38eff13c4a09faf3633
     }
 
 

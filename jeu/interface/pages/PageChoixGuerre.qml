@@ -6,9 +6,9 @@ import "../composantsChoixGuerre"
 Item {
     id: racineChoixGuerre
 
+    signal boutonGuerre0Clique
     signal boutonGuerre1Clique
     signal boutonGuerre2Clique
-    signal boutonGuerre3Clique
 
     ColumnLayout {
         id: layoutGeneral
@@ -21,10 +21,9 @@ Item {
             font.italic: true
             font.bold: true
             Layout.alignment: Qt.AlignHCenter
-
             font.pointSize: Math.max(20, racineChoixGuerre.height/20)
         }
-        // Plaque en haut ce qui est au dessus et en bas ce qui est en dessous
+
         Item {
             Layout.fillHeight: true
         }
@@ -34,29 +33,26 @@ Item {
 
             BoutonChoixGuerre {
                 id: boutonGuerre1
-                Layout.preferredHeight: Math.max(10, ((racineChoixGuerre.height/2)/2))
+                Layout.preferredHeight: Math.max(10, racineChoixGuerre.height/4)
                 sourceImage: "qrc:/waterloo"
-                nomGuerre: "Guerre 1"
-                onClique : {
-                    racineChoixGuerre.boutonGuerre1Clique()
-                }
+                nomGuerre: "Guerre 0"
+                onClique : racineChoixGuerre.boutonGuerre0Clique()
             }
-
 
             BoutonChoixGuerre {
                 id: boutonGuerre2
-                Layout.preferredHeight: Math.max(10, (racineChoixGuerre.height/2)/2)
+                Layout.preferredHeight: Math.max(10, racineChoixGuerre.height/4)
                 sourceImage: "qrc:/waterloo"
-                nomGuerre: "Guerre 2"
-                onClique : racineChoixGuerre.boutonGuerre2Clique()
+                nomGuerre: "Guerre 1"
+                onClique : racineChoixGuerre.boutonGuerre1Clique()
             }
 
             BoutonChoixGuerre {
                 id: boutonGuerre3
-                Layout.preferredHeight: Math.max(10, (racineChoixGuerre.height/2)/2)
+                Layout.preferredHeight: Math.max(10, racineChoixGuerre.height/4)
                 sourceImage: "qrc:/waterloo"
-                nomGuerre: "Guerre 3"
-                onClique : racineChoixGuerre.boutonGuerre3Clique()
+                nomGuerre: "Guerre 2"
+                onClique : racineChoixGuerre.boutonGuerre2Clique()
             }
         }
 
