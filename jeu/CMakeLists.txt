@@ -31,7 +31,7 @@ set(PCH_HEADERS
 )
 
 set(TS_FILES interface/langues/traduction_en_UK.ts)
-qt_add_translation(QM_FILES ${TS_FILES})
+qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 
 file(COPY interface/ressources/warzone.mp3 DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY modele/data DESTINATION ${CMAKE_BINARY_DIR})

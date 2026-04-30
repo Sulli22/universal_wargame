@@ -35,6 +35,7 @@ Popup {
             Button {
                 text: qsTr("Quitter") + languageManager.chaineVide
                 palette.buttonText: "black"
+                Layout.preferredWidth: racinePopup.width*0.2
                // Layout.alignment: Qt.AlignHCenter
                 onClicked: Qt.quit()
                 font.bold: true
@@ -50,8 +51,9 @@ Popup {
             }
 
             Button {
-                text: qsTr("Annuler")
+                text: qsTr("Annuler") + languageManager.chaineVide
                 palette.buttonText: "black"
+                Layout.preferredWidth: racinePopup.width*0.2
                 font.bold: true
                 onClicked: {
                     close()

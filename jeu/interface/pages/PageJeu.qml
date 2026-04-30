@@ -23,7 +23,8 @@ Item {
 
             Button {
                 id: boutonParametres
-                text: "Paramètres"
+                text: qsTr("Paramètres") + languageManager.chaineVide
+                font.bold: true
                 palette.buttonText: "#f5f5dc"
                 background: Rectangle {
                     color: couleur
