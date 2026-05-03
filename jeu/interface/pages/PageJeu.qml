@@ -10,13 +10,15 @@ Item {
 
     readonly property string couleur: "#2f3640"
     readonly property real largeurRectangle: Math.max(10, racine.width*0.025)
+
     signal retourAccueil(bool fenetre)
+
     ColumnLayout {
         id: layoutGeneral
         anchors.fill: parent
-
         spacing: 0
         anchors.margins: 0
+
         RowLayout {
             id: hautPage
             spacing: 0
@@ -25,7 +27,6 @@ Item {
             Layout.maximumHeight: racineJeu.largeurRectangle
 
             Button {
-
                 id: boutonAutre
                 text: "="
                 palette.buttonText: racine.couleurTexte
@@ -36,15 +37,15 @@ Item {
                     border.width: 2
                 }
 
-                Layout.preferredWidth: hautPage.width
+                Layout.preferredWidth: racineJeu.largeurRectangle
                 Layout.fillHeight: true
                 font.pointSize: Math.max(implicitWidth*0.4, 10)
                 font.bold: true
 
                 onClicked: {
                     menuAutre.open()
-
                 }
+
                 Menu {
                     id: menuAutre
                     y: boutonAutre.height
@@ -66,7 +67,6 @@ Item {
                     }
                 }
             }
-
 
             Rectangle {
                 color: couleur
@@ -127,7 +127,6 @@ Item {
                 Layout.fillHeight: true
                 Layout.preferredWidth: racineJeu.largeurRectangle * 4
 
-
                 Rectangle {
                     anchors.top: parent.top
                     color: "black"
@@ -182,12 +181,9 @@ Item {
                         equipe: "red"
                     }
                 }
-
             }
         }
 
-<<<<<<< HEAD
-=======
         RowLayout {
             id: basPage
             Layout.fillWidth: true
@@ -200,9 +196,7 @@ Item {
                 Layout.preferredHeight: racineJeu.largeurRectangle
             }
         }
->>>>>>> 179588cd66d24f965cb4a38eff13c4a09faf3633
     }
-
 
     Parametres {
         id: parametreJeu
