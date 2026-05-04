@@ -11,7 +11,22 @@ MonRenderer::MonRenderer(ModelePourQML *modele):
 
 void MonRenderer::drawHex(float x, float y) const
 {
+    // applat de couleur
+    glColor3f(0.f, 1.f, 0.f);
     glBegin(GL_POLYGON);
+    {
+        glVertex2f(x + _R, y);
+        glVertex2f(x + _R/2, y + _R*sqrt(3)/2);
+        glVertex2f(x - _R/2, y + _R*sqrt(3)/2);
+        glVertex2f(x - _R, y);
+        glVertex2f(x - _R/2, y - _R*sqrt(3)/2);
+        glVertex2f(x + _R/2, y - _R*sqrt(3)/2);
+    }
+    glEnd();
+
+    // contours
+    glColor3f(0.f, 0.f, 0.f);
+    glBegin(GL_LINE_LOOP);
     {
         glVertex2f(x + _R, y);
         glVertex2f(x + _R/2, y + _R*sqrt(3)/2);
@@ -66,7 +81,6 @@ void MonRenderer::render()
     glLoadIdentity();
 
     // display
-    glColor3f(0.f, 1.f, 0.f);
     for (std::size_t r = 0; r < hauteur; ++r) {
         for (std::size_t q = 0; q < largeur; ++q) {
             const float x = q * (HEX_W * 0.75f);
