@@ -53,7 +53,7 @@ Window {
     Loader {
        id: pageLoader
        anchors.fill: parent
-       source: "pages/PreAccueil.qml"
+       source: "pages/Credits.qml"
 
        Connections {
             target: pageLoader.item
@@ -61,7 +61,7 @@ Window {
             ignoreUnknownSignals: true
 
             function onAnimationTerminee() {
-                pageLoader.source = "pages/Accueil.qml"
+                pageLoader.source = "pages/MenuPrincipal.qml"
             }
 
             function onBoutonJouerClique() {
@@ -77,7 +77,7 @@ Window {
 
             function onBoutonRetourClique() {
                 lancerBruitBouton()
-                pageLoader.source = "pages/Accueil.qml"
+                pageLoader.source = "pages/MenuPrincipal.qml"
             }
 
             function onBoutonGuerre0Clique() {
