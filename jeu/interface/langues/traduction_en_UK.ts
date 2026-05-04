@@ -37,7 +37,7 @@
 <context>
     <name>PageChoixGuerre</name>
     <message>
-        <location filename="../pages/PageChoixGuerre.qml" line="19"/>
+        <location filename="../pages/PageChoixGuerre.qml" line="17"/>
         <source>Choix de la guerre</source>
         <translation>Choice of war</translation>
     </message>

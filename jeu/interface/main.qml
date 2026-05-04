@@ -78,23 +78,12 @@ Window {
                 pageLoader.source = "pages/MenuPrincipal.qml"
             }
 
-            function onBoutonGuerre0Clique() {
+            function onBoutonGuerreClique(indice) {
                 lancerBruitBouton()
-                modeleQML.setModele(0);
+                modeleQML.setModele(indice);
                 pageLoader.source = "pages/PageJeu.qml"
             }
 
-            function onBoutonGuerre1Clique() {
-                lancerBruitBouton()
-                modeleQML.setModele(1);
-                pageLoader.source = "pages/PageJeu.qml"
-            }
-
-            function onBoutonGuerre2Clique() {
-                lancerBruitBouton()
-                modeleQML.setModele(2)
-                pageLoader.source = "pages/PageJeu.qml"
-            }
 
             function onRetourMenuPrincipal(fenetre) {
                 if (fenetre) {
