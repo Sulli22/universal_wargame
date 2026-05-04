@@ -2,10 +2,9 @@ import QtQuick
 import QtQuick.Window
 
 Item {
-    id: racinePreAccueil
+    id: racineCredits
     signal animationTerminee()
 
-    visible: true
 
     Rectangle {
         id: background
@@ -25,7 +24,7 @@ Item {
                 from: "white"
                 to: "black"
                 duration: 1000
-                onFinished: racinePreAccueil.animationTerminee()
+                onFinished: racineCredits.animationTerminee()
             }
         }
 
