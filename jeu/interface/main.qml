@@ -14,8 +14,6 @@ Window {
     property bool desactiverVolumeMusique: false
     property int indiceLangue: 0
 
-    signal onAnimationTerminee()
-    signal onBoutonParametreClique()
 
     visibility: Window.FullScreen
     width: Screen.width
@@ -98,12 +96,12 @@ Window {
                 pageLoader.source = "pages/PageJeu.qml"
             }
 
-            function onRetourAccueil(fenetre) {
+            function onRetourMenuPrincipal(fenetre) {
                 if (fenetre) {
                     Qt.quit()
                 }
                 else {
-                    pageLoader.source = "pages/Accueil.qml"
+                    pageLoader.source = "pages/MenuPrincipal.qml"
                 }
             }
        }
