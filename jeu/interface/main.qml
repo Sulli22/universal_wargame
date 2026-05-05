@@ -19,7 +19,7 @@ Window {
     width: Screen.width
     height: Screen.height
     visible: true
-    title: qsTr("Wargame")
+    title: "HEX WARS"
 
     MediaPlayer {
         id: sonMusique

@@ -28,7 +28,7 @@ Popup {
 
         Label {
             id: labelQuitter
-            text: racinePopup.fenetre ? qsTr("Voulez vous vraiment quitter le jeu ?") + languageManager.chaineVide: qsTr("Voulez vous vraiment quitter la partie?") + languageManager.chaineVide
+            text: racinePopup.fenetre ? qsTr("Voulez vous vraiment quitter le jeu ?") + languageManager.chaineVide: qsTr("Voulez vous vraiment quitter la partie ?") + languageManager.chaineVide
             color: "black"
             font.pointSize: 20
             font.bold: true

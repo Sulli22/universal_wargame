@@ -16,12 +16,13 @@ Item {
         id: layoutLangue
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 10
+
         Text {
             id: labelLangue
             text: qsTr("LANGUE") + languageManager.chaineVide
             color: racine.couleurTexte
             font.bold: true
-            font.pointSize:  Math.max(racineParametres.height/40, 10)
+            font.pointSize: Math.max(racineParametres.height/40, 10)
             Layout.alignment: Qt.AlignHCenter
         }
 
@@ -31,30 +32,30 @@ Item {
 
             model: ListModel {
                 id: cbItems
-                ListElement {text:"Français"; image: "qrc:/france"}
-                ListElement {text:"English"; image: "qrc:/royaumeuni"}
+                ListElement { text:"Français"; image: "qrc:/france" }
+                ListElement { text:"English"; image: "qrc:/royaumeuni" }
             }
 
             textRole: "text"
             currentIndex: racine.indiceLangue
-            // Permet d'avoir le drapeau afficher même quand la liste n'est pas ouverte
-            contentItem: RowLayout {
-               anchors.fill: parent
 
-               spacing: 10
-               Image {
+            contentItem: RowLayout {
+                anchors.fill: parent
+                spacing: 10
+
+                Image {
                    source: selectionLangue.model.get(selectionLangue.currentIndex).image
                    sourceSize: "24x12"
                    Layout.leftMargin: 10
-               }
+                }
 
-               Text {
+                Text {
                    id: nomLangueChoisie
                    color: "black"
                    text: selectionLangue.model.get(selectionLangue.currentIndex).text
                    font.bold: true
                    Layout.fillWidth: true
-               }
+                }
             }
 
             background: Rectangle {
@@ -65,9 +66,16 @@ Item {
 
             // Permet de personnaliser lors de l'ouverture de la liste
             delegate: ItemDelegate {
+                id: control
                 width: selectionLangue.width
+
+                background: Rectangle {
+                    color: control.highlighted ? "#87CEFA" : "#f5f5dc"
+                }
+
                 contentItem: RowLayout {
                     spacing: 10
+
                     Image {
                         source: model.image
                         sourceSize: "24x12" 
@@ -80,6 +88,7 @@ Item {
                         Layout.fillWidth: true
                     }
                 }
+
                 // Permet que celui qui est sélectionné soit mis en valeur
                 highlighted: selectionLangue.highlightedIndex === index
             }

@@ -51,14 +51,14 @@ Item {
                     y: boutonAutre.height
 
                     MenuItem {
-                        text: "Paramètres"
+                        text: qsTr("Paramètres") + languageManager.chaineVide
                         onTriggered: {
                             parametreJeu.visible = true
                         }
                     }
 
                     MenuItem {
-                        text: "Quitter la partie"
+                        text: qsTr("Quitter la partie") + languageManager.chaineVide
                         onTriggered: {
                             confirmationQuitter.fenetre = false
                             confirmationQuitter.open()
