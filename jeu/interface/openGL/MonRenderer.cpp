@@ -49,10 +49,10 @@ void MonRenderer::dessinCadre(float x, float y) const
 {
     glBegin(GL_LINE_LOOP);
     {
-        glVertex2f(x - _R/2.f, y - _R*sqrt(3)/4.f);
-        glVertex2f(x - _R/2.f, y + _R*sqrt(3)/4.f);
-        glVertex2f(x + _R/2.f, y + _R*sqrt(3)/4.f);
-        glVertex2f(x + _R/2.f, y - _R*sqrt(3)/4.f);
+        glVertex2f(x - _LARGEUR_CADRE, y - _HAUTEUR_CADRE);
+        glVertex2f(x - _LARGEUR_CADRE, y + _HAUTEUR_CADRE);
+        glVertex2f(x + _LARGEUR_CADRE, y + _HAUTEUR_CADRE);
+        glVertex2f(x + _LARGEUR_CADRE, y - _HAUTEUR_CADRE);
     }
     glEnd();
 }
@@ -63,18 +63,18 @@ void MonRenderer::dessinAiles(float x, float y) const
     {
         // aile gauche
         glVertex2f(x, y);
-        for (uint16_t i = 0; i <= 5; ++i) {
-            float theta = M_PI * (float)i/5.f + M_PI/2.f;
-            float cx = _R/5.f * cos(theta), cy = _R/5.f * sin(theta);
-            glVertex2f(x - _R/5.f + cx, y + cy);
+        for (uint16_t i = 0; i <= _NB_SEG_DEMI_CERCLE; ++i) {
+            float theta = M_PI * (float)i/(float)_NB_SEG_DEMI_CERCLE + M_PI_2;
+            float cx = _R_HEX/5.f * cos(theta), cy = _R_HEX/5.f * sin(theta);
+            glVertex2f(x - _R_HEX/5.f + cx, y + cy);
         }
 
         // aile droite
         glVertex2f(x, y);
-        for (uint16_t i = 0; i <= 5; ++i) {
-            float theta = M_PI * (float)i/5.f - M_PI/2.f;
-            float cx = _R/5.f * cos(theta), cy = _R/5.f * sin(theta);
-            glVertex2f(x + _R/5.f + cx, y + cy);
+        for (uint16_t i = 0; i <= _NB_SEG_DEMI_CERCLE; ++i) {
+            float theta = M_PI * (float)i/(float)_NB_SEG_DEMI_CERCLE - M_PI_2;
+            float cx = _R_HEX/5.f * cos(theta), cy = _R_HEX/5.f * sin(theta);
+            glVertex2f(x + _R_HEX/5.f + cx, y + cy);
         }
     }
     glEnd();
@@ -84,17 +84,17 @@ void MonRenderer::dessinGenie(float x, float y) const
 {
     glBegin(GL_LINES);
     {
-        glVertex2f(x - _R/3.f, y + _R*sqrt(3)/8.f);
-        glVertex2f(x + _R/3.f, y + _R*sqrt(3)/8.f);
+        glVertex2f(x - _DEMIE_LARGEUR_GENIE, y + _DEMIE_HAUTEUR_GENIE);
+        glVertex2f(x + _DEMIE_LARGEUR_GENIE, y + _DEMIE_HAUTEUR_GENIE);
 
-        glVertex2f(x - _R/3.f, y + _R*sqrt(3)/8.f);
-        glVertex2f(x - _R/3.f, y - _R*sqrt(3)/8.f);
+        glVertex2f(x - _DEMIE_LARGEUR_GENIE, y + _DEMIE_HAUTEUR_GENIE);
+        glVertex2f(x - _DEMIE_LARGEUR_GENIE, y - _DEMIE_HAUTEUR_GENIE);
 
-        glVertex2f(x + _R/3.f, y + _R*sqrt(3)/8.f);
-        glVertex2f(x + _R/3.f, y - _R*sqrt(3)/8.f);
+        glVertex2f(x + _DEMIE_LARGEUR_GENIE, y + _DEMIE_HAUTEUR_GENIE);
+        glVertex2f(x + _DEMIE_LARGEUR_GENIE, y - _DEMIE_HAUTEUR_GENIE);
 
-        glVertex2f(x, y + _R*sqrt(3)/8.f);
-        glVertex2f(x, y - _R*sqrt(3)/8.f);
+        glVertex2f(x, y + _DEMIE_HAUTEUR_GENIE);
+        glVertex2f(x, y - _DEMIE_HAUTEUR_GENIE);
     }
     glEnd();
 }
@@ -103,10 +103,10 @@ void MonRenderer::dessinInfanterie(float x, float y) const
 {
     glBegin(GL_LINES);
     {
-        glVertex2f(x - _R/2.f, y - _R*sqrt(3)/4.f);
-        glVertex2f(x + _R/2.f, y + _R*sqrt(3)/4.f);
-        glVertex2f(x - _R/2.f, y + _R*sqrt(3)/4.f);
-        glVertex2f(x + _R/2.f, y - _R*sqrt(3)/4.f);
+        glVertex2f(x - _LARGEUR_CADRE, y - _HAUTEUR_CADRE);
+        glVertex2f(x + _LARGEUR_CADRE, y + _HAUTEUR_CADRE);
+        glVertex2f(x - _LARGEUR_CADRE, y + _HAUTEUR_CADRE);
+        glVertex2f(x + _LARGEUR_CADRE, y - _HAUTEUR_CADRE);
     }
     glEnd();
 }
@@ -115,9 +115,9 @@ void MonRenderer::dessinArtillerie(float x, float y) const
 {
     glBegin(GL_POLYGON);
     {
-        for (uint16_t i = 0; i <= 20; ++i) {
-            float theta = 2.f * M_PI * (float)i / 20.f;
-            float cx = _R/4.f * cos(theta), cy = _R/4.f * sin(theta);
+        for (uint16_t i = 0; i <= _NB_SEG_CERCLE; ++i) {
+            float theta = 2.f * M_PI * (float)i/(float)_NB_SEG_CERCLE;
+            float cx = _R_CERCLE * cos(theta), cy = _R_CERCLE * sin(theta);
             glVertex2f(x + cx, y + cy);
         }
     }
@@ -128,16 +128,16 @@ void MonRenderer::dessinCharAssaut(float x, float y) const
 {
     glBegin(GL_LINE_LOOP);
     {
-        for (uint16_t i = 0; i <= 5; ++i) {
-            float theta = M_PI * (float)i/5.f - M_PI/2.f;
-            float cx = _R/5.f * cos(theta), cy = _R/5.f * sin(theta);
-            glVertex2f(x + _R/5.f + cx, y + cy);
+        for (uint16_t i = 0; i <= _NB_SEG_DEMI_CERCLE; ++i) {
+            float theta = M_PI * (float)i/(float)_NB_SEG_DEMI_CERCLE - M_PI_2;
+            float cx = _R_DEMI_CERCLE * cos(theta), cy = _R_DEMI_CERCLE * sin(theta);
+            glVertex2f(x + _R_DEMI_CERCLE + cx, y + cy);
         }
 
-        for (uint16_t i = 0; i <= 5; ++i) {
-            float theta = M_PI * (float)i/5.f + M_PI/2.f;
-            float cx = _R/5.f * cos(theta), cy = _R/5.f * sin(theta);
-            glVertex2f(x - _R/5.f + cx, y + cy);
+        for (uint16_t i = 0; i <= _NB_SEG_DEMI_CERCLE; ++i) {
+            float theta = M_PI * (float)i/(float)_NB_SEG_DEMI_CERCLE + M_PI_2;
+            float cx = _R_DEMI_CERCLE * cos(theta), cy = _R_DEMI_CERCLE * sin(theta);
+            glVertex2f(x - _R_DEMI_CERCLE + cx, y + cy);
         }
     }
     glEnd();
@@ -149,24 +149,24 @@ void MonRenderer::dessinFregate(float x, float y) const
     glBegin(GL_LINES);
     {
         // 1er F
-        glVertex2f(x - _R/4.f, y + _R/4.f);
-        glVertex2f(x - _R/4.f, y - _R/4.f);
+        glVertex2f(x - _R_HEX/4.f, y + _R_HEX/4.f);
+        glVertex2f(x - _R_HEX/4.f, y - _R_HEX/4.f);
 
-        glVertex2f(x - _R/4.f, y + _R/4.f);
-        glVertex2f(x - _R/10.f, y + _R/4.f);
+        glVertex2f(x - _R_HEX/4.f, y + _R_HEX/4.f);
+        glVertex2f(x - _R_HEX/10.f, y + _R_HEX/4.f);
 
-        glVertex2f(x - _R/4.f, y);
-        glVertex2f(x - _R/10.f, y);
+        glVertex2f(x - _R_HEX/4.f, y);
+        glVertex2f(x - _R_HEX/10.f, y);
 
         // 2eme F
-        glVertex2f(x + _R/10.f, y + _R/4.f);
-        glVertex2f(x + _R/10.f, y - _R/4.f);
+        glVertex2f(x + _R_HEX/10.f, y + _R_HEX/4.f);
+        glVertex2f(x + _R_HEX/10.f, y - _R_HEX/4.f);
 
-        glVertex2f(x + _R/10.f, y + _R/4.f);
-        glVertex2f(x + _R/4.f, y + _R/4.f);
+        glVertex2f(x + _R_HEX/10.f, y + _R_HEX/4.f);
+        glVertex2f(x + _R_HEX/4.f, y + _R_HEX/4.f);
 
-        glVertex2f(x + _R/10.f, y);
-        glVertex2f(x + _R/4.f, y);
+        glVertex2f(x + _R_HEX/10.f, y);
+        glVertex2f(x + _R_HEX/4.f, y);
     }
     glEnd();
 }
@@ -175,12 +175,12 @@ void MonRenderer::dessinSousMarin(float x, float y) const
 {
     glBegin(GL_POLYGON);
     {
-        glVertex2f(x - _R/5.f, y + _R/5.f);
-        glVertex2f(x + _R/5.f, y + _R/5.f);
-        glVertex2f(x + _R/3.f, y);
-        glVertex2f(x + _R/5.f, y - _R/5.f);
-        glVertex2f(x - _R/5.f, y - _R/5.f);
-        glVertex2f(x - _R/3.f, y);
+        glVertex2f(x - _R_HEX/5.f, y + _R_HEX/5.f);
+        glVertex2f(x + _R_HEX/5.f, y + _R_HEX/5.f);
+        glVertex2f(x + _R_HEX/3.f, y);
+        glVertex2f(x + _R_HEX/5.f, y - _R_HEX/5.f);
+        glVertex2f(x - _R_HEX/5.f, y - _R_HEX/5.f);
+        glVertex2f(x - _R_HEX/3.f, y);
     }
     glEnd();
 }
@@ -192,14 +192,14 @@ void MonRenderer::dessinChasseur(float x, float y) const
     // dessin "F"
     glBegin(GL_LINES);
     {
-        glVertex2f(x, y + _R/6.f);
-        glVertex2f(x, y + _R/3.f);
+        glVertex2f(x, y + _R_HEX/6.f);
+        glVertex2f(x, y + _R_HEX/3.f);
 
-        glVertex2f(x, y + _R/3.f);
-        glVertex2f(x + _R/8.f, y + _R/3.f);
+        glVertex2f(x, y + _R_HEX/3.f);
+        glVertex2f(x + _R_HEX/8.f, y + _R_HEX/3.f);
 
-        glVertex2f(x, y + _R/4.f);
-        glVertex2f(x + _R/8.f, y + _R/4.f);
+        glVertex2f(x, y + _R_HEX/4.f);
+        glVertex2f(x + _R_HEX/8.f, y + _R_HEX/4.f);
     }
     glEnd();
 }
@@ -211,12 +211,12 @@ void MonRenderer::dessinBombardier(float x, float y) const
     // dessin "B"
     glBegin(GL_LINE_LOOP);
     {
-        glVertex2f(x, y + _R/6.f);
-        glVertex2f(x, y + _R/3.f);
+        glVertex2f(x, y + _R_HEX/6.f);
+        glVertex2f(x, y + _R_HEX/3.f);
 
-        glVertex2f(x + _R/10.f, y + _R/3.5f);
-        glVertex2f(x, y + _R/4.f);
-        glVertex2f(x + _R/10.f, y + _R/4.5f);
+        glVertex2f(x + _R_HEX/10.f, y + _R_HEX/3.5f);
+        glVertex2f(x, y + _R_HEX/4.f);
+        glVertex2f(x + _R_HEX/10.f, y + _R_HEX/4.5f);
     }
     glEnd();
 }
@@ -269,12 +269,12 @@ void MonRenderer::dessinHex(float x, float y) const
     // applat de couleur
     glBegin(GL_POLYGON);
     {
-        glVertex2f(x + _R, y);
-        glVertex2f(x + _R/2.f, y + _R*sqrt(3)/2);
-        glVertex2f(x - _R/2.f, y + _R*sqrt(3)/2);
-        glVertex2f(x - _R, y);
-        glVertex2f(x - _R/2.f, y - _R*sqrt(3)/2);
-        glVertex2f(x + _R/2.f, y - _R*sqrt(3)/2);
+        glVertex2f(x + _R_HEX, y);
+        glVertex2f(x + _R_HEX/2.f, y + _R_HEX*_SQRT_3/2);
+        glVertex2f(x - _R_HEX/2.f, y + _R_HEX*_SQRT_3/2);
+        glVertex2f(x - _R_HEX, y);
+        glVertex2f(x - _R_HEX/2.f, y - _R_HEX*_SQRT_3/2);
+        glVertex2f(x + _R_HEX/2.f, y - _R_HEX*_SQRT_3/2);
     }
     glEnd();
 
@@ -282,12 +282,12 @@ void MonRenderer::dessinHex(float x, float y) const
     glColor3f(0.f, 0.f, 0.f);
     glBegin(GL_LINE_LOOP);
     {
-        glVertex2f(x + _R, y);
-        glVertex2f(x + _R/2.f, y + _R*sqrt(3)/2);
-        glVertex2f(x - _R/2.f, y + _R*sqrt(3)/2);
-        glVertex2f(x - _R, y);
-        glVertex2f(x - _R/2.f, y - _R*sqrt(3)/2);
-        glVertex2f(x + _R/2.f, y - _R*sqrt(3)/2);
+        glVertex2f(x + _R_HEX, y);
+        glVertex2f(x + _R_HEX/2.f, y + _R_HEX*_SQRT_3/2);
+        glVertex2f(x - _R_HEX/2.f, y + _R_HEX*_SQRT_3/2);
+        glVertex2f(x - _R_HEX, y);
+        glVertex2f(x - _R_HEX/2.f, y - _R_HEX*_SQRT_3/2);
+        glVertex2f(x + _R_HEX/2.f, y - _R_HEX*_SQRT_3/2);
     }
     glEnd();
 }
@@ -303,31 +303,29 @@ void MonRenderer::render()
     const auto hauteur = plateau.getHauteur(), largeur = plateau.getLargeur();
 
     // Dimensions d'un hexagone et de la grille
-    const float HEX_W  = 2.f * _R;               // largeur  (pointe à pointe)
-    const float HEX_H  = sqrt(3.f) * _R;    // hauteur  (plat à plat)
-    const float GRID_W = HEX_W * (1.f + (largeur - 1) * 0.75f);
-    const float GRID_H = HEX_H * hauteur;
+    const float LARGEUR_GRILLE = _LARGEUR_HEX * (1.f + (largeur - 1) * 0.75f);
+    const float HAUTEUR_GRILLE = _HAUTEUR_HEX * hauteur;
 
     // on etend l'espace logique pour qu'il ait le même ratio que la fenêtre
-    const float WIN_W   = static_cast<float>(framebufferObject()->width());
-    const float WIN_H   = static_cast<float>(framebufferObject()->height());
-    const float ASPECT  = WIN_W / WIN_H;
+    const float LARGEUR_FEN   = static_cast<float>(framebufferObject()->width());
+    const float HAUTEUR_FEN   = static_cast<float>(framebufferObject()->height());
+    const float ASPECT  = LARGEUR_FEN / HAUTEUR_FEN;
 
     // on garde la hauteur logique fixe et on elargit si besoin
-    float orthoW = GRID_H * ASPECT, orthoH = GRID_H;
+    float largeurOrtho = HAUTEUR_GRILLE * ASPECT, hauteurOrtho = HAUTEUR_GRILLE;
 
-    if (orthoW < GRID_W) {
-        orthoW = GRID_W;
-        orthoH = GRID_W / ASPECT;
+    if (largeurOrtho < LARGEUR_GRILLE) {
+        largeurOrtho = LARGEUR_GRILLE;
+        hauteurOrtho = LARGEUR_GRILLE / ASPECT;
     }
 
     // centrage de la grille dans l'espace logique
-    const float CX = GRID_W / 2.f, CY = GRID_H / 2.f;
+    const float CX = LARGEUR_GRILLE / 2.f, CY = HAUTEUR_GRILLE / 2.f;
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(CX - orthoW / 2.f, CX + orthoW / 2.f,
-            CY - orthoH / 2.f - _R, CY + orthoH / 2.f,
+    glOrtho(CX - largeurOrtho / 2.f, CX + largeurOrtho / 2.f,
+            CY - hauteurOrtho / 2.f - _R_HEX, CY + hauteurOrtho / 2.f,
             -1.f, 1.f);
 
     // MODELVIEW
@@ -337,8 +335,8 @@ void MonRenderer::render()
     // display
     for (std::size_t r = 0; r < hauteur; ++r) {
         for (std::size_t q = 0; q < largeur; ++q) {
-            const float x = q * (HEX_W * 0.75f);
-            const float y = (hauteur - 1 - r) * HEX_H + (q % 2) * HEX_H / 2.f;
+            const float x = q * (_LARGEUR_HEX * 0.75f);
+            const float y = (hauteur - 1 - r) * _HAUTEUR_HEX + (q % 2) * _HAUTEUR_HEX / 2.f;
 
             const couleur c = getCouleur(q, r);
             glColor3f(c.r, c.v, c.b);
@@ -347,8 +345,6 @@ void MonRenderer::render()
             dessinUnite(q, r, x, y);
         }
     }
-
-    update();
 }
 
 QOpenGLFramebufferObject *MonRenderer::createFramebufferObject(const QSize &size)
@@ -358,5 +354,3 @@ QOpenGLFramebufferObject *MonRenderer::createFramebufferObject(const QSize &size
     format.setSamples(8);
     return new QOpenGLFramebufferObject(size, format);
 }
-
-const float MonRenderer::_R(5.f);
