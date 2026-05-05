@@ -11,6 +11,7 @@ public:
 
     Q_SLOT void setModele(uint16_t idGuerre);
     const Carte &getPlateau() const;
+    void changementJoueur();
 
 private:
     std::unique_ptr<Modele> _modele;

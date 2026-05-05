@@ -13,3 +13,8 @@ const Carte &ModelePourQML::getPlateau() const
 {
     return _modele->getPlateau();
 }
+
+void ModelePourQML::changementJoueur()
+{
+    _modele->changementJoueur();
+}
