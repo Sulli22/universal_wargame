@@ -10,6 +10,7 @@ Item {
         height: 50
         stepSize: 1
         width: parent.width
+
         onMoved: {
             racine.volumeBouton = slider.value/100
             racine.volumeMusique = slider.value/200
@@ -34,7 +35,7 @@ Item {
         }
 
         handle: Rectangle {
-            x:slider.leftPadding + slider.visualPosition*(slider.availableWidth - width)
+            x: slider.leftPadding + slider.visualPosition*(slider.availableWidth - width)
             y: slider.topPadding + slider.availableHeight/2 - height/2
             implicitHeight: 25
             implicitWidth: 25

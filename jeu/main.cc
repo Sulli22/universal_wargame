@@ -6,7 +6,7 @@
 #include <QQmlContext>
 #include <QSurfaceFormat>
 
-#include "languagemanager.h"
+#include "langagemanager.h"
 #include "MonOpenGLItem.h"
 #include "modelepourqml.h"
 
@@ -22,9 +22,9 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQuickStyle::setStyle("Basic"); // force style basic
 
-    LanguageManager languageManager;
+    LangageManager langageManager;
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("languageManager", &languageManager);
+    engine.rootContext()->setContextProperty("langageManager", &langageManager);
     engine.rootContext()->setContextProperty("applicationDirPath", QGuiApplication::applicationDirPath());
 
     ModelePourQML modeleQML;

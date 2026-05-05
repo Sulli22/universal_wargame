@@ -133,8 +133,8 @@ set(QML_SOURCES
     interface/openGL/MonOpenGLItem.cpp
     interface/openGL/MonRenderer.h
     interface/openGL/MonRenderer.cpp
-    interface/langues/languagemanager.h
-    interface/langues/languageManager.cpp
+    interface/langues/langagemanager.h
+    interface/langues/langagemanager.cpp
     interface/ressources/ressources.qrc
 )
 

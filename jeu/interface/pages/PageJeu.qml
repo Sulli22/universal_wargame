@@ -51,14 +51,14 @@ Item {
                     y: boutonAutre.height
 
                     MenuItem {
-                        text: qsTr("Paramètres") + languageManager.chaineVide
+                        text: qsTr("Paramètres") + langageManager.chaineVide
                         onTriggered: {
                             parametreJeu.visible = true
                         }
                     }
 
                     MenuItem {
-                        text: qsTr("Quitter la partie") + languageManager.chaineVide
+                        text: qsTr("Quitter la partie") + langageManager.chaineVide
                         onTriggered: {
                             confirmationQuitter.fenetre = false
                             confirmationQuitter.open()
@@ -115,6 +115,8 @@ Item {
                 MouseArea {
                     id: zoneClique
                     anchors.fill: parent
+
+                    // tmp
                     onClicked: {
                         console.log("("+mouseX+","+mouseY+")")
                     }

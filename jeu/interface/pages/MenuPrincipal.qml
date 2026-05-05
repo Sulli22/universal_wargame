@@ -27,7 +27,7 @@ Item {
 
         BoutonMenuPrincipal {
            id: boutonJouer
-           textBouton: qsTr("JOUER") + languageManager.chaineVide
+           textBouton: qsTr("JOUER") + langageManager.chaineVide
            Layout.preferredWidth: racineMenuPrincipal.width/4
            Layout.preferredHeight: racineMenuPrincipal.height/20
 
@@ -36,7 +36,7 @@ Item {
 
        BoutonMenuPrincipal {
            id: boutonParametres
-           textBouton: qsTr("PARAMETRES") + languageManager.chaineVide
+           textBouton: qsTr("PARAMETRES") + langageManager.chaineVide
            Layout.preferredWidth: racineMenuPrincipal.width/4
            Layout.preferredHeight: racineMenuPrincipal.height/20
 
@@ -45,7 +45,7 @@ Item {
 
        BoutonMenuPrincipal {
            id: boutonQuitter
-           textBouton: qsTr("QUITTER") + languageManager.chaineVide
+           textBouton: qsTr("QUITTER") + langageManager.chaineVide
            Layout.preferredWidth: racineMenuPrincipal.width/4
            Layout.preferredHeight: racineMenuPrincipal.height/20
 

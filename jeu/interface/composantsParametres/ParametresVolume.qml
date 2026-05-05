@@ -44,7 +44,7 @@ Item {
 
                 CheckBoxVolume {
                     id: checkBoxDesactiveMusique
-                    text: qsTr("Désactiver musique") + languageManager.chaineVide
+                    text: qsTr("Désactiver musique") + langageManager.chaineVide
                     checked: racine.desactiverVolumeMusique
                     onToggled: {
                         racine.desactiverVolumeMusique = checked
@@ -53,7 +53,7 @@ Item {
 
                 CheckBoxVolume {
                     id: checkBoxDesactiveBruit
-                    text: qsTr("Désactiver bruitage") + languageManager.chaineVide
+                    text: qsTr("Désactiver bruitage") + langageManager.chaineVide
                     checked: racine.desactiverVolumeBouton
 
                     onToggled: {
@@ -62,7 +62,6 @@ Item {
                 }
                 Layout.alignment: Qt.AlignHCenter
             }
-
 
             Item {
                 Layout.fillHeight: true

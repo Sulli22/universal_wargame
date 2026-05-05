@@ -28,7 +28,9 @@ Popup {
 
         Label {
             id: labelQuitter
-            text: racinePopup.fenetre ? qsTr("Voulez vous vraiment quitter le jeu ?") + languageManager.chaineVide: qsTr("Voulez vous vraiment quitter la partie ?") + languageManager.chaineVide
+            text: racinePopup.fenetre ?
+                      qsTr("Voulez vous vraiment quitter le jeu ?") + langageManager.chaineVide :
+                      qsTr("Voulez vous vraiment quitter la partie ?") + langageManager.chaineVide
             color: "black"
             font.pointSize: 20
             font.bold: true
@@ -37,7 +39,7 @@ Popup {
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
             Button {
-                text: qsTr("Quitter") + languageManager.chaineVide
+                text: qsTr("Quitter") + langageManager.chaineVide
                 palette.buttonText: "black"
                 Layout.preferredWidth: racinePopup.width*0.2
                // Layout.alignment: Qt.AlignHCenter
@@ -56,7 +58,7 @@ Popup {
             }
 
             Button {
-                text: qsTr("Annuler") + languageManager.chaineVide
+                text: qsTr("Annuler") + langageManager.chaineVide
                 palette.buttonText: "black"
                 Layout.preferredWidth: racinePopup.width*0.2
                 font.bold: true

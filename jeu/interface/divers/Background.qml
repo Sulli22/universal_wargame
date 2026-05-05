@@ -9,6 +9,7 @@ Rectangle {
         }
         GradientStop {
             position: 1.0;
-            color: "#000000"}
+            color: "#000000"
+        }
     }
 }

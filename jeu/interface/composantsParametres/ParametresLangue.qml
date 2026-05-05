@@ -19,7 +19,7 @@ Item {
 
         Text {
             id: labelLangue
-            text: qsTr("LANGUE") + languageManager.chaineVide
+            text: qsTr("LANGUE") + langageManager.chaineVide
             color: racine.couleurTexte
             font.bold: true
             font.pointSize: Math.max(racineParametres.height/40, 10)
@@ -94,7 +94,7 @@ Item {
             }
 
             onActivated: {
-                languageManager.majLangue(selectionLangue.currentIndex === 0 ? "fr" : "en")
+                langageManager.majLangue(selectionLangue.currentIndex === 0 ? "fr" : "en")
                 racine.indiceLangue = selectionLangue.currentIndex
             }
         }

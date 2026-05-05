@@ -1,14 +1,14 @@
-#include "languagemanager.h"
+#include "langagemanager.h"
 
-LanguageManager::LanguageManager()
+LangageManager::LangageManager()
 {}
 
-QString LanguageManager::getChaineVide() const
+QString LangageManager::getChaineVide() const
 {
     return QString();
 }
 
-void LanguageManager::majLangue(QString langue)
+void LangageManager::majLangue(QString langue)
 {
     if (langue == "en") {
         if(_traduction.load(QGuiApplication::applicationDirPath() + "/traduction_en_UK.qm"))

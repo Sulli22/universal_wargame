@@ -14,7 +14,6 @@ Window {
     property bool desactiverVolumeMusique: false
     property int indiceLangue: 0
 
-
     visibility: Window.FullScreen
     width: Screen.width
     height: Screen.height

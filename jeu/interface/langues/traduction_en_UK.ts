@@ -67,14 +67,14 @@
 <context>
     <name>Parametres</name>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/Parametres.qml" line="27"/>
-        <location filename="../pages/Parametres.qml" line="27"/>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/Parametres.qml" line="28"/>
+        <location filename="../pages/Parametres.qml" line="28"/>
         <source>PARAMETRES</source>
         <translation>SETTINGS</translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/Parametres.qml" line="56"/>
-        <location filename="../pages/Parametres.qml" line="56"/>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/Parametres.qml" line="54"/>
+        <location filename="../pages/Parametres.qml" line="54"/>
         <source>Retour</source>
         <translation>Back</translation>
     </message>
@@ -106,26 +106,26 @@
 <context>
     <name>PopupQuitter</name>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PopupQuitter.qml" line="31"/>
-        <location filename="../pages/PopupQuitter.qml" line="31"/>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PopupQuitter.qml" line="33"/>
+        <location filename="../pages/PopupQuitter.qml" line="33"/>
         <source>Voulez vous vraiment quitter la partie ?</source>
         <translation>Do you really want to quit the game ?</translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PopupQuitter.qml" line="31"/>
-        <location filename="../pages/PopupQuitter.qml" line="31"/>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PopupQuitter.qml" line="32"/>
+        <location filename="../pages/PopupQuitter.qml" line="32"/>
         <source>Voulez vous vraiment quitter le jeu ?</source>
         <translation>Do you really want to quit ?</translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PopupQuitter.qml" line="40"/>
-        <location filename="../pages/PopupQuitter.qml" line="40"/>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PopupQuitter.qml" line="42"/>
+        <location filename="../pages/PopupQuitter.qml" line="42"/>
         <source>Quitter</source>
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PopupQuitter.qml" line="59"/>
-        <location filename="../pages/PopupQuitter.qml" line="59"/>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PopupQuitter.qml" line="61"/>
+        <location filename="../pages/PopupQuitter.qml" line="61"/>
         <source>Annuler</source>
         <translation>Cancel</translation>
     </message>
