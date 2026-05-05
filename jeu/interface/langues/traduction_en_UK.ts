@@ -4,29 +4,40 @@
 <context>
     <name>Accueil</name>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/Accueil.qml" line="31"/>
-        <location filename="../pages/Accueil.qml" line="31"/>
         <source>JOUER</source>
-        <translation>PLAY</translation>
+        <translation type="vanished">PLAY</translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/Accueil.qml" line="41"/>
-        <location filename="../pages/Accueil.qml" line="41"/>
         <source>PARAMETRES</source>
-        <translation>SETTINGS</translation>
+        <translation type="vanished">SETTINGS</translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/Accueil.qml" line="51"/>
-        <location filename="../pages/Accueil.qml" line="51"/>
         <source>QUITTER</source>
-        <translation>QUIT</translation>
+        <translation type="vanished">QUIT</translation>
+    </message>
+</context>
+<context>
+    <name>MenuPrincipal</name>
+    <message>
+        <location filename="../pages/MenuPrincipal.qml" line="31"/>
+        <source>JOUER</source>
+        <translation type="unfinished">PLAY</translation>
+    </message>
+    <message>
+        <location filename="../pages/MenuPrincipal.qml" line="41"/>
+        <source>PARAMETRES</source>
+        <translation type="unfinished">SETTINGS</translation>
+    </message>
+    <message>
+        <location filename="../pages/MenuPrincipal.qml" line="51"/>
+        <source>QUITTER</source>
+        <translation type="unfinished">QUIT</translation>
     </message>
 </context>
 <context>
     <name>PageChoixGuerre</name>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PageChoixGuerre.qml" line="19"/>
-        <location filename="../pages/PageChoixGuerre.qml" line="19"/>
+        <location filename="../pages/PageChoixGuerre.qml" line="17"/>
         <source>Choix de la guerre</source>
         <translation>Choice of war</translation>
     </message>
@@ -41,13 +52,11 @@
 <context>
     <name>Parametres</name>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/Parametres.qml" line="27"/>
         <location filename="../pages/Parametres.qml" line="27"/>
         <source>PARAMETRES</source>
         <translation>SETTINGS</translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/Parametres.qml" line="56"/>
         <location filename="../pages/Parametres.qml" line="56"/>
         <source>Retour</source>
         <translation>Back</translation>
@@ -56,7 +65,6 @@
 <context>
     <name>ParametresLangue</name>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/composantsParametres/ParametresLangue.qml" line="21"/>
         <location filename="../composantsParametres/ParametresLangue.qml" line="21"/>
         <source>LANGUE</source>
         <translation>LANGUAGE</translation>
@@ -65,13 +73,11 @@
 <context>
     <name>ParametresVolume</name>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/composantsParametres/ParametresVolume.qml" line="47"/>
         <location filename="../composantsParametres/ParametresVolume.qml" line="47"/>
         <source>Désactiver musique</source>
         <translation>Disable music</translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/composantsParametres/ParametresVolume.qml" line="56"/>
         <location filename="../composantsParametres/ParametresVolume.qml" line="56"/>
         <source>Désactiver bruitage</source>
         <translation>Disable sound effects</translation>
@@ -84,25 +90,21 @@
         <translation type="vanished">Do you want really to quit ?</translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PopupQuitter.qml" line="31"/>
         <location filename="../pages/PopupQuitter.qml" line="31"/>
         <source>Voulez vous vraiment quitter la partie?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PopupQuitter.qml" line="31"/>
         <location filename="../pages/PopupQuitter.qml" line="31"/>
         <source>Voulez vous vraiment quitter le jeu ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PopupQuitter.qml" line="40"/>
         <location filename="../pages/PopupQuitter.qml" line="40"/>
         <source>Quitter</source>
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PopupQuitter.qml" line="59"/>
         <location filename="../pages/PopupQuitter.qml" line="59"/>
         <source>Annuler</source>
         <translation>Cancel</translation>
@@ -111,8 +113,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/main.qml" line="24"/>
-        <location filename="../main.qml" line="24"/>
+        <location filename="../main.qml" line="22"/>
         <source>Wargame</source>
         <translation type="unfinished"></translation>
     </message>

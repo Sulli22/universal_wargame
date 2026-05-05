@@ -6,7 +6,7 @@ Popup {
     id: racinePopup
 
     property bool fenetre: true
-    signal retourAccueilPopup()
+    signal retourMenuPrincipalPopup()
 
     anchors.centerIn: parent
     width: parent.width*0.3
@@ -41,7 +41,7 @@ Popup {
                 palette.buttonText: "black"
                 Layout.preferredWidth: racinePopup.width*0.2
                // Layout.alignment: Qt.AlignHCenter
-                onClicked: racinePopup.retourAccueilPopup()
+                onClicked: racinePopup.retourMenuPrincipalPopup()
 
                 font.bold: true
                 background: Rectangle {

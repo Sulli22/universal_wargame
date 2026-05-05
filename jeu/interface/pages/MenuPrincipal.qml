@@ -3,17 +3,17 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtMultimedia
 
-import "../composantsAccueil"
+import "../composantsMenuPrincipal"
 
 Item {
-    id: racineAccueil
+    id: racineMenuPrincipal
 
     signal boutonJouerClique()
     signal boutonParametresClique()
 
     Text {
         id: nomJeu
-        text: "HEX OF STEEL"
+        text: "HEX WARS"
         color: racine.couleurTexte
         font.pointSize: Math.max(10, parent.height/12)
         font.bold: true
@@ -26,31 +26,31 @@ Item {
         spacing: 10
         anchors.centerIn: parent
 
-        BoutonAccueil {
+        BoutonMenuPrincipal {
            id: boutonJouer
            textBouton: qsTr("JOUER") + languageManager.chaineVide
-           Layout.preferredWidth: racineAccueil.width/4
-           Layout.preferredHeight: racineAccueil.height/20
+           Layout.preferredWidth: racineMenuPrincipal.width/4
+           Layout.preferredHeight: racineMenuPrincipal.height/20
 
-           onClique : racineAccueil.boutonJouerClique()
+           onClique : racineMenuPrincipal.boutonJouerClique()
 
        }
 
-       BoutonAccueil {
+       BoutonMenuPrincipal {
            id: boutonParametres
            textBouton: qsTr("PARAMETRES") + languageManager.chaineVide
-           Layout.preferredWidth: racineAccueil.width/4
-           Layout.preferredHeight: racineAccueil.height/20
+           Layout.preferredWidth: racineMenuPrincipal.width/4
+           Layout.preferredHeight: racineMenuPrincipal.height/20
 
-           onClique: racineAccueil.boutonParametresClique()
+           onClique: racineMenuPrincipal.boutonParametresClique()
 
        }
 
-       BoutonAccueil {
+       BoutonMenuPrincipal {
            id: boutonQuitter
            textBouton: qsTr("QUITTER") + languageManager.chaineVide
-           Layout.preferredWidth: racineAccueil.width/4
-           Layout.preferredHeight: racineAccueil.height/20
+           Layout.preferredWidth: racineMenuPrincipal.width/4
+           Layout.preferredHeight: racineMenuPrincipal.height/20
 
            onClique: Qt.quit()
        }

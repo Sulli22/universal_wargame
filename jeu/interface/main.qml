@@ -14,8 +14,6 @@ Window {
     property bool desactiverVolumeMusique: false
     property int indiceLangue: 0
 
-    signal onAnimationTerminee()
-    signal onBoutonParametreClique()
 
     visibility: Window.FullScreen
     width: Screen.width
@@ -53,7 +51,7 @@ Window {
     Loader {
        id: pageLoader
        anchors.fill: parent
-       source: "pages/PreAccueil.qml"
+       source: "pages/Credits.qml"
 
        Connections {
             target: pageLoader.item
@@ -61,7 +59,7 @@ Window {
             ignoreUnknownSignals: true
 
             function onAnimationTerminee() {
-                pageLoader.source = "pages/Accueil.qml"
+                pageLoader.source = "pages/MenuPrincipal.qml"
             }
 
             function onBoutonJouerClique() {
@@ -77,33 +75,22 @@ Window {
 
             function onBoutonRetourClique() {
                 lancerBruitBouton()
-                pageLoader.source = "pages/Accueil.qml"
+                pageLoader.source = "pages/MenuPrincipal.qml"
             }
 
-            function onBoutonGuerre0Clique() {
+            function onBoutonGuerreClique(indice) {
                 lancerBruitBouton()
-                modeleQML.setModele(0);
+                modeleQML.setModele(indice);
                 pageLoader.source = "pages/PageJeu.qml"
             }
 
-            function onBoutonGuerre1Clique() {
-                lancerBruitBouton()
-                modeleQML.setModele(1);
-                pageLoader.source = "pages/PageJeu.qml"
-            }
 
-            function onBoutonGuerre2Clique() {
-                lancerBruitBouton()
-                modeleQML.setModele(2)
-                pageLoader.source = "pages/PageJeu.qml"
-            }
-
-            function onRetourAccueil(fenetre) {
+            function onRetourMenuPrincipal(fenetre) {
                 if (fenetre) {
                     Qt.quit()
                 }
                 else {
-                    pageLoader.source = "pages/Accueil.qml"
+                    pageLoader.source = "pages/MenuPrincipal.qml"
                 }
             }
        }

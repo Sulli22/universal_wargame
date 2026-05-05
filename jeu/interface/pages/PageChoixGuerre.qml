@@ -6,9 +6,7 @@ import "../composantsChoixGuerre"
 Item {
     id: racineChoixGuerre
 
-    signal boutonGuerre0Clique
-    signal boutonGuerre1Clique
-    signal boutonGuerre2Clique
+    signal boutonGuerreClique(int indice)
 
     ColumnLayout {
         id: layoutGeneral
@@ -36,7 +34,7 @@ Item {
                 Layout.preferredHeight: Math.max(10, racineChoixGuerre.height/4)
                 sourceImage: "qrc:/waterloo"
                 nomGuerre: "Guerre 0"
-                onClique : racineChoixGuerre.boutonGuerre0Clique()
+                onClique : racineChoixGuerre.boutonGuerreClique(0)
             }
 
             BoutonChoixGuerre {
@@ -44,7 +42,7 @@ Item {
                 Layout.preferredHeight: Math.max(10, racineChoixGuerre.height/4)
                 sourceImage: "qrc:/waterloo"
                 nomGuerre: "Guerre 1"
-                onClique : racineChoixGuerre.boutonGuerre1Clique()
+                onClique : racineChoixGuerre.boutonGuerreClique(1)
             }
 
             BoutonChoixGuerre {
@@ -52,7 +50,7 @@ Item {
                 Layout.preferredHeight: Math.max(10, racineChoixGuerre.height/4)
                 sourceImage: "qrc:/waterloo"
                 nomGuerre: "Guerre 2"
-                onClique : racineChoixGuerre.boutonGuerre2Clique()
+                onClique : racineChoixGuerre.boutonGuerreClique(2)
             }
         }
 

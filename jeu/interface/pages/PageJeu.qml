@@ -11,7 +11,7 @@ Item {
     readonly property string couleur: "#2f3640"
     readonly property real largeurRectangle: Math.max(10, racine.width*0.025)
 
-    signal retourAccueil(bool fenetre)
+    signal retourMenuPrincipal(bool fenetre)
 
     ColumnLayout {
         id: layoutGeneral
@@ -214,6 +214,6 @@ Item {
 
     PopupQuitter {
         id: confirmationQuitter
-        onRetourAccueilPopup: racineJeu.retourAccueil(fenetre)
+        onRetourMenuPrincipalPopup: racineJeu.retourMenuPrincipal(fenetre)
     }
 }

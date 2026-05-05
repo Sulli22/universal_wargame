@@ -130,9 +130,9 @@ qt6_add_qml_module(appJeu
     VERSION 1.0
     QML_FILES
         interface/main.qml
-        interface/pages/PreAccueil.qml
-        interface/pages/Accueil.qml
-        interface/composantsAccueil/BoutonAccueil.qml
+        interface/pages/Credits.qml
+        interface/pages/MenuPrincipal.qml
+        interface/composantsMenuPrincipal/BoutonMenuPrincipal.qml
         interface/pages/Parametres.qml
         interface/composantsParametres/ParametresVolume.qml
         interface/composantsParametres/ParametresLangue.qml
