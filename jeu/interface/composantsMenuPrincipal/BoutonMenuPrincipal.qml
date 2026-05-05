@@ -2,34 +2,23 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-Item {
-    id: racineBoutonAccueil
-    signal clique
-    property alias textBouton: boutonAccueil.text
+Button {
+    id: racineBoutonMenuPrincipal
 
     Layout.alignment: Qt.AlignHCenter
 
+    // Modifie la couleur du texte
+    palette.buttonText: racine.couleurTexte
 
-
-    Button {
-        id: boutonAccueil
-
-        // Modifie la couleur du texte
-        palette.buttonText: racine.couleurTexte
-
-        background: Rectangle {
-            color: parent.hovered ? "#d6d6d6" : "#2C3E50"
-            border.color: "#c5b358"
-            border.width: 2
-        }
-        width:racineBoutonAccueil.width
-        height: racineBoutonAccueil.height
-
-        font.pointSize: Math.max(10,racineBoutonAccueil.height*0.4)
-        font.bold: true
-
-        onClicked: racineBoutonAccueil.clique()
+    background: Rectangle {
+        color: parent.hovered ? "#d6d6d6" : "#2C3E50"
+        border.color: "#c5b358"
+        border.width: 2
     }
 
-
+    // Le calcul vient du fait que la taille d'un bouton fait racineMenuPrincipal.height/20 de haut
+    font.pointSize: Math.max(10,(racineMenuPrincipal.height/20)*0.4)
+    font.bold: true
 }
+
+

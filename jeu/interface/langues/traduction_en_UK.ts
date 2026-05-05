@@ -19,17 +19,17 @@
 <context>
     <name>MenuPrincipal</name>
     <message>
-        <location filename="../pages/MenuPrincipal.qml" line="31"/>
+        <location filename="../pages/MenuPrincipal.qml" line="33"/>
         <source>JOUER</source>
         <translation type="unfinished">PLAY</translation>
     </message>
     <message>
-        <location filename="../pages/MenuPrincipal.qml" line="41"/>
+        <location filename="../pages/MenuPrincipal.qml" line="43"/>
         <source>PARAMETRES</source>
         <translation type="unfinished">SETTINGS</translation>
     </message>
     <message>
-        <location filename="../pages/MenuPrincipal.qml" line="51"/>
+        <location filename="../pages/MenuPrincipal.qml" line="53"/>
         <source>QUITTER</source>
         <translation type="unfinished">QUIT</translation>
     </message>
