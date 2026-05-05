@@ -14,13 +14,28 @@ class MonRenderer : public QQuickFramebufferObject::Renderer, protected QOpenGLF
 public:
     MonRenderer(ModelePourQML *modele);
 
-    //couleur getCouleur(float q, float r) const;
-    void drawHex(float x, float y) const;
-
     void render() override;
     QOpenGLFramebufferObject *createFramebufferObject(const QSize &size) override;
 
 private:
+    couleur getCouleur(usint q, usint r) const;
+
+    void dessinCadre(float x, float y) const;
+    void dessinAiles(float x, float y) const;
+
+    void dessinGenie(float x, float y) const;
+    void dessinInfanterie(float x, float y) const;
+    void dessinArtillerie(float x, float y) const;
+    void dessinCharAssaut(float x, float y) const;
+    void dessinFregate(float x, float y) const;
+    void dessinSousMarin(float x, float y) const;
+    void dessinChasseur(float x, float y) const;
+    void dessinBombardier(float x, float y) const;
+
+    void dessinUnite(usint q, usint r, float x, float y) const;
+    void dessinHex(float x, float y) const;
+
+// attributs
     ModelePourQML *_modele;
 
     static const float _R;
