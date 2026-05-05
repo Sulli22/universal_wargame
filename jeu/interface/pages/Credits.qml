@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Window
 
-
 Rectangle {
     id: racineCredits
     signal animationTerminee()

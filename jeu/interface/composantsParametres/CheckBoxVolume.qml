@@ -24,11 +24,9 @@ CheckBox {
         }
     }
 
-
     contentItem: Text {
         text: checkBoxDesactive.text
         font: checkBoxDesactive.font
-
         color: racine.couleurTexte
         verticalAlignment: Text.AlignVCenter
         leftPadding: checkBoxDesactive.indicator.width + checkBoxDesactive.spacing

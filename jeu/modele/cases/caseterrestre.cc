@@ -5,7 +5,7 @@
 #include <limits>
 
 CaseTerrestre::CaseTerrestre(const Position &pos, typeTerrain terrain,
-                             usint espaceDisponible):
+                             uint16_t espaceDisponible):
     Case(pos), _espaceDisponible(espaceDisponible), _terrain(terrain)
 {}
 
@@ -15,7 +15,7 @@ const std::vector<std::unique_ptr<UniteTerrestre>>
     return _unitesTerrestres;
 }
 
-usint CaseTerrestre::getEspaceDisponible() const
+uint16_t CaseTerrestre::getEspaceDisponible() const
 {
     return _espaceDisponible;
 }
@@ -101,7 +101,7 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
         throw std::runtime_error("Erreur : Ajout impossible, place est insufisante (toute la place est necessaire pour une unite lourde)");
 }
 
-void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, usint cout)
+void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, uint16_t cout)
 {
     if (_unitesTerrestres.at(indUnite)->estLegere()) {
         auto uniteTerrestreLeg = dynamic_cast<UniteTerrestreLegere *>
@@ -124,7 +124,7 @@ std::vector<Unite *> CaseTerrestre::getUnites() const
     return unites;
 }
 
-void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, usint cout)
+void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, uint16_t cout)
 {
     if (indUnite == 0)
         Case::deplacerUniteAerienne(arrivee, cout);
@@ -134,9 +134,9 @@ void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, usint cou
     }
 }
 
-usint CaseTerrestre::coutDeplacement(Unite *unite) const
+uint16_t CaseTerrestre::coutDeplacement(Unite *unite) const
 {
-    auto max = std::numeric_limits<usint>::max();
+    auto max = std::numeric_limits<uint16_t>::max();
     if (!peutAccueillir(unite))
         return max;
 
@@ -167,7 +167,7 @@ Faction CaseTerrestre::getFaction() const
     return Faction::neutre;
 }
 
-usint CaseTerrestre::nbUnites() const
+uint16_t CaseTerrestre::nbUnites() const
 {
     return Case::nbUnites() + _unitesTerrestres.size();
 }
@@ -178,7 +178,7 @@ void CaseTerrestre::effectuerActionConstruction()
         _construction->effectuerAction(getUnites());
 }
 
-usint CaseTerrestre::nbConstructionsPossibles() const
+uint16_t CaseTerrestre::nbConstructionsPossibles() const
 {
     if (_construction
         || _terrain == typeTerrain::foret

@@ -31,11 +31,11 @@ public:
     void selectionnerCase(const Position &pos);
     void annulerSelections();
     Unite *getUniteSelectionee() const;
-    usint getNbActionsPossibles() const;
-    void choixAction(usint indAction);
+    uint16_t getNbActionsPossibles() const;
+    void choixAction(uint16_t indAction);
     void effectuerAction();
-    usint getNbConstructionsPossibles() const;
-    void choixConstruction(usint indConstruction);
+    uint16_t getNbConstructionsPossibles() const;
+    void choixConstruction(uint16_t indConstruction);
 
 // sortie flux
     void sortieFlux(std::ostream &os) const;
@@ -46,20 +46,20 @@ private:
     bool uniteSelectioneeAJoue() const;
 
     static std::string factionToString(Faction faction);
-    static std::vector<Case *> keysFromMap(const std::map<Case *, usint> &map);
+    static std::vector<Case *> keysFromMap(const std::map<Case *, uint16_t> &map);
 
 // attributs
     Carte _plateau;
 
     const Faction _faction1;
     const Faction _faction2;
-    const usint _seuilDefaiteFaction1;
-    const usint _seuilDefaiteFaction2;
+    const uint16_t _seuilDefaiteFaction1;
+    const uint16_t _seuilDefaiteFaction2;
     Faction _factionAttaquante;
     Faction _factionAttaquee;
 
     Case *_caseSelectionnee;
-    usint _indUniteSelectionnee;
+    uint16_t _indUniteSelectionnee;
     Case *_caseCible;
     std::unique_ptr<Construction> _aConstruire;
     std::set<Unite *> _unitesAyantJoue;

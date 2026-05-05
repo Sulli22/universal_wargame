@@ -1,7 +1,7 @@
 #include "artillerie.hh"
 
-Artillerie::Artillerie(Faction faction, usint pointsVie, usint nbMunitions,
-                       usint nbProvisions):
+Artillerie::Artillerie(Faction faction, uint16_t pointsVie, uint16_t nbMunitions,
+                       uint16_t nbProvisions):
     Unite(faction, pointsVie, nbMunitions, nbProvisions),
     UniteTerrestreLegere(faction, pointsVie, nbMunitions, nbProvisions)
 {}
@@ -11,27 +11,27 @@ std::string Artillerie::getNom() const
     return "Artillerie";
 }
 
-usint Artillerie::getPointsAttaqueLegere() const
+uint16_t Artillerie::getPointsAttaqueLegere() const
 {
     return 10;
 }
 
-usint Artillerie::getPointsAttaqueLourde() const
+uint16_t Artillerie::getPointsAttaqueLourde() const
 {
     return 18;
 }
 
-usint Artillerie::getCapaciteDeplacement() const
+uint16_t Artillerie::getCapaciteDeplacement() const
 {
     return 3;
 }
 
-usint Artillerie::getDistanceAttaque() const
+uint16_t Artillerie::getDistanceAttaque() const
 {
     return 3;
 }
 
-usint Artillerie::getTaille() const
+uint16_t Artillerie::getTaille() const
 {
     return 2;
 }

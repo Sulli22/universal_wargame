@@ -18,7 +18,6 @@ Item {
         font.pointSize: Math.max(10, parent.height/12)
         font.bold: true
         anchors.horizontalCenter: parent.horizontalCenter
-
     }
 
     ColumnLayout {
@@ -30,27 +29,28 @@ Item {
 
         BoutonMenuPrincipal {
            id: boutonJouer
-           text: qsTr("JOUER") + languageManager.chaineVide
+
+           text: qsTr("JOUER") + langageManager.chaineVide
            Layout.fillWidth: true
            Layout.fillHeight: true
 
            onClicked : racineMenuPrincipal.boutonJouerClique()
-
        }
 
        BoutonMenuPrincipal {
            id: boutonParametres
-           text: qsTr("PARAMETRES") + languageManager.chaineVide
+
+           text: qsTr("PARAMETRES") + langageManager.chaineVide
            Layout.fillWidth: true
            Layout.fillHeight: true
 
            onClicked: racineMenuPrincipal.boutonParametresClique()
-
        }
 
        BoutonMenuPrincipal {
            id: boutonQuitter
-           text: qsTr("QUITTER") + languageManager.chaineVide
+
+           text: qsTr("QUITTER") + langageManager.chaineVide
            Layout.fillWidth: true
            Layout.fillHeight: true
 

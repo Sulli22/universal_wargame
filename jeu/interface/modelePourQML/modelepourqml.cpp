@@ -1,11 +1,10 @@
 #include "modelepourqml.h"
 
-
 ModelePourQML::ModelePourQML(QObject *parent):
     QObject(parent)
 {}
 
-void ModelePourQML::setModele(usint idGuerre)
+void ModelePourQML::setModele(uint16_t idGuerre)
 {
     _modele = std::make_unique<Modele>(idGuerre);
 }
@@ -13,4 +12,9 @@ void ModelePourQML::setModele(usint idGuerre)
 const Carte &ModelePourQML::getPlateau() const
 {
     return _modele->getPlateau();
+}
+
+void ModelePourQML::changementJoueur()
+{
+    _modele->changementJoueur();
 }

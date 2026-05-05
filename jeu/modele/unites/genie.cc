@@ -1,6 +1,6 @@
 #include "genie.hh"
 
-Genie::Genie(Faction faction, usint pointsVie, usint nbMuntions, usint nbProvisions):
+Genie::Genie(Faction faction, uint16_t pointsVie, uint16_t nbMuntions, uint16_t nbProvisions):
     Unite(faction, pointsVie, nbMuntions, nbProvisions),
     Infanterie(faction, pointsVie, nbMuntions, nbProvisions)
 {}
@@ -10,7 +10,7 @@ std::string Genie::getNom() const
     return Infanterie::getNom() + " - Genie";
 }
 
-usint Genie::getNbActionsPossibles() const
+uint16_t Genie::getNbActionsPossibles() const
 {
     return Unite::getNbActionsPossibles() + 1;  // on ajoute la construction
 }

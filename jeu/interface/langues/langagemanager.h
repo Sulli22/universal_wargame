@@ -3,13 +3,12 @@
 #include <QObject>
 #include <QGuiApplication>
 
-
-class LanguageManager: public QObject {
+class LangageManager: public QObject {
     Q_OBJECT
     Q_PROPERTY(QString chaineVide READ getChaineVide NOTIFY langueChange)
 
 public:
-    LanguageManager();
+    LangageManager();
     QString getChaineVide() const;
 
 public slots:

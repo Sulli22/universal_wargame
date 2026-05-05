@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+
 Button {
     id: racineBoutonMenuPrincipal
 
@@ -14,6 +15,7 @@ Button {
         color: parent.hovered ? "#d6d6d6" : "#2C3E50"
         border.color: "#c5b358"
         border.width: 2
+
     }
 
     // Le calcul vient du fait que la taille d'un bouton fait racineMenuPrincipal.height/20 de haut

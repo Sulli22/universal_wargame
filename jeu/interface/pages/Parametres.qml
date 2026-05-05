@@ -22,21 +22,20 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         width: Math.max(100, racineParametres.width/2)
         height: racineParametres.height
+
         Text {
             id: labelParametres
-            text: qsTr("PARAMETRES") + languageManager.chaineVide
+            text: qsTr("PARAMETRES") + langageManager.chaineVide
             color: racine.couleurTexte
             font.pointSize: Math.max(racineParametres.height/20, 20)
             font.italic: true
             Layout.alignment: Qt.AlignHCenter
         }
 
-
         ParametresVolume {
             id: partieVolume
             Layout.fillWidth: true
             Layout.preferredHeight: layoutParametres.height*0.2
-
         }
 
         ParametresLangue {
@@ -48,12 +47,11 @@ Item {
         Item {
             Layout.fillHeight: true
         }
-
     }
 
     Button {
         id: boutonRetour
-        text: qsTr("Retour") + languageManager.chaineVide
+        text: qsTr("Retour") + langageManager.chaineVide
         width: parent.width*0.05
         height: parent.height*0.025
         font.pointSize: Math.max(1,height*0.4)

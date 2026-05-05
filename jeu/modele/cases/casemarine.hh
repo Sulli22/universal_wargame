@@ -12,18 +12,18 @@ public:
     void setUniteBasse(std::unique_ptr<UniteMarine> nvUniteBasse);
 
     std::vector<Unite *> getUnites() const override;
-    void deplacerUnite(std::size_t indUnite, Case *arrivee, usint cout) override;
-    usint coutDeplacement(Unite *unite) const override;
+    void deplacerUnite(std::size_t indUnite, Case *arrivee, uint16_t cout) override;
+    uint16_t coutDeplacement(Unite *unite) const override;
     Faction getFaction() const override;
-    usint nbUnites() const override;
-    usint nbConstructionsPossibles() const override;
+    uint16_t nbUnites() const override;
+    uint16_t nbConstructionsPossibles() const override;
     void supprimeNonUnitesOperationnelles() override;
 
 // sortie flux
     void afficherDetails(std::ostream &os) const override;
 
 private:
-    void deplacerUniteBasse(CaseMarine *arrivee, usint cout);
+    void deplacerUniteBasse(CaseMarine *arrivee, uint16_t cout);
     bool peutAccueillir(Unite *unite) const override;
 
 // attribut

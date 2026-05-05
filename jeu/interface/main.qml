@@ -14,16 +14,15 @@ Window {
     property bool desactiverVolumeMusique: false
     property int indiceLangue: 0
 
-
     visibility: Window.FullScreen
     width: Screen.width
     height: Screen.height
     visible: true
-    title: qsTr("Wargame")
+    title: "HEX WARS"
 
     MediaPlayer {
         id: sonMusique
-        source: "file://" + applicationDirPath + "/warzone.mp3"
+        source: applicationDirPath + "/warzone.mp3"
         loops: MediaPlayer.Infinite
 
         audioOutput: AudioOutput {
@@ -33,15 +32,10 @@ Window {
         Component.onCompleted: sonMusique.play()
     }
 
-    Component {
-        id: composantSon
-        MediaPlayer {
-            source: "qrc:/bouton.wav"
-
-            audioOutput: AudioOutput {
-                volume: racine.desactiverVolumeBouton ? 0 : racine.volumeBouton
-            }
-        }
+    SoundEffect {
+        id: sonBoutton
+        source: "qrc:/clic"
+        volume: racine.desactiverVolumeBouton ? 0 : racine.volumeBouton
     }
 
     Background {
@@ -64,7 +58,6 @@ Window {
 
             function onBoutonJouerClique() {
                 lancerBruitBouton();
-
                 pageLoader.source = "pages/PageChoixGuerre.qml"
             }
 
@@ -84,26 +77,17 @@ Window {
                 pageLoader.source = "pages/PageJeu.qml"
             }
 
-
             function onRetourMenuPrincipal(fenetre) {
-                if (fenetre) {
+                if (fenetre)
                     Qt.quit()
-                }
-                else {
+                else
                     pageLoader.source = "pages/MenuPrincipal.qml"
-                }
             }
        }
    }
 
-function lancerBruitBouton() {
-    let son = composantSon.createObject(racine)
-    son.play()
-    son.playbackStateChanged.connect(function() {
-        if (son.playbackState === MediaPlayer.StoppedState) {
-            son.destroy(500)
-           }
-       })
-}
-
+    function lancerBruitBouton() {
+        sonBoutton.stop()
+        sonBoutton.play()
+    }
 }

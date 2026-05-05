@@ -14,7 +14,7 @@ Item {
 
         Text {
             id: labelChoixGuerre
-            text: qsTr("Choix de la guerre") + languageManager.chaineVide
+            text: qsTr("Choix de la guerre") + langageManager.chaineVide
             color: racine.couleurTexte
             font.italic: true
             font.bold: true

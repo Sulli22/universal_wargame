@@ -21,17 +21,17 @@
     <message>
         <location filename="../pages/MenuPrincipal.qml" line="33"/>
         <source>JOUER</source>
-        <translation type="unfinished">PLAY</translation>
+        <translation>PLAY</translation>
     </message>
     <message>
         <location filename="../pages/MenuPrincipal.qml" line="43"/>
         <source>PARAMETRES</source>
-        <translation type="unfinished">SETTINGS</translation>
+        <translation>SETTINGS</translation>
     </message>
     <message>
         <location filename="../pages/MenuPrincipal.qml" line="53"/>
         <source>QUITTER</source>
-        <translation type="unfinished">QUIT</translation>
+        <translation>QUIT</translation>
     </message>
 </context>
 <context>
@@ -45,19 +45,25 @@
 <context>
     <name>PageJeu</name>
     <message>
+        <location filename="../pages/PageJeu.qml" line="54"/>
         <source>Paramètres</source>
-        <translation type="vanished">Settings</translation>
+        <translation>Settings</translation>
+    </message>
+    <message>
+        <location filename="../pages/PageJeu.qml" line="61"/>
+        <source>Quitter la partie</source>
+        <translation>Quit the game</translation>
     </message>
 </context>
 <context>
     <name>Parametres</name>
     <message>
-        <location filename="../pages/Parametres.qml" line="27"/>
+        <location filename="../pages/Parametres.qml" line="28"/>
         <source>PARAMETRES</source>
         <translation>SETTINGS</translation>
     </message>
     <message>
-        <location filename="../pages/Parametres.qml" line="56"/>
+        <location filename="../pages/Parametres.qml" line="54"/>
         <source>Retour</source>
         <translation>Back</translation>
     </message>
@@ -65,7 +71,7 @@
 <context>
     <name>ParametresLangue</name>
     <message>
-        <location filename="../composantsParametres/ParametresLangue.qml" line="21"/>
+        <location filename="../composantsParametres/ParametresLangue.qml" line="22"/>
         <source>LANGUE</source>
         <translation>LANGUAGE</translation>
     </message>
@@ -86,36 +92,24 @@
 <context>
     <name>PopupQuitter</name>
     <message>
-        <source>Voulez vous vraiment quitter ?</source>
-        <translation type="vanished">Do you want really to quit ?</translation>
+        <location filename="../pages/PopupQuitter.qml" line="33"/>
+        <source>Voulez vous vraiment quitter la partie ?</source>
+        <translation>Do you really want to quit the game ?</translation>
     </message>
     <message>
-        <location filename="../pages/PopupQuitter.qml" line="31"/>
-        <source>Voulez vous vraiment quitter la partie?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pages/PopupQuitter.qml" line="31"/>
+        <location filename="../pages/PopupQuitter.qml" line="32"/>
         <source>Voulez vous vraiment quitter le jeu ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Do you really want to quit ?</translation>
     </message>
     <message>
-        <location filename="../pages/PopupQuitter.qml" line="40"/>
+        <location filename="../pages/PopupQuitter.qml" line="42"/>
         <source>Quitter</source>
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="../pages/PopupQuitter.qml" line="59"/>
+        <location filename="../pages/PopupQuitter.qml" line="61"/>
         <source>Annuler</source>
         <translation>Cancel</translation>
-    </message>
-</context>
-<context>
-    <name>main</name>
-    <message>
-        <location filename="../main.qml" line="22"/>
-        <source>Wargame</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

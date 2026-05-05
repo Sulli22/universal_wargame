@@ -2,14 +2,13 @@
 
 #include "unite.hh"
 #include <vector>
-
-using usint = unsigned short int;
+#include <cstdint>
 
 class Construction {
 public:
-    Construction(usint cout);
+    Construction(uint16_t cout);
 
-    usint getCout() const;
+    uint16_t getCout() const;
 
     void effectuerAction(std::vector<Unite *> unites) const;
     virtual bool estPont() const;
@@ -18,6 +17,6 @@ protected:
     virtual void effectuerAction(Unite *unite) const =0;
 
 private:
-    usint _cout;
+    uint16_t _cout;
 };
 

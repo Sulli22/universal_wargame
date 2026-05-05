@@ -4,20 +4,20 @@
 
 class UniteLourde : virtual public Unite {
 public:
-    UniteLourde(Faction faction, usint pointsVie, usint nbMunitions,
-                usint nbProvisions, usint pointsBouclier,
+    UniteLourde(Faction faction, uint16_t pointsVie, uint16_t nbMunitions,
+                uint16_t nbProvisions, uint16_t pointsBouclier,
                 Visibilite visibilite = Visibilite::totale);
 
-    usint getPointsBouclier() const;
+    uint16_t getPointsBouclier() const;
 
     void reparerBouclier();
     bool estLegere() const override;
-    void prendreDegats(usint degats) override;
+    void prendreDegats(uint16_t degats) override;
 
 // sortie flux
     void sortieFlux(std::ostream &os) const override;
 
 private:
-    usint _pointsBouclier;
-    usint const _MAX_POINTS_BOUCLIER;
+    uint16_t _pointsBouclier;
+    uint16_t const _MAX_POINTS_BOUCLIER;
 };
