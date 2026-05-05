@@ -9,7 +9,7 @@ class ModelePourQML : public QObject {
 public:
     explicit ModelePourQML(QObject *parent = Q_NULLPTR);
 
-    Q_SLOT void setModele(usint idGuerre);
+    Q_SLOT void setModele(uint16_t idGuerre);
     const Carte &getPlateau() const;
 
 private:

@@ -27,7 +27,7 @@ MonRenderer::MonRenderer(ModelePourQML *modele):
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-couleur MonRenderer::getCouleur(usint q, usint r) const
+couleur MonRenderer::getCouleur(uint16_t q, uint16_t r) const
 {
     auto c = _modele->getPlateau().accesCase({q, r});
 
@@ -63,7 +63,7 @@ void MonRenderer::dessinAiles(float x, float y) const
     {
         // aile gauche
         glVertex2f(x, y);
-        for (usint i = 0; i <= 5; ++i) {
+        for (uint16_t i = 0; i <= 5; ++i) {
             float theta = M_PI * (float)i/5.f + M_PI/2.f;
             float cx = _R/5.f * cos(theta), cy = _R/5.f * sin(theta);
             glVertex2f(x - _R/5.f + cx, y + cy);
@@ -71,7 +71,7 @@ void MonRenderer::dessinAiles(float x, float y) const
 
         // aile droite
         glVertex2f(x, y);
-        for (usint i = 0; i <= 5; ++i) {
+        for (uint16_t i = 0; i <= 5; ++i) {
             float theta = M_PI * (float)i/5.f - M_PI/2.f;
             float cx = _R/5.f * cos(theta), cy = _R/5.f * sin(theta);
             glVertex2f(x + _R/5.f + cx, y + cy);
@@ -115,7 +115,7 @@ void MonRenderer::dessinArtillerie(float x, float y) const
 {
     glBegin(GL_POLYGON);
     {
-        for (usint i = 0; i <= 20; ++i) {
+        for (uint16_t i = 0; i <= 20; ++i) {
             float theta = 2.f * M_PI * (float)i / 20.f;
             float cx = _R/4.f * cos(theta), cy = _R/4.f * sin(theta);
             glVertex2f(x + cx, y + cy);
@@ -128,13 +128,13 @@ void MonRenderer::dessinCharAssaut(float x, float y) const
 {
     glBegin(GL_LINE_LOOP);
     {
-        for (usint i = 0; i <= 5; ++i) {
+        for (uint16_t i = 0; i <= 5; ++i) {
             float theta = M_PI * (float)i/5.f - M_PI/2.f;
             float cx = _R/5.f * cos(theta), cy = _R/5.f * sin(theta);
             glVertex2f(x + _R/5.f + cx, y + cy);
         }
 
-        for (usint i = 0; i <= 5; ++i) {
+        for (uint16_t i = 0; i <= 5; ++i) {
             float theta = M_PI * (float)i/5.f + M_PI/2.f;
             float cx = _R/5.f * cos(theta), cy = _R/5.f * sin(theta);
             glVertex2f(x - _R/5.f + cx, y + cy);
@@ -221,7 +221,7 @@ void MonRenderer::dessinBombardier(float x, float y) const
     glEnd();
 }
 
-void MonRenderer::dessinUnite(usint q, usint r, float x, float y) const
+void MonRenderer::dessinUnite(uint16_t q, uint16_t r, float x, float y) const
 {
     auto c = _modele->getPlateau().accesCase({q, r});
 

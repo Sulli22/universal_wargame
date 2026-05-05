@@ -155,10 +155,10 @@ std::vector<Case *> Carte::getVoisinesConstructibles(const Case &c) const
     return res;
 }
 
-std::map<Case *, usint> Carte::getCasesAtteignables(Case *depart, Unite *uniteEnDeplacement) const
+std::map<Case *, uint16_t> Carte::getCasesAtteignables(Case *depart, Unite *uniteEnDeplacement) const
 {
     std::queue<Case *> file;
-    std::map<Case *, usint> coutJusqua;
+    std::map<Case *, uint16_t> coutJusqua;
     file.push(depart);
     coutJusqua[depart] = 0;
 
@@ -167,11 +167,11 @@ std::map<Case *, usint> Carte::getCasesAtteignables(Case *depart, Unite *uniteEn
         file.pop();
 
         for (Case* caseVoisine : getVoisines(*courante)) {
-            usint coutMvt = caseVoisine->coutDeplacement(uniteEnDeplacement);
-            if (coutMvt == std::numeric_limits<usint>::max())
+            uint16_t coutMvt = caseVoisine->coutDeplacement(uniteEnDeplacement);
+            if (coutMvt == std::numeric_limits<uint16_t>::max())
                 continue;
 
-            usint nouveauCout = coutJusqua[courante] + coutMvt;
+            uint16_t nouveauCout = coutJusqua[courante] + coutMvt;
 
             // trop loin
             if (nouveauCout > uniteEnDeplacement->getCapaciteDeplacement())
@@ -197,9 +197,9 @@ std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaqua
 {
     std::vector<Case*> casesAttaquables;
 
-    usint portee = uniteAttaquante->getDistanceAttaque();
+    uint16_t portee = uniteAttaquante->getDistanceAttaque();
 
-    std::queue<std::pair<Case*, usint>> file;
+    std::queue<std::pair<Case*, uint16_t>> file;
     std::set<Case*> visitees;
 
     file.push({depart, 0});
@@ -233,12 +233,12 @@ std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaqua
 // algo type A*
 std::vector<Case *> Carte::getChemin(Case *depart, Case *arrivee, Unite *uniteEnDeplacement) const
 {
-    using PQElement = std::pair<usint, Case *>;
+    using PQElement = std::pair<uint16_t, Case *>;
     std::priority_queue<PQElement, std::vector<PQElement>, std::greater<>> aExplorer;
     aExplorer.push({0, depart});
 
     std::map<Case *, Case *> vientDe;
-    std::map<Case *, usint> coutJusqua;
+    std::map<Case *, uint16_t> coutJusqua;
     vientDe[depart] = depart;
     coutJusqua[depart] = 0;
 
@@ -249,14 +249,14 @@ std::vector<Case *> Carte::getChemin(Case *depart, Case *arrivee, Unite *uniteEn
         if (courante == arrivee) break;
 
         for (Case *suiv : getVoisines(*courante)) {
-            usint coutMvt = suiv->coutDeplacement(uniteEnDeplacement);
-            if (coutMvt == std::numeric_limits<usint>::max())
+            uint16_t coutMvt = suiv->coutDeplacement(uniteEnDeplacement);
+            if (coutMvt == std::numeric_limits<uint16_t>::max())
                 continue;
 
             int nvCout = coutJusqua[courante] + coutMvt;
             if (!coutJusqua.count(suiv) || nvCout < coutJusqua[suiv]) {
                 coutJusqua[suiv] = nvCout;
-                usint priorite = nvCout + distance(*suiv, *arrivee);
+                uint16_t priorite = nvCout + distance(*suiv, *arrivee);
                 aExplorer.push({priorite, suiv});
                 vientDe[suiv] = courante;
             }
@@ -313,9 +313,9 @@ void Carte::effectuerActionsCases() const
     }
 }
 
-usint Carte::nbUnites(Faction faction) const
+uint16_t Carte::nbUnites(Faction faction) const
 {
-    usint sum = 0;
+    uint16_t sum = 0;
 
     for (std::size_t r = 0; r < _hauteur; ++r) {
         for (std::size_t q = 0; q < _largeur; ++q) {
@@ -397,7 +397,7 @@ void Carte::afficherDetails(std::ostream &os) const
     }
 }
 
-usint Carte::distance(const Case &a, const Case &b)
+uint16_t Carte::distance(const Case &a, const Case &b)
 {
     Position posA = a.getPos();
     Position posB = b.getPos();

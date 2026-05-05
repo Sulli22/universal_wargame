@@ -1,7 +1,7 @@
 #include "charassaut.hh"
 
-CharAssaut::CharAssaut(Faction faction, usint pointsVie, usint nbMunitions,
-                       usint nbProvisions, usint pointsBouclier):
+CharAssaut::CharAssaut(Faction faction, uint16_t pointsVie, uint16_t nbMunitions,
+                       uint16_t nbProvisions, uint16_t pointsBouclier):
     Unite(faction, pointsVie, nbMunitions, nbProvisions),
     UniteTerrestreLourde(faction, pointsVie, nbMunitions, nbProvisions,
                            pointsBouclier)
@@ -12,22 +12,22 @@ std::string CharAssaut::getNom() const
     return "Char d'assaut";
 }
 
-usint CharAssaut::getPointsAttaqueLegere() const
+uint16_t CharAssaut::getPointsAttaqueLegere() const
 {
     return 8;
 }
 
-usint CharAssaut::getPointsAttaqueLourde() const
+uint16_t CharAssaut::getPointsAttaqueLourde() const
 {
     return 18;
 }
 
-usint CharAssaut::getCapaciteDeplacement() const
+uint16_t CharAssaut::getCapaciteDeplacement() const
 {
     return 3;
 }
 
-usint CharAssaut::getDistanceAttaque() const
+uint16_t CharAssaut::getDistanceAttaque() const
 {
     return 3;
 }

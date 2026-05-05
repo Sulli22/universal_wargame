@@ -15,13 +15,13 @@ public:
     void setUniteAerienne(std::unique_ptr<UniteAerienne> nvUniteAerienne);
 
     virtual Unite *getUnite(std::size_t indUnite);
-    virtual void deplacerUnite(std::size_t indUnite, Case *arrivee, usint cout) =0;
+    virtual void deplacerUnite(std::size_t indUnite, Case *arrivee, uint16_t cout) =0;
     virtual std::vector<Unite *> getUnites() const;
-    virtual usint coutDeplacement(Unite *unite) const =0;
+    virtual uint16_t coutDeplacement(Unite *unite) const =0;
     virtual Faction getFaction() const;
-    virtual usint nbUnites() const;
+    virtual uint16_t nbUnites() const;
     bool estConstructible() const;
-    virtual usint nbConstructionsPossibles() const =0;
+    virtual uint16_t nbConstructionsPossibles() const =0;
     virtual void supprimeNonUnitesOperationnelles();
 
 // sortie flux
@@ -29,7 +29,7 @@ public:
     virtual void afficherDetails(std::ostream &os) const;
 
 protected:
-    void deplacerUniteAerienne(Case *arrive, usint cout);
+    void deplacerUniteAerienne(Case *arrive, uint16_t cout);
     virtual bool peutAccueillir(Unite *unite) const =0;
 
 private:

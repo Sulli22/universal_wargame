@@ -1,10 +1,10 @@
 #include "construction.hh"
 
-Construction::Construction(usint cout):
+Construction::Construction(uint16_t cout):
     _cout(cout)
 {}
 
-usint Construction::getCout() const
+uint16_t Construction::getCout() const
 {
     return _cout;
 }

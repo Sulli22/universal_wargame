@@ -38,7 +38,7 @@ bool CaseMarine::peutAccueillir(Unite *unite) const
     return false;
 }
 
-void CaseMarine::deplacerUniteBasse(CaseMarine *arrivee, usint cout)
+void CaseMarine::deplacerUniteBasse(CaseMarine *arrivee, uint16_t cout)
 {
     _uniteBasse->utiliserProvisions(cout);
     arrivee->setUniteBasse(std::move(_uniteBasse));
@@ -52,7 +52,7 @@ std::vector<Unite *> CaseMarine::getUnites() const
     return unites;
 }
 
-void CaseMarine::deplacerUnite(std::size_t indUnite, Case *arrivee, usint cout)
+void CaseMarine::deplacerUnite(std::size_t indUnite, Case *arrivee, uint16_t cout)
 {
     if (indUnite >= 2)
         throw std::invalid_argument("Erreur : Indice incorrecte");
@@ -80,11 +80,11 @@ void CaseMarine::deplacerUnite(std::size_t indUnite, Case *arrivee, usint cout)
     }
 }
 
-usint CaseMarine::coutDeplacement(Unite *unite) const
+uint16_t CaseMarine::coutDeplacement(Unite *unite) const
 {
     if (peutAccueillir(unite))
         return 1;
-    return std::numeric_limits<usint>::max();
+    return std::numeric_limits<uint16_t>::max();
 }
 
 Faction CaseMarine::getFaction() const
@@ -101,12 +101,12 @@ void CaseMarine::afficherDetails(std::ostream &os) const
     os << "Type = Eau" << std::endl;
 }
 
-usint CaseMarine::nbUnites() const
+uint16_t CaseMarine::nbUnites() const
 {
     return Case::nbUnites() + (_uniteBasse ? 1 : 0);
 }
 
-usint CaseMarine::nbConstructionsPossibles() const
+uint16_t CaseMarine::nbConstructionsPossibles() const
 {
     return 0;
 }

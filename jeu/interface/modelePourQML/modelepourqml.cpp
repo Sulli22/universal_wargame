@@ -4,7 +4,7 @@ ModelePourQML::ModelePourQML(QObject *parent):
     QObject(parent)
 {}
 
-void ModelePourQML::setModele(usint idGuerre)
+void ModelePourQML::setModele(uint16_t idGuerre)
 {
     _modele = std::make_unique<Modele>(idGuerre);
 }

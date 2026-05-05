@@ -1,7 +1,7 @@
 #include "unite.hh"
 
-Unite::Unite(Faction faction, usint pointsVie, usint nbMunitions,
-             usint nbProvisions, Visibilite visibilite):
+Unite::Unite(Faction faction, uint16_t pointsVie, uint16_t nbMunitions,
+             uint16_t nbProvisions, Visibilite visibilite):
     _faction(faction),
     _pointsVie(pointsVie), _nbMunitions(nbMunitions),
     _nbProvisions(nbProvisions), _visibilite(visibilite),
@@ -14,17 +14,17 @@ Faction Unite::getFaction() const
     return _faction;
 }
 
-usint Unite::getPointsVie() const
+uint16_t Unite::getPointsVie() const
 {
     return _pointsVie;
 }
 
-usint Unite::getNbMunitions() const
+uint16_t Unite::getNbMunitions() const
 {
     return _nbMunitions;
 }
 
-usint Unite::getNbProvisions() const
+uint16_t Unite::getNbProvisions() const
 {
     return _nbProvisions;
 }
@@ -34,24 +34,24 @@ Unite::Visibilite Unite::getVisibilite() const
     return _visibilite;
 }
 
-usint Unite::getMaxPointsVie() const
+uint16_t Unite::getMaxPointsVie() const
 {
     return _MAX_POINTS_VIE;
 }
 
-usint Unite::getMaxNbMunitions() const
+uint16_t Unite::getMaxNbMunitions() const
 {
     return _MAX_NB_MUNITIONS;
 }
 
-usint Unite::getMaxNbProvisions() const
+uint16_t Unite::getMaxNbProvisions() const
 {
     return _MAX_NB_PROVISIONS;
 }
 
 void Unite::regagnerViePartielle()
 {
-    usint nvPointsVie = _pointsVie + (_MAX_POINTS_VIE / 5); // plus un cinquieme
+    uint16_t nvPointsVie = _pointsVie + (_MAX_POINTS_VIE / 5); // plus un cinquieme
     _pointsVie = std::min(nvPointsVie, _MAX_POINTS_VIE);
 }
 
@@ -65,7 +65,7 @@ void Unite::rechargerProvisions()
     _nbProvisions = _MAX_NB_PROVISIONS;
 }
 
-usint Unite::getNbActionsPossibles() const
+uint16_t Unite::getNbActionsPossibles() const
 {
     return 2;   // deplacement et attaque
 }
@@ -103,7 +103,7 @@ void Unite::sortieFlux(std::ostream &os) const
     << " visibilite=" << getChaineVisibilite();
 }
 
-void Unite::prendreDegats(usint degats)
+void Unite::prendreDegats(uint16_t degats)
 {
     int nvPointsVie = _pointsVie - degats;
     _pointsVie = std::max(0, nvPointsVie);
@@ -112,7 +112,7 @@ void Unite::prendreDegats(usint degats)
 void Unite::attaquerUnite(Unite *unite)
 {
     if (_nbMunitions > 0 && unite) {
-        usint pointsAttaque;
+        uint16_t pointsAttaque;
         if (unite->estLegere())
             pointsAttaque = getPointsAttaqueLegere();
         else
@@ -123,7 +123,7 @@ void Unite::attaquerUnite(Unite *unite)
     }
 }
 
-void Unite::utiliserProvisions(usint nbProvisions)
+void Unite::utiliserProvisions(uint16_t nbProvisions)
 {
     int nvNbProvisions = _nbProvisions - nbProvisions;
     _nbProvisions = std::max(0, nvNbProvisions);

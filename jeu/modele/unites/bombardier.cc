@@ -1,7 +1,7 @@
 #include "bombardier.hh"
 
-Bombardier::Bombardier(Faction faction, usint pointsVie, usint nbMunitions,
-                       usint nbProvisions, usint pointsBouclier):
+Bombardier::Bombardier(Faction faction, uint16_t pointsVie, uint16_t nbMunitions,
+                       uint16_t nbProvisions, uint16_t pointsBouclier):
     Unite(faction, pointsVie, nbMunitions, nbProvisions),
     UniteAerienne(faction, pointsVie, nbMunitions, nbProvisions, pointsBouclier)
 {}
@@ -11,22 +11,22 @@ std::string Bombardier::getNom() const
     return "Bombardier";
 }
 
-usint Bombardier::getPointsAttaqueLegere() const
+uint16_t Bombardier::getPointsAttaqueLegere() const
 {
     return 20;
 }
 
-usint Bombardier::getPointsAttaqueLourde() const
+uint16_t Bombardier::getPointsAttaqueLourde() const
 {
     return 30;
 }
 
-usint Bombardier::getCapaciteDeplacement() const
+uint16_t Bombardier::getCapaciteDeplacement() const
 {
     return 4;
 }
 
-usint Bombardier::getDistanceAttaque() const
+uint16_t Bombardier::getDistanceAttaque() const
 {
     return 1;
 }

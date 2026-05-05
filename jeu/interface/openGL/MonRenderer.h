@@ -18,7 +18,7 @@ public:
     QOpenGLFramebufferObject *createFramebufferObject(const QSize &size) override;
 
 private:
-    couleur getCouleur(usint q, usint r) const;
+    couleur getCouleur(uint16_t q, uint16_t r) const;
 
     void dessinCadre(float x, float y) const;
     void dessinAiles(float x, float y) const;
@@ -32,7 +32,7 @@ private:
     void dessinChasseur(float x, float y) const;
     void dessinBombardier(float x, float y) const;
 
-    void dessinUnite(usint q, usint r, float x, float y) const;
+    void dessinUnite(uint16_t q, uint16_t r, float x, float y) const;
     void dessinHex(float x, float y) const;
 
 // attributs

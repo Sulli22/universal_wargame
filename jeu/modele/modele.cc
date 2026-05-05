@@ -180,7 +180,7 @@ Unite *Modele::getUniteSelectionee() const
     return _caseSelectionnee->getUnite(_indUniteSelectionnee);
 }
 
-usint Modele::getNbActionsPossibles() const
+uint16_t Modele::getNbActionsPossibles() const
 {
     if (uniteSelectioneeAJoue())
         return 0;
@@ -195,7 +195,7 @@ bool Modele::uniteSelectioneeAJoue() const
     return _unitesAyantJoue.find(getUniteSelectionee()) == _unitesAyantJoue.end();
 }
 
-void Modele::choixAction(usint indAction)
+void Modele::choixAction(uint16_t indAction)
 {
     if (indAction >= getNbActionsPossibles())
         throw std::invalid_argument("Erreur : l'indice est incorrecte");
@@ -219,7 +219,7 @@ void Modele::effectuerAction()
 
     if (_etat == etat::deplacement) {
         auto path = getChemin();
-        usint distance = path.size();
+        uint16_t distance = path.size();
         _caseSelectionnee->deplacerUnite(_indUniteSelectionnee, _caseCible, distance);
     }
 
@@ -246,7 +246,7 @@ void Modele::effectuerAction()
         changementJoueur();
 }
 
-usint Modele::getNbConstructionsPossibles() const
+uint16_t Modele::getNbConstructionsPossibles() const
 {
     if (_etat != etat::construction || !_caseCible)
         throw std::runtime_error("Erreur : impossible de calculer les constructions possibles");
@@ -254,7 +254,7 @@ usint Modele::getNbConstructionsPossibles() const
     return _caseCible->nbConstructionsPossibles();
 }
 
-void Modele::choixConstruction(usint indConstruction)
+void Modele::choixConstruction(uint16_t indConstruction)
 {
     if (_etat != etat::construction || indConstruction >= getNbConstructionsPossibles())
         throw std::runtime_error("Erreur : impossible de choisir une construction");
@@ -328,7 +328,7 @@ std::string Modele::factionToString(Faction faction)
     }
 }
 
-std::vector<Case *> Modele::keysFromMap(const std::map<Case *, usint> &map)
+std::vector<Case *> Modele::keysFromMap(const std::map<Case *, uint16_t> &map)
 {
     std::vector<Case *> keys;
     for (const auto &[key, val] : map)

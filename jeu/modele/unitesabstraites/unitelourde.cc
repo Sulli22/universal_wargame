@@ -1,12 +1,12 @@
 #include "unitelourde.hh"
 
-UniteLourde::UniteLourde(Faction faction, usint pointsVie, usint nbMunitions,
-                         usint nbProvisions, usint pointsBouclier, Visibilite visibilite):
+UniteLourde::UniteLourde(Faction faction, uint16_t pointsVie, uint16_t nbMunitions,
+                         uint16_t nbProvisions, uint16_t pointsBouclier, Visibilite visibilite):
     Unite(faction, pointsVie, nbMunitions, nbProvisions, visibilite),
     _pointsBouclier(pointsBouclier), _MAX_POINTS_BOUCLIER(pointsBouclier)
 {}
 
-usint UniteLourde::getPointsBouclier() const
+uint16_t UniteLourde::getPointsBouclier() const
 {
     return _pointsBouclier;
 }
@@ -27,7 +27,7 @@ void UniteLourde::sortieFlux(std::ostream &os) const
     os << " pointsBouclier=" << _pointsBouclier << "/" << _MAX_POINTS_BOUCLIER;
 }
 
-void UniteLourde::prendreDegats(usint degats)
+void UniteLourde::prendreDegats(uint16_t degats)
 {
     int nvPointsBouclier = _pointsBouclier - degats;
     if (nvPointsBouclier < 0) {
