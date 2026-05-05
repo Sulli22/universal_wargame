@@ -8,37 +8,24 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_compile_options(
-    -Wall
-    -Wpedantic
-    -Wextra
-)
+add_compile_options(-Wall -Wpedantic -Wextra)
 
+# Qt et OpenGL
 find_package(Qt6 6.2 COMPONENTS
-        Quick QuickControls2 Multimedia Core LinguistTools
-        OpenGL
+    Quick QuickControls2 Multimedia Core LinguistTools OpenGL
     REQUIRED)
-
 find_package(OpenGL REQUIRED)
 
-set(PCH_HEADERS
-    <QString>
-    <QVector>
-    <QDebug>
-    <QGuiApplication>
-    <QQmlApplicationEngine>
-    <QTranslator>
-    <QQuickStyle>
-    <QMediaPlayer>
-)
-
+# traduction
 set(TS_FILES interface/langues/traduction_en_UK.ts)
 qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 
+# donnees
 file(COPY interface/ressources/warzone.mp3 DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY modele/data DESTINATION ${CMAKE_BINARY_DIR})
 
-qt_add_executable(appJeu
+# sources
+set(SOURCES
     main.cc
     modele/unitesabstraites/unite.cc
     modele/unitesabstraites/unitelegere.cc
@@ -75,15 +62,13 @@ qt_add_executable(appJeu
     modele/carte/createurunites.cc
 
     modele/modele.cc
-
-    interface/langues/languageManager.cc
-    interface/ressources/images.qrc
-    interface/openGL/MonOpenGLItem.cpp
-    interface/openGL/MonRenderer.cpp
     ${QM_FILES}
 )
 
-target_sources(appJeu PRIVATE
+qt_add_executable(appJeu ${SOURCES})
+
+# headers (optionnel mais propre pour IDE)
+set(HEADERS
     modele/unitesabstraites/unite.hh
     modele/unitesabstraites/unitelegere.hh
     modele/unitesabstraites/unitelourde.hh
@@ -119,38 +104,52 @@ target_sources(appJeu PRIVATE
     modele/carte/createurunites.hh
 
     modele/modele.hh
+)
 
-    interface/langues/languagemanager.h
+target_sources(appJeu PRIVATE ${HEADERS})
+
+# QML
+set(QML_FILES
+    interface/main.qml
+    interface/pages/Credits.qml
+    interface/pages/MenuPrincipal.qml
+    interface/composantsMenuPrincipal/BoutonMenuPrincipal.qml
+    interface/pages/Parametres.qml
+    interface/composantsParametres/ParametresVolume.qml
+    interface/composantsParametres/ParametresLangue.qml
+    interface/composantsParametres/CheckBoxVolume.qml
+    interface/composantsParametres/SliderVolume.qml
+    interface/pages/PageChoixGuerre.qml
+    interface/composantsChoixGuerre/BoutonChoixGuerre.qml
+    interface/pages/PageJeu.qml
+    interface/pages/PopupQuitter.qml
+    interface/divers/Background.qml
+    interface/composantsJeu/BoutonAction.qml
+)
+set(QML_SOURCES
+    interface/modelePourQML/modelepourqml.h
+    interface/modelePourQML/modelepourqml.cpp
     interface/openGL/MonOpenGLItem.h
+    interface/openGL/MonOpenGLItem.cpp
     interface/openGL/MonRenderer.h
+    interface/openGL/MonRenderer.cpp
+    interface/langues/languagemanager.h
+    interface/langues/languageManager.cpp
+    interface/ressources/ressources.qrc
 )
 
 qt6_add_qml_module(appJeu
     URI ${PROJECT_NAME}
     VERSION 1.0
-    QML_FILES
-        interface/main.qml
-        interface/pages/Credits.qml
-        interface/pages/MenuPrincipal.qml
-        interface/composantsMenuPrincipal/BoutonMenuPrincipal.qml
-        interface/pages/Parametres.qml
-        interface/composantsParametres/ParametresVolume.qml
-        interface/composantsParametres/ParametresLangue.qml
-        interface/composantsParametres/CheckBoxVolume.qml
-        interface/composantsParametres/SliderVolume.qml
-        interface/pages/PageChoixGuerre.qml
-        interface/composantsChoixGuerre/BoutonChoixGuerre.qml
-        interface/pages/PageJeu.qml
-        interface/pages/PopupQuitter.qml
-        interface/divers/Background.qml
-        interface/composantsJeu/BoutonAction.qml
-
+    QML_FILES ${QML_FILES}
     RESOURCE_PREFIX "/qt/qml"
-    SOURCES interface/modelePourQML/modelepourqml.h interface/modelePourQML/modelepourqml.cpp
+    SOURCES ${QML_SOURCES}
 )
 
-target_precompile_headers(appJeu PRIVATE ${PCH_HEADERS})
+# PCH
+# target_precompile_headers(appJeu PRIVATE ${PCH_HEADERS})
 
+# include dirs
 target_include_directories(appJeu PRIVATE
     modele/unitesabstraites
     modele/unites
@@ -158,16 +157,26 @@ target_include_directories(appJeu PRIVATE
     modele/cases
     modele/carte
     modele/data
-
-    interface
+    interface/langues
+    interface/openGL
+    interface/modelePourQML
 )
 
+# link
 target_link_libraries(appJeu PRIVATE
     Qt6::Quick Qt6::QuickControls2 Qt6::Multimedia Qt6::Core
     Qt6::OpenGL OpenGL::GL)
 
+# installation des cibles
 install(TARGETS appJeu
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+# installation des fichiers de données
+install(FILES interface/ressources/warzone.mp3
+    DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+install(DIRECTORY modele/data
+    DESTINATION ${CMAKE_INSTALL_BINDIR})
+

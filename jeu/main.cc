@@ -6,9 +6,9 @@
 #include <QQmlContext>
 #include <QSurfaceFormat>
 
-#include "langues/languagemanager.h"
-#include "openGL/MonOpenGLItem.h"
-#include "modelePourQML/modelepourqml.h"
+#include "languagemanager.h"
+#include "MonOpenGLItem.h"
+#include "modelepourqml.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     qputenv("QSG_RHI_BACKEND", "opengl");
 
     QGuiApplication app(argc, argv);
-    QQuickStyle::setStyle("Basic");
+    QQuickStyle::setStyle("Basic"); // force style basic
 
     LanguageManager languageManager;
     QQmlApplicationEngine engine;

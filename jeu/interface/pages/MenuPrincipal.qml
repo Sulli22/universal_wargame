@@ -18,7 +18,6 @@ Item {
         font.pointSize: Math.max(10, parent.height/12)
         font.bold: true
         anchors.horizontalCenter: parent.horizontalCenter
-
     }
 
     ColumnLayout {
@@ -33,7 +32,6 @@ Item {
            Layout.preferredHeight: racineMenuPrincipal.height/20
 
            onClique : racineMenuPrincipal.boutonJouerClique()
-
        }
 
        BoutonMenuPrincipal {
@@ -43,7 +41,6 @@ Item {
            Layout.preferredHeight: racineMenuPrincipal.height/20
 
            onClique: racineMenuPrincipal.boutonParametresClique()
-
        }
 
        BoutonMenuPrincipal {

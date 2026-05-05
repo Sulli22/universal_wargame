@@ -1,6 +1,5 @@
 #include "modelepourqml.h"
 
-
 ModelePourQML::ModelePourQML(QObject *parent):
     QObject(parent)
 {}

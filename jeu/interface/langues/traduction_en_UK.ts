@@ -22,20 +22,20 @@
 <context>
     <name>MenuPrincipal</name>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/MenuPrincipal.qml" line="31"/>
-        <location filename="../pages/MenuPrincipal.qml" line="31"/>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/MenuPrincipal.qml" line="30"/>
+        <location filename="../pages/MenuPrincipal.qml" line="30"/>
         <source>JOUER</source>
         <translation>PLAY</translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/MenuPrincipal.qml" line="41"/>
-        <location filename="../pages/MenuPrincipal.qml" line="41"/>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/MenuPrincipal.qml" line="39"/>
+        <location filename="../pages/MenuPrincipal.qml" line="39"/>
         <source>PARAMETRES</source>
         <translation>SETTINGS</translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/MenuPrincipal.qml" line="51"/>
-        <location filename="../pages/MenuPrincipal.qml" line="51"/>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/MenuPrincipal.qml" line="48"/>
+        <location filename="../pages/MenuPrincipal.qml" line="48"/>
         <source>QUITTER</source>
         <translation>QUIT</translation>
     </message>

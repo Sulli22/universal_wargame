@@ -14,7 +14,7 @@ void LanguageManager::majLangue(QString langue)
         if(_traduction.load(QGuiApplication::applicationDirPath() + "/traduction_en_UK.qm"))
             qApp->installTranslator(&_traduction);
         else
-            qDebug() << "Pas anglais";
+            qDebug() << "Traduction en anglais impossible";
     }
 
     else

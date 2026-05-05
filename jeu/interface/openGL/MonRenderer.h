@@ -1,6 +1,6 @@
 #pragma once
 
-#include "modelePourQML/modelepourqml.h"
+#include "modelepourqml.h"
 #include <QQuickFramebufferObject>
 #include <QOpenGLFunctions>
 
