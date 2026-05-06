@@ -25,7 +25,9 @@ int main(int argc, char *argv[])
     LangageManager langageManager;
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("langageManager", &langageManager);
-    engine.rootContext()->setContextProperty("applicationDirPath", QGuiApplication::applicationDirPath());
+
+    const QUrl musiqueUrl = QUrl::fromLocalFile(QGuiApplication::applicationDirPath() + "/warzone.mp3");
+    engine.rootContext()->setContextProperty("musiqueUrl", musiqueUrl);
 
     ModelePourQML modeleQML;
     engine.rootContext()->setContextProperty("modeleQML", &modeleQML);

@@ -22,7 +22,7 @@ Window {
 
     MediaPlayer {
         id: sonMusique
-        source: applicationDirPath + "/warzone.mp3"
+        source: musiqueUrl
         loops: MediaPlayer.Infinite
 
         audioOutput: AudioOutput {

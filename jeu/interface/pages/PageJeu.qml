@@ -51,6 +51,13 @@ Item {
                     y: boutonAutre.height
 
                     MenuItem {
+                        text: qsTr("Aide") + langageManager.chaineVide
+                        onTriggered: {
+                            legende.open()
+                        }
+                    }
+
+                    MenuItem {
                         text: qsTr("Paramètres") + langageManager.chaineVide
                         onTriggered: {
                             parametreJeu.visible = true
@@ -65,6 +72,7 @@ Item {
                             rectangleOpacite.visible = true
                         }
                     }
+
                 }
             }
 
@@ -99,92 +107,101 @@ Item {
                 }
             }
         }
-
-        RowLayout {
-            id: milieuPage
+        Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            spacing: 0
 
-            MonOpenGLItem {
-                modele: modeleQML
-                id: plateau
-                Layout.fillHeight: true
-                Layout.fillWidth: true
+            RowLayout {
+                id: milieuPage
+                anchors.fill: parent
+                spacing: 0
 
-                MouseArea {
-                    id: zoneClique
-                    anchors.fill: parent
+                MonOpenGLItem {
+                    modele: modeleQML
+                    id: plateau
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
 
-                    onClicked: (mouse) => {
-                        plateau.gererClic(mouse.x, mouse.y)
+                    MouseArea {
+                        id: zoneClique
+                        anchors.fill: parent
+
+                        onClicked: (mouse) => {
+                            plateau.gererClic(mouse.x, mouse.y)
+                        }
                     }
-                }
-            }
-
-            Rectangle {
-                id: coteDroit
-                color: couleur
-                Layout.fillHeight: true
-                Layout.preferredWidth: racineJeu.largeurRectangle * 4
-
-                Rectangle {
-                    anchors.top: parent.top
-                    color: "black"
-                    width: parent.width
-                    height: 2
                 }
 
                 Rectangle {
-                    anchors.bottom: parent.bottom
-                    color: "black"
-                    width: parent.width
-                    height: 2
-                }
+                    id: coteDroit
+                    color: couleur
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: racineJeu.largeurRectangle * 5
 
-                ColumnLayout {
-                    id: layoutMenu
-                    anchors.fill: parent
-                    spacing: 10
-
-                    Item {
-                        Layout.fillHeight: true
+                    Rectangle {
+                        anchors.top: parent.top
+                        color: "black"
+                        width: parent.width
+                        height: 2
                     }
 
-                    BoutonAction {
-                        id: action1
-                        text: "Action 1"
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: layoutMenu.height * 0.05
-                        Layout.rightMargin: 5
-                        Layout.leftMargin: 5
-                        equipe: "red"
-                    }
+                    ColumnLayout {
+                        id: layoutMenu
+                        anchors.fill: parent
+                        spacing: 10
 
-                    BoutonAction {
-                        id: action2
-                        text: "Action 2"
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: layoutMenu.height * 0.05
-                        Layout.rightMargin: 5
-                        Layout.leftMargin: 5
-                        equipe: "red"
-                    }
 
-                    BoutonAction {
-                        id: action3
-                        text: "Action 3"
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: layoutMenu.height * 0.05
-                        Layout.bottomMargin: 10
-                        Layout.rightMargin: 5
-                        Layout.leftMargin: 5
-                        equipe: "red"
+                        Item {
+                            Layout.fillHeight: true
+                        }
+
+                        BoutonAction {
+                            id: action1
+                            text: "Action 1"
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: layoutMenu.height * 0.05
+                            Layout.rightMargin: 5
+                            Layout.leftMargin: 5
+                            equipe: "red"
+                        }
+
+                        BoutonAction {
+                            id: action2
+                            text: "Action 2"
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: layoutMenu.height * 0.05
+                            Layout.rightMargin: 5
+                            Layout.leftMargin: 5
+                            equipe: "red"
+                        }
+
+                        BoutonAction {
+                            id: action3
+                            text: "Action 3"
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: layoutMenu.height * 0.05
+                            Layout.rightMargin: 5
+                            Layout.leftMargin: 5
+                            equipe: "red"
+                        }
+
+                        BoutonAction {
+                            id: changerJoueur
+                            text: qsTr("Joueur suivant")
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: layoutMenu.height*0.05
+                            Layout.bottomMargin: 10
+                            Layout.rightMargin: 5
+                            Layout.leftMargin: 5
+
+                        }
                     }
                 }
             }
         }
 
+
+        /*
         RowLayout {
             id: basPage
             Layout.fillWidth: true
@@ -196,7 +213,7 @@ Item {
                 Layout.fillWidth: true
                 Layout.preferredHeight: racineJeu.largeurRectangle
             }
-        }
+        }*/
     }
 
     Parametres {
@@ -216,5 +233,9 @@ Item {
     PopupQuitter {
         id: confirmationQuitter
         onRetourMenuPrincipalPopup: racineJeu.retourMenuPrincipal(fenetre)
+    }
+
+    Legende {
+        id: legende
     }
 }
