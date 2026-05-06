@@ -24,32 +24,37 @@ Item {
         id: layoutBoutons
         spacing: 10
         anchors.centerIn: parent
+        width: racineMenuPrincipal.width/4
+        height: 3*racineMenuPrincipal.height/20 + (spacing * 2)
 
         BoutonMenuPrincipal {
            id: boutonJouer
-           textBouton: qsTr("JOUER") + langageManager.chaineVide
-           Layout.preferredWidth: racineMenuPrincipal.width/4
-           Layout.preferredHeight: racineMenuPrincipal.height/20
 
-           onClique : racineMenuPrincipal.boutonJouerClique()
+           text: qsTr("JOUER") + langageManager.chaineVide
+           Layout.fillWidth: true
+           Layout.fillHeight: true
+
+           onClicked : racineMenuPrincipal.boutonJouerClique()
        }
 
        BoutonMenuPrincipal {
            id: boutonParametres
-           textBouton: qsTr("PARAMETRES") + langageManager.chaineVide
-           Layout.preferredWidth: racineMenuPrincipal.width/4
-           Layout.preferredHeight: racineMenuPrincipal.height/20
 
-           onClique: racineMenuPrincipal.boutonParametresClique()
+           text: qsTr("PARAMETRES") + langageManager.chaineVide
+           Layout.fillWidth: true
+           Layout.fillHeight: true
+
+           onClicked: racineMenuPrincipal.boutonParametresClique()
        }
 
        BoutonMenuPrincipal {
            id: boutonQuitter
-           textBouton: qsTr("QUITTER") + langageManager.chaineVide
-           Layout.preferredWidth: racineMenuPrincipal.width/4
-           Layout.preferredHeight: racineMenuPrincipal.height/20
 
-           onClique: Qt.quit()
+           text: qsTr("QUITTER") + langageManager.chaineVide
+           Layout.fillWidth: true
+           Layout.fillHeight: true
+
+           onClicked: Qt.quit()
        }
     }
 
