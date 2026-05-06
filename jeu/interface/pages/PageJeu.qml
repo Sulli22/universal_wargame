@@ -116,9 +116,8 @@ Item {
                     id: zoneClique
                     anchors.fill: parent
 
-                    // tmp
-                    onClicked: {
-                        console.log("("+mouseX+","+mouseY+")")
+                    onClicked: (mouse) => {
+                        plateau.gererClic(mouse.x, mouse.y)
                     }
                 }
             }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "position.hh"
 #include <QQuickFramebufferObject>
 
 class ModelePourQML;
@@ -16,6 +17,11 @@ public:
 
     ModelePourQML* getModele() const;
     void setModele(ModelePourQML* nvModele);
+
+    QPointF pixelVersLogique(float mouseX, float mouseY,
+                             float largeurFen, float hauteurFen) const;
+    Position logiqueVersHex(float lx, float ly) const;
+    Q_INVOKABLE void gererClic(float mouseX, float mouseY);
 
 private:
     ModelePourQML *_modele;
