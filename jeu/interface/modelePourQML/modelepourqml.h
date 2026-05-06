@@ -11,6 +11,7 @@ public:
 
     Q_INVOKABLE void setModele(uint16_t idGuerre);
     Q_INVOKABLE void changementJoueur();
+    Q_INVOKABLE QString getStatsUniteSelectionee() const;
 
     bool positionValidePlateau(const Position &pos) const;
     std::size_t getLargeurPlateau() const;

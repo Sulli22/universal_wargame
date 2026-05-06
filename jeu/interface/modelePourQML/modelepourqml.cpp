@@ -48,3 +48,8 @@ void ModelePourQML::changementJoueur()
 {
     _modele->changementJoueur();
 }
+
+QString ModelePourQML::getStatsUniteSelectionee() const
+{
+    //_modele.getUniteSelectionee()
+}
