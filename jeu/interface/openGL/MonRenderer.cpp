@@ -2,7 +2,6 @@
 
 #include "casemarine.hh"
 #include "caseterrestre.hh"
-
 #include "artillerie.hh"
 #include "charassaut.hh"
 #include "chasseur.hh"
@@ -23,15 +22,11 @@ MonRenderer::MonRenderer(ModelePourQML *modele):
     glEnable(GL_POLYGON_SMOOTH);
     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
     glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
-
-    // blending
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 couleur MonRenderer::getCouleur(uint16_t q, uint16_t r) const
 {
-    auto c = _modele->getPlateau().accesCase({q, r});
+    auto c = _modele->accesCasePlateau({q, r});
 
     if (dynamic_cast<CaseMarine *>(c))
         return { 0.2f, 0.2f, 1.f };
@@ -280,7 +275,7 @@ void MonRenderer::dessinBombardier()
 
 void MonRenderer::dessinUnite(uint16_t q, uint16_t r) const
 {
-    auto c = _modele->getPlateau().accesCase({q, r});
+    auto c = _modele->accesCasePlateau({q, r});
 
     if (c->nbUnites() > 0) {
         // cadre
@@ -321,6 +316,59 @@ void MonRenderer::dessinUnite(uint16_t q, uint16_t r) const
     // sinon on affiche rien
 }
 
+void MonRenderer::dessinContoursCasesConcernee() const
+{
+    auto cases = _modele->getCasesConcernees();
+
+    for (const auto &c: cases) {
+        auto pos = c->getPos();
+        auto [x, y] = hexVersLogique(pos.getQ(), pos.getR());
+
+        glPushMatrix();
+        {
+            glTranslatef(x, y, 0.f);
+            glColor3f(0.5f, 0.2f, 0.2f);
+            glBegin(GL_LINE_LOOP);
+            {
+                pointsHex();
+            }
+            glEnd();
+        }
+        glPopMatrix();
+    }
+}
+
+void MonRenderer::surligneCaseSelectionnee() const
+{
+    auto c = _modele->getCaseSelectionnee();
+    if (c) {
+        auto pos = c->getPos();
+        auto [x, y] = hexVersLogique(pos.getQ(), pos.getR());
+
+        glPushMatrix();
+        {
+            glTranslatef(x, y, 0.f);
+            glColor4f(0.4f, 0.1, 0.1f, 0.3);
+            glBegin(GL_POLYGON);
+            {
+                pointsHex();
+            }
+            glEnd();
+        }
+        glPopMatrix();
+    }
+}
+
+std::pair<float, float> MonRenderer::hexVersLogique(uint16_t q, uint16_t r) const
+{
+    auto hauteur = _modele->getHauteurPlateau();
+
+    float x = q * (_LARGEUR_HEX * 0.75f);
+    float y = (hauteur - 1 - r) * _HAUTEUR_HEX + (q % 2) * _HAUTEUR_HEX / 2.f;
+
+    return {x, y};
+}
+
 void MonRenderer::pointsHex()
 {
     glVertex2f( _R_HEX  ,   0.f           );
@@ -355,9 +403,12 @@ void MonRenderer::render()
 
     glClearColor(0.f, 0.f, 0.f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    const Carte& plateau = _modele->getPlateau();
-    const auto hauteur = plateau.getHauteur(), largeur = plateau.getLargeur();
+    const auto  hauteur = _modele->getHauteurPlateau(),
+                largeur = _modele->getLargeurPlateau();
 
     // Dimensions d'un hexagone et de la grille
     const float LARGEUR_GRILLE = _LARGEUR_HEX * (1.f + (largeur - 1) * 0.75f);
@@ -393,8 +444,7 @@ void MonRenderer::render()
     // display
     for (std::size_t r = 0; r < hauteur; ++r) {
         for (std::size_t q = 0; q < largeur; ++q) {
-            const float x = q * (_LARGEUR_HEX * 0.75f),
-                        y = (hauteur - 1 - r) * _HAUTEUR_HEX + (q % 2) * _HAUTEUR_HEX / 2.f;
+            const auto [x, y] = hexVersLogique(q, r);
 
             const couleur c = getCouleur(q, r);
             glColor3f(c.r, c.v, c.b);
@@ -408,6 +458,9 @@ void MonRenderer::render()
             glPopMatrix();
         }
     }
+
+    dessinContoursCasesConcernee();
+    surligneCaseSelectionnee();
 }
 
 QOpenGLFramebufferObject *MonRenderer::createFramebufferObject(const QSize &size)

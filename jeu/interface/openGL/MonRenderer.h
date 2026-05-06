@@ -1,6 +1,8 @@
 #pragma once
 
 #include "modelepourqml.h"
+#include "HexConfig.h"
+
 #include <QQuickFramebufferObject>
 #include <QOpenGLFunctions>
 
@@ -20,6 +22,9 @@ public:
 private:
     couleur getCouleur(uint16_t q, uint16_t r) const;
     void dessinUnite(uint16_t q, uint16_t r) const;
+    void dessinContoursCasesConcernee() const;
+    void surligneCaseSelectionnee() const;
+    std::pair<float, float> hexVersLogique(uint16_t q, uint16_t r) const;
 
     static void pointsHex();
     static void dessinHex();
@@ -41,21 +46,20 @@ private:
     static void dessinChasseur();
     static void dessinBombardier();
 
-// attributs
-    ModelePourQML *_modele;
-
 // valeurs redondantes fixes
-    static constexpr float  _R_HEX = 1.f;               // base
-    static constexpr float  _R_HEX_2  = _R_HEX / 2.f;
-    static constexpr float  _R_HEX_4  = _R_HEX_2 / 4.f;
-    static constexpr float  _LARGEUR_HEX = 2.f * _R_HEX;
-    static constexpr float  _HAUTEUR_HEX  = 1.7320508f * _R_HEX; // sqrt(3) = 1.7320508f
-    static constexpr float  _HAUTEUR_HEX_2  = _HAUTEUR_HEX / 2.f;
+    static constexpr float  _R_HEX              = HexCondig::R_HEX;
+    static constexpr float  _LARGEUR_HEX        = HexCondig::LARGEUR_HEX;
+    static constexpr float  _HAUTEUR_HEX        = HexCondig::HAUTEUR_HEX;
 
-    static constexpr float  _LARGEUR_CADRE_2 = _R_HEX_2;
-    static constexpr float  _HAUTEUR_CADRE_2 = _HAUTEUR_HEX_2 / 2.f;
+    static constexpr float  _R_HEX_2            = _R_HEX            / 2.f;
+    static constexpr float  _R_HEX_4            = _R_HEX_2          / 4.f;
+    static constexpr float  _HAUTEUR_HEX_2      = _HAUTEUR_HEX      / 2.f;
+    static constexpr float  _LARGEUR_CADRE_2    = _R_HEX_2;
+    static constexpr float  _HAUTEUR_CADRE_2    = _HAUTEUR_HEX_2    / 2.f;
 
-    static constexpr float _R_ARC_CERCLE = _R_HEX / 5.f;
+    static constexpr float _R_ARC_CERCLE        = _R_HEX            / 5.f;
+    static constexpr float _DY_LETTRE           = _HAUTEUR_CADRE_2  / 2.f;
 
-    static constexpr float _DY_LETTRE = _HAUTEUR_CADRE_2 / 2.f;
+// attribut
+    ModelePourQML *_modele;
 };

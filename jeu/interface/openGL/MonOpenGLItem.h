@@ -1,6 +1,8 @@
 #pragma once
 
 #include "position.hh"
+#include "HexConfig.h"
+
 #include <QQuickFramebufferObject>
 
 class ModelePourQML;
@@ -18,11 +20,16 @@ public:
     ModelePourQML* getModele() const;
     void setModele(ModelePourQML* nvModele);
 
-    QPointF pixelVersLogique(float mouseX, float mouseY,
-                             float largeurFen, float hauteurFen) const;
+    QPointF pixelVersLogique(float mouseX, float mouseY) const;
     Position logiqueVersHex(float lx, float ly) const;
     Q_INVOKABLE void gererClic(float mouseX, float mouseY);
 
 private:
+// valeurs redondantes fixes
+    static constexpr float  _R_HEX              = HexCondig::R_HEX;
+    static constexpr float  _LARGEUR_HEX        = HexCondig::LARGEUR_HEX;
+    static constexpr float  _HAUTEUR_HEX        = HexCondig::HAUTEUR_HEX;
+
+// atribut
     ModelePourQML *_modele;
 };

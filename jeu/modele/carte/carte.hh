@@ -25,7 +25,8 @@ public:
     std::map<Case *, std::set<Faction> > getZOC() const;
     void effectuerActionsCases() const;
     uint16_t nbUnites(Faction faction) const;
-    std::vector<Case *> getCasesFaction(Faction faction) const;
+    std::vector<Case *> getCasesZOC(Faction faction) const;
+    std::vector<Case *> getCasesFactionAvecUnites(Faction faction) const;
 
 // sortie flux
     void soriteFlux(std::ostream &os) const;

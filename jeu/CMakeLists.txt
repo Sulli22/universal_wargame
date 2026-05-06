@@ -146,10 +146,8 @@ qt6_add_qml_module(appJeu
     QML_FILES ${QML_FILES}
     RESOURCE_PREFIX "/qt/qml"
     SOURCES ${QML_SOURCES}
+    SOURCES interface/openGL/HexConfig.h
 )
-
-# PCH
-# target_precompile_headers(appJeu PRIVATE ${PCH_HEADERS})
 
 # include dirs
 target_include_directories(appJeu PRIVATE
