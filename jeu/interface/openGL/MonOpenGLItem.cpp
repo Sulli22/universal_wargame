@@ -22,8 +22,8 @@ QPointF MonOpenGLItem::pixelVersLogique(float mouseX, float mouseY) const
     float largeurFen = static_cast<float>(width());
     float hauteurFen = static_cast<float>(height());
 
-    const Carte& plateau = _modele->getPlateau();
-    const auto hauteur = plateau.getHauteur(), largeur = plateau.getLargeur();
+    const auto  hauteur = _modele->getHauteurPlateau(),
+                largeur = _modele->getLargeurPlateau();
 
     const float LARGEUR_GRILLE = _LARGEUR_HEX * (1.f + (largeur - 1) * 0.75f);
     const float HAUTEUR_GRILLE = _HAUTEUR_HEX * hauteur;
@@ -31,6 +31,7 @@ QPointF MonOpenGLItem::pixelVersLogique(float mouseX, float mouseY) const
     const float ASPECT = largeurFen / hauteurFen;
     float largeurOrtho = HAUTEUR_GRILLE * ASPECT;
     float hauteurOrtho = HAUTEUR_GRILLE;
+
     if (largeurOrtho < LARGEUR_GRILLE) {
         largeurOrtho = LARGEUR_GRILLE;
         hauteurOrtho = LARGEUR_GRILLE / ASPECT;
@@ -58,7 +59,7 @@ QPointF MonOpenGLItem::pixelVersLogique(float mouseX, float mouseY) const
 
 Position MonOpenGLItem::logiqueVersHex(float lx, float ly) const
 {
-    const std::size_t hauteur = _modele->getPlateau().getHauteur();
+    const std::size_t hauteur = _modele->getHauteurPlateau();
 
     // chaque colonne est espacee de LARGEUR_HEX * 0.75
     int q = static_cast<int>(std::round(lx / (_LARGEUR_HEX * 0.75f)));
@@ -78,16 +79,13 @@ void MonOpenGLItem::gererClic(float mouseX, float mouseY)
 {
     const auto [lx, ly] = pixelVersLogique(mouseX, mouseY);
     const auto pos      = logiqueVersHex(lx, ly);
-    const auto q = pos.getQ();
-    const auto r = pos.getR();
 
-    const auto largeur = _modele->getPlateau().getLargeur();
-    const auto hauteur = _modele->getPlateau().getHauteur();
+    if (_modele->positionValidePlateau(pos)) {
+        _modele->selectionnerCase(pos);
 
-    if (q >= 0 && r >= 0 &&
-        static_cast<std::size_t>(q) < largeur &&
-        static_cast<std::size_t>(r) < hauteur) {
-        qDebug() << "Clic sur hexagone q =" << q << "r =" << r;
+        qDebug() << "Selection : " << pos.getQ() << ", " << pos.getR();
+
+        update();
     }
 }
 

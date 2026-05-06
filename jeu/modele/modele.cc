@@ -27,11 +27,6 @@ Modele::Modele(unsigned int idGuerre, Faction faction1, Faction faction2):
         throw std::invalid_argument("Erreur : les factions ne peuvent pas etre neutres");
 }
 
-const Carte &Modele::getPlateau() const
-{
-    return _plateau;
-}
-
 Faction Modele::getFaction1() const
 {
     return _faction1;
@@ -114,7 +109,7 @@ std::vector<Case *> Modele::getCasesConcernees() const
 
     switch (_etat) {
     case etat::selection:
-        res = _plateau.getCasesFaction(_factionAttaquante);
+        res = _plateau.getCasesFactionAvecUnites(_factionAttaquante);
         break;
 
     case etat::deplacement:
@@ -133,6 +128,34 @@ std::vector<Case *> Modele::getCasesConcernees() const
     return res;
 }
 
+bool Modele::positionValidePlateau(const Position &pos) const
+{
+    return _plateau.positionValide(pos);
+}
+
+std::size_t Modele::getLargeurPlateau() const
+{
+    return _plateau.getLargeur();
+}
+
+std::size_t Modele::getHauteurPlateau() const
+{
+    return _plateau.getHauteur();
+}
+
+Case *Modele::accesCasePlateau(const Position &pos) const
+{
+    return _plateau.accesCase(pos);
+}
+
+bool Modele::estConcernee(Case *c) const
+{
+    auto caseConcernees = getCasesConcernees();
+    auto it = find(caseConcernees.begin(), caseConcernees.end(), c);
+
+    return (it != caseConcernees.end());
+}
+
 void Modele::selectionnerCase(const Position &pos)
 {
     Case *c = _plateau.accesCase(pos);
@@ -140,12 +163,11 @@ void Modele::selectionnerCase(const Position &pos)
     if (!c)
         throw std::runtime_error("Erreur : la nouvelle case selectionnee est invalide");
 
-    auto casesConcernees = getCasesConcernees();
-    auto itc = std::find(casesConcernees.begin(), casesConcernees.end(), c);
+    bool estConcern = estConcernee(c);
 
     switch (_etat) {
     case etat::selection:
-        if (itc != casesConcernees.end()) {
+        if (estConcern) {
             if (_caseSelectionnee != c) {   // si on change de case selectionnee
                 _caseSelectionnee = c;
                 _indUniteSelectionnee = 0;
@@ -160,7 +182,7 @@ void Modele::selectionnerCase(const Position &pos)
     case etat::deplacement:
     case etat::attaque:
     case etat::construction:
-        _caseCible = (itc != casesConcernees.end()) ? c : nullptr;
+        _caseCible = estConcern ? c : nullptr;
         break;
     }
 }

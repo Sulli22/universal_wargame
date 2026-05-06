@@ -329,7 +329,7 @@ uint16_t Carte::nbUnites(Faction faction) const
     return sum;
 }
 
-std::vector<Case *> Carte::getCasesFaction(Faction faction) const
+std::vector<Case *> Carte::getCasesZOC(Faction faction) const
 {
     std::vector<Case *> cases;
 
@@ -338,6 +338,21 @@ std::vector<Case *> Carte::getCasesFaction(Faction faction) const
             cases.push_back(c);
 
     return cases;
+}
+
+std::vector<Case *> Carte::getCasesFactionAvecUnites(Faction faction) const
+{
+    std::vector<Case *> res;
+
+    for (std::size_t r = 0; r < _hauteur; ++r) {
+        for (std::size_t q = 0; q < _largeur; ++q) {
+            Case *c = accesCase({(int)q, (int)r});
+            if (c->nbUnites() > 0 && c->getFaction() == faction)
+                res.push_back(c);
+        }
+    }
+
+    return res;
 }
 
 void Carte::soriteFlux(std::ostream &os) const

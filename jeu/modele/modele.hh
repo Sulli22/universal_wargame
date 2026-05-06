@@ -15,7 +15,6 @@ public:
     Modele(unsigned int idGuerre,
         Faction faction1 = Faction::bleue, Faction faction2 = Faction::rouge);
 
-    const Carte& getPlateau() const;
     Faction getFaction1() const;
     Faction getFaction2() const;
     Faction getFactionAttaquante() const;
@@ -23,10 +22,17 @@ public:
     Case *getCaseSelectionnee() const;
     Case *getCaseCible() const;
 
+    // plateau
+    bool positionValidePlateau(const Position &pos) const;
+    std::size_t getLargeurPlateau() const;
+    std::size_t getHauteurPlateau() const;
+    Case *accesCasePlateau(const Position &pos) const;
+
     bool partieFinie() const;
     Faction factionVictorieuse() const;
     void changementJoueur();
     std::vector<Case *> getCasesConcernees() const;
+    bool estConcernee(Case *c) const;
     std::vector<Case *> getChemin() const;
     void selectionnerCase(const Position &pos);
     void annulerSelections();
