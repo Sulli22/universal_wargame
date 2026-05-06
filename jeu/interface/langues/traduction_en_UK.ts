@@ -22,46 +22,55 @@
 <context>
     <name>Legende</name>
     <message>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/composantsJeu/Legende.qml" line="15"/>
         <location filename="../composantsJeu/Legende.qml" line="15"/>
         <source>Artillerie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/composantsJeu/Legende.qml" line="20"/>
         <location filename="../composantsJeu/Legende.qml" line="20"/>
         <source>Bombardier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/composantsJeu/Legende.qml" line="25"/>
         <location filename="../composantsJeu/Legende.qml" line="25"/>
         <source>Char d&apos;assaut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/composantsJeu/Legende.qml" line="30"/>
         <location filename="../composantsJeu/Legende.qml" line="30"/>
         <source>Chasseur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/composantsJeu/Legende.qml" line="35"/>
         <location filename="../composantsJeu/Legende.qml" line="35"/>
         <source>Fregate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/composantsJeu/Legende.qml" line="40"/>
         <location filename="../composantsJeu/Legende.qml" line="40"/>
         <source>Génie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/composantsJeu/Legende.qml" line="45"/>
         <location filename="../composantsJeu/Legende.qml" line="45"/>
         <source>Infanterie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/composantsJeu/Legende.qml" line="50"/>
         <location filename="../composantsJeu/Legende.qml" line="50"/>
         <source>Sous marin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/composantsJeu/Legende.qml" line="56"/>
         <location filename="../composantsJeu/Legende.qml" line="56"/>
         <source>Retour</source>
         <translation type="unfinished">Back</translation>
@@ -106,16 +115,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PageJeu.qml" line="61"/>
         <location filename="../pages/PageJeu.qml" line="61"/>
         <source>Paramètres</source>
         <translation>Settings</translation>
     </message>
     <message>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PageJeu.qml" line="68"/>
         <location filename="../pages/PageJeu.qml" line="68"/>
         <source>Quitter la partie</source>
         <translation>Quit the game</translation>
     </message>
     <message>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PageJeu.qml" line="190"/>
         <location filename="../pages/PageJeu.qml" line="190"/>
         <source>Joueur suivant</source>
         <translation type="unfinished"></translation>

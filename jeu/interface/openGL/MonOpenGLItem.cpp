@@ -89,6 +89,11 @@ void MonOpenGLItem::gererClic(float mouseX, float mouseY)
     }
 }
 
+void MonOpenGLItem::rafraichir()
+{
+    update();
+}
+
 QQuickFramebufferObject::Renderer *MonOpenGLItem::createRenderer() const
 {
     return new MonRenderer(_modele);

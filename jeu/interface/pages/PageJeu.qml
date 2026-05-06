@@ -117,8 +117,8 @@ Item {
                 spacing: 0
 
                 MonOpenGLItem {
-                    modele: modeleQML
                     id: plateau
+                    modele: modeleQML
                     Layout.fillHeight: true
                     Layout.fillWidth: true
 

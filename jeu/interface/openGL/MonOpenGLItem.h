@@ -22,7 +22,9 @@ public:
 
     QPointF pixelVersLogique(float mouseX, float mouseY) const;
     Position logiqueVersHex(float lx, float ly) const;
+
     Q_INVOKABLE void gererClic(float mouseX, float mouseY);
+    Q_INVOKABLE void rafraichir();
 
 private:
 // valeurs redondantes fixes
