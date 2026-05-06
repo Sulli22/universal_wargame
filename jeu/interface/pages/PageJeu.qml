@@ -193,6 +193,10 @@ Item {
                             Layout.bottomMargin: 10
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
+                            onClicked: {
+
+                                modeleQML.changementJoueur()
+                            }
 
                         }
                     }

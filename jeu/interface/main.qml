@@ -32,11 +32,15 @@ Window {
         Component.onCompleted: sonMusique.play()
     }
 
-    SoundEffect {
-        id: sonBoutton
-        source: "qrc:/clic"
-        volume: racine.desactiverVolumeBouton ? 0 : racine.volumeBouton
-    }
+    Component {
+           id: composantSon
+           MediaPlayer {
+               source: "qrc:/clic"
+               audioOutput: AudioOutput {
+                   volume: racine.desactiverVolumeBouton ? 0 : racine.volumeBouton
+               }
+           }
+       }
 
     Background {
         anchors.fill: parent
@@ -87,7 +91,12 @@ Window {
    }
 
     function lancerBruitBouton() {
-        sonBoutton.stop()
-        sonBoutton.play()
+        let son = composantSon.createObject(racine)
+        son.play()
+        son.playbackStateChanged.connect(function() {
+            if (son.playbackState === MediaPlayer.StoppedState) {
+                son.destroy(500)
+               }
+           })
     }
 }

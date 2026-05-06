@@ -47,6 +47,7 @@ Case *ModelePourQML::accesCasePlateau(const Position &pos) const
 void ModelePourQML::changementJoueur()
 {
     _modele->changementJoueur();
+   // update();
 }
 
 QString ModelePourQML::getStatsUniteSelectionee() const
