@@ -26,6 +26,9 @@ Button {
     }*/
     opacity: selectionnable ? 1 : 0.2
 
+    palette.buttonText: "#A9A9A9"
+
+
     background: Rectangle {
         id: backgroundBoutonAction
         radius: height/2

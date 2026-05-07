@@ -206,6 +206,11 @@ uint16_t Modele::getNbActionsPossibles() const
 {
     if (uniteSelectioneeAJoue())
         return 0;
+
+    auto u = getUniteSelectionee();
+    if (!u)
+        return 0;
+
     return getUniteSelectionee()->getNbActionsPossibles();
 }
 
