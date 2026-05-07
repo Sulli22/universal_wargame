@@ -150,7 +150,7 @@ Item {
                         id: layoutMenu
                         anchors.fill: parent
                         spacing: 10
-
+                        property string equipeAttaquante: modeleQML.getFactionAttaquante()
 
                         Text {
                             id: stats
@@ -164,33 +164,33 @@ Item {
                         }
 
                         BoutonAction {
-                            id: action1
-                            text: "Déplacer"
+                            id: deplacer
+                            text: qsTr("Déplacer")
                             Layout.fillWidth: true
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
-                            equipe: modeleQML.getFactionAttaquante()
+                            equipe: layoutMenu.equipeAttaquante
                         }
 
                         BoutonAction {
-                            id: action2
-                            text: "Attaquer"
+                            id: attaquer
+                            text: qsTr("Attaquer")
                             Layout.fillWidth: true
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
-                            equipe: modeleQML.getFactionAttaquante()
+                            equipe: layoutMenu.equipeAttaquante
                         }
 
                         BoutonAction {
-                            id: action3
-                            text: "Construire"
+                            id: construire
+                            text: qsTr("Construire")
                             Layout.fillWidth: true
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
-                            equipe: modeleQML.getFactionAttaquante()
+                            equipe: layoutMenu.equipeAttaquante
                         }
 
                         BoutonAction {
@@ -206,6 +206,7 @@ Item {
                                 racine.lancerBruitBouton()
                                 modeleQML.changementJoueur()
                                 stats.text = ""
+                                layoutMenu.equipeAttaquante = modeleQML.getFactionAttaquante()
                                 plateau.update()
                             }
                         }
