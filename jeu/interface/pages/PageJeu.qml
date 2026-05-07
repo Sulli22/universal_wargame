@@ -128,6 +128,7 @@ Item {
 
                         onClicked: (mouse) => {
                             plateau.gererClic(mouse.x, mouse.y)
+                            stats.text = modeleQML.getStatsUniteSelectionee() // Fonctionne que si on clique sur des bonnes cases
                         }
                     }
                 }
@@ -150,6 +151,12 @@ Item {
                         anchors.fill: parent
                         spacing: 10
 
+                        Text {
+                            id: stats
+                            color: racine.couleurTexte
+                            Layout.alignment: Qt.AlignHCenter
+                            horizontalAlignment: Text.AlignHCenter
+                        }
 
                         Item {
                             Layout.fillHeight: true
@@ -194,8 +201,9 @@ Item {
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
                             onClicked: {
-
+                                racine.lancerBruitBouton()
                                 modeleQML.changementJoueur()
+                                stats.text = ""
                             }
 
                         }
@@ -242,4 +250,5 @@ Item {
     Legende {
         id: legende
     }
+
 }
