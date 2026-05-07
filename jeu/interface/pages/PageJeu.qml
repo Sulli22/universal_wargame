@@ -10,6 +10,8 @@ Item {
 
     readonly property string couleur: "#2f3640"
     readonly property real largeurRectangle: Math.max(10, racine.width*0.025)
+    property string equipeAttaquante: modeleQML.getFactionAttaquante()
+    property int nbActionsPossibles: modeleQML.getNbActionsPossibles()
 
     signal retourMenuPrincipal(bool fenetre)
 
@@ -127,7 +129,8 @@ Item {
 
                         onClicked: (mouse) => {
                             plateau.gererClic(mouse.x, mouse.y)
-                            stats.text = modeleQML.getStatsUniteSelectionee() // Fonctionne que si on clique sur des bonnes cases
+                            stats.text = modeleQML.getStatsUniteSelectionee()
+                            nbActionsPossibles = modeleQML.getNbActionsPossibles()
                         }
                     }
                 }
@@ -149,7 +152,6 @@ Item {
                         id: layoutMenu
                         anchors.fill: parent
                         spacing: 10
-                        property string equipeAttaquante: modeleQML.getFactionAttaquante()
 
                         Text {
                             id: stats
@@ -169,13 +171,15 @@ Item {
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
-                            equipe: layoutMenu.equipeAttaquante
 
                             onClicked: {
                                 racine.lancerBruitBouton()
                                 modeleQML.choixAction(0);
                                 plateau.update();
                             }
+
+                            equipe: racineJeu.equipeAttaquante
+                            selectionnable:  nbActionsPossibles >= 2
                         }
 
                         BoutonAction {
@@ -185,14 +189,17 @@ Item {
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
-                            equipe: layoutMenu.equipeAttaquante
 
                             onClicked: {
                                 racine.lancerBruitBouton()
                                 modeleQML.choixAction(1);
                                 plateau.update();
                             }
+
+                            equipe: racineJeu.equipeAttaquante
+                            selectionnable:  nbActionsPossibles >= 2
                         }
+
 
                         BoutonAction {
                             id: construire
@@ -201,13 +208,15 @@ Item {
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
-                            equipe: layoutMenu.equipeAttaquante
 
                             onClicked: {
                                 racine.lancerBruitBouton()
                                 modeleQML.choixAction(2);
                                 plateau.update();
                             }
+
+                            equipe: racineJeu.equipeAttaquante
+                            selectionnable: nbActionsPossibles === 3
                         }
 
                         BoutonAction {
@@ -223,7 +232,8 @@ Item {
                                 racine.lancerBruitBouton()
                                 modeleQML.changementJoueur()
                                 stats.text = ""
-                                layoutMenu.equipeAttaquante = modeleQML.getFactionAttaquante()
+                                racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()
+                                nbActionsPossibles = 0
                                 plateau.update()
                             }
                         }
@@ -270,5 +280,7 @@ Item {
     Legende {
         id: legende
     }
+
+
 
 }
