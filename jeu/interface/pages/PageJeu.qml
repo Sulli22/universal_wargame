@@ -10,8 +10,15 @@ Item {
 
     readonly property string couleur: "#2f3640"
     readonly property real largeurRectangle: Math.max(10, racine.width*0.025)
-    property string equipeAttaquante: modeleQML.getFactionAttaquante()
-    property int nbActionsPossibles: modeleQML.getNbActionsPossibles()
+    property string equipeAttaquante: ""
+    property int nbActionsPossibles: 0
+
+    Component.onCompleted: {
+            if (modeleQML) {
+                equipeAttaquante = modeleQML.getFactionAttaquante()
+                nbActionsPossibles = modeleQML.getNbActionsPossibles()
+            }
+        }
 
     signal retourMenuPrincipal(bool fenetre)
 
@@ -217,6 +224,55 @@ Item {
 
                             equipe: racineJeu.equipeAttaquante
                             selectionnable: nbActionsPossibles === 3
+                        }
+
+                        RowLayout {
+                            id: layoutValidation
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.maximumHeight: layoutMenu.height * 0.05
+                            Layout.rightMargin: 5
+                            Layout.leftMargin: 5
+
+                            Button {
+                                id: boutonAnnuler
+                                text: "✗"
+                                font.pointSize: Math.max(12, layoutValidation.Layout.maximumHeight * 0.4)
+                                font.bold: true
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+
+                                background: Rectangle{
+                                    radius: layoutValidation.Layout.maximumHeight/2
+
+                                    gradient: Gradient {
+                                        orientation: Gradient.Horizontal
+                                        GradientStop {position: 0.0; color:"red"}
+                                        GradientStop {position: 0.5; color: "#de7307"}
+                                        GradientStop {position: 1.0; color: "red"}
+                                    }
+                                }
+                            }
+
+                            Button {
+                                id: boutonValider
+                                text: "✓"
+                                font.pointSize: Math.max(12, layoutValidation.Layout.maximumHeight * 0.4)
+                                font.bold: true
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+
+                                background: Rectangle {
+                                    radius: layoutValidation.Layout.maximumHeight/2
+
+                                    gradient: Gradient {
+                                        orientation: Gradient.Horizontal
+                                        GradientStop {position: 0.0; color:"green"}
+                                        GradientStop {position: 0.5; color: "#95FF80"}
+                                        GradientStop {position: 1.0; color: "green"}
+                                    }
+                                }
+                            }
                         }
 
                         BoutonAction {
