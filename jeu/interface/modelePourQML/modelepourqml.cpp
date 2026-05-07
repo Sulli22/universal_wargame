@@ -57,7 +57,12 @@ void ModelePourQML::effectuerAction()
 
 QString ModelePourQML::getFactionAttaquante() const
 {
-    return  (_modele->getFactionAttaquante() == Faction::bleue) ? "blue" : "red";
+    return (_modele->getFactionAttaquante() == Faction::bleue) ? "blue" : "red";
+}
+
+bool ModelePourQML::actionValidable() const
+{
+    return getCaseSelectionnee() && getCaseCible();
 }
 
 bool ModelePourQML::positionValidePlateau(const Position &pos) const
