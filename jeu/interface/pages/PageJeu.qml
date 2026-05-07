@@ -151,7 +151,6 @@ Item {
                         anchors.fill: parent
                         spacing: 10
 
-
                         Text {
                             id: stats
                             color: racine.couleurTexte

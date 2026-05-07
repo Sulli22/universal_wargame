@@ -11,8 +11,7 @@ Button {
     font.pointSize: Math.max(height * 0.4, 12)
     font.bold: true
     clip: true
-
-    // TODO : forcer couleur noire du text
+    palette.buttonText: "#A9A9A9"
 
     background: Rectangle {
         id: backgroundBoutonAction
