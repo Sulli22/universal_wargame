@@ -14,7 +14,7 @@ Item {
 
         Text {
             id: labelChoixGuerre
-            text: qsTr("Choix de la guerre") + langageManager.chaineVide
+            text: qsTr("Choix de la difficulté") + langageManager.chaineVide
             color: racine.couleurTexte
             font.italic: true
             font.bold: true
@@ -30,26 +30,26 @@ Item {
             id: layoutBoutonsChoix
 
             BoutonChoixGuerre {
-                id: boutonGuerre1
+                id: boutonNiveau1
                 Layout.preferredHeight: Math.max(10, racineChoixGuerre.height/4)
-                sourceImage: "qrc:/waterloo"
-                nomGuerre: "Guerre 0"
+                sourceImage: "qrc:/img/facile"
+                nomGuerre: qsTr("Facile") + langageManager.chaineVide
                 onClique : racineChoixGuerre.boutonGuerreClique(0)
             }
 
             BoutonChoixGuerre {
-                id: boutonGuerre2
+                id: boutonNiveau2
                 Layout.preferredHeight: Math.max(10, racineChoixGuerre.height/4)
-                sourceImage: "qrc:/waterloo"
-                nomGuerre: "Guerre 1"
+                sourceImage: "qrc:/img/moyen"
+                nomGuerre: qsTr("Moyen") + langageManager.chaineVide
                 onClique : racineChoixGuerre.boutonGuerreClique(1)
             }
 
             BoutonChoixGuerre {
-                id: boutonGuerre3
+                id: boutonNiveau3
                 Layout.preferredHeight: Math.max(10, racineChoixGuerre.height/4)
-                sourceImage: "qrc:/waterloo"
-                nomGuerre: "Guerre 2"
+                sourceImage: "qrc:/img/difficile"
+                nomGuerre: qsTr("Difficile") + langageManager.chaineVide
                 onClique : racineChoixGuerre.boutonGuerreClique(2)
             }
         }

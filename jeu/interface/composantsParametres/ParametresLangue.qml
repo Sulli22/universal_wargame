@@ -32,8 +32,8 @@ Item {
 
             model: ListModel {
                 id: cbItems
-                ListElement { text:"Français"; image: "qrc:/france" }
-                ListElement { text:"English"; image: "qrc:/royaumeuni" }
+                ListElement { text:"Français"; image: "qrc:/img/france" }
+                ListElement { text:"English"; image: "qrc:/img/royaumeuni" }
             }
 
             textRole: "text"

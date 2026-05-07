@@ -19,6 +19,7 @@ Item {
             id: imageFond
             width: parent.width
             height: parent.height
+            fillMode: Image.PreserveAspectCrop
             anchors.fill: parent
 
             MouseArea {
