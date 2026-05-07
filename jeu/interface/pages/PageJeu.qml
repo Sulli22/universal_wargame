@@ -11,6 +11,7 @@ Item {
     readonly property string couleur: "#2f3640"
     readonly property real largeurRectangle: Math.max(10, racine.width*0.025)
     property string equipeAttaquante: modeleQML.getFactionAttaquante()
+    property int nbActionsPossibles: modeleQML.getNbActionsPossibles()
 
     signal retourMenuPrincipal(bool fenetre)
 
@@ -129,7 +130,8 @@ Item {
 
                         onClicked: (mouse) => {
                             plateau.gererClic(mouse.x, mouse.y)
-                            stats.text = modeleQML.getStatsUniteSelectionee() // Fonctionne que si on clique sur des bonnes cases
+                            stats.text = modeleQML.getStatsUniteSelectionee()
+                            nbActionsPossibles = modeleQML.getNbActionsPossibles()
                         }
                     }
                 }
@@ -164,18 +166,6 @@ Item {
                         }
 
                         BoutonAction {
-                            id: construire
-                            text: qsTr("Construire")
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: layoutMenu.height * 0.05
-                            Layout.rightMargin: 5
-                            Layout.leftMargin: 5
-                            equipe: racineJeu.equipeAttaquante
-                            selectionnable: modeleQML.getNbActionsPossibles() === 3
-
-                        }
-
-                        BoutonAction {
                             id: deplacer
                             text: qsTr("Déplacer")
                             Layout.fillWidth: true
@@ -183,7 +173,7 @@ Item {
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
                             equipe: racineJeu.equipeAttaquante
-                            selectionnable:  modeleQML.getNbActionsPossibles() >= 2
+                            selectionnable:  nbActionsPossibles >= 2
                         }
 
                         BoutonAction {
@@ -194,7 +184,20 @@ Item {
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
                             equipe: racineJeu.equipeAttaquante
-                            selectionnable:  modeleQML.getNbActionsPossibles() >= 2
+                            selectionnable:  nbActionsPossibles >= 2
+                        }
+
+
+                        BoutonAction {
+                            id: construire
+                            text: qsTr("Construire")
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: layoutMenu.height * 0.05
+                            Layout.rightMargin: 5
+                            Layout.leftMargin: 5
+                            equipe: racineJeu.equipeAttaquante
+                            selectionnable: nbActionsPossibles === 3
+
                         }
 
                         BoutonAction {
@@ -211,10 +214,7 @@ Item {
                                 modeleQML.changementJoueur()
                                 stats.text = ""
                                 racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()
-                                /*deplacer.lancerAnimationCouleur = true
-                                attaquer.lancerAnimationCouleur = true
-                                construire.lancerAnimationCouleur = true*/
-
+                                nbActionsPossibles = 0
                                 plateau.update()
                             }
                         }

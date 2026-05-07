@@ -13,7 +13,7 @@ Button {
     font.pointSize: Math.max(height * 0.4, 12)
     font.bold: true
     clip: true
-
+    enabled: selectionnable
     // TODO : forcer couleur noire du text
     /*
     Rectangle {
