@@ -127,6 +127,7 @@ set(QML_FILES
     interface/composantsJeu/BoutonAction.qml
     interface/composantsJeu/Legende.qml
     interface/composantsJeu/LigneLegende.qml
+    interface/composantsJeu/BoutonChoix.qml
 )
 set(QML_SOURCES
     interface/modelePourQML/modelepourqml.h

@@ -138,6 +138,7 @@ Item {
                             plateau.gererClic(mouse.x, mouse.y)
                             stats.text = modeleQML.getStatsUniteSelectionee()
                             nbActionsPossibles = modeleQML.getNbActionsPossibles()
+                            boutonValider.enabled = modeleQML.actionValidable()
                         }
                     }
                 }
@@ -186,7 +187,7 @@ Item {
                             }
 
                             equipe: racineJeu.equipeAttaquante
-                            selectionnable:  nbActionsPossibles >= 2
+                            enabled:  nbActionsPossibles >= 2
                         }
 
                         BoutonAction {
@@ -204,7 +205,7 @@ Item {
                             }
 
                             equipe: racineJeu.equipeAttaquante
-                            selectionnable:  nbActionsPossibles >= 2
+                            enabled: nbActionsPossibles >= 2
                         }
 
 
@@ -223,7 +224,7 @@ Item {
                             }
 
                             equipe: racineJeu.equipeAttaquante
-                            selectionnable: nbActionsPossibles === 3
+                            enabled: nbActionsPossibles === 3
                         }
 
                         RowLayout {
@@ -234,44 +235,23 @@ Item {
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
 
-                            Button {
+                            BoutonChoix {
                                 id: boutonAnnuler
-                                text: "✗"
-                                font.pointSize: Math.max(12, layoutValidation.Layout.maximumHeight * 0.4)
-                                font.bold: true
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
-
-                                background: Rectangle{
-                                    radius: layoutValidation.Layout.maximumHeight/2
-
-                                    gradient: Gradient {
-                                        orientation: Gradient.Horizontal
-                                        GradientStop {position: 0.0; color:"red"}
-                                        GradientStop {position: 0.5; color: "#de7307"}
-                                        GradientStop {position: 1.0; color: "red"}
-                                    }
-                                }
+                                text: "✗"
+                                couleurExtremiteGradient: "red"
+                                couleurCentreGradient: "#de7307"
                             }
 
-                            Button {
+                            BoutonChoix {
                                 id: boutonValider
-                                text: "✓"
-                                font.pointSize: Math.max(12, layoutValidation.Layout.maximumHeight * 0.4)
-                                font.bold: true
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
-
-                                background: Rectangle {
-                                    radius: layoutValidation.Layout.maximumHeight/2
-
-                                    gradient: Gradient {
-                                        orientation: Gradient.Horizontal
-                                        GradientStop {position: 0.0; color:"green"}
-                                        GradientStop {position: 0.5; color: "#95FF80"}
-                                        GradientStop {position: 1.0; color: "green"}
-                                    }
-                                }
+                                text: "✔"
+                                couleurExtremiteGradient: "green"
+                                couleurCentreGradient: "#95ff80"
+                                enabled: false
                             }
                         }
 
