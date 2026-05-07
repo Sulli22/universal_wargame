@@ -108,7 +108,7 @@
         <translation>Quit the game</translation>
     </message>
     <message>
-        <location filename="../pages/PageJeu.qml" line="197"/>
+        <location filename="../pages/PageJeu.qml" line="198"/>
         <source>Joueur suivant</source>
         <translation type="unfinished"></translation>
     </message>

@@ -24,6 +24,36 @@ Case *ModelePourQML::getCaseSelectionnee() const
     return _modele->getCaseSelectionnee();
 }
 
+Unite *ModelePourQML::getUniteSelectionee() const
+{
+    return _modele->getUniteSelectionee();
+}
+
+void ModelePourQML::annulerSelections()
+{
+    _modele->annulerSelections();
+}
+
+uint16_t ModelePourQML::getNbActionsPossibles() const
+{
+    return _modele->getNbActionsPossibles();
+}
+
+void ModelePourQML::choixAction(uint16_t indAction)
+{
+    return _modele->choixAction(indAction);
+}
+
+void ModelePourQML::effectuerAction()
+{
+    _modele->effectuerAction();
+}
+
+QString ModelePourQML::getFactionAttaquante() const
+{
+    return  (_modele->getFactionAttaquante() == Faction::bleue) ? "blue" : "red";
+}
+
 bool ModelePourQML::positionValidePlateau(const Position &pos) const
 {
     return _modele->positionValidePlateau(pos);
@@ -47,7 +77,6 @@ Case *ModelePourQML::accesCasePlateau(const Position &pos) const
 void ModelePourQML::changementJoueur()
 {
     _modele->changementJoueur();
-   // update();
 }
 
 QString ModelePourQML::getStatsUniteSelectionee() const

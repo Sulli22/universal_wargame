@@ -117,8 +117,8 @@ Item {
                 spacing: 0
 
                 MonOpenGLItem {
-                    modele: modeleQML
                     id: plateau
+                    modele: modeleQML
                     Layout.fillHeight: true
                     Layout.fillWidth: true
 
@@ -151,6 +151,7 @@ Item {
                         anchors.fill: parent
                         spacing: 10
 
+
                         Text {
                             id: stats
                             color: racine.couleurTexte
@@ -164,32 +165,32 @@ Item {
 
                         BoutonAction {
                             id: action1
-                            text: "Action 1"
+                            text: "Déplacer"
                             Layout.fillWidth: true
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
-                            equipe: "red"
+                            equipe: modeleQML.getFactionAttaquante()
                         }
 
                         BoutonAction {
                             id: action2
-                            text: "Action 2"
+                            text: "Attaquer"
                             Layout.fillWidth: true
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
-                            equipe: "red"
+                            equipe: modeleQML.getFactionAttaquante()
                         }
 
                         BoutonAction {
                             id: action3
-                            text: "Action 3"
+                            text: "Construire"
                             Layout.fillWidth: true
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
-                            equipe: "red"
+                            equipe: modeleQML.getFactionAttaquante()
                         }
 
                         BoutonAction {
@@ -200,12 +201,13 @@ Item {
                             Layout.bottomMargin: 10
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
+
                             onClicked: {
                                 racine.lancerBruitBouton()
                                 modeleQML.changementJoueur()
                                 stats.text = ""
+                                plateau.update()
                             }
-
                         }
                     }
                 }

@@ -21,9 +21,9 @@ public:
 
 private:
     couleur getCouleur(uint16_t q, uint16_t r) const;
-    void dessinUnite(uint16_t q, uint16_t r) const;
-    void dessinContoursCasesConcernee() const;
-    void surligneCaseSelectionnee() const;
+    void dessinUnite(uint16_t q, uint16_t r);
+    void dessinContoursCasesConcernee();
+    void surligneCaseSelectionnee();
     std::pair<float, float> hexVersLogique(uint16_t q, uint16_t r) const;
 
     static void pointsHex();

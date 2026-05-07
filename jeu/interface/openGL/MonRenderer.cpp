@@ -273,7 +273,7 @@ void MonRenderer::dessinBombardier()
     glPopMatrix();
 }
 
-void MonRenderer::dessinUnite(uint16_t q, uint16_t r) const
+void MonRenderer::dessinUnite(uint16_t q, uint16_t r)
 {
     auto c = _modele->accesCasePlateau({q, r});
 
@@ -285,9 +285,11 @@ void MonRenderer::dessinUnite(uint16_t q, uint16_t r) const
             glColor3f(1.f, 0.f, 0.f);
         dessinCadre();
 
-        // on affiche la premiere unite
+        // on affiche la premiere unite ou l'unite selectionee
+        auto u =  (c != _modele->getCaseSelectionnee()) ?
+                     c->getUnite(0) : _modele->getUniteSelectionee();
+
         glColor3f(0.f, 0.f, 0.f);
-        auto u = c->getUnite(0);
         if (dynamic_cast<Genie *>(u))
             dessinGenie();
 
@@ -316,7 +318,7 @@ void MonRenderer::dessinUnite(uint16_t q, uint16_t r) const
     // sinon on affiche rien
 }
 
-void MonRenderer::dessinContoursCasesConcernee() const
+void MonRenderer::dessinContoursCasesConcernee()
 {
     auto cases = _modele->getCasesConcernees();
 
@@ -327,18 +329,20 @@ void MonRenderer::dessinContoursCasesConcernee() const
         glPushMatrix();
         {
             glTranslatef(x, y, 0.f);
-            glColor3f(0.5f, 0.2f, 0.2f);
+            glLineWidth(3.f); // augmente epaisseur
+            glColor3f(0.5f, 0.3f, 0.3f);
             glBegin(GL_LINE_LOOP);
             {
                 pointsHex();
             }
             glEnd();
+            glLineWidth(1.f); // reset epaisseur
         }
         glPopMatrix();
     }
 }
 
-void MonRenderer::surligneCaseSelectionnee() const
+void MonRenderer::surligneCaseSelectionnee()
 {
     auto c = _modele->getCaseSelectionnee();
     if (c) {

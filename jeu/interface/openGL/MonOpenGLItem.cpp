@@ -82,11 +82,13 @@ void MonOpenGLItem::gererClic(float mouseX, float mouseY)
 
     if (_modele->positionValidePlateau(pos)) {
         _modele->selectionnerCase(pos);
-
-        qDebug() << "Selection : " << pos.getQ() << ", " << pos.getR();
-
         update();
     }
+}
+
+void MonOpenGLItem::rafraichir()
+{
+    update();
 }
 
 QQuickFramebufferObject::Renderer *MonOpenGLItem::createRenderer() const
