@@ -127,8 +127,8 @@
         <translation>Quit the game</translation>
     </message>
     <message>
-        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PageJeu.qml" line="190"/>
-        <location filename="../pages/PageJeu.qml" line="190"/>
+        <location filename="../../build/MinGW64_MSYS2-Debug/jeu/interface/pages/PageJeu.qml" line="189"/>
+        <location filename="../pages/PageJeu.qml" line="189"/>
         <source>Joueur suivant</source>
         <translation type="unfinished"></translation>
     </message>

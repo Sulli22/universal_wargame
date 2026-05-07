@@ -12,18 +12,20 @@ Button {
     font.bold: true
     clip: true
 
+    // TODO : forcer couleur noire du text
+
     background: Rectangle {
         id: backgroundBoutonAction
         radius: height/2
     }
 
     PropertyAnimation {
-        id: animation;
-        target: racineBoutonAction;
-        property: "width";
-        from:0;
+        id: animation
+        target: racineBoutonAction
+        property: "width"
+        from: 0
         to: racineBoutonAction.width
-        duration: 1000;
+        duration: 1000
         easing.type: Easing.OutBack
     }
 

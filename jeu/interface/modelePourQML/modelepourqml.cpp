@@ -49,6 +49,11 @@ void ModelePourQML::effectuerAction()
     _modele->effectuerAction();
 }
 
+QString ModelePourQML::getFactionAttaquante() const
+{
+    return  (_modele->getFactionAttaquante() == Faction::bleue) ? "blue" : "red";
+}
+
 bool ModelePourQML::positionValidePlateau(const Position &pos) const
 {
     return _modele->positionValidePlateau(pos);
