@@ -104,5 +104,5 @@ QString ModelePourQML::getStatsUniteSelectionee() const
                 "Munitions : "+std::to_string(unit->getNbMunitions())+"/"+std::to_string(unit->getMaxNbMunitions())+"\n" +
                 "Provisions : "+std::to_string(unit->getNbProvisions())+"/"+std::to_string(unit->getMaxNbProvisions()));
     }
-    return "";
+    return "Pas d'unité";
 }

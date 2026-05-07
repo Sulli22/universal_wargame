@@ -13,41 +13,50 @@ Popup {
         LigneLegende {
             id: artillerie
             nomUnite: qsTr("Artillerie")
+            imageUnite: "qrc:/img/artillerie"
         }
 
         LigneLegende {
            id: bombardier
            nomUnite: qsTr("Bombardier")
+           imageUnite: "qrc:/img/bombardier"
         }
 
         LigneLegende {
             id: charAssaut
             nomUnite: qsTr("Char d'assaut")
+            imageUnite: "qrc:/img/char"
         }
 
         LigneLegende {
             id: chasseur
             nomUnite: qsTr("Chasseur")
+            imageUnite: "qrc:/img/chasseur"
         }
 
         LigneLegende {
             id: fregate
             nomUnite: qsTr("Fregate")
+            imageUnite: "qrc:/img/fregate"
         }
 
         LigneLegende {
             id: genie
             nomUnite: qsTr("Génie")
+            imageUnite: "qrc:/img/genie"
         }
 
         LigneLegende {
            id: infanterie
            nomUnite: qsTr("Infanterie")
+           imageUnite: "qrc:/img/infanterie"
         }
+
 
         LigneLegende {
             id: sousMarin
             nomUnite: qsTr("Sous marin")
+            imageUnite: "qrc:/img/sousmarin"
         }
     }
 

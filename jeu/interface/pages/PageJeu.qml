@@ -139,6 +139,7 @@ Item {
                             stats.text = modeleQML.getStatsUniteSelectionee()
                             nbActionsPossibles = modeleQML.getNbActionsPossibles()
                             boutonValider.enabled = modeleQML.actionValidable()
+                            boutonAnnuler.enabled = modeleQML.actionAnnulable()
                         }
                     }
                 }
@@ -159,100 +160,213 @@ Item {
                     ColumnLayout {
                         id: layoutMenu
                         anchors.fill: parent
-                        spacing: 10
+                        spacing: 3
 
-                        Text {
-                            id: stats
+                        Label {
+                            id: labelJoueur
+                            text: qsTr("Joueur : ") + langageManager.chaineVide
+                            font.pointSize: 18
+                            font.bold: true
+                            color: racine.couleurTexte
+                            Layout.fillWidth: true
+                            horizontalAlignment: Text.AlignHCenter
+
+                        }
+
+                        Rectangle {
+                            id: couleurJoueur
+                            color: equipeAttaquante
+                            Layout.preferredWidth: layoutMenu.width * 0.5
+                            Layout.preferredHeight: layoutMenu.height * 0.05
+                            Layout.alignment: Qt.AlignHCenter
+                            border.color: racine.couleurTexte
+                        }
+
+                        Rectangle {
+                            color: "black"
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 5
+                        }
+
+                        ColumnLayout {
+                           id: layoutStat
+                           spacing: 0
+
+                           Label {
+                               id: labelStats
+                               text: "Stats Unité : "
+                               color: racine.couleurTexte
+                               Layout.fillWidth: true
+                               horizontalAlignment: Text.AlignHCenter
+                               font.pointSize: 18
+                               font.bold: true
+                           }
+
+                           Text {
+                               id: stats
+                               text: "Pas d'unité"
+                               color: racine.couleurTexte
+                               Layout.fillWidth: true
+                               horizontalAlignment: Text.AlignHCenter
+                               font.pointSize: 18
+                           }
+
+                        }
+
+
+                        Rectangle {
+                            color: "black"
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 5
+                        }
+
+                        Label {
+                            id: labelConstructions
+                            text: "Constructions"
                             color: racine.couleurTexte
                             Layout.alignment: Qt.AlignHCenter
                             horizontalAlignment: Text.AlignHCenter
+                            font.pointSize: 18
+                            font.bold: true
                         }
 
-                        Item {
-                            Layout.fillHeight: true
-                        }
-
-                        BoutonAction {
-                            id: deplacer
-                            text: qsTr("Déplacer")
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: layoutMenu.height * 0.05
-                            Layout.rightMargin: 5
-                            Layout.leftMargin: 5
-
-                            onClicked: {
-                                racine.lancerBruitBouton()
-                                modeleQML.choixAction(0);
-                                plateau.update();
-                            }
-
-                            equipe: racineJeu.equipeAttaquante
-                            enabled:  nbActionsPossibles >= 2
-                        }
-
-                        BoutonAction {
-                            id: attaquer
-                            text: qsTr("Attaquer")
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: layoutMenu.height * 0.05
-                            Layout.rightMargin: 5
-                            Layout.leftMargin: 5
-
-                            onClicked: {
-                                racine.lancerBruitBouton()
-                                modeleQML.choixAction(1);
-                                plateau.update();
-                            }
-
-                            equipe: racineJeu.equipeAttaquante
-                            enabled: nbActionsPossibles >= 2
-                        }
-
-
-                        BoutonAction {
-                            id: construire
-                            text: qsTr("Construire")
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: layoutMenu.height * 0.05
-                            Layout.rightMargin: 5
-                            Layout.leftMargin: 5
-
-                            onClicked: {
-                                racine.lancerBruitBouton()
-                                modeleQML.choixAction(2);
-                                plateau.update();
-                            }
-
-                            equipe: racineJeu.equipeAttaquante
-                            enabled: nbActionsPossibles === 3
-                        }
-
-                        RowLayout {
-                            id: layoutValidation
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            Layout.maximumHeight: layoutMenu.height * 0.05
-                            Layout.rightMargin: 5
-                            Layout.leftMargin: 5
-
-                            BoutonChoix {
-                                id: boutonAnnuler
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                text: "✗"
-                                couleurExtremiteGradient: "red"
-                                couleurCentreGradient: "#de7307"
-                            }
-
-                            BoutonChoix {
-                                id: boutonValider
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                text: "✔"
-                                couleurExtremiteGradient: "green"
-                                couleurCentreGradient: "#95ff80"
+                        ColumnLayout {
+                            id: layoutConstructions
+                            spacing: 8
+                            BoutonAction {
+                                id: depotMunitions
+                                text: "Munitions"
+                                equipe: racineJeu.equipeAttaquante
                                 enabled: false
                             }
+
+                            BoutonAction {
+                                id: depotProvisions
+                                text: "Provisions"
+                                equipe: racineJeu.equipeAttaquante
+                                enabled: false
+                            }
+
+                            BoutonAction {
+                                id: infirmerie
+                                text: "Infirmerie"
+                                equipe: racineJeu.equipeAttaquante
+                                enabled: false
+                            }
+
+                            BoutonAction {
+                                id: pont
+                                text: "Pont"
+                                equipe: racineJeu.equipeAttaquante
+                                enabled: false
+                            }
+                        }
+
+
+
+                        Rectangle {
+                            color: "black"
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 5
+                        }
+
+
+                        ColumnLayout {
+                            id: layoutActions
+                            spacing: 8
+                            BoutonAction {
+                                id: deplacer
+                                text: qsTr("Déplacer")
+
+                                onClicked: {
+                                    racine.lancerBruitBouton()
+                                    modeleQML.choixAction(0);
+                                    plateau.update();
+                                }
+
+                                equipe: racineJeu.equipeAttaquante
+                                enabled:  nbActionsPossibles >= 2
+                            }
+
+                            BoutonAction {
+                                id: attaquer
+                                text: qsTr("Attaquer")
+
+                                onClicked: {
+                                    racine.lancerBruitBouton()
+                                    modeleQML.choixAction(1);
+                                    plateau.update();
+                                }
+
+                                equipe: racineJeu.equipeAttaquante
+                                enabled: nbActionsPossibles >= 2
+                            }
+
+
+                            BoutonAction {
+                                id: construire
+                                text: qsTr("Construire")
+
+                                onClicked: {
+                                    racine.lancerBruitBouton()
+                                    modeleQML.choixAction(2);
+                                    depotMunitions.enabled = true
+                                    depotProvisions.enabled = true
+                                    infirmerie.enabled = true
+                                    pont.enabled = true
+                                    plateau.update();
+                                }
+
+                                equipe: racineJeu.equipeAttaquante
+                                enabled: nbActionsPossibles === 3
+                            }
+
+                            RowLayout {
+                                id: layoutValidation
+                                Layout.alignment: Qt.AlignBottom
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                Layout.maximumHeight: layoutMenu.height * 0.05
+                                Layout.rightMargin: 5
+                                Layout.leftMargin: 5
+
+                                BoutonChoix {
+                                    id: boutonAnnuler
+                                    text: "✗"
+                                    couleurExtremiteGradient: "red"
+                                    couleurCentreGradient: "#de7307"
+                                    enabled: false
+                                    onClicked: {
+                                        modeleQML.annulerSelections()
+                                        enabled = false
+                                        nbActionsPossibles = 0
+                                        plateau.update()
+                                    }
+                                }
+
+                                BoutonChoix {
+                                    id: boutonValider
+                                    text: "✔"
+                                    couleurExtremiteGradient: "green"
+                                    couleurCentreGradient: "#95ff80"
+                                    enabled: false
+                                    onClicked: {
+                                        modeleQML.effectuerAction()
+                                        enabled = false
+                                        boutonAnnuler.enabled = false
+                                        nbActionsPossibles = 0
+                                        plateau.update()
+                                    }
+                                }
+                            }
+
+                        }
+
+
+                        Rectangle {
+                            color: "black"
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 5
                         }
 
                         BoutonAction {
@@ -267,7 +381,7 @@ Item {
                             onClicked: {
                                 racine.lancerBruitBouton()
                                 modeleQML.changementJoueur()
-                                stats.text = ""
+                                stats.text = "Pas d'unite"
                                 racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()
                                 nbActionsPossibles = 0
                                 plateau.update()

@@ -1,23 +1,23 @@
 import QtQuick 2.15
 import QtQuick.Controls
+import QtQuick.Layouts
 
 Button {
     id: racineBoutonAction
 
     property alias equipe: backgroundBoutonAction.color
 
-    width: parent.width * 0.2
-    height: parent.height * 0.2
-    font.pointSize: Math.max(height * 0.4, 12)
+    Layout.fillWidth: true
+    Layout.preferredHeight: layoutMenu.height * 0.05
+    font.pointSize: Math.max(layoutMenu.height * 0.05* 0.4, 12)
     font.bold: true
-    clip: true
     opacity: enabled ? 1 : 0.2
 
     palette.buttonText: "#A9A9A9"
 
     background: Rectangle {
         id: backgroundBoutonAction
-        radius: height/2
+        radius: layoutMenu.height*0.05/2
 
         Behavior on color {
             ColorAnimation {

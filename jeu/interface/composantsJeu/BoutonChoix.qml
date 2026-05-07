@@ -8,6 +8,8 @@ Button {
     property string couleurCentreGradient: ""
     font.pointSize: Math.max(12, layoutValidation.Layout.maximumHeight * 0.4)
     font.bold: true
+    Layout.fillWidth: true
+    Layout.fillHeight: true
     opacity: enabled ? 1 : 0.2
 
     background: Rectangle{
