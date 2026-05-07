@@ -50,7 +50,7 @@ QPointF MonOpenGLItem::pixelVersLogique(float mouseX, float mouseY) const
     float nx =  mouseX / largeurFen;
     float ny =  1.f - mouseY / hauteurFen;   // flip
 
-    // Dénormalise dans l'espace logique
+    // denormalise dans l'espace logique
     float lx = gauche + nx * (droite  - gauche);
     float ly = basse + ny * (haute - basse);
 
@@ -65,7 +65,7 @@ Position MonOpenGLItem::logiqueVersHex(float lx, float ly) const
     int q = static_cast<int>(std::round(lx / (_LARGEUR_HEX * 0.75f)));
     q = std::max(0, q);
 
-    // depend du décalage de colonne
+    // depend du decalage de colonne
     float yDec = (q % 2) * _HAUTEUR_HEX / 2.f;
 
     int r = static_cast<int>(std::round(
@@ -84,11 +84,6 @@ void MonOpenGLItem::gererClic(float mouseX, float mouseY)
         _modele->selectionnerCase(pos);
         update();
     }
-}
-
-void MonOpenGLItem::rafraichir()
-{
-    update();
 }
 
 QQuickFramebufferObject::Renderer *MonOpenGLItem::createRenderer() const

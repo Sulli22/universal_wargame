@@ -197,7 +197,7 @@ void Modele::annulerSelections()
 Unite *Modele::getUniteSelectionee() const
 {
     if (!_caseSelectionnee)
-        throw std::runtime_error("Erreur : Aucune case n'est selectionee");
+        return nullptr;
 
     return _caseSelectionnee->getUnite(_indUniteSelectionnee);
 }
@@ -231,41 +231,39 @@ void Modele::choixAction(uint16_t indAction)
 
 void Modele::effectuerAction()
 {
-    if (!_caseSelectionnee)
-        throw std::runtime_error("Erreur : aucune case selectionnee");
+    if (_caseSelectionnee && _caseCible) {
+        _unitesAyantJoue.insert(getUniteSelectionee());
 
-    if (!_caseCible)
-        throw std::runtime_error("Erreur : aucune case cible");
+        if (_etat == etat::deplacement) {
+            auto path = getChemin();
+            uint16_t distance = path.size();
+            _caseSelectionnee->deplacerUnite(_indUniteSelectionnee, _caseCible, distance);
+        }
 
-    _unitesAyantJoue.insert(getUniteSelectionee());
+        else if (_etat == etat::attaque) {
+            for (auto &unite : _caseCible->getUnites())
+                getUniteSelectionee()->attaquerUnite(unite);
+            _caseCible->supprimeNonUnitesOperationnelles();
+        }
 
-    if (_etat == etat::deplacement) {
-        auto path = getChemin();
-        uint16_t distance = path.size();
-        _caseSelectionnee->deplacerUnite(_indUniteSelectionnee, _caseCible, distance);
+        else if (_etat == etat::construction && _aConstruire) {
+            auto genie = dynamic_cast<Genie *>(getUniteSelectionee());
+            auto caseCibleTerrestre = dynamic_cast<CaseTerrestre *>(_caseCible);
+            genie->construire(caseCibleTerrestre, std::move(_aConstruire));
+        }
+
+        else
+            throw std::runtime_error("Erreur : impossible d'effectuer une action");
+
+        _caseSelectionnee = nullptr;
+        _caseCible = nullptr;
+        setEtat(etat::selection);
+
+        if (_unitesAyantJoue.size() == _plateau.nbUnites(_factionAttaquante))
+            changementJoueur();
     }
 
-    else if (_etat == etat::attaque) {
-        for (auto &unite : _caseCible->getUnites())
-            getUniteSelectionee()->attaquerUnite(unite);
-        _caseCible->supprimeNonUnitesOperationnelles();
-    }
-
-    else if (_etat == etat::construction && _aConstruire) {
-        auto genie = dynamic_cast<Genie *>(getUniteSelectionee());
-        auto caseCibleTerrestre = dynamic_cast<CaseTerrestre *>(_caseCible);
-        genie->construire(caseCibleTerrestre, std::move(_aConstruire));
-    }
-
-    else
-        throw std::runtime_error("Erreur : impossible d'effectuer une action");
-
-    _caseSelectionnee = nullptr;
-    _caseCible = nullptr;
-    setEtat(etat::selection);
-
-    if (_unitesAyantJoue.size() == _plateau.nbUnites(_factionAttaquante))
-        changementJoueur();
+    // sinon on fait rien
 }
 
 uint16_t Modele::getNbConstructionsPossibles() const
