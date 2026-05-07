@@ -81,7 +81,6 @@ Item {
                             rectangleOpacite.visible = true
                         }
                     }
-
                 }
             }
 
@@ -179,6 +178,13 @@ Item {
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
+
+                            onClicked: {
+                                racine.lancerBruitBouton()
+                                modeleQML.choixAction(0);
+                                plateau.update();
+                            }
+
                             equipe: racineJeu.equipeAttaquante
                             selectionnable:  nbActionsPossibles >= 2
                         }
@@ -190,6 +196,13 @@ Item {
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
+
+                            onClicked: {
+                                racine.lancerBruitBouton()
+                                modeleQML.choixAction(1);
+                                plateau.update();
+                            }
+
                             equipe: racineJeu.equipeAttaquante
                             selectionnable:  nbActionsPossibles >= 2
                         }
@@ -202,9 +215,15 @@ Item {
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
+
+                            onClicked: {
+                                racine.lancerBruitBouton()
+                                modeleQML.choixAction(2);
+                                plateau.update();
+                            }
+
                             equipe: racineJeu.equipeAttaquante
                             selectionnable: nbActionsPossibles === 3
-
                         }
 
                         RowLayout {

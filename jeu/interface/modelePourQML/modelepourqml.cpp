@@ -29,6 +29,11 @@ Unite *ModelePourQML::getUniteSelectionee() const
     return _modele->getUniteSelectionee();
 }
 
+Case *ModelePourQML::getCaseCible() const
+{
+    return _modele->getCaseCible();
+}
+
 void ModelePourQML::annulerSelections()
 {
     _modele->annulerSelections();
@@ -41,7 +46,8 @@ uint16_t ModelePourQML::getNbActionsPossibles() const
 
 void ModelePourQML::choixAction(uint16_t indAction)
 {
-    return _modele->choixAction(indAction);
+    if (getUniteSelectionee())
+        _modele->choixAction(indAction);
 }
 
 void ModelePourQML::effectuerAction()
@@ -51,7 +57,12 @@ void ModelePourQML::effectuerAction()
 
 QString ModelePourQML::getFactionAttaquante() const
 {
-    return  (_modele->getFactionAttaquante() == Faction::bleue) ? "blue" : "red";
+    return (_modele->getFactionAttaquante() == Faction::bleue) ? "blue" : "red";
+}
+
+bool ModelePourQML::actionValidable() const
+{
+    return getCaseSelectionnee() && getCaseCible();
 }
 
 bool ModelePourQML::positionValidePlateau(const Position &pos) const

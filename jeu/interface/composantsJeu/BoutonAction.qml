@@ -6,7 +6,6 @@ Button {
 
     property alias equipe: backgroundBoutonAction.color
     property bool selectionnable: true
-    //property alias  lancerAnimationCouleur: animationCouleurBoutonAction.running
 
     width: parent.width * 0.2
     height: parent.height * 0.2
@@ -14,20 +13,9 @@ Button {
     font.bold: true
     clip: true
     enabled: selectionnable
-    // TODO : forcer couleur noire du text
-    /*
-    Rectangle {
-        id: rectangleEstGenie
-        anchors.fill: parent
-        radius: height/2
-        color: "black"
-        opacity: 0.5
-        visible: !racineBoutonAction.selectionnable
-    }*/
     opacity: selectionnable ? 1 : 0.2
 
     palette.buttonText: "#A9A9A9"
-
 
     background: Rectangle {
         id: backgroundBoutonAction
