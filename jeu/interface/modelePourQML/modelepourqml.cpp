@@ -65,6 +65,11 @@ bool ModelePourQML::actionValidable() const
     return getCaseSelectionnee() && getCaseCible();
 }
 
+bool ModelePourQML::actionAnnulable() const
+{
+    return getCaseSelectionnee();
+}
+
 bool ModelePourQML::positionValidePlateau(const Position &pos) const
 {
     return _modele->positionValidePlateau(pos);

@@ -18,6 +18,7 @@ public:
     Q_INVOKABLE void effectuerAction();
     Q_INVOKABLE QString getFactionAttaquante() const;
     Q_INVOKABLE bool actionValidable() const;
+    Q_INVOKABLE bool actionAnnulable() const;
 
     bool positionValidePlateau(const Position &pos) const;
     std::size_t getLargeurPlateau() const;
