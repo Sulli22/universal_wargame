@@ -12,6 +12,10 @@ public:
     Q_INVOKABLE void setModele(uint16_t idGuerre);
     Q_INVOKABLE void changementJoueur();
     Q_INVOKABLE QString getStatsUniteSelectionee() const;
+    Q_INVOKABLE void annulerSelections();
+    Q_INVOKABLE uint16_t getNbActionsPossibles() const;
+    Q_INVOKABLE void choixAction(uint16_t indAction);
+    Q_INVOKABLE void effectuerAction();
 
     bool positionValidePlateau(const Position &pos) const;
     std::size_t getLargeurPlateau() const;
@@ -22,6 +26,7 @@ public:
     std::vector<Case *> getCasesConcernees() const;
     bool estConcernee(const Position &pos) const;
     Case *getCaseSelectionnee() const;
+    Unite *getUniteSelectionee() const;
 
 private:
     std::unique_ptr<Modele> _modele;

@@ -194,8 +194,8 @@ Item {
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
                             onClicked: {
-
                                 modeleQML.changementJoueur()
+                                plateau.update()
                             }
 
                         }

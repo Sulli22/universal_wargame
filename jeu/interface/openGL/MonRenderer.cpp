@@ -285,9 +285,11 @@ void MonRenderer::dessinUnite(uint16_t q, uint16_t r)
             glColor3f(1.f, 0.f, 0.f);
         dessinCadre();
 
-        // on affiche la premiere unite
+        // on affiche la premiere unite ou l'unite selectionee
+        auto u =  (c != _modele->getCaseSelectionnee()) ?
+                     c->getUnite(0) : _modele->getUniteSelectionee();
+
         glColor3f(0.f, 0.f, 0.f);
-        auto u = c->getUnite(0);
         if (dynamic_cast<Genie *>(u))
             dessinGenie();
 
@@ -328,7 +330,7 @@ void MonRenderer::dessinContoursCasesConcernee()
         {
             glTranslatef(x, y, 0.f);
             glLineWidth(3.f); // augmente epaisseur
-            glColor3f(0.5f, 0.2f, 0.2f);
+            glColor3f(0.5f, 0.3f, 0.3f);
             glBegin(GL_LINE_LOOP);
             {
                 pointsHex();
