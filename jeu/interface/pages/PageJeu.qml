@@ -10,6 +10,7 @@ Item {
 
     readonly property string couleur: "#2f3640"
     readonly property real largeurRectangle: Math.max(10, racine.width*0.025)
+    property string equipeAttaquante: modeleQML.getFactionAttaquante()
 
     signal retourMenuPrincipal(bool fenetre)
 
@@ -150,7 +151,6 @@ Item {
                         id: layoutMenu
                         anchors.fill: parent
                         spacing: 10
-                        property string equipeAttaquante: modeleQML.getFactionAttaquante()
 
                         Text {
                             id: stats
@@ -164,13 +164,26 @@ Item {
                         }
 
                         BoutonAction {
+                            id: construire
+                            text: qsTr("Construire")
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: layoutMenu.height * 0.05
+                            Layout.rightMargin: 5
+                            Layout.leftMargin: 5
+                            equipe: racineJeu.equipeAttaquante
+                            selectionnable: modeleQML.getNbActionsPossibles() === 3
+
+                        }
+
+                        BoutonAction {
                             id: deplacer
                             text: qsTr("Déplacer")
                             Layout.fillWidth: true
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
-                            equipe: layoutMenu.equipeAttaquante
+                            equipe: racineJeu.equipeAttaquante
+                            selectionnable:  modeleQML.getNbActionsPossibles() >= 2
                         }
 
                         BoutonAction {
@@ -180,17 +193,8 @@ Item {
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
-                            equipe: layoutMenu.equipeAttaquante
-                        }
-
-                        BoutonAction {
-                            id: construire
-                            text: qsTr("Construire")
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: layoutMenu.height * 0.05
-                            Layout.rightMargin: 5
-                            Layout.leftMargin: 5
-                            equipe: layoutMenu.equipeAttaquante
+                            equipe: racineJeu.equipeAttaquante
+                            selectionnable:  modeleQML.getNbActionsPossibles() >= 2
                         }
 
                         BoutonAction {
@@ -206,7 +210,11 @@ Item {
                                 racine.lancerBruitBouton()
                                 modeleQML.changementJoueur()
                                 stats.text = ""
-                                layoutMenu.equipeAttaquante = modeleQML.getFactionAttaquante()
+                                racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()
+                                /*deplacer.lancerAnimationCouleur = true
+                                attaquer.lancerAnimationCouleur = true
+                                construire.lancerAnimationCouleur = true*/
+
                                 plateau.update()
                             }
                         }
@@ -253,5 +261,7 @@ Item {
     Legende {
         id: legende
     }
+
+
 
 }
