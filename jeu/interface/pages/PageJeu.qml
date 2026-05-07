@@ -72,7 +72,6 @@ Item {
                             rectangleOpacite.visible = true
                         }
                     }
-
                 }
             }
 
@@ -171,6 +170,12 @@ Item {
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
                             equipe: layoutMenu.equipeAttaquante
+
+                            onClicked: {
+                                racine.lancerBruitBouton()
+                                modeleQML.choixAction(0);
+                                plateau.update();
+                            }
                         }
 
                         BoutonAction {
@@ -181,6 +186,12 @@ Item {
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
                             equipe: layoutMenu.equipeAttaquante
+
+                            onClicked: {
+                                racine.lancerBruitBouton()
+                                modeleQML.choixAction(1);
+                                plateau.update();
+                            }
                         }
 
                         BoutonAction {
@@ -191,6 +202,12 @@ Item {
                             Layout.rightMargin: 5
                             Layout.leftMargin: 5
                             equipe: layoutMenu.equipeAttaquante
+
+                            onClicked: {
+                                racine.lancerBruitBouton()
+                                modeleQML.choixAction(2);
+                                plateau.update();
+                            }
                         }
 
                         BoutonAction {

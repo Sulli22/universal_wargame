@@ -318,7 +318,7 @@ void MonRenderer::dessinUnite(uint16_t q, uint16_t r)
     // sinon on affiche rien
 }
 
-void MonRenderer::dessinContoursCasesConcernee()
+void MonRenderer::surlignesCasesConcernees()
 {
     auto cases = _modele->getCasesConcernees();
 
@@ -329,6 +329,8 @@ void MonRenderer::dessinContoursCasesConcernee()
         glPushMatrix();
         {
             glTranslatef(x, y, 0.f);
+
+            // contours
             glLineWidth(3.f); // augmente epaisseur
             glColor3f(0.5f, 0.3f, 0.3f);
             glBegin(GL_LINE_LOOP);
@@ -337,6 +339,35 @@ void MonRenderer::dessinContoursCasesConcernee()
             }
             glEnd();
             glLineWidth(1.f); // reset epaisseur
+
+            // filtre
+            glColor4f(0.f, 0.4f, 0.2f, 0.2f);
+            glBegin(GL_POLYGON);
+            {
+                pointsHex();
+            }
+            glEnd();
+        }
+        glPopMatrix();
+    }
+}
+
+void MonRenderer::surligneCaseCible()
+{
+    auto c = _modele->getCaseCible();
+    if (c) {
+        auto pos = c->getPos();
+        auto [x, y] = hexVersLogique(pos.getQ(), pos.getR());
+
+        glPushMatrix();
+        {
+            glTranslatef(x, y, 0.f);
+            glColor4f(1.f, 1.f, 1.f, 0.3f);
+            glBegin(GL_POLYGON);
+            {
+                pointsHex();
+            }
+            glEnd();
         }
         glPopMatrix();
     }
@@ -352,7 +383,7 @@ void MonRenderer::surligneCaseSelectionnee()
         glPushMatrix();
         {
             glTranslatef(x, y, 0.f);
-            glColor4f(0.4f, 0.1, 0.1f, 0.3);
+            glColor4f(1.f, 1.f, 1.f, 0.3f);
             glBegin(GL_POLYGON);
             {
                 pointsHex();
@@ -463,8 +494,9 @@ void MonRenderer::render()
         }
     }
 
-    dessinContoursCasesConcernee();
+    surlignesCasesConcernees();
     surligneCaseSelectionnee();
+    surligneCaseCible();
 }
 
 QOpenGLFramebufferObject *MonRenderer::createFramebufferObject(const QSize &size)

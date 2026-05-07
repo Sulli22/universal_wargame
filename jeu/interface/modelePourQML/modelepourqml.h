@@ -28,6 +28,7 @@ public:
     bool estConcernee(const Position &pos) const;
     Case *getCaseSelectionnee() const;
     Unite *getUniteSelectionee() const;
+    Case *getCaseCible() const;
 
 private:
     std::unique_ptr<Modele> _modele;
