@@ -278,17 +278,18 @@ void MonRenderer::dessinUnite(uint16_t q, uint16_t r)
     auto c = _modele->accesCasePlateau({q, r});
 
     if (c->nbUnites() > 0) {
+        // on affiche la premiere unite ou l'unite selectionee
+        auto u =  (c != _modele->getCaseSelectionnee()) ?
+                     c->getUnite(0) : _modele->getUniteSelectionee();
+
         // cadre
-        if (c->getFaction() == Faction::bleue)
+        if (u->getFaction() == Faction::bleue)
             glColor3f(0.f, 0.f, 1.f);
         else
             glColor3f(1.f, 0.f, 0.f);
         dessinCadre();
 
-        // on affiche la premiere unite ou l'unite selectionee
-        auto u =  (c != _modele->getCaseSelectionnee()) ?
-                     c->getUnite(0) : _modele->getUniteSelectionee();
-
+        // symbole
         glColor3f(0.f, 0.f, 0.f);
         if (dynamic_cast<Genie *>(u))
             dessinGenie();
@@ -414,9 +415,11 @@ void MonRenderer::pointsHex()
     glVertex2f( _R_HEX_2,  -_HAUTEUR_HEX_2);
 }
 
-void MonRenderer::dessinHex()
+void MonRenderer::dessinHex(uint16_t q, uint16_t r)
 {
     // applat de couleur
+    const couleur c = getCouleur(q, r);
+    glColor3f(c.r, c.v, c.b);
     glBegin(GL_POLYGON);
     {
         pointsHex();
@@ -481,13 +484,10 @@ void MonRenderer::render()
         for (std::size_t q = 0; q < largeur; ++q) {
             const auto [x, y] = hexVersLogique(q, r);
 
-            const couleur c = getCouleur(q, r);
-            glColor3f(c.r, c.v, c.b);
-
             glPushMatrix();
             {
                 glTranslatef(x, y, 0.f);
-                dessinHex();
+                dessinHex(q, r);
                 dessinUnite(q, r);
             }
             glPopMatrix();

@@ -89,9 +89,7 @@ Faction Modele::factionVictorieuse() const
 void Modele::changementJoueur()
 {
     // raz
-    _caseSelectionnee = nullptr;
-    _caseCible = nullptr;
-    _aConstruire = nullptr;
+    annulerSelections();
     _unitesAyantJoue.clear();
 
     // actions des cases
@@ -192,6 +190,7 @@ void Modele::annulerSelections()
     _caseSelectionnee = nullptr;
     _caseCible = nullptr;
     _aConstruire = nullptr;
+    setEtat(etat::selection);
 }
 
 Unite *Modele::getUniteSelectionee() const
@@ -219,7 +218,7 @@ bool Modele::uniteSelectioneeAJoue() const
     if (_unitesAyantJoue.empty())
         return false;
 
-    return _unitesAyantJoue.find(getUniteSelectionee()) == _unitesAyantJoue.end();
+    return _unitesAyantJoue.find(getUniteSelectionee()) != _unitesAyantJoue.end();
 }
 
 void Modele::choixAction(uint16_t indAction)
@@ -257,12 +256,7 @@ void Modele::effectuerAction()
             genie->construire(caseCibleTerrestre, std::move(_aConstruire));
         }
 
-        else
-            throw std::runtime_error("Erreur : impossible d'effectuer une action");
-
-        _caseSelectionnee = nullptr;
-        _caseCible = nullptr;
-        setEtat(etat::selection);
+        annulerSelections();
 
         if (_unitesAyantJoue.size() == _plateau.nbUnites(_factionAttaquante))
             changementJoueur();
@@ -294,6 +288,17 @@ void Modele::choixConstruction(uint16_t indConstruction)
         case 2:     _aConstruire = std::make_unique<Infirmerie>();      break;
         }
     }
+}
+
+bool Modele::actionValidable() const
+{
+    if (!_caseSelectionnee || !_caseCible)
+        return false;
+
+    if (_etat == etat::construction)
+        return _aConstruire.get();
+
+    return true;
 }
 
 std::vector<Case *> Modele::getChemin() const

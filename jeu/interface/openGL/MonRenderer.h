@@ -21,14 +21,14 @@ public:
 
 private:
     couleur getCouleur(uint16_t q, uint16_t r) const;
-    void dessinUnite(uint16_t q, uint16_t r);
+    std::pair<float, float> hexVersLogique(uint16_t q, uint16_t r) const;
+
     void surlignesCasesConcernees();
     void surligneCaseCible();
     void surligneCaseSelectionnee();
-    std::pair<float, float> hexVersLogique(uint16_t q, uint16_t r) const;
 
     static void pointsHex();
-    static void dessinHex();
+    void dessinHex(uint16_t q, uint16_t r);
 
     static void dessinB();
     static void dessinF();
@@ -46,6 +46,8 @@ private:
     static void dessinSousMarin();
     static void dessinChasseur();
     static void dessinBombardier();
+
+    void dessinUnite(uint16_t q, uint16_t r);
 
 // valeurs redondantes fixes
     static constexpr float  _R_HEX              = HexCondig::R_HEX;

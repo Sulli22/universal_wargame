@@ -42,6 +42,7 @@ public:
     void effectuerAction();
     uint16_t getNbConstructionsPossibles() const;
     void choixConstruction(uint16_t indConstruction);
+    bool actionValidable() const;
 
 // sortie flux
     void sortieFlux(std::ostream &os) const;

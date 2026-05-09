@@ -126,11 +126,13 @@ std::vector<Unite *> CaseTerrestre::getUnites() const
 
 void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, uint16_t cout)
 {
-    if (indUnite == 0)
+    bool indUniteZero = (indUnite == 0);
+    if (indUniteZero && getUniteAerienne())
         Case::deplacerUniteAerienne(arrivee, cout);
     else {
         auto ct = dynamic_cast<CaseTerrestre *>(arrivee);
-        deplacerUniteTerrestre(indUnite-1, ct, cout);
+        auto dec = indUniteZero ? 0 : 1;
+        deplacerUniteTerrestre(indUnite-dec, ct, cout);
     }
 }
 

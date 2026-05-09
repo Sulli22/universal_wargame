@@ -5,15 +5,29 @@
 #include "createurcases.hh"
 #include "createurunites.hh"
 #include <algorithm>
+#include <iostream>
 #include <sstream>
 #include <queue>
 #include <limits>
 
-const std::vector<Position> Carte::_DIRECTIONS = {
-            {0, -1},
-    {-1, 0},       {1, 0},
-    {-1, 1},       {1,  1},
-            {0,  1},
+// colonnes paires
+const std::vector<Position> Carte::_DIRECTIONS_PAIRES = {
+    { 0, -1},  // bas
+    { 0,  1},  // haut
+    {-1,  0},  // gauche-milieu
+    { 1,  0},  // droite-milieu
+    {-1, -1},  // gauche-bas
+    { 1, -1},  // droite-bas
+};
+
+// colonnes impaires
+const std::vector<Position> Carte::_DIRECTIONS_IMPAIRES = {
+    { 0, -1},  // bas
+    { 0,  1},  // haut
+    {-1,  0},  // gauche-milieu
+    { 1,  0},  // droite-milieu
+    {-1,  1},  // gauche-haut
+    { 1,  1},  // droite-haut
 };
 
 Carte::Carte(unsigned int idGuerre)
@@ -132,8 +146,9 @@ std::vector<Case *> Carte::getVoisines(const Case &c) const
     std::vector<Case *> voisines;
 
     auto pos = c.getPos();
+    auto& directions = (pos.getQ() % 2 == 0) ? _DIRECTIONS_PAIRES : _DIRECTIONS_IMPAIRES;
 
-    for (const auto &d : _DIRECTIONS) {
+    for (const auto &d : directions) {
         auto posVoisine = pos + d;
         if (positionValide(posVoisine))
             voisines.push_back(accesCase(posVoisine));
@@ -157,6 +172,8 @@ std::vector<Case *> Carte::getVoisinesConstructibles(const Case &c) const
 
 std::map<Case *, uint16_t> Carte::getCasesAtteignables(Case *depart, Unite *uniteEnDeplacement) const
 {
+    auto zoc = getZOC();
+
     std::queue<Case *> file;
     std::map<Case *, uint16_t> coutJusqua;
     file.push(depart);
@@ -165,31 +182,38 @@ std::map<Case *, uint16_t> Carte::getCasesAtteignables(Case *depart, Unite *unit
     while (!file.empty()) {
         Case* courante = file.front();
         file.pop();
-
         for (Case* caseVoisine : getVoisines(*courante)) {
             uint16_t coutMvt = caseVoisine->coutDeplacement(uniteEnDeplacement);
             if (coutMvt == std::numeric_limits<uint16_t>::max())
                 continue;
-
             uint16_t nouveauCout = coutJusqua[courante] + coutMvt;
-
-            // trop loin
             if (nouveauCout > uniteEnDeplacement->getCapaciteDeplacement())
                 continue;
 
-            // zoc ennemie atteinte
-            if (caseDansZocEnnemie(caseVoisine, *uniteEnDeplacement)) {
-                coutJusqua[caseVoisine] = nouveauCout;
-                continue;
+            // utilise la zoc déjà calculée
+            bool enZocEnnemie = false;
+            auto it = zoc.find(caseVoisine);
+            if (it != zoc.end()) {
+                for (Faction f : it->second) {
+                    if (f != Faction::neutre && f != uniteEnDeplacement->getFaction()) {
+                        enZocEnnemie = true;
+                        break;
+                    }
+                }
             }
 
-            // si jamais vu ou meilleur chemin
+            if (enZocEnnemie) {
+                if (!coutJusqua.count(caseVoisine) || nouveauCout < coutJusqua[caseVoisine])
+                    coutJusqua[caseVoisine] = nouveauCout;
+                continue;
+            }
             if (!coutJusqua.count(caseVoisine) || nouveauCout < coutJusqua[caseVoisine]) {
                 coutJusqua[caseVoisine] = nouveauCout;
                 file.push(caseVoisine);
             }
         }
     }
+
     return coutJusqua;
 }
 
@@ -266,7 +290,7 @@ std::vector<Case *> Carte::getChemin(Case *depart, Case *arrivee, Unite *uniteEn
     return reconstruitChemin(vientDe, depart, arrivee); // reconstruction du chemin
 }
 
-bool Carte::caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement) const
+/*bool Carte::caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement) const
 {
     auto zoc = getZOC();
 
@@ -279,8 +303,8 @@ bool Carte::caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement)
             return true;
     }
 
-    return false;
-}
+  return false;
+}*/
 
 std::map<Case *, std::set<Faction>> Carte::getZOC() const
 {
@@ -289,10 +313,19 @@ std::map<Case *, std::set<Faction>> Carte::getZOC() const
     for (std::size_t r = 0; r < _hauteur; ++r) {
         for (std::size_t q = 0; q < _largeur; ++q) {
             Case *c = accesCase({(int)q, (int)r});
-            zoc[c].insert(c->getFaction());
 
+            // ZOC générée uniquement par les cases occupées par une unité
+            if (c->nbUnites() == 0)
+                continue;
+
+            Faction f = c->getFaction();
+            if (f == Faction::neutre)
+                continue;
+
+            // La case elle-même + ses voisines sont sous ZOC de cette faction
+            zoc[c].insert(f);
             for (Case *v : getVoisines(*c))
-                zoc[v].insert(c->getFaction());
+                zoc[v].insert(f);
         }
     }
 

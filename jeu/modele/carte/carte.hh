@@ -21,7 +21,7 @@ public:
     std::map<Case *, uint16_t> getCasesAtteignables(Case *depart, Unite *uniteEnDeplacement) const;
     std::vector<Case *> getCasesAttaquables(Case *depart, Unite *uniteAttaquante) const;
     std::vector<Case *> getChemin(Case *depart, Case *arrivee, Unite *uniteEnDeplacement) const;
-    bool caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement) const;
+    //bool caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement) const;
     std::map<Case *, std::set<Faction> > getZOC() const;
     void effectuerActionsCases() const;
     uint16_t nbUnites(Faction faction) const;
@@ -42,5 +42,6 @@ private:
     std::size_t _hauteur;
     std::vector<std::vector<std::unique_ptr<Case>>> _contenu;
 
-    static const std::vector<Position> _DIRECTIONS;
+    static const std::vector<Position> _DIRECTIONS_PAIRES;
+    static const std::vector<Position> _DIRECTIONS_IMPAIRES;
 };
