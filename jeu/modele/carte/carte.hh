@@ -21,7 +21,8 @@ public:
     std::map<Case *, uint16_t> getCasesAtteignables(Case *depart, Unite *uniteEnDeplacement) const;
     std::vector<Case *> getCasesAttaquables(Case *depart, Unite *uniteAttaquante) const;
     std::vector<Case *> getChemin(Case *depart, Case *arrivee, Unite *uniteEnDeplacement) const;
-    //bool caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement) const;
+    bool caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement,
+                            const std::map<Case *, std::set<Faction>> &zoc) const;
     std::map<Case *, std::set<Faction> > getZOC() const;
     void effectuerActionsCases() const;
     uint16_t nbUnites(Faction faction) const;

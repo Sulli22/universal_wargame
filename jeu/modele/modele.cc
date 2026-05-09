@@ -240,7 +240,7 @@ void Modele::effectuerAction()
 
         if (_etat == etat::deplacement) {
             auto path = getChemin();
-            uint16_t distance = path.size();
+            uint16_t distance = path.size()-1;
             _caseSelectionnee->deplacerUnite(_indUniteSelectionnee, _caseCible, distance);
         }
 
