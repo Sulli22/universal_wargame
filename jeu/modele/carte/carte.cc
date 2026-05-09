@@ -437,24 +437,18 @@ void Carte::afficherDetails(std::ostream &os) const
 
 uint16_t Carte::distance(const Case &a, const Case &b)
 {
-    Position posA = a.getPos();
-    Position posB = b.getPos();
-
-    // conversion offset -> axial (flat-top, décalage sur colonnes paires)
-    auto toAxial = [](int q, int r) -> std::pair<int,int> {
-        int ax = q;
-        int az = r - (q - (q & 1)) / 2;
-        int ay = -ax - az;
-        return {ax, ay};
+    // conversion offset vers axial (colonnes paires non décalées)
+    auto toAxial = [](int q, int r) -> std::pair<int, int> {
+        return { q, r - (q - (q & 1)) / 2 };
     };
 
-    auto [aq, ar] = toAxial(posA.getQ(), posA.getR());
-    auto [bq, br] = toAxial(posB.getQ(), posB.getR());
+    auto [aq, ar] = toAxial(a.getPos().getQ(), a.getPos().getR());
+    auto [bq, br] = toAxial(b.getPos().getQ(), b.getPos().getR());
 
     int dq = aq - bq;
     int dr = ar - br;
-    int ds = -dq - dr;
-    return (std::abs(dq) + std::abs(dr) + std::abs(ds)) / 2;
+    // ds = -dq - dr et distance = (|dq| + |dr| + |ds|) / 2
+    return (std::abs(dq) + std::abs(dr) + std::abs(dq + dr)) / 2;
 }
 
 std::vector<Case *> Carte::reconstruitChemin(const std::map<Case *, Case *> &vientDe,
