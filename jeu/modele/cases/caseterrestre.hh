@@ -16,7 +16,7 @@ public:
     const std::vector<std::unique_ptr<UniteTerrestre>> &getUnitesTerrestres() const;
     uint16_t getEspaceDisponible() const;
     typeTerrain getTerrain() const;
-    const Construction *getConstruction() const;
+    Construction *getConstruction() const;
 
     void setConstruction(std::unique_ptr<Construction> nvConstruction);
 

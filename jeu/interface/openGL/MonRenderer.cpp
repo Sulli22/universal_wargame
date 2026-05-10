@@ -5,8 +5,11 @@
 #include "artillerie.hh"
 #include "charassaut.hh"
 #include "chasseur.hh"
+#include "depotmunitions.hh"
+#include "depotprovisions.hh"
 #include "fregate.hh"
 #include "genie.hh"
+#include "infirmerie.hh"
 #include "sousmarin.hh"
 
 #include <QOpenGLFramebufferObjectFormat>
@@ -84,21 +87,41 @@ void MonRenderer::dessinF()
     glEnd();
 }
 
-void MonRenderer::dessinCadre()
+void MonRenderer::pointsCadre()
 {
-    glBegin(GL_LINE_LOOP);
+    glVertex2f(-_LARGEUR_CADRE_2, -_HAUTEUR_CADRE_2);
+    glVertex2f(-_LARGEUR_CADRE_2,  _HAUTEUR_CADRE_2);
+    glVertex2f( _LARGEUR_CADRE_2,  _HAUTEUR_CADRE_2);
+    glVertex2f( _LARGEUR_CADRE_2, -_HAUTEUR_CADRE_2);
+}
+
+void MonRenderer::dessinCadre(Faction f)
+{
+    // fond blanc
+    glColor3f(1.f, 1.f, 1.f);
+    glBegin(GL_POLYGON);
     {
-        glVertex2f(-_LARGEUR_CADRE_2, -_HAUTEUR_CADRE_2);
-        glVertex2f(-_LARGEUR_CADRE_2,  _HAUTEUR_CADRE_2);
-        glVertex2f( _LARGEUR_CADRE_2,  _HAUTEUR_CADRE_2);
-        glVertex2f( _LARGEUR_CADRE_2, -_HAUTEUR_CADRE_2);
+        pointsCadre();
     }
     glEnd();
+
+    // contours
+    if (f == Faction::bleue)
+        glColor3f(0.f, 0.f, 1.f);
+    else
+        glColor3f(1.f, 0.f, 0.f);
+    glLineWidth(2.f);
+    glBegin(GL_LINE_LOOP);
+    {
+        pointsCadre();
+    }
+    glEnd();
+    glLineWidth(1.f);
 }
 
 void MonRenderer::pointsArcCercleGauche()
 {
-    static constexpr int   NB_SEG = 10;
+    static constexpr int NB_SEG = 10;
 
     for (uint16_t i = 0; i <= NB_SEG; ++i) {
         float theta = M_PI * (float)i/(float)NB_SEG + M_PI_2;
@@ -179,7 +202,7 @@ void MonRenderer::dessinArtillerie()
             float theta = 2.f * M_PI * (float)i/(float)NB_SEG;
 
             float   x = R_CERCLE * cos(theta),
-                    y = R_CERCLE * sin(theta);
+                y = R_CERCLE * sin(theta);
 
             glVertex2f(x, y);
         }
@@ -283,11 +306,7 @@ void MonRenderer::dessinUnite(uint16_t q, uint16_t r)
                      c->getUnite(0) : _modele->getUniteSelectionee();
 
         // cadre
-        if (u->getFaction() == Faction::bleue)
-            glColor3f(0.f, 0.f, 1.f);
-        else
-            glColor3f(1.f, 0.f, 0.f);
-        dessinCadre();
+        dessinCadre(u->getFaction());
 
         // symbole
         glColor3f(0.f, 0.f, 0.f);
@@ -317,6 +336,113 @@ void MonRenderer::dessinUnite(uint16_t q, uint16_t r)
     }
 
     // sinon on affiche rien
+}
+
+void MonRenderer::dessinDepotMunitions()
+{
+    static constexpr float R_CERCLE = _R_HEX / 1.5f;
+    static constexpr int   NB_SEG = 20;
+
+    // cercle
+    glBegin(GL_POLYGON);
+    {
+        for (uint16_t i = 0; i <= NB_SEG; ++i) {
+            float theta = 2.f * M_PI * (float)i/(float)NB_SEG;
+
+            float   x = R_CERCLE * cos(theta),
+                    y = R_CERCLE * sin(theta);
+
+            glVertex2f(x, y);
+        }
+    }
+    glEnd();
+
+    // lignes diagonales
+    // TODO
+}
+
+void MonRenderer::dessinDepotProvisions()
+{
+    static constexpr float HAUTEUR_TRIANGLE = _HAUTEUR_CADRE_2;
+    static constexpr float LARGEUR_TRIANGLE_2 = HAUTEUR_TRIANGLE / 2.f;
+
+    // triangle
+    glBegin(GL_TRIANGLES);
+    {
+        glVertex2f(0.f, 0.f);
+        glVertex2f(-LARGEUR_TRIANGLE_2, HAUTEUR_TRIANGLE);
+        glVertex2f( LARGEUR_TRIANGLE_2, HAUTEUR_TRIANGLE);
+    }
+    glEnd();
+
+    // ligne verticale
+    glBegin(GL_LINES);
+    {
+        glVertex2f(0.f,  0.f);
+        glVertex2f(0.f, -HAUTEUR_TRIANGLE);
+    }
+    glEnd();
+}
+
+void MonRenderer::dessinInfirmerie()
+{
+    glBegin(GL_LINES);
+    {
+        // ligne horitonale
+        glVertex2f(-_R_HEX, 0.f);
+        glVertex2f( _R_HEX, 0.f);
+
+        // ligne verticale
+        glVertex2f(0.f, -_HAUTEUR_HEX_2);
+        glVertex2f(0.f,  _HAUTEUR_HEX_2);
+    }
+    glEnd();
+}
+
+void MonRenderer::dessinPont()
+{
+    static constexpr float HAUTEUR_2 = _HAUTEUR_HEX_2 / 1.5f;
+    static constexpr float DX = _LARGEUR_CADRE_2;
+
+    // TODO : extremitees
+
+    // lignes verticales
+    glBegin(GL_LINES);
+    {
+        glVertex2f(-DX, -HAUTEUR_2);
+        glVertex2f(-DX,  HAUTEUR_2);
+
+        glVertex2f( DX, -HAUTEUR_2);
+        glVertex2f( DX,  HAUTEUR_2);
+    }
+    glEnd();
+}
+
+void MonRenderer::dessinConstruction(uint16_t q, uint16_t r)
+{
+    auto c = _modele->accesCasePlateau({q, r});
+
+    auto ct = dynamic_cast<CaseTerrestre *>(c);
+    if (ct) {
+        auto construction = ct->getConstruction();
+
+        if (construction) {
+            glLineWidth(2.f);
+
+            if (dynamic_cast<DepotMunitions *>(construction))
+                dessinDepotMunitions();
+            if (dynamic_cast<DepotProvisions *>(construction))
+                dessinDepotProvisions();
+            if (dynamic_cast<Infirmerie *>(construction))
+                dessinInfirmerie();
+            else
+                dessinPont();
+
+            glLineWidth(1.f);
+        }
+    }
+
+    // sinon pas de construction
 }
 
 void MonRenderer::surlignesCasesConcernees()
@@ -488,6 +614,7 @@ void MonRenderer::render()
             {
                 glTranslatef(x, y, 0.f);
                 dessinHex(q, r);
+                dessinConstruction(q, r);
                 dessinUnite(q, r);
             }
             glPopMatrix();

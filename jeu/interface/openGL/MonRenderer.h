@@ -33,7 +33,8 @@ private:
     static void dessinB();
     static void dessinF();
 
-    static void dessinCadre();
+    static void pointsCadre();
+    void dessinCadre(Faction f);
     static void pointsArcCercleGauche();
     static void dessinAileGauche();
     static void dessinAiles();
@@ -48,6 +49,12 @@ private:
     static void dessinBombardier();
 
     void dessinUnite(uint16_t q, uint16_t r);
+
+    static void dessinDepotMunitions();
+    static void dessinDepotProvisions();
+    static void dessinInfirmerie();
+    static void dessinPont();
+    void dessinConstruction(uint16_t q, uint16_t r);
 
 // valeurs redondantes fixes
     static constexpr float  _R_HEX              = HexCondig::R_HEX;

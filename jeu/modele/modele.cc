@@ -268,7 +268,7 @@ void Modele::effectuerAction()
 uint16_t Modele::getNbConstructionsPossibles() const
 {
     if (_etat != etat::construction || !_caseCible)
-        throw std::runtime_error("Erreur : impossible de calculer les constructions possibles");
+        return 0;
 
     return _caseCible->nbConstructionsPossibles();
 }

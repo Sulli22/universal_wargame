@@ -20,7 +20,7 @@ uint16_t CaseTerrestre::getEspaceDisponible() const
     return _espaceDisponible;
 }
 
-const Construction *CaseTerrestre::getConstruction() const
+Construction *CaseTerrestre::getConstruction() const
 {
    return _construction.get();
 }
