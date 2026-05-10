@@ -70,6 +70,14 @@ bool ModelePourQML::actionAnnulable() const
     return getCaseSelectionnee();
 }
 
+uint16_t ModelePourQML::getNbConstructionsPossibles() const
+{
+    // 0 si aucunes
+    // 1 si juste pont
+    // 3 si infirmerie + depots
+    return _modele->getNbConstructionsPossibles();
+}
+
 bool ModelePourQML::positionValidePlateau(const Position &pos) const
 {
     return _modele->positionValidePlateau(pos);
