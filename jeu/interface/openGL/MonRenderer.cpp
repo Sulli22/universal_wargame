@@ -69,7 +69,7 @@ void MonRenderer::render()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(CX - largeurOrtho / 2.f                 , CX + largeurOrtho / 2.f,
-            CY - (hauteurOrtho - _HAUTEUR_HEX) / 2.f, CY + hauteurOrtho / 2.f,
+            CY - hauteurOrtho / 2.f - _HAUTEUR_HEX_2, CY + hauteurOrtho / 2.f,
             -1.f, 1.f);
 
     // modelview

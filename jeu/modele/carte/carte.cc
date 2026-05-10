@@ -1,9 +1,11 @@
 #include "carte.hh"
+
 #include "casemarine.hh"
 #include "caseterrestre.hh"
 #include "lecteur.hh"
 #include "createurcases.hh"
 #include "createurunites.hh"
+
 #include <algorithm>
 #include <iostream>
 #include <sstream>
@@ -11,48 +13,48 @@
 #include <limits>
 
 // colonnes paires
-const std::vector<Position> Carte::_DIRECTIONS_PAIRES = {
-    { 0, -1},  // bas
-    { 0,  1},  // haut
-    {-1,  0},  // gauche-milieu
-    { 1,  0},  // droite-milieu
-    {-1, -1},  // gauche-bas
-    { 1, -1},  // droite-bas
-};
-
-// colonnes impaires
 const std::vector<Position> Carte::_DIRECTIONS_IMPAIRES = {
     { 0, -1},  // bas
     { 0,  1},  // haut
-    {-1,  0},  // gauche-milieu
-    { 1,  0},  // droite-milieu
-    {-1,  1},  // gauche-haut
-    { 1,  1},  // droite-haut
+    {-1,  0},  // gauche milieu
+    { 1,  0},  // droite milieu
+    {-1, -1},  // gauche bas
+    { 1, -1},  // droite bas
+};
+
+// colonnes impaires
+const std::vector<Position> Carte::_DIRECTIONS_PAIRES = {
+    { 0, -1},  // bas
+    { 0,  1},  // haut
+    {-1,  0},  // gauche milieu
+    { 1,  0},  // droite milieu
+    {-1,  1},  // gauche haut
+    { 1,  1},  // droite haut
 };
 
 Carte::Carte(unsigned int idGuerre)
 {
-    auto prefixe = "data/guerre" + std::to_string(idGuerre) + "/";
-    auto nomFichierCases = prefixe + "cases.txt";
-    auto nomFichierUnites = prefixe + "unites.txt";
+    auto prefixe            = "data/guerre" + std::to_string(idGuerre) + "/";
+    auto nomFichierCases    = prefixe + "cases.txt";
+    auto nomFichierUnites   = prefixe + "unites.txt";
 
     // Cases
     auto lignesCases = Lecteur::lireLignes(nomFichierCases);
-    std::size_t r = 0;
-    std::size_t largeur_attendue = 0;
+    std::size_t r                   = 0;
+    std::size_t largeur_attendue    = 0;
 
     for (const auto& ligne : lignesCases) {
-        std::stringstream ss(ligne);
-        std::string token;
-        std::vector<std::unique_ptr<Case>> cases;
-        std::size_t q = 0;
+        std::stringstream                   ss(ligne);
+        std::string                         token;
+        std::vector<std::unique_ptr<Case>>  cases;
+        std::size_t                         q = 0;
 
         while (ss >> token) {
             if (token.size() < 2)
                 throw std::runtime_error("Erreur : token invalide.");
 
-            char type = token[0];
-            int nombre = std::stoi(token.substr(1));
+            char    type    = token[0];
+            int     nombre  = std::stoi(token.substr(1));
 
             if (nombre <= 0)
                 throw std::runtime_error("Erreur : nombre invalide.");
@@ -81,10 +83,8 @@ Carte::Carte(unsigned int idGuerre)
 
     for (const auto& ligne : lignesUnites) {
         std::stringstream ss(ligne);
-        int q;
-        int r;
-        char type;
-        char faction;
+        int q, r;
+        char type, faction;
 
         while (ss >> q && ss >> r && ss >> type && ss >> faction) {
             Case *c = accesCase({q, r});
@@ -99,8 +99,10 @@ Carte::Carte(unsigned int idGuerre)
             else {
                 if (CaseMarine *cm = dynamic_cast<CaseMarine *>(c))
                     cm->setUniteBasse(CreateurUnites::creerMarine(type, faction));
+
                 else if (CaseTerrestre *ct = dynamic_cast<CaseTerrestre *>(c))
                     ct->ajouterUniteTerrestre(CreateurUnites::creerTerrestre(type, faction));
+
                 else
                     throw std::runtime_error("Erreur : type de case inconnu");
             }
@@ -146,7 +148,7 @@ std::vector<Case *> Carte::getVoisines(const Case &c) const
     std::vector<Case *> voisines;
 
     auto pos = c.getPos();
-    auto& directions = (pos.getQ() % 2 == 0) ? _DIRECTIONS_PAIRES : _DIRECTIONS_IMPAIRES;
+    auto directions = (pos.getQ() % 2 == 0) ? _DIRECTIONS_PAIRES : _DIRECTIONS_IMPAIRES;
 
     for (const auto &d : directions) {
         auto posVoisine = pos + d;
