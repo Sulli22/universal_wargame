@@ -194,7 +194,7 @@ Item {
 
                            Label {
                                id: labelStats
-                               text: "Stats Unité : "
+                               text: qsTr("Stats Unité") + langageManager.chaineVide
                                color: racine.couleurTexte
                                Layout.fillWidth: true
                                horizontalAlignment: Text.AlignHCenter
@@ -204,7 +204,7 @@ Item {
 
                            Text {
                                id: stats
-                               text: "Pas d'unité"
+                               text: qsTr("Pas d'unité") + langageManager.chaineVide
                                color: racine.couleurTexte
                                Layout.fillWidth: true
                                horizontalAlignment: Text.AlignHCenter
@@ -222,7 +222,7 @@ Item {
 
                         Label {
                             id: labelConstructions
-                            text: "Constructions"
+                            text: qsTr("Constructions") + langageManager.chaineVide
                             color: racine.couleurTexte
                             Layout.alignment: Qt.AlignHCenter
                             horizontalAlignment: Text.AlignHCenter
@@ -235,28 +235,28 @@ Item {
                             spacing: 8
                             BoutonAction {
                                 id: depotMunitions
-                                text: "Munitions"
+                                text: qsTr("Munitions") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
                                 enabled: false
                             }
 
                             BoutonAction {
                                 id: depotProvisions
-                                text: "Provisions"
+                                text: qsTr("Provisions") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
                                 enabled: false
                             }
 
                             BoutonAction {
                                 id: infirmerie
-                                text: "Infirmerie"
+                                text: qsTr("Infirmerie") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
                                 enabled: false
                             }
 
                             BoutonAction {
                                 id: pont
-                                text: "Pont"
+                                text: qsTr("Pont") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
                                 enabled: false
                             }
@@ -276,7 +276,7 @@ Item {
                             spacing: 8
                             BoutonAction {
                                 id: deplacer
-                                text: qsTr("Déplacer")
+                                text: qsTr("Déplacer") + langageManager.chaineVide
 
                                 onClicked: {
                                     racine.lancerBruitBouton()
@@ -290,7 +290,7 @@ Item {
 
                             BoutonAction {
                                 id: attaquer
-                                text: qsTr("Attaquer")
+                                text: qsTr("Attaquer") + langageManager.chaineVide
 
                                 onClicked: {
                                     racine.lancerBruitBouton()
@@ -305,7 +305,7 @@ Item {
 
                             BoutonAction {
                                 id: construire
-                                text: qsTr("Construire")
+                                text: qsTr("Construire") + langageManager.chaineVide
 
                                 onClicked: {
                                     racine.lancerBruitBouton()

@@ -12,50 +12,50 @@ Popup {
 
         LigneLegende {
             id: artillerie
-            nomUnite: qsTr("Artillerie")
+            nomUnite: qsTr("Artillerie") + langageManager.chaineVide
             imageUnite: "qrc:/img/artillerie"
         }
 
         LigneLegende {
            id: bombardier
-           nomUnite: qsTr("Bombardier")
+           nomUnite: qsTr("Bombardier") + langageManager.chaineVide
            imageUnite: "qrc:/img/bombardier"
         }
 
         LigneLegende {
             id: charAssaut
-            nomUnite: qsTr("Char d'assaut")
+            nomUnite: qsTr("Char d'assaut") + langageManager.chaineVide
             imageUnite: "qrc:/img/char"
         }
 
         LigneLegende {
             id: chasseur
-            nomUnite: qsTr("Chasseur")
+            nomUnite: qsTr("Chasseur") + langageManager.chaineVide
             imageUnite: "qrc:/img/chasseur"
         }
 
         LigneLegende {
             id: fregate
-            nomUnite: qsTr("Fregate")
+            nomUnite: qsTr("Frégate") + langageManager.chaineVide
             imageUnite: "qrc:/img/fregate"
         }
 
         LigneLegende {
             id: genie
-            nomUnite: qsTr("Génie")
+            nomUnite: qsTr("Génie") + langageManager.chaineVide
             imageUnite: "qrc:/img/genie"
         }
 
         LigneLegende {
            id: infanterie
-           nomUnite: qsTr("Infanterie")
+           nomUnite: qsTr("Infanterie") + langageManager.chaineVide
            imageUnite: "qrc:/img/infanterie"
         }
 
 
         LigneLegende {
             id: sousMarin
-            nomUnite: qsTr("Sous marin")
+            nomUnite: qsTr("Sous marin") + langageManager.chaineVide
             imageUnite: "qrc:/img/sousmarin"
         }
     }
