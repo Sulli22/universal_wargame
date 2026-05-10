@@ -98,9 +98,9 @@ void ModelePourQML::changementJoueur()
 QString ModelePourQML::getStatsUniteSelectionee() const
 {
     if (auto unit = _modele->getUniteSelectionee()) {
-        return QString::fromStdString("PV : "+std::to_string(unit->getPointsVie())+"/"+std::to_string(unit->getMaxPointsVie())+"\n" +
-                "Munitions : "+std::to_string(unit->getNbMunitions())+"/"+std::to_string(unit->getMaxNbMunitions())+"\n" +
-                "Provisions : "+std::to_string(unit->getNbProvisions())+"/"+std::to_string(unit->getMaxNbProvisions()));
+        return tr("PV") + QString(" : ")+QString::number(unit->getPointsVie())+"/"+QString::number(unit->getMaxPointsVie())+"\n" +
+                tr("Munitions") + QString(" : ")+QString::number(unit->getNbMunitions())+"/"+QString::number(unit->getMaxNbMunitions())+"\n" +
+                tr("Provisions") + QString(" : ") +QString::number(unit->getNbProvisions())+"/"+QString::number(unit->getMaxNbProvisions());
     }
-    return "Pas d'unité";
+    return tr("Pas d'unité");
 }
