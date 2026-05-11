@@ -130,6 +130,7 @@ set(QML_FILES
     interface/composantsJeu/PopupGeneral.qml
     interface/composantsJeu/PopupQuitter.qml
     interface/composantsJeu/PopupRegles.qml
+    interface/composantsJeu/PopupVictoire.qml
 )
 set(QML_SOURCES
     interface/modelePourQML/modelepourqml.h

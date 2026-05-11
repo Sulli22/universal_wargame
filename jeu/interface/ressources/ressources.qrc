@@ -1,22 +1,21 @@
 <RCC>
     <qresource prefix="/">
         <file alias="clic">bouton.wav</file>
+        <file alias="victoire">victoire.mp3</file>
     </qresource>
-    <qresource prefix="/img/">
+    <qresource prefix="/img">
         <file alias="france">france.png</file>
         <file alias="royaumeuni">royaumeuni.png</file>
-
-	<file alias="char">char.png</file>
-	<file alias="infanterie">infanterie.png</file>
-	<file alias="artillerie">artillerie.png</file>
-	<file alias="genie">genie.png</file>
-	<file alias="sousmarin">sousmarin.png</file>
-	<file alias="fregate">fregate.png</file>
-	<file alias="chasseur">chasseur.png</file>
-	<file alias="bombardier">bombardier.png</file>
-	
-	<file alias="facile">facile.png</file>
-	<file alias="moyen">moyen.png</file>
-	<file alias="difficile">difficile.png</file>
+        <file alias="char">char.png</file>
+        <file alias="infanterie">infanterie.png</file>
+        <file alias="artillerie">artillerie.png</file>
+        <file alias="genie">genie.png</file>
+        <file alias="sousmarin">sousmarin.png</file>
+        <file alias="fregate">fregate.png</file>
+        <file alias="chasseur">chasseur.png</file>
+        <file alias="bombardier">bombardier.png</file>
+        <file alias="facile">facile.png</file>
+        <file alias="moyen">moyen.png</file>
+        <file alias="difficile">difficile.png</file>
     </qresource>
 </RCC>

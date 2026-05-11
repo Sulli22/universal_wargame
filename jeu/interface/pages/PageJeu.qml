@@ -140,6 +140,10 @@ Item {
                             nbConstructionsPossibles = modeleQML.getNbConstructionsPossibles()
                             boutonValider.enabled = modeleQML.actionValidable()
                             boutonAnnuler.enabled = modeleQML.actionAnnulable()
+                            if (modeleQML.partieFinie())
+                            {
+                               popupVictoire.open()
+                            }
                         }
                     }
                 }
@@ -368,7 +372,7 @@ Item {
                                         modeleQML.effectuerAction()
                                         enabled = false
                                         boutonAnnuler.enabled = false
-                                        racineJeu.equipeAttaquante = modeleQML.actionAttaquante()
+                                        racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()
                                         nbActionsPossibles = 0
                                         nbConstructionsPossibles = 0
                                         plateau.update()
@@ -436,5 +440,9 @@ Item {
 
     Legende {
         id: legende
+    }
+
+    PopupVictoire {
+        id: popupVictoire
     }
 }
