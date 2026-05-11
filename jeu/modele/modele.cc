@@ -8,17 +8,17 @@
 #include <iostream>
 
 Modele::Modele(unsigned int idGuerre, Faction faction1, Faction faction2):
-    _plateau(idGuerre), _faction1(faction1), _faction2(faction2),
+    _plateau(idGuerre), _etat(etat::selection),
+
+    _faction1(faction1), _faction2(faction2),
+    _factionAttaquante(_faction1), _factionAttaquee(_faction2),
 
     // seuil de defaite = 5% du nb initial
     _seuilDefaiteFaction1(_plateau.nbUnites(_faction1) * 0.05),
     _seuilDefaiteFaction2(_plateau.nbUnites(_faction2) * 0.05),
-    _factionAttaquante(_faction1), _factionAttaquee(_faction2),
 
     _caseSelectionnee(nullptr), _indUniteSelectionnee(0),
-    _caseCible(nullptr), _aConstruire(nullptr),
-
-    _etat(etat::selection)
+    _caseCible(nullptr), _aConstruire(nullptr)
 {
     if (_faction1 == _faction2)
         throw std::invalid_argument("Erreur : les factions doivent etre adverses");
@@ -27,24 +27,9 @@ Modele::Modele(unsigned int idGuerre, Faction faction1, Faction faction2):
         throw std::invalid_argument("Erreur : les factions ne peuvent pas etre neutres");
 }
 
-Faction Modele::getFaction1() const
-{
-    return _faction1;
-}
-
-Faction Modele::getFaction2() const
-{
-    return _faction2;
-}
-
 Faction Modele::getFactionAttaquante() const
 {
     return _factionAttaquante;
-}
-
-Faction Modele::getFactionAttaquee() const
-{
-    return _factionAttaquee;
 }
 
 Case *Modele::getCaseSelectionnee() const
@@ -67,7 +52,7 @@ bool Modele::factionEstPerdante(Faction faction) const
     if (faction == _faction1)
         return _plateau.nbUnites(_faction1) < _seuilDefaiteFaction1;
 
-    if(faction == _faction2)
+    if (faction == _faction2)
         return _plateau.nbUnites(_faction2) < _seuilDefaiteFaction2;
 
     throw std::invalid_argument("Erreur : la faction est incorrecte");
@@ -78,7 +63,7 @@ bool Modele::partieFinie() const
     return factionEstPerdante(_faction1) || factionEstPerdante(_faction2);
 }
 
-Faction Modele::factionVictorieuse() const
+Faction Modele::getFactionVictorieuse() const
 {
     if (!partieFinie())
         throw std::runtime_error("Erreur : la partie n'est pas finie");
@@ -278,14 +263,12 @@ void Modele::choixConstruction(uint16_t indConstruction)
     if (_etat != etat::construction || indConstruction >= getNbConstructionsPossibles())
         throw std::runtime_error("Erreur : impossible de choisir une construction");
 
-    if (getNbConstructionsPossibles() == 1)
-        _aConstruire = std::make_unique<Pont>();
-
     else {
         switch (indConstruction) {
         case 0:     _aConstruire = std::make_unique<DepotMunitions>();  break;
         case 1:     _aConstruire = std::make_unique<DepotProvisions>(); break;
         case 2:     _aConstruire = std::make_unique<Infirmerie>();      break;
+        case 3:     _aConstruire = std::make_unique<Pont>();            break;
         }
     }
 }

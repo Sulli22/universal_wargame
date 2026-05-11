@@ -9,6 +9,7 @@ public:
                 Visibilite visibilite = Visibilite::totale);
 
     uint16_t getPointsBouclier() const;
+    uint16_t getMaxPointsBouclier() const;
 
     void reparerBouclier();
     bool estLegere() const override;

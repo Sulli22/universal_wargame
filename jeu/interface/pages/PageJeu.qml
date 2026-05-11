@@ -14,11 +14,11 @@ Item {
     property int nbActionsPossibles: 0
 
     Component.onCompleted: {
-            if (modeleQML) {
-                equipeAttaquante = modeleQML.getFactionAttaquante()
-                nbActionsPossibles = modeleQML.getNbActionsPossibles()
-            }
+        if (modeleQML) {
+            equipeAttaquante = modeleQML.getFactionAttaquante()
+            nbActionsPossibles = modeleQML.getNbActionsPossibles()
         }
+    }
 
     signal retourMenuPrincipal(bool fenetre)
 
@@ -60,20 +60,19 @@ Item {
 
                     MenuItem {
                         text: qsTr("Aide") + langageManager.chaineVide
-                        onTriggered: {
-                            legende.open()
-                        }
+
+                        onTriggered: legende.open()
                     }
 
                     MenuItem {
                         text: qsTr("Paramètres") + langageManager.chaineVide
-                        onTriggered: {
-                            parametreJeu.visible = true
-                        }
+
+                        onTriggered: parametreJeu.visible = true
                     }
 
                     MenuItem {
                         text: qsTr("Quitter la partie") + langageManager.chaineVide
+
                         onTriggered: {
                             confirmationQuitter.fenetre = false
                             confirmationQuitter.open()
@@ -391,21 +390,6 @@ Item {
                 }
             }
         }
-
-
-        /*
-        RowLayout {
-            id: basPage
-            Layout.fillWidth: true
-            Layout.preferredHeight: racineJeu.largeurRectangle
-            Layout.maximumHeight: racineJeu.largeurRectangle
-
-            Rectangle {
-                color: couleur
-                Layout.fillWidth: true
-                Layout.preferredHeight: racineJeu.largeurRectangle
-            }
-        }*/
     }
 
     PopupRegles {
@@ -417,6 +401,7 @@ Item {
     Parametres {
         id: parametreJeu
         visible: false
+
         onBoutonRetourClique: visible = false
     }
 
@@ -430,10 +415,11 @@ Item {
 
     PopupQuitter {
         id: confirmationQuitter
+
         onRetourMenuPrincipalPopup: racineJeu.retourMenuPrincipal(fenetre)
     }
 
-    /*Legende {
+    Legende {
         id: legende
-    }*/
+    }
 }

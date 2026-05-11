@@ -11,6 +11,11 @@ uint16_t UniteLourde::getPointsBouclier() const
     return _pointsBouclier;
 }
 
+uint16_t UniteLourde::getMaxPointsBouclier() const
+{
+    return _MAX_POINTS_BOUCLIER;
+}
+
 void UniteLourde::reparerBouclier()
 {
     _pointsBouclier = _MAX_POINTS_BOUCLIER;

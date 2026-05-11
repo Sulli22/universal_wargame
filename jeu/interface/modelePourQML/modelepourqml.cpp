@@ -78,6 +78,27 @@ uint16_t ModelePourQML::getNbConstructionsPossibles() const
     return _modele->getNbConstructionsPossibles();
 }
 
+void ModelePourQML::choixConstruction(uint16_t indConstruction)
+{
+    /*
+        case 0:     _aConstruire = std::make_unique<DepotMunitions>();  break;
+        case 1:     _aConstruire = std::make_unique<DepotProvisions>(); break;
+        case 2:     _aConstruire = std::make_unique<Infirmerie>();      break;
+        case 3:     _aConstruire = std::make_unique<Pont>();            break;
+    */
+    _modele->choixConstruction(indConstruction);
+}
+
+bool ModelePourQML::partieFinie() const
+{
+    return _modele->partieFinie();
+}
+
+QString ModelePourQML::getFactionVictorieuse() const
+{
+    return (_modele->getFactionVictorieuse() == Faction::bleue) ? "blue" : "red";
+}
+
 bool ModelePourQML::positionValidePlateau(const Position &pos) const
 {
     return _modele->positionValidePlateau(pos);
@@ -110,7 +131,7 @@ QString ModelePourQML::getStatsUniteSelectionee() const
         if (!unit->estLegere())
         {
             UniteLourde* uniteCast = dynamic_cast<UniteLourde*>(unit);
-            stats += tr("Bouclier")+": "+QString::number(uniteCast->getPointsBouclier())+"\n";
+            stats += tr("Bouclier")+": "+QString::number(uniteCast->getPointsBouclier())+"/"+QString::number(uniteCast->getMaxPointsBouclier())+"\n";
 
         }
         stats += tr("Munitions") +" : "+QString::number(unit->getNbMunitions())+"/"+QString::number(unit->getMaxNbMunitions())+"\n" +

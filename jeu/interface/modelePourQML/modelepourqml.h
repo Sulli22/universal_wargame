@@ -20,15 +20,17 @@ public:
     Q_INVOKABLE bool actionValidable() const;
     Q_INVOKABLE bool actionAnnulable() const;
     Q_INVOKABLE uint16_t getNbConstructionsPossibles() const;
+    Q_INVOKABLE void choixConstruction(uint16_t indConstruction);
+    Q_INVOKABLE bool partieFinie() const;
+    Q_INVOKABLE QString getFactionVictorieuse() const;
 
     bool positionValidePlateau(const Position &pos) const;
     std::size_t getLargeurPlateau() const;
     std::size_t getHauteurPlateau() const;
     Case *accesCasePlateau(const Position &pos) const;
 
-    void selectionnerCase(const Position &pos);
     std::vector<Case *> getCasesConcernees() const;
-    bool estConcernee(const Position &pos) const;
+    void selectionnerCase(const Position &pos);
     Case *getCaseSelectionnee() const;
     Unite *getUniteSelectionee() const;
     Case *getCaseCible() const;

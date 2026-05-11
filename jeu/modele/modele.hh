@@ -15,34 +15,45 @@ public:
     Modele(unsigned int idGuerre,
         Faction faction1 = Faction::bleue, Faction faction2 = Faction::rouge);
 
-    Faction getFaction1() const;
-    Faction getFaction2() const;
+// getters
     Faction getFactionAttaquante() const;
-    Faction getFactionAttaquee() const;
     Case *getCaseSelectionnee() const;
     Case *getCaseCible() const;
 
-    // plateau
+// plateau
     bool positionValidePlateau(const Position &pos) const;
     std::size_t getLargeurPlateau() const;
     std::size_t getHauteurPlateau() const;
     Case *accesCasePlateau(const Position &pos) const;
 
+// fin de partie
     bool partieFinie() const;
-    Faction factionVictorieuse() const;
+    Faction getFactionVictorieuse() const;
+
+// changement de joueur (permute factions attaquante-attaquee)
     void changerJoueur();
+
+// cases concernees
     std::vector<Case *> getCasesConcernees() const;
     bool estConcernee(Case *c) const;
+
+// chemin
     std::vector<Case *> getChemin() const;
+
+// selection
     void selectionnerCase(const Position &pos);
     void annulerSelections();
     Unite *getUniteSelectionee() const;
-    uint16_t getNbActionsPossibles() const;
-    void choixAction(uint16_t indAction);
-    void effectuerAction();
+
+// constructions
     uint16_t getNbConstructionsPossibles() const;
     void choixConstruction(uint16_t indConstruction);
+
+// actions
+    uint16_t getNbActionsPossibles() const;
+    void choixAction(uint16_t indAction);
     bool actionValidable() const;
+    void effectuerAction();
 
 // sortie flux
     void sortieFlux(std::ostream &os) const;
@@ -57,18 +68,19 @@ private:
 
 // attributs
     Carte _plateau;
+    etat _etat;
 
     const Faction _faction1;
     const Faction _faction2;
-    const uint16_t _seuilDefaiteFaction1;
-    const uint16_t _seuilDefaiteFaction2;
     Faction _factionAttaquante;
     Faction _factionAttaquee;
+
+    const uint16_t _seuilDefaiteFaction1;
+    const uint16_t _seuilDefaiteFaction2;
 
     Case *_caseSelectionnee;
     uint16_t _indUniteSelectionnee;
     Case *_caseCible;
     std::unique_ptr<Construction> _aConstruire;
     std::set<Unite *> _unitesAyantJoue;
-    etat _etat;
 };
