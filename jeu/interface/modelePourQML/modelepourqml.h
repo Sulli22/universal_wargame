@@ -19,6 +19,7 @@ public:
     Q_INVOKABLE QString getFactionAttaquante() const;
     Q_INVOKABLE bool actionValidable() const;
     Q_INVOKABLE bool actionAnnulable() const;
+    Q_INVOKABLE uint16_t getNbConstructionsPossibles() const;
 
     bool positionValidePlateau(const Position &pos) const;
     std::size_t getLargeurPlateau() const;

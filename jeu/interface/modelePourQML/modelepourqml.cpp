@@ -106,9 +106,16 @@ void ModelePourQML::changementJoueur()
 QString ModelePourQML::getStatsUniteSelectionee() const
 {
     if (auto unit = _modele->getUniteSelectionee()) {
-        return tr("PV") + QString(" : ")+QString::number(unit->getPointsVie())+"/"+QString::number(unit->getMaxPointsVie())+"\n" +
-                tr("Munitions") + QString(" : ")+QString::number(unit->getNbMunitions())+"/"+QString::number(unit->getMaxNbMunitions())+"\n" +
-                tr("Provisions") + QString(" : ") +QString::number(unit->getNbProvisions())+"/"+QString::number(unit->getMaxNbProvisions());
+        QString stats =  tr("PV") + " : "+QString::number(unit->getPointsVie())+"/"+QString::number(unit->getMaxPointsVie())+"\n";
+        if (!unit->estLegere())
+        {
+            UniteLourde* uniteCast = dynamic_cast<UniteLourde*>(unit);
+            stats += tr("Bouclier")+": "+QString::number(uniteCast->getPointsBouclier())+"\n";
+
+        }
+        stats += tr("Munitions") +" : "+QString::number(unit->getNbMunitions())+"/"+QString::number(unit->getMaxNbMunitions())+"\n" +
+                tr("Provisions") +" : "+QString::number(unit->getNbProvisions())+"/"+QString::number(unit->getMaxNbProvisions());
+        return stats;
     }
     return tr("Pas d'unité");
 }

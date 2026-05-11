@@ -19,47 +19,47 @@
 <context>
     <name>Legende</name>
     <message>
-        <location filename="../composantsJeu/Legende.qml" line="15"/>
+        <location filename="../composantsJeu/Legende.qml" line="19"/>
         <source>Artillerie</source>
         <translation>Artillery</translation>
     </message>
     <message>
-        <location filename="../composantsJeu/Legende.qml" line="21"/>
+        <location filename="../composantsJeu/Legende.qml" line="25"/>
         <source>Bombardier</source>
         <translation>Bomber</translation>
     </message>
     <message>
-        <location filename="../composantsJeu/Legende.qml" line="27"/>
+        <location filename="../composantsJeu/Legende.qml" line="31"/>
         <source>Char d&apos;assaut</source>
         <translation>Tank</translation>
     </message>
     <message>
-        <location filename="../composantsJeu/Legende.qml" line="33"/>
+        <location filename="../composantsJeu/Legende.qml" line="37"/>
         <source>Chasseur</source>
         <translation>Hunter</translation>
     </message>
     <message>
-        <location filename="../composantsJeu/Legende.qml" line="39"/>
+        <location filename="../composantsJeu/Legende.qml" line="43"/>
         <source>Frégate</source>
         <translation>Frigate</translation>
     </message>
     <message>
-        <location filename="../composantsJeu/Legende.qml" line="45"/>
+        <location filename="../composantsJeu/Legende.qml" line="49"/>
         <source>Génie</source>
         <translation>Engineer</translation>
     </message>
     <message>
-        <location filename="../composantsJeu/Legende.qml" line="51"/>
+        <location filename="../composantsJeu/Legende.qml" line="55"/>
         <source>Infanterie</source>
         <translation>Infantry</translation>
     </message>
     <message>
-        <location filename="../composantsJeu/Legende.qml" line="58"/>
+        <location filename="../composantsJeu/Legende.qml" line="62"/>
         <source>Sous marin</source>
         <translation>Submarine</translation>
     </message>
     <message>
-        <location filename="../composantsJeu/Legende.qml" line="65"/>
+        <location filename="../composantsJeu/Legende.qml" line="69"/>
         <source>Retour</source>
         <translation>Back</translation>
     </message>
@@ -89,22 +89,27 @@
         <translation type="obsolete">HP : </translation>
     </message>
     <message>
-        <location filename="../modelePourQML/modelepourqml.cpp" line="101"/>
+        <location filename="../modelePourQML/modelepourqml.cpp" line="109"/>
         <source>PV</source>
         <translation>HP</translation>
     </message>
     <message>
-        <location filename="../modelePourQML/modelepourqml.cpp" line="102"/>
+        <location filename="../modelePourQML/modelepourqml.cpp" line="113"/>
+        <source>Bouclier</source>
+        <translation>Shield</translation>
+    </message>
+    <message>
+        <location filename="../modelePourQML/modelepourqml.cpp" line="116"/>
         <source>Munitions</source>
         <translation>Anmunitions</translation>
     </message>
     <message>
-        <location filename="../modelePourQML/modelepourqml.cpp" line="103"/>
+        <location filename="../modelePourQML/modelepourqml.cpp" line="117"/>
         <source>Provisions</source>
         <translation>Supplies</translation>
     </message>
     <message>
-        <location filename="../modelePourQML/modelepourqml.cpp" line="105"/>
+        <location filename="../modelePourQML/modelepourqml.cpp" line="120"/>
         <source>Pas d&apos;unité</source>
         <translation>No unit</translation>
     </message>
@@ -159,57 +164,57 @@
         <translation>Player : </translation>
     </message>
     <message>
-        <location filename="../pages/PageJeu.qml" line="197"/>
+        <location filename="../pages/PageJeu.qml" line="204"/>
         <source>Stats Unité</source>
         <translation>Stats unit</translation>
     </message>
     <message>
-        <location filename="../pages/PageJeu.qml" line="207"/>
+        <location filename="../pages/PageJeu.qml" line="214"/>
         <source>Pas d&apos;unité</source>
         <translation>No unit</translation>
     </message>
     <message>
-        <location filename="../pages/PageJeu.qml" line="225"/>
+        <location filename="../pages/PageJeu.qml" line="232"/>
         <source>Constructions</source>
         <translation>Buildings</translation>
     </message>
     <message>
-        <location filename="../pages/PageJeu.qml" line="238"/>
+        <location filename="../pages/PageJeu.qml" line="245"/>
         <source>Munitions</source>
         <translation>Anmunitions</translation>
     </message>
     <message>
-        <location filename="../pages/PageJeu.qml" line="245"/>
+        <location filename="../pages/PageJeu.qml" line="252"/>
         <source>Provisions</source>
         <translation>Supplies</translation>
     </message>
     <message>
-        <location filename="../pages/PageJeu.qml" line="252"/>
+        <location filename="../pages/PageJeu.qml" line="259"/>
         <source>Infirmerie</source>
         <translation>Infirmary</translation>
     </message>
     <message>
-        <location filename="../pages/PageJeu.qml" line="259"/>
+        <location filename="../pages/PageJeu.qml" line="266"/>
         <source>Pont</source>
         <translation>Bridge</translation>
     </message>
     <message>
-        <location filename="../pages/PageJeu.qml" line="279"/>
+        <location filename="../pages/PageJeu.qml" line="286"/>
         <source>Déplacer</source>
         <translation>Move</translation>
     </message>
     <message>
-        <location filename="../pages/PageJeu.qml" line="293"/>
+        <location filename="../pages/PageJeu.qml" line="300"/>
         <source>Attaquer</source>
         <translation>Attack</translation>
     </message>
     <message>
-        <location filename="../pages/PageJeu.qml" line="308"/>
+        <location filename="../pages/PageJeu.qml" line="315"/>
         <source>Construire</source>
         <translation>Build</translation>
     </message>
     <message>
-        <location filename="../pages/PageJeu.qml" line="374"/>
+        <location filename="../pages/PageJeu.qml" line="382"/>
         <source>Joueur suivant</source>
         <translation>Next player</translation>
     </message>
@@ -251,24 +256,32 @@
 <context>
     <name>PopupQuitter</name>
     <message>
-        <location filename="../pages/PopupQuitter.qml" line="33"/>
+        <location filename="../composantsJeu/PopupQuitter.qml" line="19"/>
         <source>Voulez vous vraiment quitter la partie ?</source>
         <translation>Do you really want to quit the game ?</translation>
     </message>
     <message>
-        <location filename="../pages/PopupQuitter.qml" line="32"/>
+        <location filename="../composantsJeu/PopupQuitter.qml" line="18"/>
         <source>Voulez vous vraiment quitter le jeu ?</source>
         <translation>Do you really want to quit ?</translation>
     </message>
     <message>
-        <location filename="../pages/PopupQuitter.qml" line="42"/>
+        <location filename="../composantsJeu/PopupQuitter.qml" line="28"/>
         <source>Quitter</source>
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="../pages/PopupQuitter.qml" line="61"/>
+        <location filename="../composantsJeu/PopupQuitter.qml" line="45"/>
         <source>Annuler</source>
         <translation>Cancel</translation>
+    </message>
+</context>
+<context>
+    <name>PopupRegles</name>
+    <message>
+        <location filename="../composantsJeu/PopupRegles.qml" line="14"/>
+        <source>L&apos;objectif est de réduire l&apos;équipe adverse à moins de 5% par rapport à la taille de base</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

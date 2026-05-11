@@ -175,11 +175,18 @@ Item {
 
                         Rectangle {
                             id: couleurJoueur
-                            color: equipeAttaquante
+                            color: racineJeu.equipeAttaquante
                             Layout.preferredWidth: layoutMenu.width * 0.5
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.alignment: Qt.AlignHCenter
                             border.color: racine.couleurTexte
+
+
+                            Behavior on color {
+                                ColorAnimation {
+                                    duration: 1000
+                                }
+                            }
                         }
 
                         Rectangle {
@@ -339,6 +346,7 @@ Item {
                                     onClicked: {
                                         modeleQML.annulerSelections()
                                         enabled = false
+                                        stats.text = modeleQML.getStatsUniteSelectionee();
                                         nbActionsPossibles = 0
                                         plateau.update()
                                     }
@@ -408,6 +416,12 @@ Item {
         }*/
     }
 
+    PopupRegles {
+        id: regles
+
+        Component.onCompleted: open()
+    }
+
     Parametres {
         id: parametreJeu
         visible: false
@@ -430,7 +444,5 @@ Item {
     Legende {
         id: legende
     }
-
-
 
 }

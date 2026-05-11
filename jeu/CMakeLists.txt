@@ -122,12 +122,14 @@ set(QML_FILES
     interface/pages/PageChoixGuerre.qml
     interface/composantsChoixGuerre/BoutonChoixGuerre.qml
     interface/pages/PageJeu.qml
-    interface/pages/PopupQuitter.qml
     interface/divers/Background.qml
     interface/composantsJeu/BoutonAction.qml
     interface/composantsJeu/Legende.qml
     interface/composantsJeu/LigneLegende.qml
     interface/composantsJeu/BoutonChoix.qml
+    interface/composantsJeu/PopupGeneral.qml
+    interface/composantsJeu/PopupQuitter.qml
+    interface/composantsJeu/PopupRegles.qml
 )
 set(QML_SOURCES
     interface/modelePourQML/modelepourqml.h
