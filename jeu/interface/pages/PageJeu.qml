@@ -242,6 +242,7 @@ Item {
                                 text: qsTr("Munitions") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
                                 enabled: nbConstructionsPossibles === 3
+
                                 onClicked: {
                                     modeleQML.choixConstruction(0)
                                     boutonValider.enabled = modeleQML.actionValidable()
@@ -253,6 +254,7 @@ Item {
                                 text: qsTr("Provisions") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
                                 enabled: nbConstructionsPossibles === 3
+
                                 onClicked: {
                                     modeleQML.choixConstruction(1)
                                     boutonValider.enabled = modeleQML.actionValidable()
@@ -264,6 +266,7 @@ Item {
                                 text: qsTr("Infirmerie") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
                                 enabled: nbConstructionsPossibles === 3
+
                                 onClicked: {
                                     modeleQML.choixConstruction(2)
                                     boutonValider.enabled = modeleQML.actionValidable()
@@ -275,6 +278,7 @@ Item {
                                 text: qsTr("Pont") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
                                 enabled: nbConstructionsPossibles === 1
+
                                 onClicked: {
                                     modeleQML.choixConstruction(3)
                                     boutonValider.enabled = modeleQML.actionValidable()
@@ -368,7 +372,7 @@ Item {
                                         modeleQML.effectuerAction()
                                         enabled = false
                                         boutonAnnuler.enabled = false
-                                        racineJeu.equipeAttaquante = modeleQML.actionAttaquante()
+                                        racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()
                                         nbActionsPossibles = 0
                                         nbConstructionsPossibles = 0
                                         plateau.update()
