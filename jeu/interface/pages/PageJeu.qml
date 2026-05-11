@@ -19,7 +19,6 @@ Item {
 
     signal retourMenuPrincipal(bool fenetre)
 
-<<<<<<< HEAD
     function rafraichirBoutonsActions() {
         deplacer.enabled = modeleQML.indiceActionValide(0);
         attaquer.enabled = modeleQML.indiceActionValide(1);
@@ -32,7 +31,7 @@ Item {
         infirmerie.enabled = modeleQML.indiceConstructionValide(2);
         pont.enabled = modeleQML.indiceConstructionValide(3);
     }
-=======
+
     Component {
            id: composantSonAttaque
            MediaPlayer {
@@ -42,7 +41,6 @@ Item {
                }
            }
        }
->>>>>>> 7dfd2defaa386613da741a821860d7880a49c05b
 
     ColumnLayout {
         id: layoutGeneral
