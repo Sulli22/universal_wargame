@@ -34,6 +34,16 @@ Case *ModelePourQML::getCaseCible() const
     return _modele->getCaseCible();
 }
 
+bool ModelePourQML::cheminExiste() const
+{
+    return _modele->cheminExiste();
+}
+
+std::vector<Case *> ModelePourQML::getChemin() const
+{
+    return _modele->getChemin();
+}
+
 void ModelePourQML::annulerSelections()
 {
     _modele->annulerSelections();

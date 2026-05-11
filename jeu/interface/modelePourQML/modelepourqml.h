@@ -34,6 +34,8 @@ public:
     Case *getCaseSelectionnee() const;
     Unite *getUniteSelectionee() const;
     Case *getCaseCible() const;
+    bool cheminExiste() const;
+    std::vector<Case *> getChemin() const;
 
 private:
     std::unique_ptr<Modele> _modele;

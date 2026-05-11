@@ -95,6 +95,7 @@ void MonRenderer::render()
     surlignesCasesConcernees();
     surligneCaseSelectionnee();
     surligneCaseCible();
+    surligneChemin();
 }
 
 QOpenGLFramebufferObject *MonRenderer::createFramebufferObject(const QSize &size)
@@ -200,6 +201,16 @@ void MonRenderer::surligneCaseCible()
 void MonRenderer::surligneCaseSelectionnee()
 {
     surligneCase(_modele->getCaseSelectionnee());
+}
+
+void MonRenderer::surligneChemin()
+{
+    if (_modele->cheminExiste()) {
+        for (const auto &c : _modele->getChemin())
+            surligneCase(c);    // on surligne chaque case du chemin
+    }
+
+    // sinon on affiche rien
 }
 
 void MonRenderer::dessinHex(uint16_t q, uint16_t r)

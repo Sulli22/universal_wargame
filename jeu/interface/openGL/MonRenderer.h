@@ -22,6 +22,7 @@ private:
     void surligneCase(Case *c);
     void surligneCaseCible();
     void surligneCaseSelectionnee();
+    void surligneChemin();
 
 // methode de dessins principales
     void dessinHex(uint16_t q, uint16_t r);
