@@ -260,6 +260,11 @@ void Modele::effectuerAction()
     // sinon on fait rien
 }
 
+bool Modele::estActionAttaque() const
+{
+    return _etat == etat::attaque;
+}
+
 uint16_t Modele::getNbConstructionsPossibles() const
 {
     if (_etat != etat::construction || !_caseCible)

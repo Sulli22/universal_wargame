@@ -16,6 +16,7 @@ public:
     Q_INVOKABLE uint16_t getNbActionsPossibles() const;
     Q_INVOKABLE void choixAction(uint16_t indAction);
     Q_INVOKABLE void effectuerAction();
+    Q_INVOKABLE bool estActionAttaque() const;
     Q_INVOKABLE QString getFactionAttaquante() const;
     Q_INVOKABLE bool actionValidable() const;
     Q_INVOKABLE bool actionAnnulable() const;

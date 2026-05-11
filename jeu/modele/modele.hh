@@ -56,6 +56,7 @@ public:
     void choixAction(uint16_t indAction);
     bool actionValidable() const;
     void effectuerAction();
+    bool estActionAttaque() const;
 
 // sortie flux
     void sortieFlux(std::ostream &os) const;

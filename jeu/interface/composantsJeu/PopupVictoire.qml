@@ -7,11 +7,16 @@ PopupGeneral {
     id: racinePopupVictoire
 
     contentItem: Item {
-        MediaPlayer {
-            id: sonVictoire
-            source: "qrc:/victoire"
-            audioOutput: AudioOutput { volume: racine.volumeBouton }
-        }
+
+        Component {
+               id: composantSonVictoire
+               MediaPlayer {
+                   source: "qrc:/victoire"
+                   audioOutput: AudioOutput {
+                       volume: racine.desactiverVolumeBouton ? 0 : racine.volumeBouton
+                   }
+               }
+           }
 
         ColumnLayout {
             id: layoutVictoire
@@ -31,6 +36,7 @@ PopupGeneral {
                 Layout.preferredHeight: layoutVictoire.height * 0.4
                 border.color: racine.couleurTexte
                 Layout.alignment: Qt.AlignHCenter
+
             }
 
             Button {
@@ -47,6 +53,17 @@ PopupGeneral {
 
     onOpened: {
         rectFaction.color = modeleQML.getFactionVictorieuse()
-        sonVictoire.play()
+        lancerBruitVictoire()
     }
+
+    function lancerBruitVictoire() {
+        let son = composantSonVictoire.createObject(racinePopupVictoire)
+        son.play()
+        son.playbackStateChanged.connect(function() {
+            if (son.playbackState === MediaPlayer.StoppedState) {
+                son.destroy(500)
+               }
+           })
+    }
+
 }

@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-
+import QtMultimedia
 import MonGL 1.0
 import "../composantsJeu"
 
@@ -22,6 +22,16 @@ Item {
     }
 
     signal retourMenuPrincipal(bool fenetre)
+
+    Component {
+           id: composantSonAttaque
+           MediaPlayer {
+               source: "qrc:/attaque"
+               audioOutput: AudioOutput {
+                   volume: racine.desactiverVolumeBouton ? 0 : racine.volumeBouton
+               }
+           }
+       }
 
     ColumnLayout {
         id: layoutGeneral
@@ -369,16 +379,21 @@ Item {
                                     enabled: false
 
                                     onClicked: {
+                                        let actionAttaque = modeleQML.estActionAttaque()
                                         modeleQML.effectuerAction()
+                                        if (modeleQML.partieFinie())
+                                        {
+                                            popupVictoire.open()
+                                        }
+                                        else if  (actionAttaque)
+                                        {
+                                            lancerBruitAttaque()
+                                        }
                                         enabled = false
                                         boutonAnnuler.enabled = false
                                         racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()
                                         nbActionsPossibles = 0
                                         nbConstructionsPossibles = 0
-
-                                        if (modeleQML.partieFinie()) {
-                                            popupVictoire.open()
-                                        }
 
                                         plateau.update()
                                     }
@@ -449,5 +464,15 @@ Item {
 
     PopupVictoire {
         id: popupVictoire
+    }
+
+    function lancerBruitAttaque() {
+        let son = composantSonAttaque.createObject(racineJeu)
+        son.play()
+        son.playbackStateChanged.connect(function() {
+            if (son.playbackState === MediaPlayer.StoppedState) {
+                son.destroy(500)
+               }
+           })
     }
 }

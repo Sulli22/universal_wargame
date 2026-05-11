@@ -65,6 +65,11 @@ void ModelePourQML::effectuerAction()
     _modele->effectuerAction();
 }
 
+bool ModelePourQML::estActionAttaque() const
+{
+   return _modele->estActionAttaque();
+}
+
 QString ModelePourQML::getFactionAttaquante() const
 {
     return (_modele->getFactionAttaquante() == Faction::bleue) ? "blue" : "red";
