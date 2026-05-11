@@ -7,6 +7,8 @@
 
 using indiceConstruction = unsigned int;
 
+class Genie;
+
 class Case {
 public:
     Case(const Position &pos);
@@ -22,8 +24,8 @@ public:
     virtual stat coutDeplacement(Unite *unite) const =0;
     virtual Faction getFaction() const;
     virtual std::size_t nbUnites() const;
-    bool estConstructible() const;
-    virtual std::set<indiceConstruction> getIndicesConstructionsPossibles() const =0;
+    bool estConstructible(const Genie &genie) const;
+    virtual std::vector<indiceConstruction> getIndicesConstructionsPossibles(const Genie &genie) const =0;
     virtual void supprimeNonUnitesOperationnelles();
 
 // sortie flux

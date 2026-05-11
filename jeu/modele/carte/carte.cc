@@ -159,13 +159,13 @@ std::vector<Case *> Carte::getVoisines(const Case &c) const
     return voisines;
 }
 
-std::vector<Case *> Carte::getVoisinesConstructibles(const Case &c) const
+std::vector<Case *> Carte::getVoisinesConstructibles(const Case &c, const Genie &genie) const
 {
     std::vector<Case *> res;
 
     auto voisines = getVoisines(c);
     for(const auto &v : voisines) {
-        if (v->estConstructible())
+        if (v->estConstructible(genie))
             res.push_back(v);
     }
 
@@ -232,10 +232,10 @@ std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaqua
         auto [courante, distance] = file.front();
         file.pop();
 
-        // on ignore la case de départ pour l'attaque
         if (distance > 0
             && courante->nbUnites() > 0
-            && courante->getFaction() != uniteAttaquante->getFaction())
+            && courante->getFaction() != uniteAttaquante->getFaction()
+            && courante->nbUnites() <= uniteAttaquante->getNbMunitions())
                 casesAttaquables.push_back(courante);
 
         // stop si on atteint la portée max

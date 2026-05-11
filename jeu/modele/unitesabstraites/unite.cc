@@ -65,15 +65,20 @@ void Unite::rechargerProvisions()
     _nbProvisions = _MAX_NB_PROVISIONS;
 }
 
-std::set<indiceAction> Unite::getIndicesActionsPossibles() const
+stat Unite::getCapaciteDeplacement() const
 {
-    std::set<indiceAction> indices;
+    return getNbProvisions();
+}
+
+std::vector<indiceAction> Unite::getIndicesActionsPossibles() const
+{
+    std::vector<indiceAction> indices;
 
     if (_nbProvisions > 0)
-        indices.insert(0);  // deplacement
+        indices.push_back(0);  // deplacement
 
     if (_nbMunitions > 0)
-        indices.insert(1);  // attaque
+        indices.push_back(1);  // attaque
 
     return indices;
 }

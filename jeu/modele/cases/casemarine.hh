@@ -16,7 +16,7 @@ public:
     stat coutDeplacement(Unite *unite) const override;
     Faction getFaction() const override;
     std::size_t nbUnites() const override;
-    std::set<indiceConstruction> getIndicesConstructionsPossibles() const override;
+    std::vector<indiceConstruction> getIndicesConstructionsPossibles(const Genie &genie) const override;
     void supprimeNonUnitesOperationnelles() override;
 
 // sortie flux

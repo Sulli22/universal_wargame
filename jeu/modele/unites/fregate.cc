@@ -23,7 +23,9 @@ stat Fregate::getPointsAttaqueLourde() const
 
 stat Fregate::getCapaciteDeplacement() const
 {
-    return 3;
+    stat capaciteReelle = 3;
+    stat capaciteMin = Unite::getCapaciteDeplacement();
+    return std::min(capaciteMin, capaciteReelle);
 }
 
 stat Fregate::getDistanceAttaque() const

@@ -49,12 +49,12 @@ public:
     Unite *getUniteSelectionee() const;
 
 // constructions
-    std::set<indiceConstruction> getIndicesConstructionsPossibles() const;
+    std::vector<indiceConstruction> getIndicesConstructionsPossibles() const;
     bool indiceConstructionValide(indiceConstruction indConstruction) const;
     void choixConstruction(indiceConstruction indConstruction);
 
 // actions
-    std::set<indiceAction> getIndicesActionsPossibles() const;
+    std::vector<indiceAction> getIndicesActionsPossibles() const;
     bool indiceActionValide(indiceAction indAction) const;
     void choixAction(indiceAction indAction);
     bool actionValidable() const;
@@ -90,5 +90,5 @@ private:
     std::size_t _indUniteSelectionnee;
     Case *_caseCible;
     std::unique_ptr<Construction> _aConstruire;
-    std::set<Unite *> _unitesAyantJoue;
+    std::vector<Unite *> _unitesAyantJoue;
 };

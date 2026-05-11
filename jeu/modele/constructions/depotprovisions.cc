@@ -1,8 +1,12 @@
 #include "depotprovisions.hh"
 
-DepotProvisions::DepotProvisions():
-    Construction(15)
+DepotProvisions::DepotProvisions()
 {}
+
+stat DepotProvisions::getCoutImpl()
+{
+    return 15;
+}
 
 void DepotProvisions:: effectuerAction(Unite *unite) const
 {

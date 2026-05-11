@@ -23,7 +23,9 @@ stat Infanterie::getPointsAttaqueLourde() const
 
 stat Infanterie::getCapaciteDeplacement() const
 {
-    return 4;
+    stat capaciteReelle = 4;
+    stat capaciteMin = Unite::getCapaciteDeplacement();
+    return std::min(capaciteMin, capaciteReelle);
 }
 
 stat Infanterie::getDistanceAttaque() const

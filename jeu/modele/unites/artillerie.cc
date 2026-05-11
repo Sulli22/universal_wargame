@@ -23,7 +23,9 @@ stat Artillerie::getPointsAttaqueLourde() const
 
 stat Artillerie::getCapaciteDeplacement() const
 {
-    return 3;
+    stat capaciteReelle = 3;
+    stat capaciteMin = Unite::getCapaciteDeplacement();
+    return std::min(capaciteMin, capaciteReelle);
 }
 
 stat Artillerie::getDistanceAttaque() const

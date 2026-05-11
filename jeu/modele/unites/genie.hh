@@ -11,8 +11,9 @@ public:
           stat nbProvisions = _NB_PROVISIONS_INIT*2);
 
     std::string getNom() const override;
-    std::set<indiceAction> getIndicesActionsPossibles() const override;
+    std::vector<indiceAction> getIndicesActionsPossibles() const override;
 
+    bool peutDepenser(stat cout) const;
     void construire(CaseTerrestre *caseOuConstruire,
                     std::unique_ptr<Construction> construction);
 };

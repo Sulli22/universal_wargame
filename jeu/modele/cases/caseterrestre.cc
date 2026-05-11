@@ -3,6 +3,11 @@
 #include "unitemarine.hh"
 #include "uniteterrestrelegere.hh"
 #include "uniteterrestrelourde.hh"
+#include "genie.hh"
+#include "depotmunitions.hh"
+#include "depotprovisions.hh"
+#include "infirmerie.hh"
+#include "pont.hh"
 
 #include <iostream>
 #include <limits>
@@ -36,20 +41,20 @@ typeTerrain CaseTerrestre::getTerrain() const
 void CaseTerrestre::setConstruction(std::unique_ptr<Construction> nvConstruction)
 {
     if (_construction)
-        throw std::runtime_error("Erreur : La place est déja prise");
+        throw std::runtime_error("Erreur : la place est déja prise");
 
     if (_terrain == typeTerrain::riviere) {
         if (nvConstruction->estPont())
             _construction = std::move(nvConstruction);
         else
-            throw std::runtime_error("Erreur : La case est une rivière");
+            throw std::runtime_error("Erreur : la case est une rivière");
     }
 
     else if (_terrain != typeTerrain::plaine)
-        throw std::runtime_error("Erreur : Ce type de case n'est pas constructible");
+        throw std::runtime_error("Erreur : ce type de case n'est pas constructible");
 
     else if (nvConstruction->estPont())
-        throw std::invalid_argument("Erreur : La construction ne peut pas etre un pont");
+        throw std::invalid_argument("Erreur : la construction ne peut pas etre un pont");
 
     else
         _construction = std::move(nvConstruction);
@@ -189,17 +194,32 @@ void CaseTerrestre::effectuerActionConstruction()
         _construction->effectuerAction(getUnites());
 }
 
-std::set<indiceConstruction> CaseTerrestre::getIndicesConstructionsPossibles() const
+std::vector<indiceConstruction> CaseTerrestre::getIndicesConstructionsPossibles(const Genie &genie) const
 {
     if (_construction
         || _terrain == typeTerrain::foret
         || _terrain == typeTerrain::montagne)
         return {};   // rien ne peut etre construit
 
-    if (_terrain == typeTerrain::riviere)
-        return {3};   // pont uniquement
+    if (_terrain == typeTerrain::riviere) {
+        if (genie.peutDepenser(Pont::getCoutStatic()))
+            return {3}; // pont uniquement
+        return {};
+    }
 
-    return {0, 1, 2}; // depots et infirmerie
+    // sinon on vérfie seulement le cout
+    std::vector<indiceConstruction> res;
+
+    if (genie.peutDepenser(DepotMunitions::getCoutStatic()))
+        res.push_back(0);
+
+    if (genie.peutDepenser(DepotProvisions::getCoutStatic()))
+        res.push_back(1);
+
+    if (genie.peutDepenser(Infirmerie::getCoutStatic()))
+        res.push_back(2);
+
+    return res;
 }
 
 void CaseTerrestre::supprimeNonUnitesOperationnelles()

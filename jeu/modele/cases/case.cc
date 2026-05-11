@@ -55,9 +55,9 @@ std::size_t Case::nbUnites() const
     return _uniteAerienne ? 1 : 0;
 }
 
-bool Case::estConstructible() const
+bool Case::estConstructible(const Genie &genie) const
 {
-    return !getIndicesConstructionsPossibles().empty();
+    return !getIndicesConstructionsPossibles(genie).empty();
 }
 
 void Case::supprimeNonUnitesOperationnelles()

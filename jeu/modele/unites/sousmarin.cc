@@ -23,7 +23,9 @@ stat SousMarin::getPointsAttaqueLourde() const
 
 stat SousMarin::getCapaciteDeplacement() const
 {
-    return 10;
+    stat capaciteReelle = 10;
+    stat capaciteMin = Unite::getCapaciteDeplacement();
+    return std::min(capaciteMin, capaciteReelle);
 }
 
 stat SousMarin::getDistanceAttaque() const

@@ -374,7 +374,7 @@ Item {
                                     onClicked: {
                                         modeleQML.annulerSelections()
                                         enabled = false
-                                        stats.text = modeleQML.getStatsUniteSelectionee()
+                                        stats.text = "Pas d'unite"
                                         racineJeu.rafraichirBoutonsActions()
                                         racineJeu.rafraichirBoutonsConstruction()
                                         plateau.update()
@@ -389,26 +389,20 @@ Item {
                                     enabled: false
 
                                     onClicked: {
-                                        let actionAttaque = modeleQML.estActionAttaque()
                                         modeleQML.effectuerAction()
-                                        if (modeleQML.partieFinie())
-                                        {
-                                            popupVictoire.open()
-                                        }
-                                        else if  (actionAttaque)
-                                        {
-                                            lancerBruitAttaque()
-                                        }
                                         enabled = false
                                         boutonAnnuler.enabled = false
+                                        stats.text = "Pas d'unite"
                                         racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()
                                         racineJeu.rafraichirBoutonsActions()
                                         racineJeu.rafraichirBoutonsConstruction()
+                                        plateau.update()
 
                                         if (modeleQML.partieFinie())
                                             popupVictoire.open()
+                                        else if (modeleQML.estActionAttaque())
+                                            lancerBruitAttaque()
 
-                                        plateau.update()
                                     }
                                 }
                             }

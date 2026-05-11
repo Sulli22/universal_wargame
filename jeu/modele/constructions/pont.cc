@@ -1,8 +1,12 @@
 #include "pont.hh"
 
-Pont::Pont():
-    Construction(10)
+Pont::Pont()
 {}
+
+stat Pont::getCoutImpl()
+{
+    return 10;
+}
 
 bool Pont::estPont() const
 {
@@ -11,6 +15,6 @@ bool Pont::estPont() const
 
 void Pont::effectuerAction(Unite *unite) const
 {
-    (void)unite;
+    static_cast<void>(unite);
     // ne fait rien
 }

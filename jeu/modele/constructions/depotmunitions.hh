@@ -2,9 +2,11 @@
 
 #include "construction.hh"
 
-class DepotMunitions : public Construction {
+class DepotMunitions : public ConstructionTemplate<DepotMunitions> {
 public:
     DepotMunitions();
+
+    static stat getCoutImpl();
 
     void effectuerAction(Unite *unite) const override;
 };

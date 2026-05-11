@@ -2,9 +2,11 @@
 
 #include "construction.hh"
 
-class Infirmerie : public Construction {
+class Infirmerie : public ConstructionTemplate<Infirmerie> {
 public:
     Infirmerie();
+
+    static stat getCoutImpl();
 
     void effectuerAction(Unite *unite) const override;
 };

@@ -108,7 +108,7 @@ std::vector<Case *> Modele::getCasesConcernees(etat etat) const
         break;
 
     case etat::construction:
-        res = _plateau.getVoisinesConstructibles(*_caseSelectionnee);
+        res = _plateau.getVoisinesConstructibles(*_caseSelectionnee, *dynamic_cast<Genie *>(getUniteSelectionee()));
         break;
 
     default:
@@ -208,7 +208,8 @@ bool Modele::uniteSelectioneeAJoue() const
     if (_unitesAyantJoue.empty())
         return false;
 
-    return _unitesAyantJoue.find(getUniteSelectionee()) != _unitesAyantJoue.end();
+    return std::find(_unitesAyantJoue.begin(), _unitesAyantJoue.end(),
+                     getUniteSelectionee()) != _unitesAyantJoue.end();
 }
 
 void Modele::choixAction(indiceAction indAction)
@@ -227,7 +228,7 @@ void Modele::choixAction(indiceAction indAction)
 void Modele::effectuerAction()
 {
     if (_caseSelectionnee && _caseCible) {
-        _unitesAyantJoue.insert(getUniteSelectionee());
+        _unitesAyantJoue.push_back(getUniteSelectionee());
 
         if (_etat == etat::deplacement) {
             auto path = getChemin();
@@ -261,18 +262,18 @@ bool Modele::estActionAttaque() const
     return _etat == etat::attaque;
 }
 
-std::set<indiceConstruction> Modele::getIndicesConstructionsPossibles() const
+std::vector<indiceConstruction> Modele::getIndicesConstructionsPossibles() const
 {
     if (_etat != etat::construction || !_caseCible)
         return {};
 
-    return _caseCible->getIndicesConstructionsPossibles();
+    return _caseCible->getIndicesConstructionsPossibles(*dynamic_cast<Genie *>(getUniteSelectionee()));
 }
 
 bool Modele::indiceConstructionValide(indiceConstruction indConstruction) const
 {
     auto inds = getIndicesConstructionsPossibles();
-    auto it = inds.find(indConstruction);
+    auto it = std::find(inds.begin(), inds.end(), indConstruction);
 
     return (it != inds.end());
 }
@@ -295,7 +296,7 @@ void Modele::choixConstruction(indiceConstruction indConstruction)
     }
 }
 
-std::set<indiceAction> Modele::getIndicesActionsPossibles() const
+std::vector<indiceAction> Modele::getIndicesActionsPossibles() const
 {
     static const std::map<indiceAction, etat> INDICE_VERS_ETAT = {
         {0, etat::deplacement},
@@ -311,20 +312,15 @@ std::set<indiceAction> Modele::getIndicesActionsPossibles() const
         return {};
 
     auto res = unite->getIndicesActionsPossibles();
-
     std::vector<indiceAction> aSupprimer;
-    for (auto i : res) {
-        auto it = INDICE_VERS_ETAT.find(i);
 
-        if (it == INDICE_VERS_ETAT.end())
-            throw std::runtime_error("Erreur : " + std::to_string(i) + " n'est pas un indice d'action valide");
-
-        if (getCasesConcernees(it->second).empty())
-            aSupprimer.push_back(i);
-    }
-
-    for (auto i : aSupprimer)
-        res.erase(i);
+    res.erase(      // on supprime si aucune case n'est concernee
+        std::remove_if(res.begin(), res.end(), [&](indiceAction i) {
+            auto it = INDICE_VERS_ETAT.find(i);
+            if (it == INDICE_VERS_ETAT.end())
+                throw std::runtime_error("Erreur : " + std::to_string(i) + " n'est pas un indice d'action valide");
+            return getCasesConcernees(it->second).empty();
+        }), res.end());
 
     return res;
 }
@@ -332,7 +328,7 @@ std::set<indiceAction> Modele::getIndicesActionsPossibles() const
 bool Modele::indiceActionValide(indiceAction indAction) const
 {
     auto inds = getIndicesActionsPossibles();
-    auto it = inds.find(indAction);
+    auto it = std::find(inds.begin(), inds.end(), indAction);
 
     return (it != inds.end());
 }

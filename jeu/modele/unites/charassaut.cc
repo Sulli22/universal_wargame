@@ -24,7 +24,9 @@ stat CharAssaut::getPointsAttaqueLourde() const
 
 stat CharAssaut::getCapaciteDeplacement() const
 {
-    return 3;
+    stat capaciteReelle = 3;
+    stat capaciteMin = Unite::getCapaciteDeplacement();
+    return std::min(capaciteMin, capaciteReelle);
 }
 
 stat CharAssaut::getDistanceAttaque() const

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <ostream>
-#include <set>
+#include <vector>
 
 using stat = unsigned int;
 using indiceAction = unsigned int;
@@ -32,9 +32,9 @@ public:
     virtual std::string getNom() const =0;
     virtual stat getPointsAttaqueLegere() const =0;
     virtual stat getPointsAttaqueLourde() const =0;
-    virtual stat getCapaciteDeplacement() const =0;
+    virtual stat getCapaciteDeplacement() const;
     virtual stat getDistanceAttaque() const =0;
-    virtual std::set<indiceAction> getIndicesActionsPossibles() const;
+    virtual std::vector<indiceAction> getIndicesActionsPossibles() const;
 
     virtual bool estLegere() const =0;
     bool estOperationnelle() const;

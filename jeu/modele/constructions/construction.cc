@@ -1,13 +1,16 @@
 #include "construction.hh"
 
-Construction::Construction(stat cout):
-    _cout(cout)
+#include "depotmunitions.hh"
+#include "depotprovisions.hh"
+#include "infirmerie.hh"
+#include "pont.hh"
+
+template<typename Derive>
+ConstructionTemplate<Derive>::ConstructionTemplate()
 {}
 
-stat Construction::getCout() const
-{
-    return _cout;
-}
+Construction::Construction()
+{}
 
 void Construction::effectuerAction(std::vector<Unite *> unites) const
 {
@@ -19,3 +22,8 @@ bool Construction::estPont() const
 {
     return false;
 }
+
+template class ConstructionTemplate<DepotMunitions>;
+template class ConstructionTemplate<DepotProvisions>;
+template class ConstructionTemplate<Infirmerie>;
+template class ConstructionTemplate<Pont>;

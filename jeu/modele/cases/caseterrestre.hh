@@ -28,7 +28,7 @@ public:
     Faction getFaction() const override;
     std::size_t nbUnites() const override;
     void effectuerActionConstruction();
-    std::set<indiceConstruction> getIndicesConstructionsPossibles() const override;
+    std::vector<indiceConstruction> getIndicesConstructionsPossibles(const Genie &genie) const override;
     void supprimeNonUnitesOperationnelles() override;
 
 // sortie flux

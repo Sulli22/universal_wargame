@@ -24,7 +24,9 @@ stat Chasseur::getPointsAttaqueLourde() const
 
 stat Chasseur::getCapaciteDeplacement() const
 {
-    return 8;
+    stat capaciteReelle = 8;
+    stat capaciteMin = Unite::getCapaciteDeplacement();
+    return std::min(capaciteMin, capaciteReelle);
 }
 
 stat Chasseur::getDistanceAttaque() const

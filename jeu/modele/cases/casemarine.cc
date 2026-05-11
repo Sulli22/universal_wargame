@@ -1,6 +1,7 @@
 #include "casemarine.hh"
+
 #include <limits>
-#include <iostream>
+#include "genie.hh"
 
 CaseMarine::CaseMarine(const Position &pos):
     Case(pos)
@@ -106,8 +107,9 @@ std::size_t CaseMarine::nbUnites() const
     return Case::nbUnites() + (_uniteBasse ? 1 : 0);
 }
 
-std::set<indiceConstruction> CaseMarine::getIndicesConstructionsPossibles() const
+std::vector<indiceConstruction> CaseMarine::getIndicesConstructionsPossibles(const Genie &genie) const
 {
+    static_cast<void>(genie);
     return {};  // aucune constructions possibles
 }
 
