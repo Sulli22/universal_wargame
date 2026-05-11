@@ -140,6 +140,10 @@ Item {
                             nbConstructionsPossibles = modeleQML.getNbConstructionsPossibles()
                             boutonValider.enabled = modeleQML.actionValidable()
                             boutonAnnuler.enabled = modeleQML.actionAnnulable()
+                            if (modeleQML.partieFinie())
+                            {
+                               popupVictoire.open()
+                            }
                         }
                     }
                 }
@@ -440,5 +444,9 @@ Item {
 
     Legende {
         id: legende
+    }
+
+    PopupVictoire {
+        id: popupVictoire
     }
 }

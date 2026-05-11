@@ -1,8 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file alias="clic">bouton.wav</file>
+        <file alias="victoire">victoire.mp3</file>
     </qresource>
-    <qresource prefix="/img/">
+    <qresource prefix="/img">
         <file alias="france">france.png</file>
         <file alias="royaumeuni">royaumeuni.png</file>
 

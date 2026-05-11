@@ -130,6 +130,7 @@ set(QML_FILES
     interface/composantsJeu/PopupGeneral.qml
     interface/composantsJeu/PopupQuitter.qml
     interface/composantsJeu/PopupRegles.qml
+    interface/composantsJeu/PopupVictoire.qml
 )
 set(QML_SOURCES
     interface/modelePourQML/modelepourqml.h
@@ -138,6 +139,7 @@ set(QML_SOURCES
     interface/openGL/MonOpenGLItem.cpp
     interface/openGL/MonRenderer.h
     interface/openGL/MonRenderer.cpp
+    interface/openGL/HexConfig.h
     interface/langues/langagemanager.h
     interface/langues/langagemanager.cpp
     interface/ressources/ressources.qrc
@@ -149,7 +151,6 @@ qt6_add_qml_module(appJeu
     QML_FILES ${QML_FILES}
     RESOURCE_PREFIX "/qt/qml"
     SOURCES ${QML_SOURCES}
-    SOURCES interface/openGL/HexConfig.h
 )
 
 # include dirs
