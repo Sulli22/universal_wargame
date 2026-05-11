@@ -256,6 +256,11 @@ void Modele::effectuerAction()
     // sinon on fait rien
 }
 
+bool Modele::estActionAttaque() const
+{
+    return _etat == etat::attaque;
+}
+
 std::set<indiceConstruction> Modele::getIndicesConstructionsPossibles() const
 {
     if (_etat != etat::construction || !_caseCible)

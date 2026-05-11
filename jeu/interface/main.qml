@@ -33,7 +33,7 @@ Window {
     }
 
     Component {
-           id: composantSon
+           id: composantSonBouton
            MediaPlayer {
                source: "qrc:/clic"
                audioOutput: AudioOutput {
@@ -87,11 +87,12 @@ Window {
                 else
                     pageLoader.source = "pages/MenuPrincipal.qml"
             }
+
        }
    }
 
     function lancerBruitBouton() {
-        let son = composantSon.createObject(racine)
+        let son = composantSonBouton.createObject(racine)
         son.play()
         son.playbackStateChanged.connect(function() {
             if (son.playbackState === MediaPlayer.StoppedState) {

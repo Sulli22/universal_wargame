@@ -16,6 +16,7 @@ public:
     Q_INVOKABLE bool indiceActionValide(indiceAction indAction) const;
     Q_INVOKABLE void choixAction(indiceAction indAction);
     Q_INVOKABLE void effectuerAction();
+    Q_INVOKABLE bool estActionAttaque() const;
     Q_INVOKABLE QString getFactionAttaquante() const;
     Q_INVOKABLE bool actionValidable() const;
     Q_INVOKABLE bool actionAnnulable() const;
