@@ -91,6 +91,7 @@ void ModelePourQML::choixConstruction(uint16_t indConstruction)
 
 bool ModelePourQML::partieFinie() const
 {
+
     return _modele->partieFinie();
 }
 
