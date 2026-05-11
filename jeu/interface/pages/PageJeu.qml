@@ -99,9 +99,9 @@ Item {
                 background: Rectangle {
                     gradient: Gradient {
                         orientation: Gradient.Horizontal
-                        GradientStop {position: 0.0; color:"red"}
-                        GradientStop {position: 0.5; color: "#de7307"}
-                        GradientStop {position: 1.0; color: "red"}
+                        GradientStop { position: 0.0; color: "red" }
+                        GradientStop { position: 0.5; color: "#de7307" }
+                        GradientStop { position: 1.0; color: "red" }
                     }
                 }
 
@@ -353,7 +353,7 @@ Item {
                                         modeleQML.effectuerAction()
                                         enabled = false
                                         boutonAnnuler.enabled = false
-                                        racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()
+                                        racineJeu.equipeAttaquante = modeleQML.actionAttaquante()
                                         nbActionsPossibles = 0
                                         plateau.update()
                                     }

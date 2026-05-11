@@ -605,7 +605,7 @@ void MonRenderer::dessinDepotMunitions()
                             COORD_FIN = COORD_DEB * 1.2f;
 
     // cercle
-    glBegin(GL_POLYGON);
+    glBegin(GL_LINE_LOOP);
     {
         for (uint16_t i = 0; i <= NB_SEG; ++i) {
             float theta = 2.f * M_PI * (float)i/(float)NB_SEG;
@@ -646,7 +646,7 @@ void MonRenderer::dessinDepotProvisions()
                             LARGEUR_TRIANGLE_2  = HAUTEUR_TRIANGLE / 2.f;
 
     // triangle
-    glBegin(GL_TRIANGLES);
+    glBegin(GL_LINE_LOOP);
     {
         glVertex2f(0.f, 0.f);
         glVertex2f(-LARGEUR_TRIANGLE_2, HAUTEUR_TRIANGLE);
