@@ -11,6 +11,7 @@ Item {
     readonly property string couleur: "#2f3640"
     readonly property real largeurRectangle: Math.max(10, racine.width*0.025)
     property string equipeAttaquante: ""
+    property int nbConstructionsPossibles: 0
     property int nbActionsPossibles: 0
 
     Component.onCompleted: {
@@ -136,6 +137,7 @@ Item {
                             plateau.gererClic(mouse.x, mouse.y)
                             stats.text = modeleQML.getStatsUniteSelectionee()
                             nbActionsPossibles = modeleQML.getNbActionsPossibles()
+                            nbConstructionsPossibles = modeleQML.getNbConstructionsPossibles()
                             boutonValider.enabled = modeleQML.actionValidable()
                             boutonAnnuler.enabled = modeleQML.actionAnnulable()
                         }
@@ -239,28 +241,44 @@ Item {
                                 id: depotMunitions
                                 text: qsTr("Munitions") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
-                                enabled: false
+                                enabled: nbConstructionsPossibles === 3
+                                onClicked: {
+                                    modeleQML.choixConstruction(0)
+                                    boutonValider.enabled = modeleQML.actionValidable()
+                                }
                             }
 
                             BoutonAction {
                                 id: depotProvisions
                                 text: qsTr("Provisions") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
-                                enabled: false
+                                enabled: nbConstructionsPossibles === 3
+                                onClicked: {
+                                    modeleQML.choixConstruction(1)
+                                    boutonValider.enabled = modeleQML.actionValidable()
+                                }
                             }
 
                             BoutonAction {
                                 id: infirmerie
                                 text: qsTr("Infirmerie") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
-                                enabled: false
+                                enabled: nbConstructionsPossibles === 3
+                                onClicked: {
+                                    modeleQML.choixConstruction(2)
+                                    boutonValider.enabled = modeleQML.actionValidable()
+                                }
                             }
 
                             BoutonAction {
                                 id: pont
                                 text: qsTr("Pont") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
-                                enabled: false
+                                enabled: nbConstructionsPossibles === 1
+                                onClicked: {
+                                    modeleQML.choixConstruction(3)
+                                    boutonValider.enabled = modeleQML.actionValidable()
+                                }
                             }
                         }
 
@@ -309,10 +327,6 @@ Item {
                                 onClicked: {
                                     racine.lancerBruitBouton()
                                     modeleQML.choixAction(2);
-                                    depotMunitions.enabled = true
-                                    depotProvisions.enabled = true
-                                    infirmerie.enabled = true
-                                    pont.enabled = true
                                     plateau.update();
                                 }
                             }
@@ -338,6 +352,7 @@ Item {
                                         enabled = false
                                         stats.text = modeleQML.getStatsUniteSelectionee()
                                         nbActionsPossibles = 0
+                                        nbConstructionsPossibles = 0
                                         plateau.update()
                                     }
                                 }
@@ -355,6 +370,7 @@ Item {
                                         boutonAnnuler.enabled = false
                                         racineJeu.equipeAttaquante = modeleQML.actionAttaquante()
                                         nbActionsPossibles = 0
+                                        nbConstructionsPossibles = 0
                                         plateau.update()
                                     }
                                 }
