@@ -13,9 +13,8 @@ Modele::Modele(unsigned int idGuerre, Faction faction1, Faction faction2):
     _faction1(faction1), _faction2(faction2),
     _factionAttaquante(_faction1), _factionAttaquee(_faction2),
 
-    // seuil de defaite = 5% du nb initial
-    _seuilDefaiteFaction1(_plateau.nbUnites(_faction1) * 0.05),
-    _seuilDefaiteFaction2(_plateau.nbUnites(_faction2) * 0.05),
+    _seuilDefaiteFaction1(_plateau.nbUnites(_faction1) * _MULT_DEFAITE),
+    _seuilDefaiteFaction2(_plateau.nbUnites(_faction2) * _MULT_DEFAITE),
 
     _caseSelectionnee(nullptr), _indUniteSelectionnee(0),
     _caseCible(nullptr), _aConstruire(nullptr)
@@ -40,6 +39,11 @@ Case *Modele::getCaseSelectionnee() const
 Case *Modele::getCaseCible() const
 {
     return _caseCible;
+}
+
+float Modele::getPourcentageDefaite()
+{
+    return _PRCT_DEFAITE;
 }
 
 void Modele::setEtat(etat nvEtat)
@@ -96,7 +100,7 @@ std::vector<Case *> Modele::getCasesConcernees() const
         break;
 
     case etat::deplacement:
-        res = keysFromMap(_plateau.getCasesAtteignables(_caseSelectionnee, getUniteSelectionee()));
+        res = mapVersCles(_plateau.getCasesAtteignables(_caseSelectionnee, getUniteSelectionee()));
         break;
 
     case etat::attaque:
@@ -303,9 +307,9 @@ std::vector<Case *> Modele::getChemin() const
 
 void Modele::sortieFlux(std::ostream &os) const
 {
-    os << "Faction attaquante = "   << factionToString(_factionAttaquante) << std::endl
-       << "Faction attaquee = "     << factionToString(_factionAttaquee) << std::endl
-       << "Partie finie ? "         << partieFinie() << " (0 = Non, 1 = Oui)" << std::endl
+    os << "Faction attaquante = "   << factionVersString(_factionAttaquante)    << std::endl
+       << "Faction attaquee = "     << factionVersString(_factionAttaquee)      << std::endl
+       << "Partie finie ? "         << partieFinie() << " (0 = Non, 1 = Oui)"   << std::endl
        << "Etat = ";
 
     switch (_etat) {
@@ -340,7 +344,7 @@ void Modele::sortieFlux(std::ostream &os) const
         os << "Aucune case cible" << std::endl;
 }
 
-std::string Modele::factionToString(Faction faction)
+std::string Modele::factionVersString(Faction faction)
 {
     switch (faction) {
     case Faction::bleue:    return "bleue";
@@ -352,10 +356,12 @@ std::string Modele::factionToString(Faction faction)
     }
 }
 
-std::vector<Case *> Modele::keysFromMap(const std::map<Case *, uint16_t> &map)
+std::vector<Case *> Modele::mapVersCles(const std::map<Case *, uint16_t> &map)
 {
-    std::vector<Case *> keys;
-    for (const auto &[key, val] : map)
-        keys.push_back(key);
-    return keys;
+    std::vector<Case *> cles;
+
+    for (const auto &[cle, val] : map)
+        cles.push_back(cle);
+
+    return cles;
 }

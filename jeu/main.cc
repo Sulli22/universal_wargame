@@ -10,6 +10,9 @@
 #include "MonOpenGLItem.h"
 #include "modelepourqml.h"
 
+#include <QMediaDevices>
+#include <QAudioDevice>
+
 int main(int argc, char *argv[])
 {
     // version openGL

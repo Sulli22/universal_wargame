@@ -23,6 +23,7 @@ public:
     Q_INVOKABLE void choixConstruction(uint16_t indConstruction);
     Q_INVOKABLE bool partieFinie() const;
     Q_INVOKABLE QString getFactionVictorieuse() const;
+    Q_INVOKABLE QString getPourcentageDefaite() const;
 
     bool positionValidePlateau(const Position &pos) const;
     std::size_t getLargeurPlateau() const;

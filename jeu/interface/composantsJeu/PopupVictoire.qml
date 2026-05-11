@@ -10,15 +10,15 @@ PopupGeneral {
         MediaPlayer {
             id: sonVictoire
             source: "qrc:/victoire"
-            audioOutput: AudioOutput {volume: racine.volumeBouton}
+            audioOutput: AudioOutput { volume: racine.volumeBouton }
         }
 
         ColumnLayout {
             id: layoutVictoire
             anchors.fill: parent
+
             Text {
                 id: texteVictoire
-
                 text: "VICTOIRE DE : "
                 font.pointSize: Math.max(25,layoutVictoire.width * 0.075)
                 font.bold: true
@@ -26,10 +26,10 @@ PopupGeneral {
             }
 
             Rectangle {
+                id: rectFaction
                 Layout.preferredWidth: layoutVictoire.width * 0.5
                 Layout.preferredHeight: layoutVictoire.height * 0.4
                 border.color: racine.couleurTexte
-                color: modeleQML.getFactionVictorieuse()
                 Layout.alignment: Qt.AlignHCenter
             }
 
@@ -38,10 +38,15 @@ PopupGeneral {
                 text: qsTr("Retour au menu principal") + langageManager.chaineVide
                 Layout.alignment: Qt.AlignHCenter
                 font.pointSize: Math.max(15, boutonRetourMenuPrincipal.Layout.preferredHeight*0.4)
+
                 onClicked: racineJeu.retourMenuPrincipal(false)
             }
 
         }
     }
-    onOpened: sonVictoire.play()
+
+    onOpened: {
+        rectFaction.color = modeleQML.getFactionVictorieuse()
+        sonVictoire.play()
+    }
 }

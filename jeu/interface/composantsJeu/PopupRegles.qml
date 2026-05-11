@@ -5,13 +5,14 @@ import QtQuick.Layouts
 PopupGeneral {
     id: racinePopupRegles
     spacing: 3
+
     contentItem: Item {
         ColumnLayout {
             id: layoutRegles
             anchors.fill: parent
+
             Text {
                 id: textRegles
-                text: qsTr("L'objectif est de réduire l'équipe adverse à moins de 5% par rapport à la taille de base") + langageManager.chaineVide
                 font.bold: true
                 Layout.preferredWidth: layoutRegles.width
                 wrapMode: Text.WordWrap
@@ -26,16 +27,24 @@ PopupGeneral {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: racinePopupRegles.width*0.2
                 font.bold: true
+
                 onClicked: {
                     close()
                     rectangleOpacite.visible = false
                 }
+
                 background: Rectangle {
                     radius: height/2
                 }
             }
-
         }
     }
 
+    Component.onCompleted: {
+        textRegles.text = qsTr("Vous allez jouer les deux factions lors de cette bataille.
+                        \nL'objectif est de réduire une équipe à moins de ")
+                        + modeleQML.getPourcentageDefaite()
+                        + qsTr("% de son effectif initial d'unités.")
+                        + langageManager.chaineVide
+    }
 }

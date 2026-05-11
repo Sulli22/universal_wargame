@@ -104,6 +104,11 @@ QString ModelePourQML::getFactionVictorieuse() const
     return (_modele->getFactionVictorieuse() == Faction::bleue) ? "blue" : "red";
 }
 
+QString ModelePourQML::getPourcentageDefaite() const
+{
+    return QString::number(Modele::getPourcentageDefaite());
+}
+
 bool ModelePourQML::positionValidePlateau(const Position &pos) const
 {
     return _modele->positionValidePlateau(pos);
