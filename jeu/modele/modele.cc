@@ -139,6 +139,11 @@ bool Modele::estConcernee(Case *c) const
     return (it != caseConcernees.end());
 }
 
+bool Modele::cheminExiste() const
+{
+    return (_etat == etat::deplacement) && (_caseSelectionnee) && (_caseCible);
+}
+
 void Modele::selectionnerCase(const Position &pos)
 {
     Case *c = _plateau.accesCase(pos);
@@ -286,7 +291,7 @@ bool Modele::actionValidable() const
 
 std::vector<Case *> Modele::getChemin() const
 {
-    if (_etat != etat::deplacement || !_caseSelectionnee || !_caseCible)
+    if (!cheminExiste())
         throw std::runtime_error("Erreur : aucun chemin ne peut etre trouve");
 
     return _plateau.getChemin(_caseSelectionnee, _caseCible, getUniteSelectionee());

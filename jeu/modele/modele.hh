@@ -38,6 +38,7 @@ public:
     bool estConcernee(Case *c) const;
 
 // chemin
+    bool cheminExiste() const;
     std::vector<Case *> getChemin() const;
 
 // selection

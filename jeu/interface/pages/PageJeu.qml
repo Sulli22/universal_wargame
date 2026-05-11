@@ -300,7 +300,6 @@ Item {
                                 }
                             }
 
-
                             BoutonAction {
                                 id: construire
                                 text: qsTr("Construire") + langageManager.chaineVide
