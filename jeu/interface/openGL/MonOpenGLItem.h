@@ -27,9 +27,9 @@ public:
 
 private:
 // valeurs redondantes fixes
-    static constexpr float  _R_HEX              = HexCondig::R_HEX;
-    static constexpr float  _LARGEUR_HEX        = HexCondig::LARGEUR_HEX;
-    static constexpr float  _HAUTEUR_HEX        = HexCondig::HAUTEUR_HEX;
+    static constexpr float  _R_HEX              = HexConfig::R_HEX;
+    static constexpr float  _LARGEUR_HEX        = HexConfig::LARGEUR_HEX;
+    static constexpr float  _HAUTEUR_HEX        = HexConfig::HAUTEUR_HEX;
 
 // atribut
     ModelePourQML *_modele;

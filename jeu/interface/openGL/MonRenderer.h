@@ -6,12 +6,6 @@
 #include <QQuickFramebufferObject>
 #include <QOpenGLFunctions>
 
-struct couleur {
-    float r;
-    float v;
-    float b;
-};
-
 class MonRenderer : public QQuickFramebufferObject::Renderer, protected QOpenGLFunctions {
 public:
     MonRenderer(ModelePourQML *modele);
@@ -20,46 +14,50 @@ public:
     QOpenGLFramebufferObject *createFramebufferObject(const QSize &size) override;
 
 private:
-    couleur getCouleur(uint16_t q, uint16_t r) const;
+    std::array<float, 3> getCouleur(uint16_t q, uint16_t r) const;
     std::pair<float, float> hexVersLogique(uint16_t q, uint16_t r) const;
 
+// methode pour surligner
     void surlignesCasesConcernees();
+    void surligneCase(Case *c);
     void surligneCaseCible();
     void surligneCaseSelectionnee();
 
-    static void pointsHex();
+// methode de dessins principales
     void dessinHex(uint16_t q, uint16_t r);
-
-    static void dessinB();
-    static void dessinF();
-
-    static void pointsCadre();
-    void dessinCadre(Faction f);
-    static void pointsArcCercleGauche();
-    static void dessinAileGauche();
-    static void dessinAiles();
-
-    static void dessinGenie();
-    static void dessinInfanterie();
-    static void dessinArtillerie();
-    static void dessinCharAssaut();
-    static void dessinFregate();
-    static void dessinSousMarin();
-    static void dessinChasseur();
-    static void dessinBombardier();
-
     void dessinUnite(uint16_t q, uint16_t r);
-
-    static void dessinDepotMunitions();
-    static void dessinDepotProvisions();
-    static void dessinInfirmerie();
-    static void dessinPont();
+    void dessinCadre(Faction f);
     void dessinConstruction(uint16_t q, uint16_t r);
 
+// methodes de dessin static
+    static void pointsHex();                //   > sommets bruts
+    static void pointsCadre();              //  /
+    static void pointsArcCercleGauche();    // /
+
+    static void dessinB();                  //     > dessins partiels
+    static void dessinF();                  //    /
+    static void dessinAileGauche();         //   /
+    static void dessinAiles();              //  /
+    static void dessinGauchePont();         // /
+
+    static void dessinGenie();              //        > dessins unites
+    static void dessinInfanterie();         //       /
+    static void dessinArtillerie();         //      /
+    static void dessinCharAssaut();         //     /
+    static void dessinFregate();            //    /
+    static void dessinSousMarin();          //   /
+    static void dessinChasseur();           //  /
+    static void dessinBombardier();         // /
+
+    static void dessinDepotMunitions();     //    > dessins constructions
+    static void dessinDepotProvisions();    //   /
+    static void dessinInfirmerie();         //  /
+    static void dessinPont();               // /
+
 // valeurs redondantes fixes
-    static constexpr float  _R_HEX              = HexCondig::R_HEX;
-    static constexpr float  _LARGEUR_HEX        = HexCondig::LARGEUR_HEX;
-    static constexpr float  _HAUTEUR_HEX        = HexCondig::HAUTEUR_HEX;
+    static constexpr float  _R_HEX              = HexConfig::R_HEX;
+    static constexpr float  _LARGEUR_HEX        = HexConfig::LARGEUR_HEX;
+    static constexpr float  _HAUTEUR_HEX        = HexConfig::HAUTEUR_HEX;
 
     static constexpr float  _R_HEX_2            = _R_HEX            / 2.f;
     static constexpr float  _R_HEX_4            = _R_HEX_2          / 4.f;
