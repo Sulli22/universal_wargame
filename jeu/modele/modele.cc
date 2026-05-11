@@ -303,6 +303,9 @@ std::set<indiceAction> Modele::getIndicesActionsPossibles() const
         {2, etat::construction}
     };
 
+    if (uniteSelectioneeAJoue())
+        return {};
+
     auto unite = getUniteSelectionee();
     if (!unite)
         return {};

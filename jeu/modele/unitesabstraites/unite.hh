@@ -14,6 +14,7 @@ public:
 
     Unite(Faction faction, stat pointsVie, stat nbMunitions,
           stat nbProvisions, Visibilite visibilite = Visibilite::totale);
+    virtual ~Unite() =default;
 
     Faction getFaction() const;
     stat getPointsVie() const;

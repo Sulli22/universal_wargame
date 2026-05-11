@@ -34,6 +34,7 @@ Item {
 
     Component {
            id: composantSonAttaque
+
            MediaPlayer {
                source: "qrc:/attaque"
                audioOutput: AudioOutput {
