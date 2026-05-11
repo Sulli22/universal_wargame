@@ -174,53 +174,56 @@ std::vector<Case *> Carte::getVoisinesConstructibles(const Case &c) const
 
 std::map<Case *, distance> Carte::getCasesAtteignables(Case *depart, Unite *uniteEnDeplacement) const
 {
-    auto zoc = getZOC(); // précalcul unique de toutes les ZOC de la carte
+    auto zoc = getZOC();
+    bool departEnZoc = caseDansZocEnnemie(depart, *uniteEnDeplacement, zoc);
+
     std::queue<Case *> file;
     std::map<Case *, distance> coutJusqua;
     file.push(depart);
     coutJusqua[depart] = 0;
 
     while (!file.empty()) {
-        Case* courante = file.front();
+        Case *courante = file.front();
         file.pop();
-        for (Case* caseVoisine : getVoisines(*courante)) {
+
+        // si depart en ZOC, on ne propage pas au dela du premier pas
+        if (departEnZoc && courante != depart)
+            continue;
+
+        for (Case *caseVoisine : getVoisines(*courante)) {
             stat coutMvt = caseVoisine->coutDeplacement(uniteEnDeplacement);
 
-            // infranchissable (terrain bloquant)
-            if (coutMvt == std::numeric_limits<stat>::max())
-                continue;
+            // infranchissable
+            if (coutMvt == std::numeric_limits<stat>::max()) continue;
 
             stat nouveauCout = coutJusqua[courante] + coutMvt;
 
             // trop loin
-            if (nouveauCout > uniteEnDeplacement->getCapaciteDeplacement())
-                continue;
+            if (nouveauCout > uniteEnDeplacement->getCapaciteDeplacement()) continue;
 
-            // zoc enemie stop le deplacement
-            if (caseDansZocEnnemie(caseVoisine, *uniteEnDeplacement, zoc)) {
-                if (!coutJusqua.count(caseVoisine) || nouveauCout < coutJusqua[caseVoisine])
-                    coutJusqua[caseVoisine] = nouveauCout;
-                continue;
-            }
+            bool voisineEnZoc = caseDansZocEnnemie(caseVoisine, *uniteEnDeplacement, zoc);
 
-            // case non visitee ou chemin moins couteux
+            // si depart en ZOC, on interdit d'aller vers une autre ZOC
+            if (departEnZoc && voisineEnZoc) continue;
+
             if (!coutJusqua.count(caseVoisine) || nouveauCout < coutJusqua[caseVoisine]) {
                 coutJusqua[caseVoisine] = nouveauCout;
-                file.push(caseVoisine);
+                if (!voisineEnZoc) // ZOC stoppe la propagation
+                    file.push(caseVoisine);
             }
         }
     }
 
-    coutJusqua.erase(depart);   // on retire la case de depart
+    coutJusqua.erase(depart);
     return coutJusqua;
 }
 
 std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaquante) const
 {
-    std::vector<Case*> casesAttaquables;
+    std::vector<Case *> casesAttaquables;
     stat portee = uniteAttaquante->getDistanceAttaque();
     std::queue<std::pair<Case*, stat>> file;
-    std::set<Case*> visitees;
+    std::set<Case *> visitees;
 
     file.push({depart, 0});
     visitees.insert(depart);
@@ -250,30 +253,42 @@ std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaqua
     return casesAttaquables;
 }
 
-// algo type A*
 std::vector<Case *> Carte::getChemin(Case *depart, Case *arrivee, Unite *uniteEnDeplacement) const
 {
+    auto zoc = getZOC(); // precalcul zoc
+
     using PQElement = std::pair<stat, Case *>;
     std::priority_queue<PQElement, std::vector<PQElement>, std::greater<>> aExplorer;
     aExplorer.push({0, depart});
-
     std::map<Case *, Case *> vientDe;
     std::map<Case *, stat> coutJusqua;
     vientDe[depart] = depart;
     coutJusqua[depart] = 0;
 
     while (!aExplorer.empty()) {
-        Case * courante = aExplorer.top().second;
+        Case *courante = aExplorer.top().second;
         aExplorer.pop();
 
         if (courante == arrivee) break;
 
         for (Case *suiv : getVoisines(*courante)) {
             stat coutMvt = suiv->coutDeplacement(uniteEnDeplacement);
+
+            // infranchissable
             if (coutMvt == std::numeric_limits<stat>::max())
                 continue;
 
-            auto nvCout = coutJusqua[courante] + coutMvt;
+            stat nvCout = coutJusqua[courante] + coutMvt;
+
+            // trop loin
+            if (nvCout > uniteEnDeplacement->getCapaciteDeplacement())
+                continue;
+
+            // ZOC ennemie : on peut s'y arreter mais pas traverser
+            bool dansZoc = caseDansZocEnnemie(suiv, *uniteEnDeplacement, zoc);
+            if (dansZoc && suiv != arrivee)
+                continue; // bloque la traversee (sauf si c'est la destination)
+
             if (!coutJusqua.count(suiv) || nvCout < coutJusqua[suiv]) {
                 coutJusqua[suiv] = nvCout;
                 stat priorite = nvCout + calculDistance(*suiv, *arrivee);
@@ -283,9 +298,8 @@ std::vector<Case *> Carte::getChemin(Case *depart, Case *arrivee, Unite *uniteEn
         }
     }
 
-    if (!vientDe.count(arrivee)) return {}; // pas de chemin
-
-    return reconstruitChemin(vientDe, depart, arrivee); // reconstruction du chemin
+    if (!vientDe.count(arrivee)) return {};
+    return reconstruitChemin(vientDe, depart, arrivee);
 }
 
 bool Carte::caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement,
@@ -457,7 +471,7 @@ std::vector<Case *> Carte::reconstruitChemin(const std::map<Case *, Case *> &vie
     std::vector<Case *> chemin;
     Case *courant = arrivee;
 
-    // Remonte de l'arrivee vers le depart
+    // remonte de l'arrivee vers le depart
     while (!(courant == depart)) {
         chemin.push_back(courant);
 
