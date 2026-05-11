@@ -4,7 +4,7 @@
 
 class UniteTerrestre : virtual public Unite {
 public:
-    UniteTerrestre(Faction faction, uint16_t pointsVie, uint16_t nbMunitions,
-                   uint16_t nbProvisions,
+    UniteTerrestre(Faction faction, stat pointsVie, stat nbMunitions,
+                   stat nbProvisions,
                    Visibilite visibilite = Visibilite::totale);
 };

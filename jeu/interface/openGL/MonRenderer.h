@@ -14,8 +14,8 @@ public:
     QOpenGLFramebufferObject *createFramebufferObject(const QSize &size) override;
 
 private:
-    std::array<float, 3> getCouleur(uint16_t q, uint16_t r) const;
-    std::pair<float, float> hexVersLogique(uint16_t q, uint16_t r) const;
+    std::array<float, 3> getCouleur(stat q, stat r) const;
+    std::pair<float, float> hexVersLogique(stat q, stat r) const;
 
 // methode pour surligner
     void surlignesCasesConcernees();
@@ -25,10 +25,10 @@ private:
     void surligneChemin();
 
 // methode de dessins principales
-    void dessinHex(uint16_t q, uint16_t r);
-    void dessinUnite(uint16_t q, uint16_t r);
+    void dessinHex(stat q, stat r);
+    void dessinUnite(stat q, stat r);
     void dessinCadre(Faction f);
-    void dessinConstruction(uint16_t q, uint16_t r);
+    void dessinConstruction(stat q, stat r);
 
 // methodes de dessin static
     static void pointsHex();                //   > sommets bruts

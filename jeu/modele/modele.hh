@@ -35,6 +35,7 @@ public:
     void changerJoueur();
 
 // cases concernees
+    std::vector<Case *> getCasesConcernees(etat etat) const;
     std::vector<Case *> getCasesConcernees() const;
     bool estConcernee(Case *c) const;
 
@@ -48,12 +49,14 @@ public:
     Unite *getUniteSelectionee() const;
 
 // constructions
-    uint16_t getNbConstructionsPossibles() const;
-    void choixConstruction(uint16_t indConstruction);
+    std::set<indiceConstruction> getIndicesConstructionsPossibles() const;
+    bool indiceConstructionValide(indiceConstruction indConstruction) const;
+    void choixConstruction(indiceConstruction indConstruction);
 
 // actions
-    uint16_t getNbActionsPossibles() const;
-    void choixAction(uint16_t indAction);
+    std::set<indiceAction> getIndicesActionsPossibles() const;
+    bool indiceActionValide(indiceAction indAction) const;
+    void choixAction(indiceAction indAction);
     bool actionValidable() const;
     void effectuerAction();
 
@@ -66,7 +69,7 @@ private:
     bool uniteSelectioneeAJoue() const;
 
     static std::string factionVersString(Faction faction);
-    static std::vector<Case *> mapVersCles(const std::map<Case *, uint16_t> &map);
+    static std::vector<Case *> mapVersCles(const std::map<Case *, distance> &map);
     static constexpr float _MULT_DEFAITE = 0.90f;
     static constexpr float _PRCT_DEFAITE = _MULT_DEFAITE * 100.f;
 
@@ -79,11 +82,11 @@ private:
     Faction _factionAttaquante;
     Faction _factionAttaquee;
 
-    const uint16_t _seuilDefaiteFaction1;
-    const uint16_t _seuilDefaiteFaction2;
+    const std::size_t _seuilDefaiteFaction1;
+    const std::size_t _seuilDefaiteFaction2;
 
     Case *_caseSelectionnee;
-    uint16_t _indUniteSelectionnee;
+    std::size_t _indUniteSelectionnee;
     Case *_caseCible;
     std::unique_ptr<Construction> _aConstruire;
     std::set<Unite *> _unitesAyantJoue;

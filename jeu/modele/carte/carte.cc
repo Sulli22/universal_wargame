@@ -172,11 +172,11 @@ std::vector<Case *> Carte::getVoisinesConstructibles(const Case &c) const
     return res;
 }
 
-std::map<Case *, uint16_t> Carte::getCasesAtteignables(Case *depart, Unite *uniteEnDeplacement) const
+std::map<Case *, distance> Carte::getCasesAtteignables(Case *depart, Unite *uniteEnDeplacement) const
 {
     auto zoc = getZOC(); // précalcul unique de toutes les ZOC de la carte
     std::queue<Case *> file;
-    std::map<Case *, uint16_t> coutJusqua;
+    std::map<Case *, distance> coutJusqua;
     file.push(depart);
     coutJusqua[depart] = 0;
 
@@ -184,13 +184,13 @@ std::map<Case *, uint16_t> Carte::getCasesAtteignables(Case *depart, Unite *unit
         Case* courante = file.front();
         file.pop();
         for (Case* caseVoisine : getVoisines(*courante)) {
-            uint16_t coutMvt = caseVoisine->coutDeplacement(uniteEnDeplacement);
+            stat coutMvt = caseVoisine->coutDeplacement(uniteEnDeplacement);
 
             // infranchissable (terrain bloquant)
-            if (coutMvt == std::numeric_limits<uint16_t>::max())
+            if (coutMvt == std::numeric_limits<stat>::max())
                 continue;
 
-            uint16_t nouveauCout = coutJusqua[courante] + coutMvt;
+            stat nouveauCout = coutJusqua[courante] + coutMvt;
 
             // trop loin
             if (nouveauCout > uniteEnDeplacement->getCapaciteDeplacement())
@@ -218,8 +218,8 @@ std::map<Case *, uint16_t> Carte::getCasesAtteignables(Case *depart, Unite *unit
 std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaquante) const
 {
     std::vector<Case*> casesAttaquables;
-    uint16_t portee = uniteAttaquante->getDistanceAttaque();
-    std::queue<std::pair<Case*, uint16_t>> file;
+    stat portee = uniteAttaquante->getDistanceAttaque();
+    std::queue<std::pair<Case*, stat>> file;
     std::set<Case*> visitees;
 
     file.push({depart, 0});
@@ -253,12 +253,12 @@ std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaqua
 // algo type A*
 std::vector<Case *> Carte::getChemin(Case *depart, Case *arrivee, Unite *uniteEnDeplacement) const
 {
-    using PQElement = std::pair<uint16_t, Case *>;
+    using PQElement = std::pair<stat, Case *>;
     std::priority_queue<PQElement, std::vector<PQElement>, std::greater<>> aExplorer;
     aExplorer.push({0, depart});
 
     std::map<Case *, Case *> vientDe;
-    std::map<Case *, uint16_t> coutJusqua;
+    std::map<Case *, stat> coutJusqua;
     vientDe[depart] = depart;
     coutJusqua[depart] = 0;
 
@@ -269,14 +269,14 @@ std::vector<Case *> Carte::getChemin(Case *depart, Case *arrivee, Unite *uniteEn
         if (courante == arrivee) break;
 
         for (Case *suiv : getVoisines(*courante)) {
-            uint16_t coutMvt = suiv->coutDeplacement(uniteEnDeplacement);
-            if (coutMvt == std::numeric_limits<uint16_t>::max())
+            stat coutMvt = suiv->coutDeplacement(uniteEnDeplacement);
+            if (coutMvt == std::numeric_limits<stat>::max())
                 continue;
 
-            int nvCout = coutJusqua[courante] + coutMvt;
+            auto nvCout = coutJusqua[courante] + coutMvt;
             if (!coutJusqua.count(suiv) || nvCout < coutJusqua[suiv]) {
                 coutJusqua[suiv] = nvCout;
-                uint16_t priorite = nvCout + distance(*suiv, *arrivee);
+                stat priorite = nvCout + calculDistance(*suiv, *arrivee);
                 aExplorer.push({priorite, suiv});
                 vientDe[suiv] = courante;
             }
@@ -309,7 +309,7 @@ std::map<Case *, std::set<Faction>> Carte::getZOC() const
 
     for (std::size_t r = 0; r < _hauteur; ++r) {
         for (std::size_t q = 0; q < _largeur; ++q) {
-            Case *c = accesCase({(int)q, (int)r});
+            Case *c = accesCase({static_cast<int>(q), static_cast<int>(r)});
 
             // la case elle-même + ses voisines sont sous ZOC de cette faction
             Faction f = c->getFaction();
@@ -326,7 +326,7 @@ void Carte::effectuerActionsCases() const
 {
     for (std::size_t r = 0; r < _hauteur; ++r) {
         for (std::size_t q = 0; q < _largeur; ++q) {
-            Case *c = accesCase({(int)q, (int)r});
+            Case *c = accesCase({static_cast<int>(q), static_cast<int>(r)});
 
             // seules les cases terrestres ont des actions
             auto caseTerrestre = dynamic_cast<CaseTerrestre *>(c);
@@ -336,13 +336,13 @@ void Carte::effectuerActionsCases() const
     }
 }
 
-uint16_t Carte::nbUnites(Faction faction) const
+std::size_t Carte::nbUnites(Faction faction) const
 {
-    uint16_t sum = 0;
+    std::size_t sum = 0;
 
     for (std::size_t r = 0; r < _hauteur; ++r) {
         for (std::size_t q = 0; q < _largeur; ++q) {
-            Case *c = accesCase({(int)q, (int)r});
+            Case *c = accesCase({static_cast<int>(q), static_cast<int>(r)});
 
             if (c->getFaction() == faction)
                 sum += c->nbUnites();
@@ -369,7 +369,7 @@ std::vector<Case *> Carte::getCasesFactionAvecUnites(Faction faction) const
 
     for (std::size_t r = 0; r < _hauteur; ++r) {
         for (std::size_t q = 0; q < _largeur; ++q) {
-            Case *c = accesCase({(int)q, (int)r});
+            Case *c = accesCase({static_cast<int>(q), static_cast<int>(r)});
             if (c->nbUnites() > 0 && c->getFaction() == faction)
                 res.push_back(c);
         }
@@ -403,7 +403,7 @@ void Carte::afficherDetails(std::ostream &os) const
 {
     for (std::size_t r = 0; r < _hauteur; ++r) {
         for (std::size_t q = 0; q < _largeur; ++q) {
-            auto c = accesCase({(int)q, (int)r});
+            auto c = accesCase({static_cast<int>(q), static_cast<int>(r)});
 
             c->afficherDetails(os);
 
@@ -435,15 +435,15 @@ void Carte::afficherDetails(std::ostream &os) const
     }
 }
 
-uint16_t Carte::distance(const Case &a, const Case &b)
+distance Carte::calculDistance(const Case &a, const Case &b)
 {
-    // conversion offset vers axial (colonnes paires non décalées)
-    auto toAxial = [](int q, int r) -> std::pair<int, int> {
+    // conversion offset vers axial (colonnes paires non decalees)
+    auto versAxial = [](int q, int r) -> std::pair<int, int> {
         return { q, r - (q - (q & 1)) / 2 };
     };
 
-    auto [aq, ar] = toAxial(a.getPos().getQ(), a.getPos().getR());
-    auto [bq, br] = toAxial(b.getPos().getQ(), b.getPos().getR());
+    auto [aq, ar] = versAxial(a.getPos().getQ(), a.getPos().getR());
+    auto [bq, br] = versAxial(b.getPos().getQ(), b.getPos().getR());
 
     int dq = aq - bq;
     int dr = ar - br;
@@ -455,7 +455,6 @@ std::vector<Case *> Carte::reconstruitChemin(const std::map<Case *, Case *> &vie
                                              Case *depart, Case *arrivee)
 {
     std::vector<Case *> chemin;
-
     Case *courant = arrivee;
 
     // Remonte de l'arrivee vers le depart
@@ -463,12 +462,12 @@ std::vector<Case *> Carte::reconstruitChemin(const std::map<Case *, Case *> &vie
         chemin.push_back(courant);
 
         auto it = vientDe.find(courant);
-        if (it == vientDe.end()) // sécurité : chemin cassé
+        if (it == vientDe.end()) // securite (chemin casse)
             return {};
         courant = it->second;
     }
 
-    chemin.push_back(depart); // ajouter le départ
+    chemin.push_back(depart); // ajouter le depart
 
     // inverser pour avoir depart vers arrivee
     std::reverse(chemin.begin(), chemin.end());

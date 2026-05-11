@@ -8,7 +8,7 @@
 #include <limits>
 
 CaseTerrestre::CaseTerrestre(const Position &pos, typeTerrain terrain,
-                             uint16_t espaceDisponible):
+                             stat espaceDisponible):
     Case(pos), _espaceDisponible(espaceDisponible), _terrain(terrain)
 {}
 
@@ -18,7 +18,7 @@ const std::vector<std::unique_ptr<UniteTerrestre>>
     return _unitesTerrestres;
 }
 
-uint16_t CaseTerrestre::getEspaceDisponible() const
+stat CaseTerrestre::getEspaceDisponible() const
 {
     return _espaceDisponible;
 }
@@ -66,7 +66,7 @@ bool CaseTerrestre::peutAccueillir(Unite *unite) const
         return true;
 
     auto utLourde = dynamic_cast<UniteTerrestreLourde *>(unite);
-    if (utLourde && (_espaceDisponible == _MAX_TAILLE))
+    if (utLourde && (_espaceDisponible == _MAX_ESPACE))
         return true;
 
     return false;
@@ -98,7 +98,7 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
             throw std::runtime_error("Erreur : Ajout impossible, place est insufisante");
     }
 
-    else if (_espaceDisponible == _MAX_TAILLE) {
+    else if (_espaceDisponible == _MAX_ESPACE) {
         _unitesTerrestres.push_back(std::move(nvUniteTerrestre));
         _espaceDisponible = 0;
     }
@@ -107,7 +107,7 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
         throw std::runtime_error("Erreur : Ajout impossible, place est insufisante (toute la place est necessaire pour une unite lourde)");
 }
 
-void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, uint16_t cout)
+void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, stat cout)
 {
     if (_unitesTerrestres.at(indUnite)->estLegere()) {
         auto uniteTerrestreLeg = dynamic_cast<UniteTerrestreLegere *>
@@ -116,7 +116,7 @@ void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *
     }
 
     else
-        _espaceDisponible = _MAX_TAILLE;
+        _espaceDisponible = _MAX_ESPACE;
 
     _unitesTerrestres.at(indUnite)->utiliserProvisions(cout);
     arrivee->ajouterUniteTerrestre(std::move(_unitesTerrestres.at(indUnite)));
@@ -131,7 +131,7 @@ std::vector<Unite *> CaseTerrestre::getUnites() const
     return unites;
 }
 
-void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, uint16_t cout)
+void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, stat cout)
 {
     bool indUniteZero = (indUnite == 0);
 
@@ -145,9 +145,9 @@ void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, uint16_t 
     }
 }
 
-uint16_t CaseTerrestre::coutDeplacement(Unite *unite) const
+stat CaseTerrestre::coutDeplacement(Unite *unite) const
 {
-    auto max = std::numeric_limits<uint16_t>::max();
+    auto max = std::numeric_limits<stat>::max();
     if (!peutAccueillir(unite))
         return max;
 
@@ -178,7 +178,7 @@ Faction CaseTerrestre::getFaction() const
     return Faction::neutre;
 }
 
-uint16_t CaseTerrestre::nbUnites() const
+std::size_t CaseTerrestre::nbUnites() const
 {
     return Case::nbUnites() + _unitesTerrestres.size();
 }
@@ -189,17 +189,17 @@ void CaseTerrestre::effectuerActionConstruction()
         _construction->effectuerAction(getUnites());
 }
 
-uint16_t CaseTerrestre::nbConstructionsPossibles() const
+std::set<indiceConstruction> CaseTerrestre::getIndicesConstructionsPossibles() const
 {
     if (_construction
         || _terrain == typeTerrain::foret
         || _terrain == typeTerrain::montagne)
-        return 0;   // rien ne peut etre construit
+        return {};   // rien ne peut etre construit
 
     if (_terrain == typeTerrain::riviere)
-        return 1;   // pont uniquement
+        return {3};   // pont uniquement
 
-    return 3; // depots et infirmerie
+    return {0, 1, 2}; // depots et infirmerie
 }
 
 void CaseTerrestre::supprimeNonUnitesOperationnelles()

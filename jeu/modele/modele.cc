@@ -90,11 +90,11 @@ void Modele::changerJoueur()
     _factionAttaquee = factionTmp;
 }
 
-std::vector<Case *> Modele::getCasesConcernees() const
+std::vector<Case *> Modele::getCasesConcernees(etat etat) const
 {
     std::vector<Case *> res;
 
-    switch (_etat) {
+    switch (etat) {
     case etat::selection:
         res = _plateau.getCasesFactionAvecUnites(_factionAttaquante);
         break;
@@ -110,9 +110,17 @@ std::vector<Case *> Modele::getCasesConcernees() const
     case etat::construction:
         res = _plateau.getVoisinesConstructibles(*_caseSelectionnee);
         break;
+
+    default:
+        throw std::runtime_error("Erreur : etat invalide");
     }
 
     return res;
+}
+
+std::vector<Case *> Modele::getCasesConcernees() const
+{
+    return getCasesConcernees(_etat);
 }
 
 bool Modele::positionValidePlateau(const Position &pos) const
@@ -195,18 +203,6 @@ Unite *Modele::getUniteSelectionee() const
     return _caseSelectionnee->getUnite(_indUniteSelectionnee);
 }
 
-uint16_t Modele::getNbActionsPossibles() const
-{
-    if (uniteSelectioneeAJoue())
-        return 0;
-
-    auto u = getUniteSelectionee();
-    if (!u)
-        return 0;
-
-    return getUniteSelectionee()->getNbActionsPossibles();
-}
-
 bool Modele::uniteSelectioneeAJoue() const
 {
     if (_unitesAyantJoue.empty())
@@ -215,10 +211,11 @@ bool Modele::uniteSelectioneeAJoue() const
     return _unitesAyantJoue.find(getUniteSelectionee()) != _unitesAyantJoue.end();
 }
 
-void Modele::choixAction(uint16_t indAction)
+void Modele::choixAction(indiceAction indAction)
 {
-    if (indAction >= getNbActionsPossibles())
-        throw std::invalid_argument("Erreur : l'indice est incorrecte");
+    if (!indiceActionValide(indAction))
+        throw std::invalid_argument("Erreur : " + std::to_string(indAction)
+                                                + " n'est pas un indice d'action valide");
 
     switch (indAction) {
     case 0:     setEtat(etat::deplacement);     break;
@@ -234,8 +231,7 @@ void Modele::effectuerAction()
 
         if (_etat == etat::deplacement) {
             auto path = getChemin();
-            std::cout << path.size() << std::endl;
-            uint16_t distance = path.size()-1;
+            auto distance = path.size()-1;
             _caseSelectionnee->deplacerUnite(_indUniteSelectionnee, _caseCible, distance);
         }
 
@@ -260,15 +256,23 @@ void Modele::effectuerAction()
     // sinon on fait rien
 }
 
-uint16_t Modele::getNbConstructionsPossibles() const
+std::set<indiceConstruction> Modele::getIndicesConstructionsPossibles() const
 {
     if (_etat != etat::construction || !_caseCible)
-        return 0;
+        return {};
 
-    return _caseCible->nbConstructionsPossibles();
+    return _caseCible->getIndicesConstructionsPossibles();
 }
 
-void Modele::choixConstruction(uint16_t indConstruction)
+bool Modele::indiceConstructionValide(indiceConstruction indConstruction) const
+{
+    auto inds = getIndicesConstructionsPossibles();
+    auto it = inds.find(indConstruction);
+
+    return (it != inds.end());
+}
+
+void Modele::choixConstruction(indiceConstruction indConstruction)
 {
     if (_etat != etat::construction)
         throw std::runtime_error("Erreur : impossible de choisir une construction");
@@ -284,6 +288,45 @@ void Modele::choixConstruction(uint16_t indConstruction)
             throw std::invalid_argument("Erreur: indice de construction incorrecte");
         }
     }
+}
+
+std::set<indiceAction> Modele::getIndicesActionsPossibles() const
+{
+    static const std::map<indiceAction, etat> INDICE_VERS_ETAT = {
+        {0, etat::deplacement},
+        {1, etat::attaque},
+        {2, etat::construction}
+    };
+
+    auto unite = getUniteSelectionee();
+    if (!unite)
+        return {};
+
+    auto res = unite->getIndicesActionsPossibles();
+
+    std::vector<indiceAction> aSupprimer;
+    for (auto i : res) {
+        auto it = INDICE_VERS_ETAT.find(i);
+
+        if (it == INDICE_VERS_ETAT.end())
+            throw std::runtime_error("Erreur : " + std::to_string(i) + " n'est pas un indice d'action valide");
+
+        if (getCasesConcernees(it->second).empty())
+            aSupprimer.push_back(i);
+    }
+
+    for (auto i : aSupprimer)
+        res.erase(i);
+
+    return res;
+}
+
+bool Modele::indiceActionValide(indiceAction indAction) const
+{
+    auto inds = getIndicesActionsPossibles();
+    auto it = inds.find(indAction);
+
+    return (it != inds.end());
 }
 
 bool Modele::actionValidable() const
@@ -329,7 +372,10 @@ void Modele::sortieFlux(std::ostream &os) const
         os << "Case selectionnee : ";
         _caseSelectionnee->sortieFlux(os); os << std::endl;
         os << "Indice unite : " << _indUniteSelectionnee << std::endl;
-        os << "Nombre actions possibles = " << getNbActionsPossibles() << std::endl;
+        os << "Indices actions possibles = ";
+        for (auto i : getIndicesActionsPossibles())
+            os << i << " ";
+        os << std::endl;
     }
 
     else
@@ -356,7 +402,7 @@ std::string Modele::factionVersString(Faction faction)
     }
 }
 
-std::vector<Case *> Modele::mapVersCles(const std::map<Case *, uint16_t> &map)
+std::vector<Case *> Modele::mapVersCles(const std::map<Case *, distance> &map)
 {
     std::vector<Case *> cles;
 

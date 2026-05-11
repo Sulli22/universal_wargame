@@ -11,10 +11,10 @@ class CaseTerrestre : public Case {
 public:
     CaseTerrestre(const Position &pos,
                   typeTerrain terrain = typeTerrain::plaine,
-                  uint16_t espaceDisponible = _MAX_TAILLE);
+                  stat espaceDisponible = _MAX_ESPACE);
 
     const std::vector<std::unique_ptr<UniteTerrestre>> &getUnitesTerrestres() const;
-    uint16_t getEspaceDisponible() const;
+    stat getEspaceDisponible() const;
     typeTerrain getTerrain() const;
     Construction *getConstruction() const;
 
@@ -23,26 +23,26 @@ public:
     bool peutAccueillir(Unite *unite) const override;
     void ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre> nvUniteTerrestre);
     std::vector<Unite *> getUnites() const override;
-    void deplacerUnite(std::size_t indUnite, Case *arrivee, uint16_t cout) override;
-    uint16_t coutDeplacement(Unite *unite) const override;
+    void deplacerUnite(std::size_t indUnite, Case *arrivee, stat cout) override;
+    stat coutDeplacement(Unite *unite) const override;
     Faction getFaction() const override;
-    uint16_t nbUnites() const override;
+    std::size_t nbUnites() const override;
     void effectuerActionConstruction();
-    uint16_t nbConstructionsPossibles() const override;
+    std::set<indiceConstruction> getIndicesConstructionsPossibles() const override;
     void supprimeNonUnitesOperationnelles() override;
 
 // sortie flux
     void afficherDetails(std::ostream &os) const override;
 
 private:
-    void deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, uint16_t cout);
+    void deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, stat cout);
 
 // attributs
     std::vector<std::unique_ptr<UniteTerrestre>> _unitesTerrestres;
-    uint16_t _espaceDisponible;
+    stat _espaceDisponible;
     typeTerrain _terrain;
     std::unique_ptr<Construction> _construction;
 
-    static const uint16_t _MAX_TAILLE = 5;
+    static const stat _MAX_ESPACE = 5;
 };
 

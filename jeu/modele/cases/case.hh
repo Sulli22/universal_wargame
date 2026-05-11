@@ -5,6 +5,8 @@
 #include <memory>
 #include <vector>
 
+using indiceConstruction = unsigned int;
+
 class Case {
 public:
     Case(const Position &pos);
@@ -15,13 +17,13 @@ public:
     void setUniteAerienne(std::unique_ptr<UniteAerienne> nvUniteAerienne);
 
     virtual Unite *getUnite(std::size_t indUnite);
-    virtual void deplacerUnite(std::size_t indUnite, Case *arrivee, uint16_t cout) =0;
+    virtual void deplacerUnite(std::size_t indUnite, Case *arrivee, stat cout) =0;
     virtual std::vector<Unite *> getUnites() const;
-    virtual uint16_t coutDeplacement(Unite *unite) const =0;
+    virtual stat coutDeplacement(Unite *unite) const =0;
     virtual Faction getFaction() const;
-    virtual uint16_t nbUnites() const;
+    virtual std::size_t nbUnites() const;
     bool estConstructible() const;
-    virtual uint16_t nbConstructionsPossibles() const =0;
+    virtual std::set<indiceConstruction> getIndicesConstructionsPossibles() const =0;
     virtual void supprimeNonUnitesOperationnelles();
 
 // sortie flux
@@ -29,7 +31,7 @@ public:
     virtual void afficherDetails(std::ostream &os) const;
 
 protected:
-    void deplacerUniteAerienne(Case *arrive, uint16_t cout);
+    void deplacerUniteAerienne(Case *arrive, stat cout);
     virtual bool peutAccueillir(Unite *unite) const =0;
 
 private:

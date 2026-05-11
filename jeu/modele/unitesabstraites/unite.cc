@@ -1,7 +1,7 @@
 #include "unite.hh"
 
-Unite::Unite(Faction faction, uint16_t pointsVie, uint16_t nbMunitions,
-             uint16_t nbProvisions, Visibilite visibilite):
+Unite::Unite(Faction faction, stat pointsVie, stat nbMunitions,
+             stat nbProvisions, Visibilite visibilite):
     _faction(faction),
     _pointsVie(pointsVie), _nbMunitions(nbMunitions),
     _nbProvisions(nbProvisions), _visibilite(visibilite),
@@ -14,17 +14,17 @@ Faction Unite::getFaction() const
     return _faction;
 }
 
-uint16_t Unite::getPointsVie() const
+stat Unite::getPointsVie() const
 {
     return _pointsVie;
 }
 
-uint16_t Unite::getNbMunitions() const
+stat Unite::getNbMunitions() const
 {
     return _nbMunitions;
 }
 
-uint16_t Unite::getNbProvisions() const
+stat Unite::getNbProvisions() const
 {
     return _nbProvisions;
 }
@@ -34,24 +34,24 @@ Unite::Visibilite Unite::getVisibilite() const
     return _visibilite;
 }
 
-uint16_t Unite::getMaxPointsVie() const
+stat Unite::getMaxPointsVie() const
 {
     return _MAX_POINTS_VIE;
 }
 
-uint16_t Unite::getMaxNbMunitions() const
+stat Unite::getMaxNbMunitions() const
 {
     return _MAX_NB_MUNITIONS;
 }
 
-uint16_t Unite::getMaxNbProvisions() const
+stat Unite::getMaxNbProvisions() const
 {
     return _MAX_NB_PROVISIONS;
 }
 
 void Unite::regagnerViePartielle()
 {
-    uint16_t nvPointsVie = _pointsVie + (_MAX_POINTS_VIE / 5); // plus un cinquieme
+    stat nvPointsVie = _pointsVie + (_MAX_POINTS_VIE / 5); // plus un cinquieme
     _pointsVie = std::min(nvPointsVie, _MAX_POINTS_VIE);
 }
 
@@ -65,9 +65,17 @@ void Unite::rechargerProvisions()
     _nbProvisions = _MAX_NB_PROVISIONS;
 }
 
-uint16_t Unite::getNbActionsPossibles() const
+std::set<indiceAction> Unite::getIndicesActionsPossibles() const
 {
-    return 2;   // deplacement et attaque
+    std::set<indiceAction> indices;
+
+    if (_nbProvisions > 0)
+        indices.insert(0);  // deplacement
+
+    if (_nbMunitions > 0)
+        indices.insert(1);  // attaque
+
+    return indices;
 }
 
 bool Unite::estOperationnelle() const
@@ -103,7 +111,7 @@ void Unite::sortieFlux(std::ostream &os) const
     << " visibilite=" << getChaineVisibilite();
 }
 
-void Unite::prendreDegats(uint16_t degats)
+void Unite::prendreDegats(stat degats)
 {
     int nvPointsVie = _pointsVie - degats;
     _pointsVie = std::max(0, nvPointsVie);
@@ -112,7 +120,7 @@ void Unite::prendreDegats(uint16_t degats)
 void Unite::attaquerUnite(Unite *unite)
 {
     if (_nbMunitions > 0 && unite) {
-        uint16_t pointsAttaque;
+        stat pointsAttaque;
         if (unite->estLegere())
             pointsAttaque = getPointsAttaqueLegere();
         else
@@ -123,7 +131,7 @@ void Unite::attaquerUnite(Unite *unite)
     }
 }
 
-void Unite::utiliserProvisions(uint16_t nbProvisions)
+void Unite::utiliserProvisions(stat nbProvisions)
 {
     int nvNbProvisions = _nbProvisions - nbProvisions;
     _nbProvisions = std::max(0, nvNbProvisions);

@@ -4,7 +4,7 @@ ModelePourQML::ModelePourQML(QObject *parent):
     QObject(parent)
 {}
 
-void ModelePourQML::setModele(uint16_t idGuerre)
+void ModelePourQML::setModele(stat idGuerre)
 {
     _modele = std::make_unique<Modele>(idGuerre);
 }
@@ -49,15 +49,14 @@ void ModelePourQML::annulerSelections()
     _modele->annulerSelections();
 }
 
-uint16_t ModelePourQML::getNbActionsPossibles() const
+bool ModelePourQML::indiceActionValide(indiceAction indAction) const
 {
-    return _modele->getNbActionsPossibles();
+    return _modele->indiceActionValide(indAction);
 }
 
-void ModelePourQML::choixAction(uint16_t indAction)
+void ModelePourQML::choixAction(indiceAction indAction)
 {
-    if (getUniteSelectionee())
-        _modele->choixAction(indAction);
+    _modele->choixAction(indAction);
 }
 
 void ModelePourQML::effectuerAction()
@@ -80,15 +79,12 @@ bool ModelePourQML::actionAnnulable() const
     return getCaseSelectionnee();
 }
 
-uint16_t ModelePourQML::getNbConstructionsPossibles() const
+bool ModelePourQML::indiceConstructionValide(indiceConstruction indConstruction) const
 {
-    // 0 si aucunes
-    // 1 si juste pont
-    // 3 si infirmerie + depots
-    return _modele->getNbConstructionsPossibles();
+    return _modele->indiceConstructionValide(indConstruction);
 }
 
-void ModelePourQML::choixConstruction(uint16_t indConstruction)
+void ModelePourQML::choixConstruction(indiceConstruction indConstruction)
 {
     _modele->choixConstruction(indConstruction);
 }

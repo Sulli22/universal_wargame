@@ -63,7 +63,6 @@ Position MonOpenGLItem::logiqueVersHex(float lx, float ly) const
 
     // chaque colonne est espacee de LARGEUR_HEX * 0.75
     int q = static_cast<int>(std::round(lx / (_LARGEUR_HEX * 0.75f)));
-    q = std::max(0, q);
 
     // depend du decalage de colonne
     float yDec = (q % 2) * _HAUTEUR_HEX / 2.f;

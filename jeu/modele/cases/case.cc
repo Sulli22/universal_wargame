@@ -26,7 +26,7 @@ void Case::setUniteAerienne(std::unique_ptr<UniteAerienne> nvUniteAerienne)
     _uniteAerienne = std::move(nvUniteAerienne);
 }
 
-void Case::deplacerUniteAerienne(Case *arrive, uint16_t cout)
+void Case::deplacerUniteAerienne(Case *arrive, stat cout)
 {
     _uniteAerienne->utiliserProvisions(cout);
     arrive->setUniteAerienne(std::move(_uniteAerienne));
@@ -50,14 +50,14 @@ Faction Case::getFaction() const
     return _uniteAerienne ? _uniteAerienne->getFaction() : Faction::neutre;
 }
 
-uint16_t Case::nbUnites() const
+std::size_t Case::nbUnites() const
 {
     return _uniteAerienne ? 1 : 0;
 }
 
 bool Case::estConstructible() const
 {
-    return nbConstructionsPossibles() > 0;
+    return !getIndicesConstructionsPossibles().empty();
 }
 
 void Case::supprimeNonUnitesOperationnelles()

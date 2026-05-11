@@ -11,17 +11,26 @@ Item {
     readonly property string couleur: "#2f3640"
     readonly property real largeurRectangle: Math.max(10, racine.width*0.025)
     property string equipeAttaquante: ""
-    property int nbConstructionsPossibles: 0
-    property int nbActionsPossibles: 0
 
     Component.onCompleted: {
-        if (modeleQML) {
+        if (modeleQML)
             equipeAttaquante = modeleQML.getFactionAttaquante()
-            nbActionsPossibles = modeleQML.getNbActionsPossibles()
-        }
     }
 
     signal retourMenuPrincipal(bool fenetre)
+
+    function rafraichirBoutonsActions() {
+        deplacer.enabled = modeleQML.indiceActionValide(0);
+        attaquer.enabled = modeleQML.indiceActionValide(1);
+        construire.enabled = modeleQML.indiceActionValide(2);
+    }
+
+    function rafraichirBoutonsConstruction() {
+        depotMunitions.enabled = modeleQML.indiceConstructionValide(0);
+        depotProvisions.enabled = modeleQML.indiceConstructionValide(1);
+        infirmerie.enabled = modeleQML.indiceConstructionValide(2);
+        pont.enabled = modeleQML.indiceConstructionValide(3);
+    }
 
     ColumnLayout {
         id: layoutGeneral
@@ -136,8 +145,8 @@ Item {
                         onClicked: (mouse) => {
                             plateau.gererClic(mouse.x, mouse.y)
                             stats.text = modeleQML.getStatsUniteSelectionee()
-                            nbActionsPossibles = modeleQML.getNbActionsPossibles()
-                            nbConstructionsPossibles = modeleQML.getNbConstructionsPossibles()
+                            racineJeu.rafraichirBoutonsActions()
+                            racineJeu.rafraichirBoutonsConstruction()
                             boutonValider.enabled = modeleQML.actionValidable()
                             boutonAnnuler.enabled = modeleQML.actionAnnulable()
                         }
@@ -241,7 +250,7 @@ Item {
                                 id: depotMunitions
                                 text: qsTr("Munitions") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
-                                enabled: nbConstructionsPossibles === 3
+                                enabled: false
 
                                 onClicked: {
                                     modeleQML.choixConstruction(0)
@@ -253,7 +262,7 @@ Item {
                                 id: depotProvisions
                                 text: qsTr("Provisions") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
-                                enabled: nbConstructionsPossibles === 3
+                                enabled: false
 
                                 onClicked: {
                                     modeleQML.choixConstruction(1)
@@ -265,7 +274,7 @@ Item {
                                 id: infirmerie
                                 text: qsTr("Infirmerie") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
-                                enabled: nbConstructionsPossibles === 3
+                                enabled: false
 
                                 onClicked: {
                                     modeleQML.choixConstruction(2)
@@ -277,7 +286,7 @@ Item {
                                 id: pont
                                 text: qsTr("Pont") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
-                                enabled: nbConstructionsPossibles === 1
+                                enabled: false
 
                                 onClicked: {
                                     modeleQML.choixConstruction(3)
@@ -300,7 +309,7 @@ Item {
                                 id: deplacer
                                 text: qsTr("Déplacer") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
-                                enabled:  nbActionsPossibles >= 2
+                                enabled: false
 
                                 onClicked: {
                                     racine.lancerBruitBouton()
@@ -313,7 +322,7 @@ Item {
                                 id: attaquer
                                 text: qsTr("Attaquer") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
-                                enabled: nbActionsPossibles >= 2
+                                enabled: false
 
                                 onClicked: {
                                     racine.lancerBruitBouton()
@@ -326,7 +335,7 @@ Item {
                                 id: construire
                                 text: qsTr("Construire") + langageManager.chaineVide
                                 equipe: racineJeu.equipeAttaquante
-                                enabled: nbActionsPossibles === 3
+                                enabled: false
 
                                 onClicked: {
                                     racine.lancerBruitBouton()
@@ -355,8 +364,8 @@ Item {
                                         modeleQML.annulerSelections()
                                         enabled = false
                                         stats.text = modeleQML.getStatsUniteSelectionee()
-                                        nbActionsPossibles = 0
-                                        nbConstructionsPossibles = 0
+                                        racineJeu.rafraichirBoutonsActions()
+                                        racineJeu.rafraichirBoutonsConstruction()
                                         plateau.update()
                                     }
                                 }
@@ -373,12 +382,11 @@ Item {
                                         enabled = false
                                         boutonAnnuler.enabled = false
                                         racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()
-                                        nbActionsPossibles = 0
-                                        nbConstructionsPossibles = 0
+                                        racineJeu.rafraichirBoutonsActions()
+                                        racineJeu.rafraichirBoutonsConstruction()
 
-                                        if (modeleQML.partieFinie()) {
+                                        if (modeleQML.partieFinie())
                                             popupVictoire.open()
-                                        }
 
                                         plateau.update()
                                     }
@@ -406,7 +414,8 @@ Item {
                                 modeleQML.changerJoueur()
                                 stats.text = "Pas d'unite"
                                 racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()
-                                nbActionsPossibles = 0
+                                racineJeu.rafraichirBoutonsActions()
+                                racineJeu.rafraichirBoutonsConstruction()
                                 plateau.update()
                             }
                         }
