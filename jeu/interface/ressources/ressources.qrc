@@ -18,5 +18,10 @@
 	<file alias="facile">facile.png</file>
 	<file alias="moyen">moyen.png</file>
 	<file alias="difficile">difficile.png</file>
+
+	<file alias="infirmerie">infirmerie.png</file>
+	<file alias="pont">pont.png</file>
+	<file alias="provisions">provisions.png</file>
+	<file alias="munitions">munitions.png</file>
     </qresource>
 </RCC>

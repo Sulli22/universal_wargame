@@ -90,12 +90,6 @@ uint16_t ModelePourQML::getNbConstructionsPossibles() const
 
 void ModelePourQML::choixConstruction(uint16_t indConstruction)
 {
-    /*
-        case 0:     _aConstruire = std::make_unique<DepotMunitions>();  break;
-        case 1:     _aConstruire = std::make_unique<DepotProvisions>(); break;
-        case 2:     _aConstruire = std::make_unique<Infirmerie>();      break;
-        case 3:     _aConstruire = std::make_unique<Pont>();            break;
-    */
     _modele->choixConstruction(indConstruction);
 }
 

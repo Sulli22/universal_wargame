@@ -438,17 +438,17 @@ void MonRenderer::dessinAiles()
 
 void MonRenderer::dessinGauchePont()
 {
-    static constexpr float  HAUTEUR_LIGNES_2 = _HAUTEUR_HEX_2 / 1.5f,
-                            HAUTEUR_EXTR_2   = HAUTEUR_LIGNES_2 * 1.1f,
-                            DX_LIGNES        = _LARGEUR_CADRE_2,
-                            DX_EXTR          = DX_LIGNES * 1.2f;
+    static constexpr float  HAUTEUR_LIGNES_2        = _HAUTEUR_HEX_2 / 1.5f,
+                            HAUTEUR_EXTR_2          = HAUTEUR_LIGNES_2 * 1.2f,
+                            LARGEUR_LIGNES_2        = _LARGEUR_CADRE_2 / 1.5f,
+                            LARGEUR_EXTR_2          = LARGEUR_LIGNES_2 * 1.2f;
 
     glBegin(GL_LINE_STRIP);
     {
-        glVertex2f(-DX_EXTR     , -HAUTEUR_EXTR_2   );
-        glVertex2f(-DX_LIGNES   , -HAUTEUR_LIGNES_2 );
-        glVertex2f(-DX_LIGNES   ,  HAUTEUR_LIGNES_2 );
-        glVertex2f(-DX_EXTR     ,  HAUTEUR_EXTR_2   );
+        glVertex2f(-LARGEUR_EXTR_2     , -HAUTEUR_EXTR_2   );
+        glVertex2f(-LARGEUR_LIGNES_2   , -HAUTEUR_LIGNES_2 );
+        glVertex2f(-LARGEUR_LIGNES_2   ,  HAUTEUR_LIGNES_2 );
+        glVertex2f(-LARGEUR_EXTR_2     ,  HAUTEUR_EXTR_2   );
     }
     glEnd();
 }
@@ -642,7 +642,7 @@ void MonRenderer::dessinDepotMunitions()
 
 void MonRenderer::dessinDepotProvisions()
 {
-    static constexpr float  HAUTEUR_TRIANGLE    = _HAUTEUR_CADRE_2,
+    static constexpr float  HAUTEUR_TRIANGLE    = _HAUTEUR_CADRE_2 * 1.5f,
                             LARGEUR_TRIANGLE_2  = HAUTEUR_TRIANGLE / 2.f;
 
     // triangle

@@ -230,6 +230,7 @@ void Modele::effectuerAction()
 
         if (_etat == etat::deplacement) {
             auto path = getChemin();
+            std::cout << path.size() << std::endl;
             uint16_t distance = path.size()-1;
             _caseSelectionnee->deplacerUnite(_indUniteSelectionnee, _caseCible, distance);
         }
@@ -240,7 +241,7 @@ void Modele::effectuerAction()
             _caseCible->supprimeNonUnitesOperationnelles();
         }
 
-        else if (_etat == etat::construction && _aConstruire) {
+        else if (_etat == etat::construction && _aConstruire.get()) {
             auto genie = dynamic_cast<Genie *>(getUniteSelectionee());
             auto caseCibleTerrestre = dynamic_cast<CaseTerrestre *>(_caseCible);
             genie->construire(caseCibleTerrestre, std::move(_aConstruire));
@@ -302,16 +303,16 @@ std::vector<Case *> Modele::getChemin() const
 
 void Modele::sortieFlux(std::ostream &os) const
 {
-    os << "Faction attaquante = " << factionToString(_factionAttaquante) << std::endl
-       << "Faction attaquee = " << factionToString(_factionAttaquee) << std::endl
-       << "Partie finie ? " << partieFinie() << " (0 = Non, 1 = Oui)" << std::endl
+    os << "Faction attaquante = "   << factionToString(_factionAttaquante) << std::endl
+       << "Faction attaquee = "     << factionToString(_factionAttaquee) << std::endl
+       << "Partie finie ? "         << partieFinie() << " (0 = Non, 1 = Oui)" << std::endl
        << "Etat = ";
 
     switch (_etat) {
-        case etat::selection: os << "selection"; break;
-        case etat::deplacement: os<< "deplacement"; break;
-        case etat::attaque: os << "attaque"; break;
-        case etat::construction: os << "construction"; break;
+        case etat::selection:       os << "selection";      break;
+        case etat::deplacement:     os << "deplacement";     break;
+        case etat::attaque:         os << "attaque";        break;
+        case etat::construction:    os << "construction";   break;
     }
     os << std::endl;
 
@@ -326,6 +327,7 @@ void Modele::sortieFlux(std::ostream &os) const
         os << "Indice unite : " << _indUniteSelectionnee << std::endl;
         os << "Nombre actions possibles = " << getNbActionsPossibles() << std::endl;
     }
+
     else
         os << "Aucune case selectionnee" << std::endl;
 
@@ -333,6 +335,7 @@ void Modele::sortieFlux(std::ostream &os) const
         os << "Case cible : ";
         _caseCible->sortieFlux(os); os << std::endl;
     }
+
     else
         os << "Aucune case cible" << std::endl;
 }

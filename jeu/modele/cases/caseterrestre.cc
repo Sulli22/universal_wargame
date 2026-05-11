@@ -1,7 +1,10 @@
 #include "caseterrestre.hh"
+
 #include "unitemarine.hh"
 #include "uniteterrestrelegere.hh"
 #include "uniteterrestrelourde.hh"
+
+#include <iostream>
 #include <limits>
 
 CaseTerrestre::CaseTerrestre(const Position &pos, typeTerrain terrain,
@@ -45,10 +48,11 @@ void CaseTerrestre::setConstruction(std::unique_ptr<Construction> nvConstruction
     else if (_terrain != typeTerrain::plaine)
         throw std::runtime_error("Erreur : Ce type de case n'est pas constructible");
 
-    if (nvConstruction->estPont())
+    else if (nvConstruction->estPont())
         throw std::invalid_argument("Erreur : La construction ne peut pas etre un pont");
 
-    _construction = std::move(nvConstruction);
+    else
+        _construction = std::move(nvConstruction);
 }
 
 bool CaseTerrestre::peutAccueillir(Unite *unite) const
@@ -79,8 +83,7 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
         throw std::invalid_argument("Erreur : La nouvelle unite n'appartient pas à la faction.");
 
     if (nvUniteTerrestre->estLegere()) {
-        auto uniteTerrestreLeg = dynamic_cast<UniteTerrestreLegere *>
-            (nvUniteTerrestre.get());
+        auto uniteTerrestreLeg = dynamic_cast<UniteTerrestreLegere *>(nvUniteTerrestre.get());
 
         if (uniteTerrestreLeg->getTaille() <= _espaceDisponible) {
             if (_terrain == typeTerrain::foret)
@@ -90,13 +93,16 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
             _unitesTerrestres.push_back(std::move(nvUniteTerrestre));
             _espaceDisponible -= uniteTerrestreLeg->getTaille();
         }
+
         else
             throw std::runtime_error("Erreur : Ajout impossible, place est insufisante");
     }
+
     else if (_espaceDisponible == _MAX_TAILLE) {
         _unitesTerrestres.push_back(std::move(nvUniteTerrestre));
         _espaceDisponible = 0;
     }
+
     else
         throw std::runtime_error("Erreur : Ajout impossible, place est insufisante (toute la place est necessaire pour une unite lourde)");
 }
@@ -108,6 +114,7 @@ void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *
             (_unitesTerrestres.at(indUnite).get());
         _espaceDisponible += uniteTerrestreLeg->getTaille();
     }
+
     else
         _espaceDisponible = _MAX_TAILLE;
 
@@ -127,8 +134,10 @@ std::vector<Unite *> CaseTerrestre::getUnites() const
 void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, uint16_t cout)
 {
     bool indUniteZero = (indUnite == 0);
+
     if (indUniteZero && getUniteAerienne())
         Case::deplacerUniteAerienne(arrivee, cout);
+
     else {
         auto ct = dynamic_cast<CaseTerrestre *>(arrivee);
         auto dec = indUniteZero ? 0 : 1;
@@ -153,7 +162,7 @@ uint16_t CaseTerrestre::coutDeplacement(Unite *unite) const
     switch (_terrain) {
     case typeTerrain::plaine:   return 1;
     case typeTerrain::foret:    return unite->estLegere() ? 1 : 2;
-    case typeTerrain::riviere:  return max;
+    case typeTerrain::riviere:  return _construction && _construction->estPont() ? 1 : max;
     case typeTerrain::montagne: return max;
 
     default:

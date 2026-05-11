@@ -175,7 +175,6 @@ std::vector<Case *> Carte::getVoisinesConstructibles(const Case &c) const
 std::map<Case *, uint16_t> Carte::getCasesAtteignables(Case *depart, Unite *uniteEnDeplacement) const
 {
     auto zoc = getZOC(); // précalcul unique de toutes les ZOC de la carte
-
     std::queue<Case *> file;
     std::map<Case *, uint16_t> coutJusqua;
     file.push(depart);
@@ -197,14 +196,14 @@ std::map<Case *, uint16_t> Carte::getCasesAtteignables(Case *depart, Unite *unit
             if (nouveauCout > uniteEnDeplacement->getCapaciteDeplacement())
                 continue;
 
-            // zoc enemie stop le déplacement
+            // zoc enemie stop le deplacement
             if (caseDansZocEnnemie(caseVoisine, *uniteEnDeplacement, zoc)) {
                 if (!coutJusqua.count(caseVoisine) || nouveauCout < coutJusqua[caseVoisine])
                     coutJusqua[caseVoisine] = nouveauCout;
                 continue;
             }
 
-            // case non visitée ou chemin moins coûteux
+            // case non visitee ou chemin moins couteux
             if (!coutJusqua.count(caseVoisine) || nouveauCout < coutJusqua[caseVoisine]) {
                 coutJusqua[caseVoisine] = nouveauCout;
                 file.push(caseVoisine);
@@ -212,15 +211,14 @@ std::map<Case *, uint16_t> Carte::getCasesAtteignables(Case *depart, Unite *unit
         }
     }
 
+    coutJusqua.erase(depart);   // on retire la case de depart
     return coutJusqua;
 }
 
 std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaquante) const
 {
     std::vector<Case*> casesAttaquables;
-
     uint16_t portee = uniteAttaquante->getDistanceAttaque();
-
     std::queue<std::pair<Case*, uint16_t>> file;
     std::set<Case*> visitees;
 
