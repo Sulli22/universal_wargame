@@ -30,7 +30,7 @@ public:
 
     bool partieFinie() const;
     Faction factionVictorieuse() const;
-    void changementJoueur();
+    void changerJoueur();
     std::vector<Case *> getCasesConcernees() const;
     bool estConcernee(Case *c) const;
     std::vector<Case *> getChemin() const;

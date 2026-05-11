@@ -86,7 +86,7 @@ Faction Modele::factionVictorieuse() const
     return factionEstPerdante(_faction2) ? _faction1 : _faction2;
 }
 
-void Modele::changementJoueur()
+void Modele::changerJoueur()
 {
     // raz
     annulerSelections();
@@ -259,7 +259,7 @@ void Modele::effectuerAction()
         annulerSelections();
 
         if (_unitesAyantJoue.size() == _plateau.nbUnites(_factionAttaquante))
-            changementJoueur();
+            changerJoueur();
     }
 
     // sinon on fait rien

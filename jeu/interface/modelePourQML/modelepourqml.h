@@ -10,7 +10,7 @@ public:
     explicit ModelePourQML(QObject *parent = Q_NULLPTR);
 
     Q_INVOKABLE void setModele(uint16_t idGuerre);
-    Q_INVOKABLE void changementJoueur();
+    Q_INVOKABLE void changerJoueur();
     Q_INVOKABLE QString getStatsUniteSelectionee() const;
     Q_INVOKABLE void annulerSelections();
     Q_INVOKABLE uint16_t getNbActionsPossibles() const;

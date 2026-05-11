@@ -98,9 +98,9 @@ Case *ModelePourQML::accesCasePlateau(const Position &pos) const
     return _modele->accesCasePlateau(pos);
 }
 
-void ModelePourQML::changementJoueur()
+void ModelePourQML::changerJoueur()
 {
-    _modele->changementJoueur();
+    _modele->changerJoueur();
 }
 
 QString ModelePourQML::getStatsUniteSelectionee() const

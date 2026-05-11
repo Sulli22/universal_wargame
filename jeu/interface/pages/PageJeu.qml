@@ -39,17 +39,16 @@ Item {
                 id: boutonAutre
                 text: "="
                 palette.buttonText: racine.couleurTexte
+                Layout.preferredWidth: racineJeu.largeurRectangle
+                Layout.fillHeight: true
+                font.pointSize: Math.max(implicitWidth*0.4, 10)
+                font.bold: true
 
                 background: Rectangle {
                     color: parent.hovered ? "#d6d6d6" : "#2C3E50"
                     border.color: "#c5b358"
                     border.width: 2
                 }
-
-                Layout.preferredWidth: racineJeu.largeurRectangle
-                Layout.fillHeight: true
-                font.pointSize: Math.max(implicitWidth*0.4, 10)
-                font.bold: true
 
                 onClicked: {
                     menuAutre.open()
@@ -95,6 +94,8 @@ Item {
                 text: "X"
                 padding: 0
                 Layout.alignment: Qt.AlignRight
+                Layout.fillHeight: true
+                Layout.preferredWidth: racineJeu.largeurRectangle
 
                 background: Rectangle {
                     gradient: Gradient {
@@ -105,9 +106,6 @@ Item {
                     }
                 }
 
-                Layout.fillHeight: true
-                Layout.preferredWidth: racineJeu.largeurRectangle
-
                 onClicked: {
                     confirmationQuitter.fenetre = true
                     confirmationQuitter.open()
@@ -115,6 +113,7 @@ Item {
                 }
             }
         }
+
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -170,7 +169,6 @@ Item {
                             color: racine.couleurTexte
                             Layout.fillWidth: true
                             horizontalAlignment: Text.AlignHCenter
-
                         }
 
                         Rectangle {
@@ -180,7 +178,6 @@ Item {
                             Layout.preferredHeight: layoutMenu.height * 0.05
                             Layout.alignment: Qt.AlignHCenter
                             border.color: racine.couleurTexte
-
 
                             Behavior on color {
                                 ColorAnimation {
@@ -196,10 +193,10 @@ Item {
                         }
 
                         ColumnLayout {
-                           id: layoutStat
-                           spacing: 0
+                            id: layoutStat
+                            spacing: 0
 
-                           Label {
+                            Label {
                                id: labelStats
                                text: qsTr("Stats Unité") + langageManager.chaineVide
                                color: racine.couleurTexte
@@ -207,19 +204,17 @@ Item {
                                horizontalAlignment: Text.AlignHCenter
                                font.pointSize: 18
                                font.bold: true
-                           }
+                            }
 
-                           Text {
+                            Text {
                                id: stats
                                text: qsTr("Pas d'unité") + langageManager.chaineVide
                                color: racine.couleurTexte
                                Layout.fillWidth: true
                                horizontalAlignment: Text.AlignHCenter
                                font.pointSize: 18
-                           }
-
+                            }
                         }
-
 
                         Rectangle {
                             color: "black"
@@ -240,6 +235,7 @@ Item {
                         ColumnLayout {
                             id: layoutConstructions
                             spacing: 8
+
                             BoutonAction {
                                 id: depotMunitions
                                 text: qsTr("Munitions") + langageManager.chaineVide
@@ -269,50 +265,48 @@ Item {
                             }
                         }
 
-
-
                         Rectangle {
                             color: "black"
                             Layout.fillWidth: true
                             Layout.preferredHeight: 5
                         }
 
-
                         ColumnLayout {
                             id: layoutActions
                             spacing: 8
+
                             BoutonAction {
                                 id: deplacer
                                 text: qsTr("Déplacer") + langageManager.chaineVide
+                                equipe: racineJeu.equipeAttaquante
+                                enabled:  nbActionsPossibles >= 2
 
                                 onClicked: {
                                     racine.lancerBruitBouton()
                                     modeleQML.choixAction(0);
                                     plateau.update();
                                 }
-
-                                equipe: racineJeu.equipeAttaquante
-                                enabled:  nbActionsPossibles >= 2
                             }
 
                             BoutonAction {
                                 id: attaquer
                                 text: qsTr("Attaquer") + langageManager.chaineVide
+                                equipe: racineJeu.equipeAttaquante
+                                enabled: nbActionsPossibles >= 2
 
                                 onClicked: {
                                     racine.lancerBruitBouton()
                                     modeleQML.choixAction(1);
                                     plateau.update();
                                 }
-
-                                equipe: racineJeu.equipeAttaquante
-                                enabled: nbActionsPossibles >= 2
                             }
 
 
                             BoutonAction {
                                 id: construire
                                 text: qsTr("Construire") + langageManager.chaineVide
+                                equipe: racineJeu.equipeAttaquante
+                                enabled: nbActionsPossibles === 3
 
                                 onClicked: {
                                     racine.lancerBruitBouton()
@@ -323,9 +317,6 @@ Item {
                                     pont.enabled = true
                                     plateau.update();
                                 }
-
-                                equipe: racineJeu.equipeAttaquante
-                                enabled: nbActionsPossibles === 3
                             }
 
                             RowLayout {
@@ -343,10 +334,11 @@ Item {
                                     couleurExtremiteGradient: "red"
                                     couleurCentreGradient: "#de7307"
                                     enabled: false
+
                                     onClicked: {
                                         modeleQML.annulerSelections()
                                         enabled = false
-                                        stats.text = modeleQML.getStatsUniteSelectionee();
+                                        stats.text = modeleQML.getStatsUniteSelectionee()
                                         nbActionsPossibles = 0
                                         plateau.update()
                                     }
@@ -358,18 +350,18 @@ Item {
                                     couleurExtremiteGradient: "green"
                                     couleurCentreGradient: "#95ff80"
                                     enabled: false
+
                                     onClicked: {
                                         modeleQML.effectuerAction()
                                         enabled = false
                                         boutonAnnuler.enabled = false
+                                        racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()
                                         nbActionsPossibles = 0
                                         plateau.update()
                                     }
                                 }
                             }
-
                         }
-
 
                         Rectangle {
                             color: "black"
@@ -388,7 +380,7 @@ Item {
 
                             onClicked: {
                                 racine.lancerBruitBouton()
-                                modeleQML.changementJoueur()
+                                modeleQML.changerJoueur()
                                 stats.text = "Pas d'unite"
                                 racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()
                                 nbActionsPossibles = 0
@@ -441,8 +433,7 @@ Item {
         onRetourMenuPrincipalPopup: racineJeu.retourMenuPrincipal(fenetre)
     }
 
-    Legende {
+    /*Legende {
         id: legende
-    }
-
+    }*/
 }
