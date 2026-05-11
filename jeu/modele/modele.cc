@@ -265,7 +265,7 @@ uint16_t Modele::getNbConstructionsPossibles() const
 
 void Modele::choixConstruction(uint16_t indConstruction)
 {
-    if (_etat != etat::construction || indConstruction >= getNbConstructionsPossibles())
+    if (_etat != etat::construction)
         throw std::runtime_error("Erreur : impossible de choisir une construction");
 
     else {
@@ -274,6 +274,9 @@ void Modele::choixConstruction(uint16_t indConstruction)
         case 1:     _aConstruire = std::make_unique<DepotProvisions>(); break;
         case 2:     _aConstruire = std::make_unique<Infirmerie>();      break;
         case 3:     _aConstruire = std::make_unique<Pont>();            break;
+
+        default:
+            throw std::invalid_argument("Erreur: indice de construction incorrecte");
         }
     }
 }
