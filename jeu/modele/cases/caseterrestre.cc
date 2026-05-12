@@ -29,14 +29,12 @@ Construction *CaseTerrestre::getConstruction() const
 
 void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, stat cout)
 {
-    bool indUniteZero = (indUnite == 0);
-
-    if (indUniteZero && getUniteAerienne())         // s'il y a une unite aerienne et ind = 0
+    if (indUnite == 0 && getUniteAerienne())         // s'il y a une unite aerienne et ind = 0
         Case::deplacerUniteAerienne(arrivee, cout); // on deplace l'unite aerienne
 
     else {  // sinon on deplace unite terreste
         auto ct = dynamic_cast<CaseTerrestre *>(arrivee);
-        auto dec = indUniteZero ? 0 : 1;
+        auto dec = getUniteAerienne() ? 1 : 0;
         deplacerUniteTerrestre(indUnite-dec, ct, cout);
     }
 }

@@ -170,7 +170,7 @@ void Modele::selectionnerCase(const Position &pos)
             else    // sinon on reste sur la meme case
                 _indUniteSelectionnee = (_indUniteSelectionnee + 1) % _caseSelectionnee->nbUnites();
         }
-        else    // on considere que aucune case n'est selectionnee
+        else        // on considere que aucune case n'est selectionnee
             _caseSelectionnee = nullptr;
         break;
 
