@@ -29,7 +29,7 @@ public:
 // recharges (effets des constructions)
     void regagnerVie();
     void rechargerMunitions();
-    void rechargerProvisions();
+    virtual void rechargerProvisions();
 
 // stats virtuelles
     virtual std::string getNom() const =0;

@@ -20,6 +20,12 @@ std::vector<indiceAction> Genie::getIndicesActionsPossibles() const
     return indices;
 }
 
+void Genie::rechargerProvisions()
+{
+    // ne rien faire
+    // un genie ne peut pas regagner des provisions
+}
+
 bool Genie::peutDepenser(stat cout) const
 {
     return (getNbProvisions() >= cout);

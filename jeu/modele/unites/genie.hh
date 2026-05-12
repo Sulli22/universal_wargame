@@ -13,6 +13,7 @@ public:
     std::string getNom() const override;
     std::vector<indiceAction> getIndicesActionsPossibles() const override;
 
+    void rechargerProvisions() override;
     bool peutDepenser(stat cout) const;
     void construire(CaseTerrestre *caseOuConstruire,
                     std::unique_ptr<Construction> construction);
