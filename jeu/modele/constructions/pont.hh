@@ -7,8 +7,7 @@ public:
     Pont();
 
     static stat getCoutImpl();
-
     bool estPont() const override;
-    void effectuerAction(Unite *unite) const override;
+    void effectuerEffet(Unite *unite) const override;
 };
 

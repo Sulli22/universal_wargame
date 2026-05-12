@@ -12,33 +12,33 @@ class Carte {
 public:
     Carte(unsigned int idGuerre);
 
+// getters
     std::size_t getLargeur() const;
     std::size_t getHauteur() const;
-    const std::vector<std::vector<std::unique_ptr<Case>>> &getContenu() const;
 
+// méthodes de jeu / algo
     bool positionValide(const Position &pos) const;
     Case *accesCase(const Position &pos) const;
-    std::vector<Case *> getVoisines(const Case &c) const;
     std::vector<Case *> getVoisinesConstructibles(const Case &c, const Genie &genie) const;
     std::map<Case *, distance> getCasesAtteignables(Case *depart, Unite *uniteEnDeplacement) const;
     std::vector<Case *> getCasesAttaquables(Case *depart, Unite *uniteAttaquante) const;
     std::vector<Case *> getChemin(Case *depart, Case *arrivee, Unite *uniteEnDeplacement) const;
-    bool caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement,
-                            const std::map<Case *, std::set<Faction> > &zoc) const;
-    std::map<Case *, std::set<Faction> > getZOC() const;
-    void effectuerActionsCases() const;
     std::size_t nbUnites(Faction faction) const;
-    std::vector<Case *> getCasesZOC(Faction faction) const;
     std::vector<Case *> getCasesFactionAvecUnites(Faction faction) const;
+
+    void effectuerEffetsCases();
 
 // sortie flux
     void soriteFlux(std::ostream &os) const;
     void afficherDetails(std::ostream &os) const;
 
 private:
+    std::vector<Case *> getVoisines(const Case &c) const;
+    std::map<Case *, std::set<Faction> > getZOC() const;
+    bool caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement, const std::map<Case *, std::set<Faction> > &zoc) const;
+
     static distance calculDistance(const Case &a, const Case &b);
-    static std::vector<Case *> reconstruitChemin(const std::map<Case *, Case*> &vientDe,
-                                                 Case *depart, Case *arrivee);
+    static std::vector<Case *> reconstruitChemin(const std::map<Case *, Case*> &vientDe, Case *depart, Case *arrivee);
 
 // attributs
     std::size_t _largeur;

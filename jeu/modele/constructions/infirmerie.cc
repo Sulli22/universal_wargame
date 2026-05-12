@@ -8,7 +8,7 @@ stat Infirmerie::getCoutImpl()
     return 10;
 }
 
-void Infirmerie:: effectuerAction(Unite *unite) const
+void Infirmerie:: effectuerEffet(Unite *unite) const
 {
-    unite->regagnerViePartielle();
+    unite->regagnerVie();
 }

@@ -34,6 +34,8 @@ void UniteLourde::sortieFlux(std::ostream &os) const
 
 void UniteLourde::prendreDegats(stat degats)
 {
+    // une unité lourde prend d'abord des dégats dans son bouclier
+    // si son bouclier n'est pas suffisant, le reste de l'attaque est classique
     int nvPointsBouclier = _pointsBouclier - degats;
     if (nvPointsBouclier < 0) {
         _pointsBouclier = 0;

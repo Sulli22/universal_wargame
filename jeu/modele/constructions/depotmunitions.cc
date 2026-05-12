@@ -8,7 +8,7 @@ stat DepotMunitions::getCoutImpl()
     return 10;
 }
 
-void DepotMunitions:: effectuerAction(Unite *unite) const
+void DepotMunitions:: effectuerEffet(Unite *unite) const
 {
     unite->rechargerMunitions();
 }

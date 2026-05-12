@@ -3,8 +3,8 @@
 #include <ostream>
 #include <vector>
 
-using stat = unsigned int;
-using indiceAction = unsigned int;
+using stat = unsigned int;          // type statistique (points, nb munitions, ...)
+using indiceAction = unsigned int;  // type indice pour actions possibles
 
 enum class Faction { rouge, bleue, neutre };
 
@@ -16,6 +16,7 @@ public:
           stat nbProvisions, Visibilite visibilite = Visibilite::totale);
     virtual ~Unite() =default;
 
+// getters
     Faction getFaction() const;
     stat getPointsVie() const;
     stat getNbMunitions() const;
@@ -25,21 +26,24 @@ public:
     stat getMaxNbMunitions() const;
     stat getMaxNbProvisions() const;
 
-    void regagnerViePartielle();
+// recharges (effets des constructions)
+    void regagnerVie();
     void rechargerMunitions();
     void rechargerProvisions();
 
+// stats virtuelles
     virtual std::string getNom() const =0;
     virtual stat getPointsAttaqueLegere() const =0;
     virtual stat getPointsAttaqueLourde() const =0;
-    virtual stat getCapaciteDeplacement() const;
+    virtual stat getCapaciteDeplacement() const =0;
     virtual stat getDistanceAttaque() const =0;
     virtual std::vector<indiceAction> getIndicesActionsPossibles() const;
 
+// méthodes pour tests
     virtual bool estLegere() const =0;
     bool estOperationnelle() const;
-    std::string getChaineVisibilite() const;
 
+// méthodes pour jeu
     virtual void prendreDegats(stat degats);
     void attaquerUnite(Unite *unite);
     void utiliserProvisions(stat nbProvisions);
@@ -49,15 +53,20 @@ public:
     virtual void sortieFlux(std::ostream &os) const;
 
 private:
-    Faction _faction;
+// méthode pour sortie flux
+    std::string getChaineVisibilite() const;
 
+// attributs
+    Faction _faction;
     stat _pointsVie;
     stat _nbMunitions;
     stat _nbProvisions;
-
     Visibilite _visibilite;
 
-    stat const _MAX_POINTS_VIE;
-    stat const _MAX_NB_MUNITIONS;
-    stat const _MAX_NB_PROVISIONS;
+    const stat _MAX_POINTS_VIE;
+    const stat _MAX_NB_MUNITIONS;
+    const stat _MAX_NB_PROVISIONS;
+
+// constante pour les recharges
+    static constexpr float _MULT_RECHARGE = 0.2f;    // i.e. "un cinquième"
 };

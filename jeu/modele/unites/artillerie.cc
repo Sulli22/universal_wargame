@@ -23,8 +23,10 @@ stat Artillerie::getPointsAttaqueLourde() const
 
 stat Artillerie::getCapaciteDeplacement() const
 {
+    // réduit la capacité de déplacement au nb de provisions
+    // si celui ci est insufisant pour un déplacement complet
     stat capaciteReelle = 3;
-    stat capaciteMin = Unite::getCapaciteDeplacement();
+    stat capaciteMin = getNbProvisions();
     return std::min(capaciteMin, capaciteReelle);
 }
 

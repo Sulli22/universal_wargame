@@ -1,4 +1,5 @@
 #include "createurcases.hh"
+
 #include "casemarine.hh"
 #include "caseterrestre.hh"
 
@@ -18,6 +19,6 @@ std::unique_ptr<Case> CreateurCases::creer(char c, const Position &pos)
         return std::make_unique<CaseTerrestre>(pos, typeTerrain::riviere);
 
     default:
-        throw std::runtime_error("Erreur : type de case inconnu");
+        throw std::runtime_error("Erreur : type de case " + std::to_string(c) +" non prit en charge");
     }
 }

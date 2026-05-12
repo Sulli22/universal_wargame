@@ -2,8 +2,7 @@
 
 Unite::Unite(Faction faction, stat pointsVie, stat nbMunitions,
              stat nbProvisions, Visibilite visibilite):
-    _faction(faction),
-    _pointsVie(pointsVie), _nbMunitions(nbMunitions),
+    _faction(faction), _pointsVie(pointsVie), _nbMunitions(nbMunitions),
     _nbProvisions(nbProvisions), _visibilite(visibilite),
     _MAX_POINTS_VIE(pointsVie), _MAX_NB_MUNITIONS(nbMunitions),
     _MAX_NB_PROVISIONS(nbProvisions)
@@ -49,25 +48,22 @@ stat Unite::getMaxNbProvisions() const
     return _MAX_NB_PROVISIONS;
 }
 
-void Unite::regagnerViePartielle()
+void Unite::regagnerVie()
 {
-    stat nvPointsVie = _pointsVie + (_MAX_POINTS_VIE / 5); // plus un cinquieme
-    _pointsVie = std::min(nvPointsVie, _MAX_POINTS_VIE);
+    stat nvPointsVie = _pointsVie + (_MAX_POINTS_VIE * _MULT_RECHARGE);
+    _pointsVie = std::min(nvPointsVie, _MAX_POINTS_VIE);        // sécurité contre overflow silencieux
 }
 
 void Unite::rechargerMunitions()
 {
-    _nbMunitions = _MAX_NB_MUNITIONS;
+    stat nvNbMunitions = _nbMunitions + (_MAX_NB_MUNITIONS * _MULT_RECHARGE);
+    _nbMunitions = std::min(nvNbMunitions, _MAX_NB_MUNITIONS);  // sécurité contre overflow silencieux
 }
 
 void Unite::rechargerProvisions()
 {
-    _nbProvisions = _MAX_NB_PROVISIONS;
-}
-
-stat Unite::getCapaciteDeplacement() const
-{
-    return getNbProvisions();
+    stat nvNbProvisions = _nbProvisions + (_MAX_NB_PROVISIONS * _MULT_RECHARGE);
+    _nbProvisions = std::min(nvNbProvisions, _MAX_NB_PROVISIONS);   // sécurité contre overflow silencieux
 }
 
 std::vector<indiceAction> Unite::getIndicesActionsPossibles() const
@@ -88,16 +84,37 @@ bool Unite::estOperationnelle() const
     return _pointsVie > 0;
 }
 
-std::string Unite::getChaineVisibilite() const
+void Unite::prendreDegats(stat degats)
 {
-    switch (_visibilite) {
-    case Visibilite::nulle:     return "nulle";
-    case Visibilite::partielle: return "partielle";
-    case Visibilite::totale:    return "totale";
+    int nvPointsVie = _pointsVie - degats;
+    _pointsVie = std::max(0, nvPointsVie);  // sécurité contre overflow silencieux
+}
 
-    default:
-        throw std::runtime_error("Erreur : Visibilite inconnue");
+void Unite::attaquerUnite(Unite *unite)
+{
+    if (_nbMunitions > 0 && unite) {
+        stat pointsAttaque;
+        // contre des unites lourdes les points d'attaques sont différents
+        // (pas même arme utilisée par exemple)
+        if (unite->estLegere())
+            pointsAttaque = getPointsAttaqueLegere();
+        else
+            pointsAttaque = getPointsAttaqueLourde();
+
+        unite->prendreDegats(pointsAttaque);
+        _nbMunitions--;     // attaquer coute des munitions
     }
+}
+
+void Unite::utiliserProvisions(stat nbProvisions)
+{
+    int nvNbProvisions = _nbProvisions - nbProvisions;
+    _nbProvisions = std::max(0, nvNbProvisions);
+}
+
+void Unite::setVisibilite(Visibilite nvVisibilite)
+{
+    _visibilite = nvVisibilite;
 }
 
 void Unite::sortieFlux(std::ostream &os) const
@@ -116,33 +133,14 @@ void Unite::sortieFlux(std::ostream &os) const
     << " visibilite=" << getChaineVisibilite();
 }
 
-void Unite::prendreDegats(stat degats)
+std::string Unite::getChaineVisibilite() const
 {
-    int nvPointsVie = _pointsVie - degats;
-    _pointsVie = std::max(0, nvPointsVie);
-}
+    switch (_visibilite) {
+    case Visibilite::nulle:     return "nulle";
+    case Visibilite::partielle: return "partielle";
+    case Visibilite::totale:    return "totale";
 
-void Unite::attaquerUnite(Unite *unite)
-{
-    if (_nbMunitions > 0 && unite) {
-        stat pointsAttaque;
-        if (unite->estLegere())
-            pointsAttaque = getPointsAttaqueLegere();
-        else
-            pointsAttaque = getPointsAttaqueLourde();
-
-        unite->prendreDegats(pointsAttaque);
-        _nbMunitions--;
+    default:
+        throw std::runtime_error("Erreur : Visibilite inconnue");
     }
-}
-
-void Unite::utiliserProvisions(stat nbProvisions)
-{
-    int nvNbProvisions = _nbProvisions - nbProvisions;
-    _nbProvisions = std::max(0, nvNbProvisions);
-}
-
-void Unite::setVisibilite(Visibilite nvVisibilite)
-{
-    _visibilite = nvVisibilite;
 }

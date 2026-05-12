@@ -8,7 +8,7 @@ stat DepotProvisions::getCoutImpl()
     return 15;
 }
 
-void DepotProvisions:: effectuerAction(Unite *unite) const
+void DepotProvisions:: effectuerEffet(Unite *unite) const
 {
     unite->rechargerProvisions();
 }

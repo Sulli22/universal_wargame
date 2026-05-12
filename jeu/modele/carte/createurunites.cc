@@ -1,4 +1,5 @@
 #include "createurunites.hh"
+
 #include "artillerie.hh"
 #include "charassaut.hh"
 #include "fregate.hh"
@@ -17,8 +18,7 @@ std::unique_ptr<UniteAerienne> CreateurUnites::creerAerienne(char type, char fac
 {
     auto faction = charToFaction(factionChar);
 
-    if (type == 'C')
-        return std::make_unique<Chasseur>(faction);
+    if (type == 'C') return std::make_unique<Chasseur>(faction);
 
     return std::make_unique<Bombardier>(faction);
 }
@@ -30,7 +30,7 @@ std::unique_ptr<UniteMarine> CreateurUnites::creerMarine(char type, char faction
     if (type == 'F') return std::make_unique<Fregate>(faction);
     if (type == 'S') return std::make_unique<SousMarin>(faction);
 
-    throw std::runtime_error("Erreur : Impossible de creer cette unite.");
+    throw std::runtime_error("Erreur : impossible de creer cette unite " + std::to_string(type));
 }
 
 std::unique_ptr<UniteTerrestre> CreateurUnites::creerTerrestre(char type, char factionChar)
@@ -42,5 +42,5 @@ std::unique_ptr<UniteTerrestre> CreateurUnites::creerTerrestre(char type, char f
     if (type == 'T') return std::make_unique<CharAssaut>(faction);
     if (type == 'G') return std::make_unique<Genie>(faction);
 
-    throw std::runtime_error("Erreur : Impossible de creer cette unite.");
+    throw std::runtime_error("Erreur : impossible de creer cette unite " + std::to_string(type));
 }

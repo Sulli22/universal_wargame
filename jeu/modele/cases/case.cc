@@ -18,23 +18,18 @@ const UniteAerienne *Case::getUniteAerienne() const
 void Case::setUniteAerienne(std::unique_ptr<UniteAerienne> nvUniteAerienne)
 {
     if (_uniteAerienne)
-        throw std::runtime_error("Erreur : La place est deja occupee.");
+        throw std::runtime_error("Erreur : la place est deja occupee");
 
     if (!nvUniteAerienne)
-        throw std::invalid_argument("Erreur : Une unite nulle ne peut pas etre ajoutee.");
+        throw std::invalid_argument("Erreur : une unite nulle ne peut pas etre ajoutee");
 
     _uniteAerienne = std::move(nvUniteAerienne);
 }
 
-void Case::deplacerUniteAerienne(Case *arrive, stat cout)
+void Case::supprimeNonUnitesOperationnelles()
 {
-    _uniteAerienne->utiliserProvisions(cout);
-    arrive->setUniteAerienne(std::move(_uniteAerienne));
-}
-
-Unite *Case::getUnite(std::size_t indUnite)
-{
-    return getUnites().at(indUnite);
+    if (_uniteAerienne && !_uniteAerienne->estOperationnelle())
+        _uniteAerienne = nullptr;
 }
 
 std::vector<Unite *> Case::getUnites() const
@@ -45,25 +40,24 @@ std::vector<Unite *> Case::getUnites() const
     return unites;
 }
 
-Faction Case::getFaction() const
-{
-    return _uniteAerienne ? _uniteAerienne->getFaction() : Faction::neutre;
-}
-
 std::size_t Case::nbUnites() const
 {
     return _uniteAerienne ? 1 : 0;
 }
 
+Unite *Case::getUnite(std::size_t indUnite) const
+{
+    return getUnites().at(indUnite);
+}
+
+Faction Case::getFaction() const
+{
+    return _uniteAerienne ? _uniteAerienne->getFaction() : Faction::neutre;
+}
+
 bool Case::estConstructible(const Genie &genie) const
 {
     return !getIndicesConstructionsPossibles(genie).empty();
-}
-
-void Case::supprimeNonUnitesOperationnelles()
-{
-    if (_uniteAerienne && !_uniteAerienne->estOperationnelle())
-        _uniteAerienne = nullptr;
 }
 
 void Case::sortieFlux(std::ostream &os) const
@@ -81,4 +75,10 @@ void Case::afficherDetails(std::ostream &os) const
         unites[i]->sortieFlux(os);
         os << "]";
     }
+}
+
+void Case::deplacerUniteAerienne(Case *arrive, stat cout)
+{
+    _uniteAerienne->utiliserProvisions(cout);   // deplacement cout des provisions
+    arrive->setUniteAerienne(std::move(_uniteAerienne));
 }

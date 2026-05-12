@@ -12,10 +12,10 @@ ConstructionTemplate<Derive>::ConstructionTemplate()
 Construction::Construction()
 {}
 
-void Construction::effectuerAction(std::vector<Unite *> unites) const
+void Construction::effectuerEffet(std::vector<Unite *> unites) const
 {
     for (Unite *unite : unites)
-        effectuerAction(unite);
+        effectuerEffet(unite);
 }
 
 bool Construction::estPont() const

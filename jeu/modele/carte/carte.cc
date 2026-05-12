@@ -120,9 +120,14 @@ std::size_t Carte::getHauteur() const
     return _hauteur;
 }
 
-const std::vector<std::vector<std::unique_ptr<Case>>> &Carte::getContenu() const
+bool Carte::positionValide(const Position &pos) const
 {
-    return _contenu;
+    int q = pos.getQ();
+    int r = pos.getR();
+
+    // vérifie que q et r sont non négatifs et dans les limites
+    return (q >= 0 && q < static_cast<int>(_largeur))
+           && (r >= 0 && r < static_cast<int>(_hauteur));
 }
 
 Case* Carte::accesCase(const Position &pos) const
@@ -131,32 +136,6 @@ Case* Carte::accesCase(const Position &pos) const
         throw std::invalid_argument("Erreur : la position n'est pas valide" + std::to_string(pos.getQ()) + std::to_string(pos.getR()));
 
     return _contenu[pos.getR()][pos.getQ()].get();
-}
-
-bool Carte::positionValide(const Position &pos) const
-{
-    int q = pos.getQ();
-    int r = pos.getR();
-
-    // vérifie que q et r sont non négatifs et dans les limites
-    return (q >= 0 && q < static_cast<int>(_largeur))
-        && (r >= 0 && r < static_cast<int>(_hauteur));
-}
-
-std::vector<Case *> Carte::getVoisines(const Case &c) const
-{
-    std::vector<Case *> voisines;
-
-    auto pos = c.getPos();
-    auto directions = (pos.getQ() % 2 == 0) ? _DIRECTIONS_PAIRES : _DIRECTIONS_IMPAIRES;
-
-    for (const auto &d : directions) {
-        auto posVoisine = pos + d;
-        if (positionValide(posVoisine))
-            voisines.push_back(accesCase(posVoisine));
-    }
-
-    return voisines;
 }
 
 std::vector<Case *> Carte::getVoisinesConstructibles(const Case &c, const Genie &genie) const
@@ -217,7 +196,6 @@ std::map<Case *, distance> Carte::getCasesAtteignables(Case *depart, Unite *unit
     coutJusqua.erase(depart);
     return coutJusqua;
 }
-
 std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaquante) const
 {
     std::vector<Case *> casesAttaquables;
@@ -236,7 +214,7 @@ std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaqua
             && courante->nbUnites() > 0
             && courante->getFaction() != uniteAttaquante->getFaction()
             && courante->nbUnites() <= uniteAttaquante->getNbMunitions())
-                casesAttaquables.push_back(courante);
+            casesAttaquables.push_back(courante);
 
         // stop si on atteint la portée max
         if (distance > portee)
@@ -302,54 +280,6 @@ std::vector<Case *> Carte::getChemin(Case *depart, Case *arrivee, Unite *uniteEn
     return reconstruitChemin(vientDe, depart, arrivee);
 }
 
-bool Carte::caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement,
-                               const std::map<Case *, std::set<Faction>> &zoc) const
-{
-    auto it = zoc.find(caseCible);
-    if (it == zoc.end())
-        return false;
-
-    for (Faction f : it->second) {
-        if (f != Faction::neutre && f != uniteEnDeplacement.getFaction())
-            return true;
-    }
-
-  return false;
-}
-
-std::map<Case *, std::set<Faction>> Carte::getZOC() const
-{
-    std::map<Case *, std::set<Faction>> zoc;
-
-    for (std::size_t r = 0; r < _hauteur; ++r) {
-        for (std::size_t q = 0; q < _largeur; ++q) {
-            Case *c = accesCase({static_cast<int>(q), static_cast<int>(r)});
-
-            // la case elle-même + ses voisines sont sous ZOC de cette faction
-            Faction f = c->getFaction();
-            zoc[c].insert(f);
-            for (Case *v : getVoisines(*c))
-                zoc[v].insert(f);
-        }
-    }
-
-    return zoc;
-}
-
-void Carte::effectuerActionsCases() const
-{
-    for (std::size_t r = 0; r < _hauteur; ++r) {
-        for (std::size_t q = 0; q < _largeur; ++q) {
-            Case *c = accesCase({static_cast<int>(q), static_cast<int>(r)});
-
-            // seules les cases terrestres ont des actions
-            auto caseTerrestre = dynamic_cast<CaseTerrestre *>(c);
-            if (caseTerrestre)
-                caseTerrestre->effectuerActionConstruction();
-        }
-    }
-}
-
 std::size_t Carte::nbUnites(Faction faction) const
 {
     std::size_t sum = 0;
@@ -366,17 +296,6 @@ std::size_t Carte::nbUnites(Faction faction) const
     return sum;
 }
 
-std::vector<Case *> Carte::getCasesZOC(Faction faction) const
-{
-    std::vector<Case *> cases;
-
-    for (const auto &[c, factions] : getZOC())
-        if (factions.find(faction) != factions.end())
-            cases.push_back(c);
-
-    return cases;
-}
-
 std::vector<Case *> Carte::getCasesFactionAvecUnites(Faction faction) const
 {
     std::vector<Case *> res;
@@ -390,6 +309,20 @@ std::vector<Case *> Carte::getCasesFactionAvecUnites(Faction faction) const
     }
 
     return res;
+}
+
+void Carte::effectuerEffetsCases()
+{
+    for (std::size_t r = 0; r < _hauteur; ++r) {
+        for (std::size_t q = 0; q < _largeur; ++q) {
+            Case *c = accesCase({static_cast<int>(q), static_cast<int>(r)});
+
+            // seules les cases terrestres ont des effets (car des constructions)
+            auto caseTerrestre = dynamic_cast<CaseTerrestre *>(c);
+            if (caseTerrestre)
+                caseTerrestre->effectuerEffetConstruction();
+        }
+    }
 }
 
 void Carte::soriteFlux(std::ostream &os) const
@@ -447,6 +380,56 @@ void Carte::afficherDetails(std::ostream &os) const
             }
         }
     }
+}
+
+std::vector<Case *> Carte::getVoisines(const Case &c) const
+{
+    std::vector<Case *> voisines;
+
+    auto pos = c.getPos();
+    auto directions = (pos.getQ() % 2 == 0) ? _DIRECTIONS_PAIRES : _DIRECTIONS_IMPAIRES;
+
+    for (const auto &d : directions) {
+        auto posVoisine = pos + d;
+        if (positionValide(posVoisine))
+            voisines.push_back(accesCase(posVoisine));
+    }
+
+    return voisines;
+}
+
+std::map<Case *, std::set<Faction>> Carte::getZOC() const
+{
+    std::map<Case *, std::set<Faction>> zoc;
+
+    for (std::size_t r = 0; r < _hauteur; ++r) {
+        for (std::size_t q = 0; q < _largeur; ++q) {
+            Case *c = accesCase({static_cast<int>(q), static_cast<int>(r)});
+
+            // la case elle-même + ses voisines sont sous ZOC de cette faction
+            Faction f = c->getFaction();
+            zoc[c].insert(f);
+            for (Case *v : getVoisines(*c))
+                zoc[v].insert(f);
+        }
+    }
+
+    return zoc;
+}
+
+bool Carte::caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement,
+                               const std::map<Case *, std::set<Faction>> &zoc) const
+{
+    auto it = zoc.find(caseCible);
+    if (it == zoc.end())
+        return false;
+
+    for (Faction f : it->second) {
+        if (f != Faction::neutre && f != uniteEnDeplacement.getFaction())
+            return true;
+    }
+
+  return false;
 }
 
 distance Carte::calculDistance(const Case &a, const Case &b)

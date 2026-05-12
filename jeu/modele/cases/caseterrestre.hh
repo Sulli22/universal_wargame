@@ -13,23 +13,23 @@ public:
                   typeTerrain terrain = typeTerrain::plaine,
                   stat espaceDisponible = _MAX_ESPACE);
 
-    const std::vector<std::unique_ptr<UniteTerrestre>> &getUnitesTerrestres() const;
-    stat getEspaceDisponible() const;
+// getters
     typeTerrain getTerrain() const;
     Construction *getConstruction() const;
 
-    void setConstruction(std::unique_ptr<Construction> nvConstruction);
-
-    bool peutAccueillir(Unite *unite) const override;
-    void ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre> nvUniteTerrestre);
-    std::vector<Unite *> getUnites() const override;
+// méthodes jeu
     void deplacerUnite(std::size_t indUnite, Case *arrivee, stat cout) override;
+    void supprimeNonUnitesOperationnelles() override;
+    void ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre> nvUniteTerrestre);
+    void setConstruction(std::unique_ptr<Construction> nvConstruction);
+    void effectuerEffetConstruction();
+
+    std::vector<Unite *> getUnites() const override;
+    std::size_t nbUnites() const override;
     stat coutDeplacement(Unite *unite) const override;
     Faction getFaction() const override;
-    std::size_t nbUnites() const override;
-    void effectuerActionConstruction();
     std::vector<indiceConstruction> getIndicesConstructionsPossibles(const Genie &genie) const override;
-    void supprimeNonUnitesOperationnelles() override;
+    bool peutAccueillir(Unite *unite) const override;
 
 // sortie flux
     void afficherDetails(std::ostream &os) const override;

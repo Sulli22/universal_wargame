@@ -7,7 +7,6 @@ public:
     Infirmerie();
 
     static stat getCoutImpl();
-
-    void effectuerAction(Unite *unite) const override;
+    void effectuerEffet(Unite *unite) const override;
 };
 

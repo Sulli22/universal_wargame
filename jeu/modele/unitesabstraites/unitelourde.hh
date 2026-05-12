@@ -8,10 +8,10 @@ public:
                 stat nbProvisions, stat pointsBouclier,
                 Visibilite visibilite = Visibilite::totale);
 
-    stat getPointsBouclier() const;
+    stat getPointsBouclier() const;     // les unités lourdes ont un bouclier en plus des PV
     stat getMaxPointsBouclier() const;
 
-    void reparerBouclier();
+    void reparerBouclier();             // pas utilisée dans le jeu (pourrai etre associée à un effet de construction)
     bool estLegere() const override;
     void prendreDegats(stat degats) override;
 
@@ -20,5 +20,5 @@ public:
 
 private:
     stat _pointsBouclier;
-    stat const _MAX_POINTS_BOUCLIER;
+    const stat _MAX_POINTS_BOUCLIER;
 };

@@ -77,7 +77,7 @@ void Modele::changerJoueur()
     _unitesAyantJoue.clear();
 
     // actions des cases
-    _plateau.effectuerActionsCases();
+    _plateau.effectuerEffetsCases();
 
     // permutation factions
     Faction factionTmp = _factionAttaquante;

@@ -17,15 +17,9 @@ CaseTerrestre::CaseTerrestre(const Position &pos, typeTerrain terrain,
     Case(pos), _espaceDisponible(espaceDisponible), _terrain(terrain)
 {}
 
-const std::vector<std::unique_ptr<UniteTerrestre>>
-    &CaseTerrestre::getUnitesTerrestres() const
+typeTerrain CaseTerrestre::getTerrain() const
 {
-    return _unitesTerrestres;
-}
-
-stat CaseTerrestre::getEspaceDisponible() const
-{
-    return _espaceDisponible;
+    return _terrain;
 }
 
 Construction *CaseTerrestre::getConstruction() const
@@ -33,48 +27,29 @@ Construction *CaseTerrestre::getConstruction() const
    return _construction.get();
 }
 
-typeTerrain CaseTerrestre::getTerrain() const
+void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, stat cout)
 {
-    return _terrain;
-}
+    bool indUniteZero = (indUnite == 0);
 
-void CaseTerrestre::setConstruction(std::unique_ptr<Construction> nvConstruction)
-{
-    if (_construction)
-        throw std::runtime_error("Erreur : la place est déja prise");
+    if (indUniteZero && getUniteAerienne())         // s'il y a une unite aerienne et ind = 0
+        Case::deplacerUniteAerienne(arrivee, cout); // on deplace l'unite aerienne
 
-    if (_terrain == typeTerrain::riviere) {
-        if (nvConstruction->estPont())
-            _construction = std::move(nvConstruction);
-        else
-            throw std::runtime_error("Erreur : la case est une rivière");
+    else {  // sinon on deplace unite terreste
+        auto ct = dynamic_cast<CaseTerrestre *>(arrivee);
+        auto dec = indUniteZero ? 0 : 1;
+        deplacerUniteTerrestre(indUnite-dec, ct, cout);
     }
-
-    else if (_terrain != typeTerrain::plaine)
-        throw std::runtime_error("Erreur : ce type de case n'est pas constructible");
-
-    else if (nvConstruction->estPont())
-        throw std::invalid_argument("Erreur : la construction ne peut pas etre un pont");
-
-    else
-        _construction = std::move(nvConstruction);
 }
 
-bool CaseTerrestre::peutAccueillir(Unite *unite) const
+void CaseTerrestre::supprimeNonUnitesOperationnelles()
 {
-    auto ua = dynamic_cast<UniteAerienne *>(unite);
-    if (ua && !getUniteAerienne())
-        return true;
-
-    auto utLeg = dynamic_cast<UniteTerrestreLegere *>(unite);
-    if (utLeg && (_espaceDisponible >= utLeg->getTaille()))
-        return true;
-
-    auto utLourde = dynamic_cast<UniteTerrestreLourde *>(unite);
-    if (utLourde && (_espaceDisponible == _MAX_ESPACE))
-        return true;
-
-    return false;
+    Case::supprimeNonUnitesOperationnelles();
+    for (auto it = _unitesTerrestres.begin(); it != _unitesTerrestres.end(); ) {
+        if (!(*it)->estOperationnelle())
+            it = _unitesTerrestres.erase(it);
+        else
+            ++it;
+    }
 }
 
 void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
@@ -85,16 +60,19 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
 
     if (getFaction() != Faction::neutre &&
         nvUniteTerrestre->getFaction() != getFaction())
-        throw std::invalid_argument("Erreur : La nouvelle unite n'appartient pas à la faction.");
+        throw std::invalid_argument("Erreur : la nouvelle unite n'appartient pas à la faction");
 
     if (nvUniteTerrestre->estLegere()) {
         auto uniteTerrestreLeg = dynamic_cast<UniteTerrestreLegere *>(nvUniteTerrestre.get());
 
-        if (uniteTerrestreLeg->getTaille() <= _espaceDisponible) {
+        if (uniteTerrestreLeg->getTaille() <= _espaceDisponible) {  // on vérifie qu'il y a la place d'ajouter
+            // les forets reduise la visibilité des unités qui y sont
             if (_terrain == typeTerrain::foret)
                 nvUniteTerrestre->setVisibilite(Unite::Visibilite::partielle);
             else
                 nvUniteTerrestre->setVisibilite(Unite::Visibilite::totale);
+
+            // on ajoute l'unite et on enleve de l'espace dispo la taille qu'elle prend
             _unitesTerrestres.push_back(std::move(nvUniteTerrestre));
             _espaceDisponible -= uniteTerrestreLeg->getTaille();
         }
@@ -103,7 +81,7 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
             throw std::runtime_error("Erreur : Ajout impossible, place est insufisante");
     }
 
-    else if (_espaceDisponible == _MAX_ESPACE) {
+    else if (_espaceDisponible == _MAX_ESPACE) {    // une unité lourde prend tout l'espace
         _unitesTerrestres.push_back(std::move(nvUniteTerrestre));
         _espaceDisponible = 0;
     }
@@ -112,20 +90,33 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
         throw std::runtime_error("Erreur : Ajout impossible, place est insufisante (toute la place est necessaire pour une unite lourde)");
 }
 
-void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, stat cout)
+void CaseTerrestre::setConstruction(std::unique_ptr<Construction> nvConstruction)
 {
-    if (_unitesTerrestres.at(indUnite)->estLegere()) {
-        auto uniteTerrestreLeg = dynamic_cast<UniteTerrestreLegere *>
-            (_unitesTerrestres.at(indUnite).get());
-        _espaceDisponible += uniteTerrestreLeg->getTaille();
+    if (_construction)
+        throw std::runtime_error("Erreur : la place est déja prise");
+
+    if (_terrain == typeTerrain::riviere) {
+        // seul un pont peut etre construit
+        if (nvConstruction->estPont())
+            _construction = std::move(nvConstruction);
+        else
+            throw std::runtime_error("Erreur : la case est une rivière");
     }
 
-    else
-        _espaceDisponible = _MAX_ESPACE;
+    else if (_terrain != typeTerrain::plaine)   // les plaines sont les seuls autres terrains constructibles
+        throw std::runtime_error("Erreur : ce type de case n'est pas constructible");
 
-    _unitesTerrestres.at(indUnite)->utiliserProvisions(cout);
-    arrivee->ajouterUniteTerrestre(std::move(_unitesTerrestres.at(indUnite)));
-    _unitesTerrestres.erase(_unitesTerrestres.begin() + indUnite);
+    else if (nvConstruction->estPont())         // mais ça ne peut pas être un pont
+        throw std::invalid_argument("Erreur : la construction ne peut pas etre un pont");
+
+    else
+        _construction = std::move(nvConstruction);      // on construit
+}
+
+void CaseTerrestre::effectuerEffetConstruction()
+{
+    if (_construction)
+        _construction->effectuerEffet(getUnites());
 }
 
 std::vector<Unite *> CaseTerrestre::getUnites() const
@@ -136,38 +127,36 @@ std::vector<Unite *> CaseTerrestre::getUnites() const
     return unites;
 }
 
-void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, stat cout)
+std::size_t CaseTerrestre::nbUnites() const
 {
-    bool indUniteZero = (indUnite == 0);
-
-    if (indUniteZero && getUniteAerienne())
-        Case::deplacerUniteAerienne(arrivee, cout);
-
-    else {
-        auto ct = dynamic_cast<CaseTerrestre *>(arrivee);
-        auto dec = indUniteZero ? 0 : 1;
-        deplacerUniteTerrestre(indUnite-dec, ct, cout);
-    }
+    return Case::nbUnites() + _unitesTerrestres.size();
 }
 
 stat CaseTerrestre::coutDeplacement(Unite *unite) const
 {
     auto max = std::numeric_limits<stat>::max();
     if (!peutAccueillir(unite))
-        return max;
+        return max;             // infranchissable si accueil impossible
 
     auto pUniteAerienne = dynamic_cast<UniteAerienne *>(unite);
     if (pUniteAerienne)
-        return 1;
+        return 1;               // toujours franchissable avec cout 1 pour unités aeriennes
 
     auto pUniteMarine = dynamic_cast<UniteMarine *>(unite);
     if (pUniteMarine)
-        return max;
+        return max;         // infranchissable par les unites marines
 
     switch (_terrain) {
+    // plaine franchissable avec cout 1
     case typeTerrain::plaine:   return 1;
+
+    // la foret à un cout de 2 si l'unité est lourde
     case typeTerrain::foret:    return unite->estLegere() ? 1 : 2;
+
+    // si il n'y a pas de pont la riviere est infranchissable
     case typeTerrain::riviere:  return _construction && _construction->estPont() ? 1 : max;
+
+    // montagnes toujours infranchissable
     case typeTerrain::montagne: return max;
 
     default:
@@ -178,20 +167,14 @@ stat CaseTerrestre::coutDeplacement(Unite *unite) const
 Faction CaseTerrestre::getFaction() const
 {
     auto faction = Case::getFaction();
-    if (faction != Faction::neutre) return faction;
-    if (!_unitesTerrestres.empty()) return _unitesTerrestres[0]->getFaction();
+
+    if (faction != Faction::neutre)
+        return faction;
+
+    if (!_unitesTerrestres.empty())
+        return _unitesTerrestres[0]->getFaction();
+
     return Faction::neutre;
-}
-
-std::size_t CaseTerrestre::nbUnites() const
-{
-    return Case::nbUnites() + _unitesTerrestres.size();
-}
-
-void CaseTerrestre::effectuerActionConstruction()
-{
-    if (_construction)
-        _construction->effectuerAction(getUnites());
 }
 
 std::vector<indiceConstruction> CaseTerrestre::getIndicesConstructionsPossibles(const Genie &genie) const
@@ -222,15 +205,21 @@ std::vector<indiceConstruction> CaseTerrestre::getIndicesConstructionsPossibles(
     return res;
 }
 
-void CaseTerrestre::supprimeNonUnitesOperationnelles()
+bool CaseTerrestre::peutAccueillir(Unite *unite) const
 {
-    Case::supprimeNonUnitesOperationnelles();
-    for (auto it = _unitesTerrestres.begin(); it != _unitesTerrestres.end(); ) {
-        if (!(*it)->estOperationnelle())
-            it = _unitesTerrestres.erase(it);
-        else
-            ++it;
-    }
+    auto ua = dynamic_cast<UniteAerienne *>(unite);
+    if (ua && !getUniteAerienne())
+        return true;
+
+    auto utLeg = dynamic_cast<UniteTerrestreLegere *>(unite);
+    if (utLeg && (_espaceDisponible >= utLeg->getTaille()))
+        return true;
+
+    auto utLourde = dynamic_cast<UniteTerrestreLourde *>(unite);
+    if (utLourde && (_espaceDisponible == _MAX_ESPACE))
+        return true;
+
+    return false;
 }
 
 void CaseTerrestre::afficherDetails(std::ostream &os) const
@@ -249,4 +238,21 @@ void CaseTerrestre::afficherDetails(std::ostream &os) const
     os << "Espace dispo = " << _espaceDisponible << std::endl;
 
     os <<  "Construction ? " << (_construction != nullptr) << std::endl;
+}
+
+void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, stat cout)
+{
+    if (_unitesTerrestres.at(indUnite)->estLegere()) {
+        // si unite est legere alors on rajoute à l'espace dispo la place quelle prennait
+        auto uniteTerrestreLeg = dynamic_cast<UniteTerrestreLegere *>
+            (_unitesTerrestres.at(indUnite).get());
+        _espaceDisponible += uniteTerrestreLeg->getTaille();
+    }
+
+    else    // sinon on reset l'espace dispo
+        _espaceDisponible = _MAX_ESPACE;
+
+    _unitesTerrestres.at(indUnite)->utiliserProvisions(cout);                   // se déplacer à un cout en provision
+    arrivee->ajouterUniteTerrestre(std::move(_unitesTerrestres.at(indUnite)));  // on ajoute l'unité à l'arrivee
+    _unitesTerrestres.erase(_unitesTerrestres.begin() + indUnite);              // on oubli pas de supprimer le unique_ptr null de la case
 }
