@@ -33,14 +33,14 @@ Window {
     }
 
     Component {
-           id: composantSonBouton
-           MediaPlayer {
-               source: "qrc:/clic"
-               audioOutput: AudioOutput {
+            id: composantSonBouton
+            MediaPlayer {
+                source: "qrc:/clic"
+                audioOutput: AudioOutput {
                    volume: racine.desactiverVolumeBouton ? 0 : racine.volumeBouton
-               }
-           }
-       }
+                }
+            }
+        }
 
     Background {
         anchors.fill: parent

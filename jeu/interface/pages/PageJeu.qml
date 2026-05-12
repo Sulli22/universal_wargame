@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtMultimedia
+
 import MonGL 1.0
 import "../composantsJeu"
 
@@ -33,15 +34,15 @@ Item {
     }
 
     Component {
-           id: composantSonAttaque
+            id: composantSonAttaque
 
-           MediaPlayer {
-               source: "qrc:/attaque"
-               audioOutput: AudioOutput {
-                   volume: racine.desactiverVolumeBouton ? 0 : racine.volumeBouton
-               }
-           }
-       }
+            MediaPlayer {
+                source: "qrc:/attaque"
+                audioOutput: AudioOutput {
+                    volume: racine.desactiverVolumeBouton ? 0 : racine.volumeBouton / 3
+                }
+            }
+        }
 
     ColumnLayout {
         id: layoutGeneral
@@ -389,7 +390,14 @@ Item {
                                     enabled: false
 
                                     onClicked: {
+                                        let estActionAttaquante = modeleQML.estActionAttaque()
                                         modeleQML.effectuerAction()
+
+                                        if (modeleQML.partieFinie())
+                                            popupVictoire.open()
+                                        else if (estActionAttaquante)
+                                            lancerBruitAttaque()
+
                                         enabled = false
                                         boutonAnnuler.enabled = false
                                         stats.text = "Pas d'unite"
@@ -397,12 +405,6 @@ Item {
                                         racineJeu.rafraichirBoutonsActions()
                                         racineJeu.rafraichirBoutonsConstruction()
                                         plateau.update()
-
-                                        if (modeleQML.partieFinie())
-                                            popupVictoire.open()
-                                        else if (modeleQML.estActionAttaque())
-                                            lancerBruitAttaque()
-
                                     }
                                 }
                             }
