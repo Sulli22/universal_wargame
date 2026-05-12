@@ -65,7 +65,6 @@ public:
     void sortieFlux(std::ostream &os) const;
 
 private:
-    void setEtat(etat nvEtat);
     bool factionEstPerdante(Faction faction) const;
     bool uniteSelectioneeAJoue() const;
 

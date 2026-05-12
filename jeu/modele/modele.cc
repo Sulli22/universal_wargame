@@ -46,11 +46,6 @@ float Modele::getPourcentageDefaite()
     return _PRCT_DEFAITE;
 }
 
-void Modele::setEtat(etat nvEtat)
-{
-    _etat = nvEtat;
-}
-
 bool Modele::factionEstPerdante(Faction faction) const
 {
     if (faction == _faction1)
@@ -192,7 +187,7 @@ void Modele::annulerSelections()
     _caseSelectionnee = nullptr;
     _caseCible = nullptr;
     _aConstruire = nullptr;
-    setEtat(etat::selection);
+    _etat = etat::selection;
 }
 
 Unite *Modele::getUniteSelectionee() const
@@ -218,10 +213,12 @@ void Modele::choixAction(indiceAction indAction)
         throw std::invalid_argument("Erreur : " + std::to_string(indAction)
                                                 + " n'est pas un indice d'action valide");
 
+    _caseCible = nullptr;   // évite de garder une cible lors du changement
+
     switch (indAction) {
-    case 0:     setEtat(etat::deplacement);     break;
-    case 1:     setEtat(etat::attaque);         break;
-    case 2:     setEtat(etat::construction);    break;
+    case 0:     _etat = etat::deplacement;     break;
+    case 1:     _etat = etat::attaque;         break;
+    case 2:     _etat = etat::construction;    break;
     }
 }
 
