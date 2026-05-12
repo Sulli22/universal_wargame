@@ -189,7 +189,9 @@ Item {
         id: parametreJeu
         visible: false
 
-        onBoutonRetourClique: visible = false
+        onBoutonRetourClique: function cacherParametres() {
+            visible = false
+        }
     }
 
     Rectangle {
