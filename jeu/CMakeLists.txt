@@ -127,6 +127,7 @@ set(QML_FILES
     interface/composantsJeu/Legende.qml
     interface/composantsJeu/LigneLegende.qml
     interface/composantsJeu/BoutonChoix.qml
+    interface/composantsJeu/LayoutMenu.qml
     interface/composantsJeu/PopupGeneral.qml
     interface/composantsJeu/PopupQuitter.qml
     interface/composantsJeu/PopupRegles.qml
