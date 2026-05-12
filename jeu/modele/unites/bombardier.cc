@@ -25,12 +25,12 @@ stat Bombardier::getCapaciteDeplacement() const
 {
     // réduit la capacité de déplacement au nb de provisions
     // si celui ci est insufisant pour un déplacement complet
-    stat capaciteReelle = 4;
+    stat capacite = 3;
     stat capaciteMin = getNbProvisions();
-    return std::min(capaciteMin, capaciteReelle);
+    return std::min(capaciteMin, capacite);
 }
 
 stat Bombardier::getDistanceAttaque() const
 {
-    return 1;
+    return 2;
 }

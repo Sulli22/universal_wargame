@@ -19,5 +19,5 @@ public:
 protected:
     static const stat _POINTS_VIE_INIT = 30;
     static const stat _NB_MUNITIONS_INIT = 16;
-    static const stat _NB_PROVISIONS_INIT = 30;
+    static const stat _NB_PROVISIONS_INIT = 20;
 };

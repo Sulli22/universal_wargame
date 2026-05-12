@@ -25,12 +25,12 @@ stat SousMarin::getCapaciteDeplacement() const
 {
     // réduit la capacité de déplacement au nb de provisions
     // si celui ci est insufisant pour un déplacement complet
-    stat capaciteReelle = 10;
+    stat capacite = 6;
     stat capaciteMin = Unite::getNbProvisions();
-    return std::min(capaciteMin, capaciteReelle);
+    return std::min(capaciteMin, capacite);
 }
 
 stat SousMarin::getDistanceAttaque() const
 {
-    return 15;
+    return 7;
 }

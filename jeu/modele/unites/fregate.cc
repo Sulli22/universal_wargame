@@ -25,12 +25,12 @@ stat Fregate::getCapaciteDeplacement() const
 {
     // réduit la capacité de déplacement au nb de provisions
     // si celui ci est insufisant pour un déplacement complet
-    stat capaciteReelle = 3;
+    stat capacite = 3;
     stat capaciteMin = getNbProvisions();
-    return std::min(capaciteMin, capaciteReelle);
+    return std::min(capaciteMin, capacite);
 }
 
 stat Fregate::getDistanceAttaque() const
 {
-    return 5;
+    return 4;
 }

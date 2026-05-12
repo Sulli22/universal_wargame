@@ -17,8 +17,8 @@ public:
     stat getDistanceAttaque() const override;
 
 private:
-    static const stat _POINTS_VIE_INIT = 100;
-    static const stat _NB_MUNITIONS_INIT = 25;
-    static const stat _NB_PROVISIONS_INIT = 150;
-    static const stat _POINTS_BOUCLIER_INIT = 50;
+    static const stat _POINTS_VIE_INIT = 90;
+    static const stat _NB_MUNITIONS_INIT = 15;
+    static const stat _NB_PROVISIONS_INIT = 140;
+    static const stat _POINTS_BOUCLIER_INIT = 30;
 };
