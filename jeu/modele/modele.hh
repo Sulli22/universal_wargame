@@ -70,7 +70,7 @@ private:
 
     static std::string factionVersString(Faction faction);
     static std::vector<Case *> mapVersCles(const std::map<Case *, distance> &map);
-    static constexpr float _MULT_DEFAITE = 0.90f;
+    static constexpr float _MULT_DEFAITE = 0.1f;
     static constexpr float _PRCT_DEFAITE = _MULT_DEFAITE * 100.f;
 
 // attributs
