@@ -116,10 +116,10 @@ std::array<float,3> MonRenderer::getCouleur(Stat q, Stat r) const
 
     auto ct = dynamic_cast<CaseTerrestre *>(c);
     switch (ct->getTerrain()) {
-    case typeTerrain::plaine:   return { 0.f,  1.f,  0.f  };
-    case typeTerrain::foret:    return { 0.f,  0.5f, 0.f  };
-    case typeTerrain::montagne: return { 0.5f, 0.5f, 0.5f };
-    case typeTerrain::riviere:  return { 0.4f, 0.4f, 1.f  };
+    case TypeTerrain::plaine:   return { 0.f,  1.f,  0.f  };
+    case TypeTerrain::foret:    return { 0.f,  0.5f, 0.f  };
+    case TypeTerrain::montagne: return { 0.5f, 0.5f, 0.5f };
+    case TypeTerrain::riviere:  return { 0.4f, 0.4f, 1.f  };
     default:                    throw std::runtime_error("Terrain inconnu");
     }
 

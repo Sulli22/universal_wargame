@@ -5,16 +5,16 @@
 #include "uniteterrestre.hh"
 #include "construction.hh"
 
-enum class typeTerrain { plaine, foret, montagne, riviere };
+enum class TypeTerrain { plaine, foret, montagne, riviere };
 
 class CaseTerrestre : public Case {
 public:
     CaseTerrestre(const Position &pos,
-                  typeTerrain terrain = typeTerrain::plaine,
+                  TypeTerrain terrain = TypeTerrain::plaine,
                   Stat espaceDisponible = _MAX_ESPACE);
 
 // getters
-    typeTerrain getTerrain() const;
+    TypeTerrain getTerrain() const;
     Construction *getConstruction() const;
 
 // méthodes jeu
@@ -40,7 +40,7 @@ private:
 // attributs
     std::vector<std::unique_ptr<UniteTerrestre>> _unitesTerrestres;
     Stat _espaceDisponible;
-    typeTerrain _terrain;
+    TypeTerrain _terrain;
     std::unique_ptr<Construction> _construction;
 
     static const Stat _MAX_ESPACE = 5;
