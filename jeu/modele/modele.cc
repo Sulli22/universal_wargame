@@ -49,10 +49,10 @@ float Modele::getPourcentageDefaite()
 bool Modele::factionEstPerdante(Faction faction) const
 {
     if (faction == _faction1)
-        return _plateau.nbUnites(_faction1) < _seuilDefaiteFaction1;
+        return _plateau.nbUnites(_faction1) <= _seuilDefaiteFaction1;
 
     if (faction == _faction2)
-        return _plateau.nbUnites(_faction2) < _seuilDefaiteFaction2;
+        return _plateau.nbUnites(_faction2) <= _seuilDefaiteFaction2;
 
     throw std::invalid_argument("Erreur : la faction est incorrecte");
 }
@@ -207,7 +207,7 @@ bool Modele::uniteSelectioneeAJoue() const
                      getUniteSelectionee()) != _unitesAyantJoue.end();
 }
 
-void Modele::choixAction(indiceAction indAction)
+void Modele::choixAction(IndiceAction indAction)
 {
     if (!indiceActionValide(indAction))
         throw std::invalid_argument("Erreur : " + std::to_string(indAction)
@@ -259,7 +259,7 @@ bool Modele::estActionAttaque() const
     return _etat == etat::attaque;
 }
 
-std::vector<indiceConstruction> Modele::getIndicesConstructionsPossibles() const
+std::vector<IndiceConstruction> Modele::getIndicesConstructionsPossibles() const
 {
     if (_etat != etat::construction || !_caseCible)
         return {};
@@ -267,7 +267,7 @@ std::vector<indiceConstruction> Modele::getIndicesConstructionsPossibles() const
     return _caseCible->getIndicesConstructionsPossibles(*dynamic_cast<Genie *>(getUniteSelectionee()));
 }
 
-bool Modele::indiceConstructionValide(indiceConstruction indConstruction) const
+bool Modele::indiceConstructionValide(IndiceConstruction indConstruction) const
 {
     auto inds = getIndicesConstructionsPossibles();
     auto it = std::find(inds.begin(), inds.end(), indConstruction);
@@ -275,7 +275,7 @@ bool Modele::indiceConstructionValide(indiceConstruction indConstruction) const
     return (it != inds.end());
 }
 
-void Modele::choixConstruction(indiceConstruction indConstruction)
+void Modele::choixConstruction(IndiceConstruction indConstruction)
 {
     if (_etat != etat::construction)
         throw std::runtime_error("Erreur : impossible de choisir une construction");
@@ -293,9 +293,9 @@ void Modele::choixConstruction(indiceConstruction indConstruction)
     }
 }
 
-std::vector<indiceAction> Modele::getIndicesActionsPossibles() const
+std::vector<IndiceAction> Modele::getIndicesActionsPossibles() const
 {
-    static const std::map<indiceAction, etat> INDICE_VERS_ETAT = {
+    static const std::map<IndiceAction, etat> INDICE_VERS_ETAT = {
         {0, etat::deplacement},
         {1, etat::attaque},
         {2, etat::construction}
@@ -309,10 +309,10 @@ std::vector<indiceAction> Modele::getIndicesActionsPossibles() const
         return {};
 
     auto res = unite->getIndicesActionsPossibles();
-    std::vector<indiceAction> aSupprimer;
+    std::vector<IndiceAction> aSupprimer;
 
     res.erase(      // on supprime si aucune case n'est concernee
-        std::remove_if(res.begin(), res.end(), [&](indiceAction i) {
+        std::remove_if(res.begin(), res.end(), [&](IndiceAction i) {
             auto it = INDICE_VERS_ETAT.find(i);
             if (it == INDICE_VERS_ETAT.end())
                 throw std::runtime_error("Erreur : " + std::to_string(i) + " n'est pas un indice d'action valide");
@@ -322,7 +322,7 @@ std::vector<indiceAction> Modele::getIndicesActionsPossibles() const
     return res;
 }
 
-bool Modele::indiceActionValide(indiceAction indAction) const
+bool Modele::indiceActionValide(IndiceAction indAction) const
 {
     auto inds = getIndicesActionsPossibles();
     auto it = std::find(inds.begin(), inds.end(), indAction);

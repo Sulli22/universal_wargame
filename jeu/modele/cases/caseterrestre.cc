@@ -13,7 +13,7 @@
 #include <limits>
 
 CaseTerrestre::CaseTerrestre(const Position &pos, typeTerrain terrain,
-                             stat espaceDisponible):
+                             Stat espaceDisponible):
     Case(pos), _espaceDisponible(espaceDisponible), _terrain(terrain)
 {}
 
@@ -27,7 +27,7 @@ Construction *CaseTerrestre::getConstruction() const
    return _construction.get();
 }
 
-void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, stat cout)
+void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, Stat cout)
 {
     if (indUnite == 0 && getUniteAerienne())         // s'il y a une unite aerienne et ind = 0
         Case::deplacerUniteAerienne(arrivee, cout); // on deplace l'unite aerienne
@@ -130,9 +130,9 @@ std::size_t CaseTerrestre::nbUnites() const
     return Case::nbUnites() + _unitesTerrestres.size();
 }
 
-stat CaseTerrestre::coutDeplacement(Unite *unite) const
+Stat CaseTerrestre::coutDeplacement(Unite *unite) const
 {
-    auto max = std::numeric_limits<stat>::max();
+    auto max = std::numeric_limits<Stat>::max();
     if (!peutAccueillir(unite))
         return max;             // infranchissable si accueil impossible
 
@@ -175,7 +175,7 @@ Faction CaseTerrestre::getFaction() const
     return Faction::neutre;
 }
 
-std::vector<indiceConstruction> CaseTerrestre::getIndicesConstructionsPossibles(const Genie &genie) const
+std::vector<IndiceConstruction> CaseTerrestre::getIndicesConstructionsPossibles(const Genie &genie) const
 {
     if (_construction
         || _terrain == typeTerrain::foret
@@ -189,7 +189,7 @@ std::vector<indiceConstruction> CaseTerrestre::getIndicesConstructionsPossibles(
     }
 
     // sinon on vérfie seulement le cout
-    std::vector<indiceConstruction> res;
+    std::vector<IndiceConstruction> res;
 
     if (genie.peutDepenser(DepotMunitions::getCoutStatic()))
         res.push_back(0);
@@ -201,23 +201,6 @@ std::vector<indiceConstruction> CaseTerrestre::getIndicesConstructionsPossibles(
         res.push_back(2);
 
     return res;
-}
-
-bool CaseTerrestre::peutAccueillir(Unite *unite) const
-{
-    auto ua = dynamic_cast<UniteAerienne *>(unite);
-    if (ua && !getUniteAerienne())
-        return true;
-
-    auto utLeg = dynamic_cast<UniteTerrestreLegere *>(unite);
-    if (utLeg && (_espaceDisponible >= utLeg->getTaille()))
-        return true;
-
-    auto utLourde = dynamic_cast<UniteTerrestreLourde *>(unite);
-    if (utLourde && (_espaceDisponible == _MAX_ESPACE))
-        return true;
-
-    return false;
 }
 
 void CaseTerrestre::afficherDetails(std::ostream &os) const
@@ -238,7 +221,24 @@ void CaseTerrestre::afficherDetails(std::ostream &os) const
     os <<  "Construction ? " << (_construction != nullptr) << std::endl;
 }
 
-void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, stat cout)
+bool CaseTerrestre::peutAccueillir(Unite *unite) const
+{
+    auto ua = dynamic_cast<UniteAerienne *>(unite);
+    if (ua && !getUniteAerienne())
+        return true;
+
+    auto utLeg = dynamic_cast<UniteTerrestreLegere *>(unite);
+    if (utLeg && (_espaceDisponible >= utLeg->getTaille()))
+        return true;
+
+    auto utLourde = dynamic_cast<UniteTerrestreLourde *>(unite);
+    if (utLourde && (_espaceDisponible == _MAX_ESPACE))
+        return true;
+
+    return false;
+}
+
+void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, Stat cout)
 {
     if (_unitesTerrestres.at(indUnite)->estLegere()) {
         // si unite est legere alors on rajoute à l'espace dispo la place quelle prennait

@@ -7,7 +7,7 @@ class Construction {
 public:
     Construction();
 
-    virtual stat getCout() const = 0;
+    virtual Stat getCout() const = 0;
 
     void effectuerEffet(std::vector<Unite *> unites) const;
     virtual bool estPont() const;
@@ -17,11 +17,11 @@ protected:
 };
 
 // utilisation d'un template permettant des tests du le cout sans instances
-template<typename Derive>
+template<typename Derivee>
 class ConstructionTemplate: public Construction {
 public:
     ConstructionTemplate();
 
-    stat getCout() const override { return Derive::getCoutImpl(); }
-    static stat getCoutStatic() { return Derive::getCoutImpl(); }
+    Stat getCout() const override { return Derivee::getCoutImpl(); }
+    static Stat getCoutStatic() { return Derivee::getCoutImpl(); }
 };

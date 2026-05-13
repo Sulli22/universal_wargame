@@ -77,7 +77,7 @@ void Case::afficherDetails(std::ostream &os) const
     }
 }
 
-void Case::deplacerUniteAerienne(Case *arrive, stat cout)
+void Case::deplacerUniteAerienne(Case *arrive, Stat cout)
 {
     _uniteAerienne->utiliserProvisions(cout);   // deplacement cout des provisions
     arrive->setUniteAerienne(std::move(_uniteAerienne));

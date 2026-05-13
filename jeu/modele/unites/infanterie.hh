@@ -5,19 +5,19 @@
 class Infanterie : public UniteTerrestreLegere {
 public:
     Infanterie(Faction faction,
-               stat pointsVie = _POINTS_VIE_INIT,
-               stat nbMunitions = _NB_MUNITIONS_INIT,
-               stat nbProvisions = _NB_PROVISIONS_INIT);
+               Stat pointsVie = _POINTS_VIE_INIT,
+               Stat nbMunitions = _NB_MUNITIONS_INIT,
+               Stat nbProvisions = _NB_PROVISIONS_INIT);
 
     virtual std::string getNom() const override;
-    stat getPointsAttaqueLegere() const override;
-    stat getPointsAttaqueLourde() const override;
-    stat getCapaciteDeplacement() const override;
-    stat getDistanceAttaque() const override;
-    stat getTaille() const override;
+    Stat getPointsAttaqueLegere() const override;
+    Stat getPointsAttaqueLourde() const override;
+    Stat getCapaciteDeplacement() const override;
+    Stat getDistanceAttaque() const override;
+    Stat getTaille() const override;
 
 protected:
-    static const stat _POINTS_VIE_INIT = 30;
-    static const stat _NB_MUNITIONS_INIT = 16;
-    static const stat _NB_PROVISIONS_INIT = 20;
+    static const Stat _POINTS_VIE_INIT = 30;
+    static const Stat _NB_MUNITIONS_INIT = 16;
+    static const Stat _NB_PROVISIONS_INIT = 20;
 };

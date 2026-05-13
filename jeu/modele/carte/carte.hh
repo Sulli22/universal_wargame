@@ -34,8 +34,8 @@ public:
 
 private:
     std::vector<Case *> getVoisines(const Case &c) const;
-    std::map<Case *, std::set<Faction> > getZOC() const;
-    bool caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement, const std::map<Case *, std::set<Faction> > &zoc) const;
+    std::map<Case *, std::set<Faction>> getZOC() const;
+    bool caseDansZocEnnemie(Case *caseCible, const Unite &uniteEnDeplacement, const std::map<Case *, std::set<Faction>> &zoc) const;
 
     static distance calculDistance(const Case &a, const Case &b);
     static std::vector<Case *> reconstruitChemin(const std::map<Case *, Case*> &vientDe, Case *depart, Case *arrivee);

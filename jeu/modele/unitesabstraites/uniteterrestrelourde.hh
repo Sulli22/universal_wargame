@@ -5,7 +5,7 @@
 
 class UniteTerrestreLourde: public UniteLourde, public UniteTerrestre {
 public:
-    UniteTerrestreLourde(Faction faction, stat pointsVie, stat nbMunitions,
-                         stat nbProvisions, stat pointsBouclier,
+    UniteTerrestreLourde(Faction faction, Stat pointsVie, Stat nbMunitions,
+                         Stat nbProvisions, Stat pointsBouclier,
                          Visibilite visibilite = Visibilite::totale);
 };

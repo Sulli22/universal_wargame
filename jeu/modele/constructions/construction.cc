@@ -5,8 +5,8 @@
 #include "infirmerie.hh"
 #include "pont.hh"
 
-template<typename Derive>
-ConstructionTemplate<Derive>::ConstructionTemplate()
+template<typename Derivee>
+ConstructionTemplate<Derivee>::ConstructionTemplate()
 {}
 
 Construction::Construction()

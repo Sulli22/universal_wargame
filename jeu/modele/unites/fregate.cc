@@ -1,7 +1,7 @@
 #include "fregate.hh"
 
-Fregate::Fregate(Faction faction, stat pointsVie, stat nbMunitions,
-                 stat nbProvisions, stat pointsBouclier):
+Fregate::Fregate(Faction faction, Stat pointsVie, Stat nbMunitions,
+                 Stat nbProvisions, Stat pointsBouclier):
     Unite(faction, pointsVie, nbMunitions, nbProvisions),
     UniteMarine(faction, pointsVie, nbMunitions, nbProvisions, pointsBouclier)
 {}
@@ -11,26 +11,26 @@ std::string Fregate::getNom() const
     return "Fregate";
 }
 
-stat Fregate::getPointsAttaqueLegere() const
+Stat Fregate::getPointsAttaqueLegere() const
 {
     return 5;
 }
 
-stat Fregate::getPointsAttaqueLourde() const
+Stat Fregate::getPointsAttaqueLourde() const
 {
     return 18;
 }
 
-stat Fregate::getCapaciteDeplacement() const
+Stat Fregate::getCapaciteDeplacement() const
 {
     // réduit la capacité de déplacement au nb de provisions
     // si celui ci est insufisant pour un déplacement complet
-    stat capacite = 3;
-    stat capaciteMin = getNbProvisions();
+    Stat capacite = 3;
+    Stat capaciteMin = getNbProvisions();
     return std::min(capaciteMin, capacite);
 }
 
-stat Fregate::getDistanceAttaque() const
+Stat Fregate::getDistanceAttaque() const
 {
     return 4;
 }

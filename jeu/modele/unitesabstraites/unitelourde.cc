@@ -1,17 +1,17 @@
 #include "unitelourde.hh"
 
-UniteLourde::UniteLourde(Faction faction, stat pointsVie, stat nbMunitions,
-                         stat nbProvisions, stat pointsBouclier, Visibilite visibilite):
+UniteLourde::UniteLourde(Faction faction, Stat pointsVie, Stat nbMunitions,
+                         Stat nbProvisions, Stat pointsBouclier, Visibilite visibilite):
     Unite(faction, pointsVie, nbMunitions, nbProvisions, visibilite),
     _pointsBouclier(pointsBouclier), _MAX_POINTS_BOUCLIER(pointsBouclier)
 {}
 
-stat UniteLourde::getPointsBouclier() const
+Stat UniteLourde::getPointsBouclier() const
 {
     return _pointsBouclier;
 }
 
-stat UniteLourde::getMaxPointsBouclier() const
+Stat UniteLourde::getMaxPointsBouclier() const
 {
     return _MAX_POINTS_BOUCLIER;
 }
@@ -32,7 +32,7 @@ void UniteLourde::sortieFlux(std::ostream &os) const
     os << " pointsBouclier=" << _pointsBouclier << "/" << _MAX_POINTS_BOUCLIER;
 }
 
-void UniteLourde::prendreDegats(stat degats)
+void UniteLourde::prendreDegats(Stat degats)
 {
     // une unité lourde prend d'abord des dégats dans son bouclier
     // si son bouclier n'est pas suffisant, le reste de l'attaque est classique

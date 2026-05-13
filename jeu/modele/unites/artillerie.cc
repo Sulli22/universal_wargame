@@ -1,7 +1,7 @@
 #include "artillerie.hh"
 
-Artillerie::Artillerie(Faction faction, stat pointsVie, stat nbMunitions,
-                       stat nbProvisions):
+Artillerie::Artillerie(Faction faction, Stat pointsVie, Stat nbMunitions,
+                       Stat nbProvisions):
     Unite(faction, pointsVie, nbMunitions, nbProvisions),
     UniteTerrestreLegere(faction, pointsVie, nbMunitions, nbProvisions)
 {}
@@ -11,31 +11,31 @@ std::string Artillerie::getNom() const
     return "Artillerie";
 }
 
-stat Artillerie::getPointsAttaqueLegere() const
+Stat Artillerie::getPointsAttaqueLegere() const
 {
     return 10;
 }
 
-stat Artillerie::getPointsAttaqueLourde() const
+Stat Artillerie::getPointsAttaqueLourde() const
 {
     return 18;
 }
 
-stat Artillerie::getCapaciteDeplacement() const
+Stat Artillerie::getCapaciteDeplacement() const
 {
     // réduit la capacité de déplacement au nb de provisions
     // si celui ci est insufisant pour un déplacement complet
-    stat capacite = 3;
-    stat capaciteMin = getNbProvisions();
+    Stat capacite = 3;
+    Stat capaciteMin = getNbProvisions();
     return std::min(capaciteMin, capacite);
 }
 
-stat Artillerie::getDistanceAttaque() const
+Stat Artillerie::getDistanceAttaque() const
 {
     return 3;
 }
 
-stat Artillerie::getTaille() const
+Stat Artillerie::getTaille() const
 {
     return 2;
 }

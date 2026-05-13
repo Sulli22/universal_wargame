@@ -170,12 +170,12 @@ std::map<Case *, distance> Carte::getCasesAtteignables(Case *depart, Unite *unit
             continue;
 
         for (Case *caseVoisine : getVoisines(*courante)) {
-            stat coutMvt = caseVoisine->coutDeplacement(uniteEnDeplacement);
+            Stat coutMvt = caseVoisine->coutDeplacement(uniteEnDeplacement);
 
             // infranchissable
-            if (coutMvt == std::numeric_limits<stat>::max()) continue;
+            if (coutMvt == std::numeric_limits<Stat>::max()) continue;
 
-            stat nouveauCout = coutJusqua[courante] + coutMvt;
+            Stat nouveauCout = coutJusqua[courante] + coutMvt;
 
             // trop loin
             if (nouveauCout > uniteEnDeplacement->getCapaciteDeplacement()) continue;
@@ -199,8 +199,8 @@ std::map<Case *, distance> Carte::getCasesAtteignables(Case *depart, Unite *unit
 std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaquante) const
 {
     std::vector<Case *> casesAttaquables;
-    stat portee = uniteAttaquante->getDistanceAttaque();
-    std::queue<std::pair<Case*, stat>> file;
+    Stat portee = uniteAttaquante->getDistanceAttaque();
+    std::queue<std::pair<Case*, Stat>> file;
     std::set<Case *> visitees;
 
     file.push({depart, 0});
@@ -235,11 +235,11 @@ std::vector<Case *> Carte::getChemin(Case *depart, Case *arrivee, Unite *uniteEn
 {
     auto zoc = getZOC(); // precalcul zoc
 
-    using PQElement = std::pair<stat, Case *>;
+    using PQElement = std::pair<Stat, Case *>;
     std::priority_queue<PQElement, std::vector<PQElement>, std::greater<>> aExplorer;
     aExplorer.push({0, depart});
     std::map<Case *, Case *> vientDe;
-    std::map<Case *, stat> coutJusqua;
+    std::map<Case *, Stat> coutJusqua;
     vientDe[depart] = depart;
     coutJusqua[depart] = 0;
 
@@ -250,13 +250,13 @@ std::vector<Case *> Carte::getChemin(Case *depart, Case *arrivee, Unite *uniteEn
         if (courante == arrivee) break;
 
         for (Case *suiv : getVoisines(*courante)) {
-            stat coutMvt = suiv->coutDeplacement(uniteEnDeplacement);
+            Stat coutMvt = suiv->coutDeplacement(uniteEnDeplacement);
 
             // infranchissable
-            if (coutMvt == std::numeric_limits<stat>::max())
+            if (coutMvt == std::numeric_limits<Stat>::max())
                 continue;
 
-            stat nvCout = coutJusqua[courante] + coutMvt;
+            Stat nvCout = coutJusqua[courante] + coutMvt;
 
             // trop loin
             if (nvCout > uniteEnDeplacement->getCapaciteDeplacement())
@@ -269,7 +269,7 @@ std::vector<Case *> Carte::getChemin(Case *depart, Case *arrivee, Unite *uniteEn
 
             if (!coutJusqua.count(suiv) || nvCout < coutJusqua[suiv]) {
                 coutJusqua[suiv] = nvCout;
-                stat priorite = nvCout + calculDistance(*suiv, *arrivee);
+                Stat priorite = nvCout + calculDistance(*suiv, *arrivee);
                 aExplorer.push({priorite, suiv});
                 vientDe[suiv] = courante;
             }
