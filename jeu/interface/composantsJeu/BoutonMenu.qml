@@ -3,9 +3,9 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 Button {
-    id: racineBoutonAction
+    id: racineBoutonMenu
 
-    property alias equipe: backgroundBoutonAction.color
+    property alias equipe: backgroundBoutonMenu.color
 
     Layout.fillWidth: true
     Layout.preferredHeight: layoutMenu.height * 0.05
@@ -16,7 +16,7 @@ Button {
     palette.buttonText: "#A9A9A9"
 
     background: Rectangle {
-        id: backgroundBoutonAction
+        id: backgroundBoutonMenu
         radius: layoutMenu.height*0.05/2
 
         Behavior on color {

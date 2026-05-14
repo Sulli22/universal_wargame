@@ -31,9 +31,9 @@ Item {
             Layout.fillWidth: true
 
             model: ListModel {
-                id: cbItems
-                ListElement { text:"Français"; image: "qrc:/img/france" }
-                ListElement { text:"English"; image: "qrc:/img/royaumeuni" }
+                id: listeLangues
+                ListElement {text:"Français"; image: "qrc:/img/france" }
+                ListElement {text:"English"; image: "qrc:/img/royaumeuni" }
             }
 
             textRole: "text"
@@ -66,11 +66,11 @@ Item {
 
             // Permet de personnaliser lors de l'ouverture de la liste
             delegate: ItemDelegate {
-                id: control
+                id: ouvertureListe
                 width: selectionLangue.width
 
                 background: Rectangle {
-                    color: control.highlighted ? "#87CEFA" : "#f5f5dc"
+                    color: ouvertureListe.highlighted ? "#87CEFA" : "#f5f5dc"
                 }
 
                 contentItem: RowLayout {
@@ -80,7 +80,6 @@ Item {
                         source: model.image
                         sourceSize: "24x12" 
                     }
-
                     Text {
                         color: "black"
                         text: model.text
@@ -93,7 +92,7 @@ Item {
                 highlighted: selectionLangue.highlightedIndex === index
             }
 
-            onActivated: {
+            onActivated: function majLangue(){
                 langageManager.majLangue(selectionLangue.currentIndex === 0 ? "fr" : "en")
                 racine.indiceLangue = selectionLangue.currentIndex
             }

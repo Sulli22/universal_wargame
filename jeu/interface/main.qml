@@ -9,8 +9,8 @@ Window {
     readonly property string couleurTexte: "#f5f5dc"
 
     property real volumeMusique: 0.25
-    property real volumeBouton: 0.5
-    property bool desactiverVolumeBouton: false
+    property real volumeBruitages: 0.5
+    property bool desactiverVolumeBruitages: false
     property bool desactiverVolumeMusique: false
     property int indiceLangue: 0
 
@@ -37,7 +37,7 @@ Window {
             MediaPlayer {
                 source: "qrc:/clic"
                 audioOutput: AudioOutput {
-                   volume: racine.desactiverVolumeBouton ? 0 : racine.volumeBouton
+                   volume: racine.desactiverVolumeBruitages ? 0 : racine.volumeBruitages
                 }
             }
         }

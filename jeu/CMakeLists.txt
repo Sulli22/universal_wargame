@@ -123,7 +123,7 @@ set(QML_FILES
     interface/composantsChoixGuerre/BoutonChoixGuerre.qml
     interface/pages/PageJeu.qml
     interface/divers/Background.qml
-    interface/composantsJeu/BoutonAction.qml
+    interface/composantsJeu/BoutonMenu.qml
     interface/composantsJeu/Legende.qml
     interface/composantsJeu/LigneLegende.qml
     interface/composantsJeu/BoutonChoix.qml

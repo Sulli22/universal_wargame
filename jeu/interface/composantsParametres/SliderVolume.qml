@@ -2,17 +2,18 @@ import QtQuick
 import QtQuick.Controls
 
 Item {
+    id: racineSliderVolume
     Slider {
         id: slider
         from: 0
         to: 100
-        value: racine.volumeBouton * 100
+        value: racine.volumeBruitages * 100
         height: 50
         stepSize: 1
         width: parent.width
 
-        onMoved: {
-            racine.volumeBouton = slider.value/100
+        onMoved: function majVolume(){
+            racine.volumeBruitages = slider.value/100
             racine.volumeMusique = slider.value/200
         }
 
@@ -50,4 +51,5 @@ Item {
         font.pointSize: slider.height/4
         color: "black"
     }
+
 }

@@ -15,6 +15,7 @@
 
 int main(int argc, char *argv[])
 {
+
     // version openGL
     QSurfaceFormat format;
     format.setVersion(2, 1);
