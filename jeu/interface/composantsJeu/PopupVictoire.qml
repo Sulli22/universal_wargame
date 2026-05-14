@@ -35,7 +35,7 @@ PopupGeneral {
 
             Text {
                 id: texteVictoire
-                text: "VICTOIRE DE : "
+                text: qsTr("VICTOIRE DE") + ":" + langageManager.chaineVide
                 font.pointSize: Math.max(25,layoutVictoire.width * 0.075)
                 font.bold: true
                 Layout.alignment: Qt.AlignHCenter

@@ -48,7 +48,7 @@ ColumnLayout {
     }
 
     function rafraichirStats() {
-        stats.text = "Pas d'unite"
+        stats.text = qsTr("Pas d'unite") + langageManager.chaineVide
     }
 
     anchors.fill: parent
@@ -56,7 +56,7 @@ ColumnLayout {
 
     Label {
         id: labelJoueur
-        text: qsTr("Joueur : ") + langageManager.chaineVide
+        text: qsTr("Joueur")+langageManager.chaineVide+" : "
         font.pointSize: 18
         font.bold: true
         color: racine.couleurTexte

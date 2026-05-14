@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 Item {
+    id: racineParametresLangue
     Layout.alignment: Qt.AlignHCenter
 
     Rectangle {
@@ -28,7 +29,7 @@ Item {
 
         ComboBox {
             id: selectionLangue
-            Layout.fillWidth: true
+            Layout.preferredWidth: racineParametresLangue.width / 5
 
             model: ListModel {
                 id: listeLangues
@@ -39,14 +40,15 @@ Item {
             textRole: "text"
             currentIndex: racine.indiceLangue
 
-            contentItem: RowLayout {
+            contentItem: Item {
                 anchors.fill: parent
-                spacing: 10
 
                 Image {
                    source: selectionLangue.model.get(selectionLangue.currentIndex).image
                    sourceSize: "24x12"
-                   Layout.leftMargin: 10
+                   anchors.left: parent.left
+                   anchors.verticalCenter: parent.verticalCenter
+                   anchors.leftMargin: 10
                 }
 
                 Text {
@@ -54,7 +56,13 @@ Item {
                    color: "black"
                    text: selectionLangue.model.get(selectionLangue.currentIndex).text
                    font.bold: true
-                   Layout.fillWidth: true
+                   anchors.centerIn: parent
+                   verticalAlignment: Text.AlignVCenter
+                   horizontalAlignment: Text.AlignHCenter
+                }
+
+                Item {
+                    Layout.fillWidth: true
                 }
             }
 
