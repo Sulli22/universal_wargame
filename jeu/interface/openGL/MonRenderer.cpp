@@ -107,7 +107,7 @@ QOpenGLFramebufferObject *MonRenderer::createFramebufferObject(const QSize &size
     return new QOpenGLFramebufferObject(size, format);
 }
 
-std::array<float,3> MonRenderer::getCouleur(stat q, stat r) const
+std::array<float,3> MonRenderer::getCouleur(Stat q, Stat r) const
 {
     auto c = _modele->accesCasePlateau({static_cast<int>(q), static_cast<int>(r)});
 
@@ -116,17 +116,17 @@ std::array<float,3> MonRenderer::getCouleur(stat q, stat r) const
 
     auto ct = dynamic_cast<CaseTerrestre *>(c);
     switch (ct->getTerrain()) {
-    case typeTerrain::plaine:   return { 0.f,  1.f,  0.f  };
-    case typeTerrain::foret:    return { 0.f,  0.5f, 0.f  };
-    case typeTerrain::montagne: return { 0.5f, 0.5f, 0.5f };
-    case typeTerrain::riviere:  return { 0.4f, 0.4f, 1.f  };
+    case TypeTerrain::plaine:   return { 0.f,  1.f,  0.f  };
+    case TypeTerrain::foret:    return { 0.f,  0.5f, 0.f  };
+    case TypeTerrain::montagne: return { 0.5f, 0.5f, 0.5f };
+    case TypeTerrain::riviere:  return { 0.4f, 0.4f, 1.f  };
     default:                    throw std::runtime_error("Terrain inconnu");
     }
 
     throw std::runtime_error("Erreur : impossible de determiner la couleur");
 }
 
-std::pair<float, float> MonRenderer::hexVersLogique(stat q, stat r) const
+std::pair<float, float> MonRenderer::hexVersLogique(Stat q, Stat r) const
 {
     auto hauteur = _modele->getHauteurPlateau();
 
@@ -213,7 +213,7 @@ void MonRenderer::surligneChemin()
     // sinon on affiche rien
 }
 
-void MonRenderer::dessinHex(stat q, stat r)
+void MonRenderer::dessinHex(Stat q, Stat r)
 {
     // applat de couleur
     const std::array<float,3> c = getCouleur(q, r);
@@ -234,7 +234,7 @@ void MonRenderer::dessinHex(stat q, stat r)
     glEnd();
 }
 
-void MonRenderer::dessinUnite(stat q, stat r)
+void MonRenderer::dessinUnite(Stat q, Stat r)
 {
     auto c = _modele->accesCasePlateau({static_cast<int>(q), static_cast<int>(r)});
 
@@ -304,7 +304,7 @@ void MonRenderer::dessinCadre(Faction f)
     glLineWidth(1.f);
 }
 
-void MonRenderer::dessinConstruction(stat q, stat r)
+void MonRenderer::dessinConstruction(Stat q, Stat r)
 {
     auto c = _modele->accesCasePlateau({static_cast<int>(q), static_cast<int>(r)});
 
@@ -360,7 +360,7 @@ void MonRenderer::pointsArcCercleGauche()
 {
     static constexpr int NB_SEG = 10;
 
-    for (stat i = 0; i <= NB_SEG; ++i) {
+    for (Stat i = 0; i <= NB_SEG; ++i) {
         float theta = M_PI * static_cast<float>(i)/static_cast<float>(NB_SEG) + M_PI_2;
 
         float   x = _R_ARC_CERCLE * cos(theta),
@@ -498,7 +498,7 @@ void MonRenderer::dessinArtillerie()
 
     glBegin(GL_POLYGON);
     {
-        for (stat i = 0; i <= NB_SEG; ++i) {
+        for (Stat i = 0; i <= NB_SEG; ++i) {
             float theta = 2.f * M_PI * static_cast<float>(i)/static_cast<float>(NB_SEG);
 
             float   x = R_CERCLE * cos(theta),
@@ -607,7 +607,7 @@ void MonRenderer::dessinDepotMunitions()
     // cercle
     glBegin(GL_LINE_LOOP);
     {
-        for (stat i = 0; i <= NB_SEG; ++i) {
+        for (Stat i = 0; i <= NB_SEG; ++i) {
             float theta = 2.f * M_PI * static_cast<float>(i)/static_cast<float>(NB_SEG);
 
             float   x = R_CERCLE * cos(theta),

@@ -3,7 +3,7 @@
 Pont::Pont()
 {}
 
-stat Pont::getCoutImpl()
+Stat Pont::getCoutImpl()
 {
     return 10;
 }

@@ -4,21 +4,20 @@
 
 class UniteLourde : virtual public Unite {
 public:
-    UniteLourde(Faction faction, stat pointsVie, stat nbMunitions,
-                stat nbProvisions, stat pointsBouclier,
-                Visibilite visibilite = Visibilite::totale);
+    UniteLourde(Faction faction, Stat pointsVie, Stat nbMunitions,
+                Stat nbProvisions, Stat pointsBouclier, Visibilite visibilite);
 
-    stat getPointsBouclier() const;     // les unités lourdes ont un bouclier en plus des PV
-    stat getMaxPointsBouclier() const;
+    Stat getPointsBouclier() const;     // les unités lourdes ont un bouclier en plus des PV
+    Stat getMaxPointsBouclier() const;
 
     void reparerBouclier();             // pas utilisée dans le jeu (pourrai etre associée à un effet de construction)
     bool estLegere() const override;
-    void prendreDegats(stat degats) override;
+    void prendreDegats(Stat degats) override;
 
 // sortie flux
     void sortieFlux(std::ostream &os) const override;
 
 private:
-    stat _pointsBouclier;
-    const stat _MAX_POINTS_BOUCLIER;
+    Stat _pointsBouclier;
+    const Stat _MAX_POINTS_BOUCLIER;
 };

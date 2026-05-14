@@ -1,7 +1,7 @@
 #include "unite.hh"
 
-Unite::Unite(Faction faction, stat pointsVie, stat nbMunitions,
-             stat nbProvisions, Visibilite visibilite):
+Unite::Unite(Faction faction, Stat pointsVie, Stat nbMunitions,
+             Stat nbProvisions, Visibilite visibilite):
     _faction(faction), _pointsVie(pointsVie), _nbMunitions(nbMunitions),
     _nbProvisions(nbProvisions), _visibilite(visibilite),
     _MAX_POINTS_VIE(pointsVie), _MAX_NB_MUNITIONS(nbMunitions),
@@ -13,17 +13,17 @@ Faction Unite::getFaction() const
     return _faction;
 }
 
-stat Unite::getPointsVie() const
+Stat Unite::getPointsVie() const
 {
     return _pointsVie;
 }
 
-stat Unite::getNbMunitions() const
+Stat Unite::getNbMunitions() const
 {
     return _nbMunitions;
 }
 
-stat Unite::getNbProvisions() const
+Stat Unite::getNbProvisions() const
 {
     return _nbProvisions;
 }
@@ -33,42 +33,47 @@ Unite::Visibilite Unite::getVisibilite() const
     return _visibilite;
 }
 
-stat Unite::getMaxPointsVie() const
+Stat Unite::getMaxPointsVie() const
 {
     return _MAX_POINTS_VIE;
 }
 
-stat Unite::getMaxNbMunitions() const
+Stat Unite::getMaxNbMunitions() const
 {
     return _MAX_NB_MUNITIONS;
 }
 
-stat Unite::getMaxNbProvisions() const
+Stat Unite::getMaxNbProvisions() const
 {
     return _MAX_NB_PROVISIONS;
 }
 
+void Unite::setVisibilite(Visibilite nvVisibilite)
+{
+    _visibilite = nvVisibilite;
+}
+
 void Unite::regagnerVie()
 {
-    stat nvPointsVie = _pointsVie + (_MAX_POINTS_VIE * _MULT_RECHARGE);
+    Stat nvPointsVie = _pointsVie + (_MAX_POINTS_VIE * _MULT_RECHARGE);
     _pointsVie = std::min(nvPointsVie, _MAX_POINTS_VIE);        // sécurité contre overflow silencieux
 }
 
 void Unite::rechargerMunitions()
 {
-    stat nvNbMunitions = _nbMunitions + (_MAX_NB_MUNITIONS * _MULT_RECHARGE);
+    Stat nvNbMunitions = _nbMunitions + (_MAX_NB_MUNITIONS * _MULT_RECHARGE);
     _nbMunitions = std::min(nvNbMunitions, _MAX_NB_MUNITIONS);  // sécurité contre overflow silencieux
 }
 
 void Unite::rechargerProvisions()
 {
-    stat nvNbProvisions = _nbProvisions + (_MAX_NB_PROVISIONS * _MULT_RECHARGE);
+    Stat nvNbProvisions = _nbProvisions + (_MAX_NB_PROVISIONS * _MULT_RECHARGE);
     _nbProvisions = std::min(nvNbProvisions, _MAX_NB_PROVISIONS);   // sécurité contre overflow silencieux
 }
 
-std::vector<indiceAction> Unite::getIndicesActionsPossibles() const
+std::vector<IndiceAction> Unite::getIndicesActionsPossibles() const
 {
-    std::vector<indiceAction> indices;
+    std::vector<IndiceAction> indices;
 
     if (_nbProvisions > 0)
         indices.push_back(0);  // deplacement
@@ -84,7 +89,7 @@ bool Unite::estOperationnelle() const
     return _pointsVie > 0;
 }
 
-void Unite::prendreDegats(stat degats)
+void Unite::prendreDegats(Stat degats)
 {
     int nvPointsVie = _pointsVie - degats;
     _pointsVie = std::max(0, nvPointsVie);  // sécurité contre overflow silencieux
@@ -93,7 +98,7 @@ void Unite::prendreDegats(stat degats)
 void Unite::attaquerUnite(Unite *unite)
 {
     if (_nbMunitions > 0 && unite) {
-        stat pointsAttaque;
+        Stat pointsAttaque;
         // contre des unites lourdes les points d'attaques sont différents
         // (pas même arme utilisée par exemple)
         if (unite->estLegere())
@@ -106,15 +111,10 @@ void Unite::attaquerUnite(Unite *unite)
     }
 }
 
-void Unite::utiliserProvisions(stat nbProvisions)
+void Unite::utiliserProvisions(Stat nbProvisions)
 {
     int nvNbProvisions = _nbProvisions - nbProvisions;
     _nbProvisions = std::max(0, nvNbProvisions);
-}
-
-void Unite::setVisibilite(Visibilite nvVisibilite)
-{
-    _visibilite = nvVisibilite;
 }
 
 void Unite::sortieFlux(std::ostream &os) const

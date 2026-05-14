@@ -4,7 +4,7 @@ ModelePourQML::ModelePourQML(QObject *parent):
     QObject(parent)
 {}
 
-void ModelePourQML::setModele(stat idGuerre)
+void ModelePourQML::setModele(Stat idGuerre)
 {
     _modele = std::make_unique<Modele>(idGuerre);
 }
@@ -49,12 +49,12 @@ void ModelePourQML::annulerSelections()
     _modele->annulerSelections();
 }
 
-bool ModelePourQML::indiceActionValide(indiceAction indAction) const
+bool ModelePourQML::indiceActionValide(IndiceAction indAction) const
 {
     return _modele->indiceActionValide(indAction);
 }
 
-void ModelePourQML::choixAction(indiceAction indAction)
+void ModelePourQML::choixAction(IndiceAction indAction)
 {
     _modele->choixAction(indAction);
 }
@@ -84,12 +84,12 @@ bool ModelePourQML::actionAnnulable() const
     return getCaseSelectionnee();
 }
 
-bool ModelePourQML::indiceConstructionValide(indiceConstruction indConstruction) const
+bool ModelePourQML::indiceConstructionValide(IndiceConstruction indConstruction) const
 {
     return _modele->indiceConstructionValide(indConstruction);
 }
 
-void ModelePourQML::choixConstruction(indiceConstruction indConstruction)
+void ModelePourQML::choixConstruction(IndiceConstruction indConstruction)
 {
     _modele->choixConstruction(indConstruction);
 }

@@ -4,10 +4,10 @@
 
 class UniteLegere : virtual public Unite {
 public:
-    UniteLegere(Faction faction, stat pointsVie, stat nbMunitions,
-                stat nbProvisions, Visibilite visibilite = Visibilite::totale);
+    UniteLegere(Faction faction, Stat pointsVie, Stat nbMunitions,
+                Stat nbProvisions, Visibilite visibilite);
 
-    virtual stat getTaille() const =0;  // les unites légères peuvent se stack dans un espace donné
+    virtual Stat getTaille() const =0;  // les unites légères peuvent se stack dans un espace donné
     bool estLegere() const override;
 
 // sortie flux

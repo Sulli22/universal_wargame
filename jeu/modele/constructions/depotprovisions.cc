@@ -3,7 +3,7 @@
 DepotProvisions::DepotProvisions()
 {}
 
-stat DepotProvisions::getCoutImpl()
+Stat DepotProvisions::getCoutImpl()
 {
     return 15;
 }

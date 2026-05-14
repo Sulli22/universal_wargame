@@ -1,7 +1,7 @@
 #include "bombardier.hh"
 
-Bombardier::Bombardier(Faction faction, stat pointsVie, stat nbMunitions,
-                       stat nbProvisions, stat pointsBouclier):
+Bombardier::Bombardier(Faction faction, Stat pointsVie, Stat nbMunitions,
+                       Stat nbProvisions, Stat pointsBouclier):
     Unite(faction, pointsVie, nbMunitions, nbProvisions),
     UniteAerienne(faction, pointsVie, nbMunitions, nbProvisions, pointsBouclier)
 {}
@@ -11,26 +11,26 @@ std::string Bombardier::getNom() const
     return "Bombardier";
 }
 
-stat Bombardier::getPointsAttaqueLegere() const
+Stat Bombardier::getPointsAttaqueLegere() const
 {
     return 20;
 }
 
-stat Bombardier::getPointsAttaqueLourde() const
+Stat Bombardier::getPointsAttaqueLourde() const
 {
     return 30;
 }
 
-stat Bombardier::getCapaciteDeplacement() const
+Stat Bombardier::getCapaciteDeplacement() const
 {
     // réduit la capacité de déplacement au nb de provisions
     // si celui ci est insufisant pour un déplacement complet
-    stat capacite = 3;
-    stat capaciteMin = getNbProvisions();
+    Stat capacite = 3;
+    Stat capaciteMin = getNbProvisions();
     return std::min(capaciteMin, capacite);
 }
 
-stat Bombardier::getDistanceAttaque() const
+Stat Bombardier::getDistanceAttaque() const
 {
     return 2;
 }

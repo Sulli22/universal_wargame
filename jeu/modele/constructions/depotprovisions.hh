@@ -6,7 +6,7 @@ class DepotProvisions : public ConstructionTemplate<DepotProvisions> {
 public:
     DepotProvisions();
 
-    static stat getCoutImpl();
+    static Stat getCoutImpl();
     void  effectuerEffet(Unite *unite) const override;
 };
 

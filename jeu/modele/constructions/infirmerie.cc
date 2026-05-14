@@ -3,7 +3,7 @@
 Infirmerie::Infirmerie()
 {}
 
-stat Infirmerie::getCoutImpl()
+Stat Infirmerie::getCoutImpl()
 {
     return 10;
 }

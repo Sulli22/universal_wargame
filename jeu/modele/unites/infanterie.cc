@@ -1,7 +1,7 @@
 #include "infanterie.hh"
 
-Infanterie::Infanterie(Faction faction, stat pointsVie, stat nbMunitions,
-                       stat nbProvisions):
+Infanterie::Infanterie(Faction faction, Stat pointsVie, Stat nbMunitions,
+                       Stat nbProvisions):
     Unite(faction, pointsVie, nbMunitions, nbProvisions),
     UniteTerrestreLegere(faction, pointsVie, nbMunitions, nbProvisions)
 {}
@@ -11,31 +11,31 @@ std::string Infanterie::getNom() const
     return "Infanterie";
 }
 
-stat Infanterie::getPointsAttaqueLegere() const
+Stat Infanterie::getPointsAttaqueLegere() const
 {
     return 10;
 }
 
-stat Infanterie::getPointsAttaqueLourde() const
+Stat Infanterie::getPointsAttaqueLourde() const
 {
     return 12;
 }
 
-stat Infanterie::getCapaciteDeplacement() const
+Stat Infanterie::getCapaciteDeplacement() const
 {
     // réduit la capacité de déplacement au nb de provisions
     // si celui ci est insufisant pour un déplacement complet
-    stat capacite = 4;
-    stat capaciteMin = getNbProvisions();
+    Stat capacite = 4;
+    Stat capaciteMin = getNbProvisions();
     return std::min(capaciteMin, capacite);
 }
 
-stat Infanterie::getDistanceAttaque() const
+Stat Infanterie::getDistanceAttaque() const
 {
     return 1;
 }
 
-stat Infanterie::getTaille() const
+Stat Infanterie::getTaille() const
 {
     return 1;
 }

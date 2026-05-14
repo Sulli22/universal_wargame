@@ -4,8 +4,8 @@
 
 class UniteMarine: public UniteLourde {
 public:
-    UniteMarine(Faction faction, stat pointsVie, stat nbMunitions,
-                stat nbProvisions, stat pointsBouclier,
+    UniteMarine(Faction faction, Stat pointsVie, Stat nbMunitions,
+                Stat nbProvisions, Stat pointsBouclier,
                 Visibilite visibilite = Visibilite::totale);
 };
 

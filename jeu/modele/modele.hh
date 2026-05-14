@@ -49,14 +49,14 @@ public:
     Unite *getUniteSelectionee() const;
 
 // constructions
-    std::vector<indiceConstruction> getIndicesConstructionsPossibles() const;
-    bool indiceConstructionValide(indiceConstruction indConstruction) const;
-    void choixConstruction(indiceConstruction indConstruction);
+    std::vector<IndiceConstruction> getIndicesConstructionsPossibles() const;
+    bool indiceConstructionValide(IndiceConstruction indConstruction) const;
+    void choixConstruction(IndiceConstruction indConstruction);
 
 // actions
-    std::vector<indiceAction> getIndicesActionsPossibles() const;
-    bool indiceActionValide(indiceAction indAction) const;
-    void choixAction(indiceAction indAction);
+    std::vector<IndiceAction> getIndicesActionsPossibles() const;
+    bool indiceActionValide(IndiceAction indAction) const;
+    void choixAction(IndiceAction indAction);
     bool actionValidable() const;
     void effectuerAction();
     bool estActionAttaque() const;

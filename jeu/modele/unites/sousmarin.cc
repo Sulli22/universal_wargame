@@ -1,7 +1,7 @@
 #include "sousmarin.hh"
 
-SousMarin::SousMarin(Faction faction, stat pointsVie, stat nbMunitions,
-                     stat nbProvisions, stat pointsBouclier):
+SousMarin::SousMarin(Faction faction, Stat pointsVie, Stat nbMunitions,
+                     Stat nbProvisions, Stat pointsBouclier):
     Unite(faction, pointsVie, nbMunitions, nbProvisions, Visibilite::nulle),
     UniteMarine(faction, pointsVie, nbMunitions, nbProvisions, pointsBouclier, Visibilite::nulle)
 {}
@@ -11,26 +11,26 @@ std::string SousMarin::getNom() const
     return "Sous-Marin";
 }
 
-stat SousMarin::getPointsAttaqueLegere() const
+Stat SousMarin::getPointsAttaqueLegere() const
 {
     return 25;
 }
 
-stat SousMarin::getPointsAttaqueLourde() const
+Stat SousMarin::getPointsAttaqueLourde() const
 {
     return 40;
 }
 
-stat SousMarin::getCapaciteDeplacement() const
+Stat SousMarin::getCapaciteDeplacement() const
 {
     // réduit la capacité de déplacement au nb de provisions
     // si celui ci est insufisant pour un déplacement complet
-    stat capacite = 6;
-    stat capaciteMin = Unite::getNbProvisions();
+    Stat capacite = 6;
+    Stat capaciteMin = Unite::getNbProvisions();
     return std::min(capaciteMin, capacite);
 }
 
-stat SousMarin::getDistanceAttaque() const
+Stat SousMarin::getDistanceAttaque() const
 {
     return 7;
 }

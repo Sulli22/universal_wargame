@@ -1,6 +1,6 @@
 #include "genie.hh"
 
-Genie::Genie(Faction faction, stat pointsVie, stat nbMuntions, stat nbProvisions):
+Genie::Genie(Faction faction, Stat pointsVie, Stat nbMuntions, Stat nbProvisions):
     Unite(faction, pointsVie, nbMuntions, nbProvisions),
     Infanterie(faction, pointsVie, nbMuntions, nbProvisions)
 {}
@@ -10,7 +10,7 @@ std::string Genie::getNom() const
     return Infanterie::getNom() + " - Genie";
 }
 
-std::vector<indiceAction> Genie::getIndicesActionsPossibles() const
+std::vector<IndiceAction> Genie::getIndicesActionsPossibles() const
 {
     auto indices = Unite::getIndicesActionsPossibles();
 
@@ -26,7 +26,7 @@ void Genie::rechargerProvisions()
     // un genie ne peut pas regagner des provisions
 }
 
-bool Genie::peutDepenser(stat cout) const
+bool Genie::peutDepenser(Stat cout) const
 {
     return (getNbProvisions() >= cout);
 }

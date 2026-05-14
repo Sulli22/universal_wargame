@@ -3,7 +3,7 @@
 DepotMunitions::DepotMunitions()
 {}
 
-stat DepotMunitions::getCoutImpl()
+Stat DepotMunitions::getCoutImpl()
 {
     return 10;
 }

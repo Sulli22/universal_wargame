@@ -1,7 +1,7 @@
 #include "charassaut.hh"
 
-CharAssaut::CharAssaut(Faction faction, stat pointsVie, stat nbMunitions,
-                       stat nbProvisions, stat pointsBouclier):
+CharAssaut::CharAssaut(Faction faction, Stat pointsVie, Stat nbMunitions,
+                       Stat nbProvisions, Stat pointsBouclier):
     Unite(faction, pointsVie, nbMunitions, nbProvisions),
     UniteTerrestreLourde(faction, pointsVie, nbMunitions, nbProvisions,
                            pointsBouclier)
@@ -12,26 +12,26 @@ std::string CharAssaut::getNom() const
     return "Char d'assaut";
 }
 
-stat CharAssaut::getPointsAttaqueLegere() const
+Stat CharAssaut::getPointsAttaqueLegere() const
 {
     return 8;
 }
 
-stat CharAssaut::getPointsAttaqueLourde() const
+Stat CharAssaut::getPointsAttaqueLourde() const
 {
     return 18;
 }
 
-stat CharAssaut::getCapaciteDeplacement() const
+Stat CharAssaut::getCapaciteDeplacement() const
 {
     // réduit la capacité de déplacement au nb de provisions
     // si celui ci est insufisant pour un déplacement complet
-    stat capacite = 2;
-    stat capaciteMin = getNbProvisions();
+    Stat capacite = 2;
+    Stat capaciteMin = getNbProvisions();
     return std::min(capaciteMin, capacite);
 }
 
-stat CharAssaut::getDistanceAttaque() const
+Stat CharAssaut::getDistanceAttaque() const
 {
     return 2;
 }

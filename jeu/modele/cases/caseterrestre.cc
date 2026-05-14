@@ -12,12 +12,12 @@
 #include <iostream>
 #include <limits>
 
-CaseTerrestre::CaseTerrestre(const Position &pos, typeTerrain terrain,
-                             stat espaceDisponible):
+CaseTerrestre::CaseTerrestre(const Position &pos, TypeTerrain terrain,
+                             Stat espaceDisponible):
     Case(pos), _espaceDisponible(espaceDisponible), _terrain(terrain)
 {}
 
-typeTerrain CaseTerrestre::getTerrain() const
+TypeTerrain CaseTerrestre::getTerrain() const
 {
     return _terrain;
 }
@@ -27,7 +27,7 @@ Construction *CaseTerrestre::getConstruction() const
    return _construction.get();
 }
 
-void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, stat cout)
+void CaseTerrestre::deplacerUnite(std::size_t indUnite, Case *arrivee, Stat cout)
 {
     if (indUnite == 0 && getUniteAerienne())         // s'il y a une unite aerienne et ind = 0
         Case::deplacerUniteAerienne(arrivee, cout); // on deplace l'unite aerienne
@@ -65,7 +65,7 @@ void CaseTerrestre::ajouterUniteTerrestre(std::unique_ptr<UniteTerrestre>
 
         if (uniteTerrestreLeg->getTaille() <= _espaceDisponible) {  // on vérifie qu'il y a la place d'ajouter
             // les forets reduise la visibilité des unités qui y sont
-            if (_terrain == typeTerrain::foret)
+            if (_terrain == TypeTerrain::foret)
                 nvUniteTerrestre->setVisibilite(Unite::Visibilite::partielle);
             else
                 nvUniteTerrestre->setVisibilite(Unite::Visibilite::totale);
@@ -93,7 +93,7 @@ void CaseTerrestre::setConstruction(std::unique_ptr<Construction> nvConstruction
     if (_construction)
         throw std::runtime_error("Erreur : la place est déja prise");
 
-    if (_terrain == typeTerrain::riviere) {
+    if (_terrain == TypeTerrain::riviere) {
         // seul un pont peut etre construit
         if (nvConstruction->estPont())
             _construction = std::move(nvConstruction);
@@ -101,7 +101,7 @@ void CaseTerrestre::setConstruction(std::unique_ptr<Construction> nvConstruction
             throw std::runtime_error("Erreur : la case est une rivière");
     }
 
-    else if (_terrain != typeTerrain::plaine)   // les plaines sont les seuls autres terrains constructibles
+    else if (_terrain != TypeTerrain::plaine)   // les plaines sont les seuls autres terrains constructibles
         throw std::runtime_error("Erreur : ce type de case n'est pas constructible");
 
     else if (nvConstruction->estPont())         // mais ça ne peut pas être un pont
@@ -130,9 +130,9 @@ std::size_t CaseTerrestre::nbUnites() const
     return Case::nbUnites() + _unitesTerrestres.size();
 }
 
-stat CaseTerrestre::coutDeplacement(Unite *unite) const
+Stat CaseTerrestre::coutDeplacement(Unite *unite) const
 {
-    auto max = std::numeric_limits<stat>::max();
+    auto max = std::numeric_limits<Stat>::max();
     if (!peutAccueillir(unite))
         return max;             // infranchissable si accueil impossible
 
@@ -146,16 +146,16 @@ stat CaseTerrestre::coutDeplacement(Unite *unite) const
 
     switch (_terrain) {
     // plaine franchissable avec cout 1
-    case typeTerrain::plaine:   return 1;
+    case TypeTerrain::plaine:   return 1;
 
     // la foret à un cout de 2 si l'unité est lourde
-    case typeTerrain::foret:    return unite->estLegere() ? 1 : 2;
+    case TypeTerrain::foret:    return unite->estLegere() ? 1 : 2;
 
     // si il n'y a pas de pont la riviere est infranchissable
-    case typeTerrain::riviere:  return _construction && _construction->estPont() ? 1 : max;
+    case TypeTerrain::riviere:  return _construction && _construction->estPont() ? 1 : max;
 
     // montagnes toujours infranchissable
-    case typeTerrain::montagne: return max;
+    case TypeTerrain::montagne: return max;
 
     default:
         throw std::runtime_error("Erreur : Impossible de calculer le cout de deplacement");
@@ -175,21 +175,21 @@ Faction CaseTerrestre::getFaction() const
     return Faction::neutre;
 }
 
-std::vector<indiceConstruction> CaseTerrestre::getIndicesConstructionsPossibles(const Genie &genie) const
+std::vector<IndiceConstruction> CaseTerrestre::getIndicesConstructionsPossibles(const Genie &genie) const
 {
     if (_construction
-        || _terrain == typeTerrain::foret
-        || _terrain == typeTerrain::montagne)
+        || _terrain == TypeTerrain::foret
+        || _terrain == TypeTerrain::montagne)
         return {};   // rien ne peut etre construit
 
-    if (_terrain == typeTerrain::riviere) {
+    if (_terrain == TypeTerrain::riviere) {
         if (genie.peutDepenser(Pont::getCoutStatic()))
             return {3}; // pont uniquement
         return {};
     }
 
     // sinon on vérfie seulement le cout
-    std::vector<indiceConstruction> res;
+    std::vector<IndiceConstruction> res;
 
     if (genie.peutDepenser(DepotMunitions::getCoutStatic()))
         res.push_back(0);
@@ -201,6 +201,24 @@ std::vector<indiceConstruction> CaseTerrestre::getIndicesConstructionsPossibles(
         res.push_back(2);
 
     return res;
+}
+
+void CaseTerrestre::afficherDetails(std::ostream &os) const
+{
+    Case::afficherDetails(os); os << std::endl;
+
+    os << "Type = ";
+    switch (_terrain) {
+    case TypeTerrain::plaine:   os << "Plaine";     break;
+    case TypeTerrain::foret:    os << "Foret";      break;
+    case TypeTerrain::riviere:  os << "Riviere";    break;
+    case TypeTerrain::montagne: os << "Montagne";   break;
+    }
+    os << std::endl;
+
+    os << "Espace dispo = " << _espaceDisponible << std::endl;
+
+    os <<  "Construction ? " << (_construction != nullptr) << std::endl;
 }
 
 bool CaseTerrestre::peutAccueillir(Unite *unite) const
@@ -220,25 +238,7 @@ bool CaseTerrestre::peutAccueillir(Unite *unite) const
     return false;
 }
 
-void CaseTerrestre::afficherDetails(std::ostream &os) const
-{
-    Case::afficherDetails(os); os << std::endl;
-
-    os << "Type = ";
-    switch (_terrain) {
-    case typeTerrain::plaine:   os << "Plaine";     break;
-    case typeTerrain::foret:    os << "Foret";      break;
-    case typeTerrain::riviere:  os << "Riviere";    break;
-    case typeTerrain::montagne: os << "Montagne";   break;
-    }
-    os << std::endl;
-
-    os << "Espace dispo = " << _espaceDisponible << std::endl;
-
-    os <<  "Construction ? " << (_construction != nullptr) << std::endl;
-}
-
-void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, stat cout)
+void CaseTerrestre::deplacerUniteTerrestre(std::size_t indUnite, CaseTerrestre *arrivee, Stat cout)
 {
     if (_unitesTerrestres.at(indUnite)->estLegere()) {
         // si unite est legere alors on rajoute à l'espace dispo la place quelle prennait

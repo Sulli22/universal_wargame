@@ -9,19 +9,19 @@ class ModelePourQML : public QObject {
 public:
     explicit ModelePourQML(QObject *parent = Q_NULLPTR);
 
-    Q_INVOKABLE void setModele(stat idGuerre);
+    Q_INVOKABLE void setModele(Stat idGuerre);
     Q_INVOKABLE void changerJoueur();
     Q_INVOKABLE QString getStatsUniteSelectionee() const;
     Q_INVOKABLE void annulerSelections();
-    Q_INVOKABLE bool indiceActionValide(indiceAction indAction) const;
-    Q_INVOKABLE void choixAction(indiceAction indAction);
+    Q_INVOKABLE bool indiceActionValide(IndiceAction indAction) const;
+    Q_INVOKABLE void choixAction(IndiceAction indAction);
     Q_INVOKABLE void effectuerAction();
     Q_INVOKABLE bool estActionAttaque() const;
     Q_INVOKABLE QString getFactionAttaquante() const;
     Q_INVOKABLE bool actionValidable() const;
     Q_INVOKABLE bool actionAnnulable() const;
-    Q_INVOKABLE bool indiceConstructionValide(indiceConstruction indConstruction) const;
-    Q_INVOKABLE void choixConstruction(indiceConstruction indConstruction);
+    Q_INVOKABLE bool indiceConstructionValide(IndiceConstruction indConstruction) const;
+    Q_INVOKABLE void choixConstruction(IndiceConstruction indConstruction);
     Q_INVOKABLE bool partieFinie() const;
     Q_INVOKABLE QString getFactionVictorieuse() const;
     Q_INVOKABLE QString getPourcentageDefaite() const;
