@@ -60,10 +60,6 @@ Item {
                    verticalAlignment: Text.AlignVCenter
                    horizontalAlignment: Text.AlignHCenter
                 }
-
-                Item {
-                    Layout.fillWidth: true
-                }
             }
 
             background: Rectangle {
