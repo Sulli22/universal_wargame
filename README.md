@@ -12,6 +12,15 @@ Afin de pouvoir compiler et lancer le jeu, assurez-vous d'avoir installé **Qt 6
 
 > **Note :** Si vous utilisez **Qt Creator** et que vous configurez un Kit avec une version de Qt 6 récente, la grande majorité de ces dépendances seront déjà installées et configurées automatiquement.
 
+### Installation des dépendances (sans Qt Creator)
+
+```bash
+sudo apt update
+sudo apt install cmake g++ qt6-base-dev qt6-declarative-dev qt6-multimedia-dev qt6-l10n-tools libgl1-mesa-dev
+````
+
+#
+
 ## STRUCTURE
 
 ``` text
