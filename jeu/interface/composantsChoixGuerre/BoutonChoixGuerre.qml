@@ -26,11 +26,11 @@ Item {
                 anchors.fill: parent
                 hoverEnabled: true
 
-                onEntered: {
+                onEntered: function entrerDansBouton(){
                     rectangleTemp.visible = true
                 }
 
-                onExited: {
+                onExited: function sortirBouton(){
                     rectangleTemp.visible = false
                 }
 
