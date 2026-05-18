@@ -18,12 +18,23 @@ Afin de pouvoir compiler et lancer le jeu, assurez-vous d'avoir installé **Qt 6
 sudo apt update
 sudo apt install cmake g++ qt6-base-dev qt6-declarative-dev qt6-multimedia-dev qt6-l10n-tools libgl1-mesa-dev
 ````
+### Exécution (sans Qt Creator)
+Aller dans le dossier du jeu
 
-#
+Exécuter les commandes suivantes : 
+```
+mkdir build
+cd build
+cmake ..
+make
+./appJeu
+```
+
+
 
 ## STRUCTURE
 
-``` text
+``` 
   ./
 ├── interface/
 │   ├── composantsChoixGuerre/
