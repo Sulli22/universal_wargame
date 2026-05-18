@@ -25,7 +25,7 @@ Stat Fregate::getCapaciteDeplacement() const
 {
     // réduit la capacité de déplacement au nb de provisions
     // si celui ci est insufisant pour un déplacement complet
-    Stat capacite = 3;
+    Stat capacite = 5;
     Stat capaciteMin = getNbProvisions();
     return std::min(capaciteMin, capacite);
 }

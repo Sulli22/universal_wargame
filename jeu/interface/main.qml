@@ -88,16 +88,15 @@ Window {
                     pageLoader.source = "pages/MenuPrincipal.qml"
             }
 
-       }
-   }
+        }
+    }
 
     function lancerBruitBouton() {
         let son = composantSonBouton.createObject(racine)
         son.play()
         son.playbackStateChanged.connect(function() {
-            if (son.playbackState === MediaPlayer.StoppedState) {
+            if (son.playbackState === MediaPlayer.StoppedState)
                 son.destroy(500)
-               }
            })
     }
 }

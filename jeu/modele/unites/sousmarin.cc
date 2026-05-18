@@ -25,7 +25,7 @@ Stat SousMarin::getCapaciteDeplacement() const
 {
     // réduit la capacité de déplacement au nb de provisions
     // si celui ci est insufisant pour un déplacement complet
-    Stat capacite = 6;
+    Stat capacite = 3;
     Stat capaciteMin = Unite::getNbProvisions();
     return std::min(capaciteMin, capacite);
 }

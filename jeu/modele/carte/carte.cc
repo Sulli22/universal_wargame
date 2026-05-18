@@ -196,6 +196,7 @@ std::map<Case *, distance> Carte::getCasesAtteignables(Case *depart, Unite *unit
     coutJusqua.erase(depart);
     return coutJusqua;
 }
+
 std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaquante) const
 {
     std::vector<Case *> casesAttaquables;
@@ -210,8 +211,7 @@ std::vector<Case *> Carte::getCasesAttaquables(Case *depart, Unite *uniteAttaqua
         auto [courante, distance] = file.front();
         file.pop();
 
-        if (distance > 0
-            && courante->nbUnites() > 0
+        if (distance > 0 && courante->nbUnites() > 0
             && courante->getFaction() != uniteAttaquante->getFaction()
             && courante->nbUnites() <= uniteAttaquante->getNbMunitions())
             casesAttaquables.push_back(courante);
