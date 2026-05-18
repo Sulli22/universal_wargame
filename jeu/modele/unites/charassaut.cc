@@ -33,5 +33,5 @@ Stat CharAssaut::getCapaciteDeplacement() const
 
 Stat CharAssaut::getDistanceAttaque() const
 {
-    return 2;
+    return 3;
 }

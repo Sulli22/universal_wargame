@@ -32,7 +32,7 @@ Stat Infanterie::getCapaciteDeplacement() const
 
 Stat Infanterie::getDistanceAttaque() const
 {
-    return 1;
+    return 2;
 }
 
 Stat Infanterie::getTaille() const
