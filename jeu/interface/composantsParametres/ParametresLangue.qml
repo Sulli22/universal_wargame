@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 Item {
+    id: racineParametresLangue
     Layout.alignment: Qt.AlignHCenter
 
     Rectangle {
@@ -28,25 +29,26 @@ Item {
 
         ComboBox {
             id: selectionLangue
-            Layout.fillWidth: true
+            Layout.preferredWidth: racineParametresLangue.width / 5
 
             model: ListModel {
-                id: cbItems
-                ListElement { text:"Français"; image: "qrc:/img/france" }
-                ListElement { text:"English"; image: "qrc:/img/royaumeuni" }
+                id: listeLangues
+                ListElement {text:"Français"; image: "qrc:/img/france" }
+                ListElement {text:"English"; image: "qrc:/img/royaumeuni" }
             }
 
             textRole: "text"
             currentIndex: racine.indiceLangue
 
-            contentItem: RowLayout {
+            contentItem: Item {
                 anchors.fill: parent
-                spacing: 10
 
                 Image {
                    source: selectionLangue.model.get(selectionLangue.currentIndex).image
                    sourceSize: "24x12"
-                   Layout.leftMargin: 10
+                   anchors.left: parent.left
+                   anchors.verticalCenter: parent.verticalCenter
+                   anchors.leftMargin: 10
                 }
 
                 Text {
@@ -54,7 +56,9 @@ Item {
                    color: "black"
                    text: selectionLangue.model.get(selectionLangue.currentIndex).text
                    font.bold: true
-                   Layout.fillWidth: true
+                   anchors.centerIn: parent
+                   verticalAlignment: Text.AlignVCenter
+                   horizontalAlignment: Text.AlignHCenter
                 }
             }
 
@@ -66,11 +70,11 @@ Item {
 
             // Permet de personnaliser lors de l'ouverture de la liste
             delegate: ItemDelegate {
-                id: control
+                id: ouvertureListe
                 width: selectionLangue.width
 
                 background: Rectangle {
-                    color: control.highlighted ? "#87CEFA" : "#f5f5dc"
+                    color: ouvertureListe.highlighted ? "#87CEFA" : "#f5f5dc"
                 }
 
                 contentItem: RowLayout {
@@ -80,7 +84,6 @@ Item {
                         source: model.image
                         sourceSize: "24x12" 
                     }
-
                     Text {
                         color: "black"
                         text: model.text
@@ -93,7 +96,7 @@ Item {
                 highlighted: selectionLangue.highlightedIndex === index
             }
 
-            onActivated: {
+            onActivated: function majLangue(){
                 langageManager.majLangue(selectionLangue.currentIndex === 0 ? "fr" : "en")
                 racine.indiceLangue = selectionLangue.currentIndex
             }

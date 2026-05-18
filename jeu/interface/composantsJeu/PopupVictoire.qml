@@ -6,6 +6,17 @@ import QtMultimedia
 PopupGeneral {
     id: racinePopupVictoire
 
+
+    function lancerBruitVictoire() {
+        let son = composantSonVictoire.createObject(racinePopupVictoire)
+        son.play()
+        son.playbackStateChanged.connect(function() {
+            if (son.playbackState === MediaPlayer.StoppedState) {
+                son.destroy(500)
+               }
+           })
+    }
+
     contentItem: Item {
 
         Component {
@@ -13,7 +24,7 @@ PopupGeneral {
                MediaPlayer {
                    source: "qrc:/victoire"
                    audioOutput: AudioOutput {
-                       volume: racine.desactiverVolumeBouton ? 0 : racine.volumeBouton
+                       volume: racine.desactiverVolumeBruitages ? 0 : racine.volumeBruitages
                    }
                }
            }
@@ -24,7 +35,7 @@ PopupGeneral {
 
             Text {
                 id: texteVictoire
-                text: "VICTOIRE DE : "
+                text: qsTr("VICTOIRE DE") + ":" + langageManager.chaineVide
                 font.pointSize: Math.max(25,layoutVictoire.width * 0.075)
                 font.bold: true
                 Layout.alignment: Qt.AlignHCenter
@@ -45,25 +56,20 @@ PopupGeneral {
                 Layout.alignment: Qt.AlignHCenter
                 font.pointSize: Math.max(15, boutonRetourMenuPrincipal.Layout.preferredHeight*0.4)
 
+                background: Rectangle {
+                    radius: height/2
+                    border.color: "black"
+                }
                 onClicked: racineJeu.retourMenuPrincipal(false)
             }
 
         }
     }
 
-    onOpened: {
+    onOpened: function ouvrirPopupVictoire(){
         rectFaction.color = modeleQML.getFactionVictorieuse()
         lancerBruitVictoire()
     }
 
-    function lancerBruitVictoire() {
-        let son = composantSonVictoire.createObject(racinePopupVictoire)
-        son.play()
-        son.playbackStateChanged.connect(function() {
-            if (son.playbackState === MediaPlayer.StoppedState) {
-                son.destroy(500)
-               }
-           })
-    }
 
 }

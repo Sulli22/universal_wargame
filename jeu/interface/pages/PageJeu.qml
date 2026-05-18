@@ -37,7 +37,7 @@ Item {
             MediaPlayer {
                 source: "qrc:/attaque"
                 audioOutput: AudioOutput {
-                    volume: racine.desactiverVolumeBouton ? 0 : racine.volumeBouton / 3
+                    volume: racine.desactiverVolumeBruitages ? 0 : racine.volumeBruitages / 3
                 }
             }
         }

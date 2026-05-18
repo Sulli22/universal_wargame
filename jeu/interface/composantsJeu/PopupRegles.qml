@@ -12,7 +12,7 @@ PopupGeneral {
             anchors.fill: parent
 
             Text {
-                id: textRegles
+                id: texteRegles
                 font.bold: true
                 Layout.preferredWidth: layoutRegles.width
                 wrapMode: Text.WordWrap
@@ -28,20 +28,21 @@ PopupGeneral {
                 Layout.preferredWidth: racinePopupRegles.width*0.2
                 font.bold: true
 
-                onClicked: {
+                onClicked: function fermerPopupRegles(){
                     close()
                     rectangleOpacite.visible = false
                 }
 
                 background: Rectangle {
                     radius: height/2
+                    border.color: "black"
                 }
             }
         }
     }
 
     Component.onCompleted: {
-        textRegles.text = qsTr("Vous allez jouer les deux factions lors de cette bataille.
+        texteRegles.text = qsTr("Vous allez jouer les deux factions lors de cette bataille.
                         \nL'objectif est de réduire une équipe à moins de ")
                         + modeleQML.getPourcentageDefaite()
                         + qsTr("% de son effectif initial d'unités.")

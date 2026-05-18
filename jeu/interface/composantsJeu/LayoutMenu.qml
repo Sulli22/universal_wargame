@@ -5,6 +5,8 @@ import QtQuick.Layouts
 ColumnLayout {
     id: layoutMenu
 
+
+
     function rafraichirBoutonsActions() {
         deplacer.enabled = modeleQML.indiceActionValide(0);
         attaquer.enabled = modeleQML.indiceActionValide(1);
@@ -46,7 +48,7 @@ ColumnLayout {
     }
 
     function rafraichirStats() {
-        stats.text = "Pas d'unite"
+        stats.text = qsTr("Pas d'unite") + langageManager.chaineVide
     }
 
     anchors.fill: parent
@@ -54,7 +56,7 @@ ColumnLayout {
 
     Label {
         id: labelJoueur
-        text: qsTr("Joueur : ") + langageManager.chaineVide
+        text: qsTr("Joueur")+langageManager.chaineVide+" : "
         font.pointSize: 18
         font.bold: true
         color: racine.couleurTexte
@@ -127,7 +129,7 @@ ColumnLayout {
         id: layoutConstructions
         spacing: 8
 
-        BoutonAction {
+        BoutonMenu {
             id: depotMunitions
             text: qsTr("Munitions") + langageManager.chaineVide
             equipe: racineJeu.equipeAttaquante
@@ -138,7 +140,7 @@ ColumnLayout {
             }
         }
 
-        BoutonAction {
+        BoutonMenu {
             id: depotProvisions
             text: qsTr("Provisions") + langageManager.chaineVide
             equipe: racineJeu.equipeAttaquante
@@ -149,7 +151,7 @@ ColumnLayout {
             }
         }
 
-        BoutonAction {
+        BoutonMenu {
             id: infirmerie
             text: qsTr("Infirmerie") + langageManager.chaineVide
             equipe: racineJeu.equipeAttaquante
@@ -160,7 +162,7 @@ ColumnLayout {
             }
         }
 
-        BoutonAction {
+        BoutonMenu {
             id: pont
             text: qsTr("Pont") + langageManager.chaineVide
             equipe: racineJeu.equipeAttaquante
@@ -182,7 +184,7 @@ ColumnLayout {
         id: layoutActions
         spacing: 8
 
-        BoutonAction {
+        BoutonMenu {
             id: deplacer
             text: qsTr("Déplacer") + langageManager.chaineVide
             equipe: racineJeu.equipeAttaquante
@@ -193,7 +195,7 @@ ColumnLayout {
             }
         }
 
-        BoutonAction {
+        BoutonMenu {
             id: attaquer
             text: qsTr("Attaquer") + langageManager.chaineVide
             equipe: racineJeu.equipeAttaquante
@@ -204,7 +206,7 @@ ColumnLayout {
             }
         }
 
-        BoutonAction {
+        BoutonMenu {
             id: construire
             text: qsTr("Construire") + langageManager.chaineVide
             equipe: racineJeu.equipeAttaquante
@@ -231,7 +233,7 @@ ColumnLayout {
                 couleurCentreGradient: "#de7307"
                 enabled: false
 
-                onClicked: {
+                onClicked: function annulation(){
                     modeleQML.annulerSelections()
                     enabled = false
                     stats.text = "Pas d'unite"
@@ -246,7 +248,7 @@ ColumnLayout {
                 couleurCentreGradient: "#95ff80"
                 enabled: false
 
-                onClicked: {
+                onClicked: function validation(){
                     let estActionAttaquante = modeleQML.estActionAttaque()
                     modeleQML.effectuerAction()
 
@@ -270,7 +272,7 @@ ColumnLayout {
         Layout.preferredHeight: 5
     }
 
-    BoutonAction {
+    BoutonMenu {
         id: changerJoueur
         text: qsTr("Joueur suivant")
         Layout.fillWidth: true
@@ -279,7 +281,7 @@ ColumnLayout {
         Layout.rightMargin: 5
         Layout.leftMargin: 5
 
-        onClicked: {
+        onClicked: function changementJoueur(){
             racine.lancerBruitBouton()
             modeleQML.changerJoueur()
             racineJeu.equipeAttaquante = modeleQML.getFactionAttaquante()

@@ -25,6 +25,7 @@ PopupGeneral {
             RowLayout {
                 Layout.alignment: Qt.AlignHCenter
                 Button {
+                    id: boutonQuitter
                     text: qsTr("Quitter") + langageManager.chaineVide
                     palette.buttonText: "black"
                     Layout.preferredWidth: racinePopupQuitter.width*0.2
@@ -42,11 +43,12 @@ PopupGeneral {
                 }
 
                 Button {
+                    id: boutonAnnuler
                     text: qsTr("Annuler") + langageManager.chaineVide
                     palette.buttonText: "black"
                     Layout.preferredWidth: racinePopupQuitter.width*0.2
                     font.bold: true
-                    onClicked: {
+                    onClicked: function fermerPopupQuitter(){
                         close()
                         rectangleOpacite.visible = false
                     }
