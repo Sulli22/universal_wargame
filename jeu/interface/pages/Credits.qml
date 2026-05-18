@@ -19,7 +19,7 @@ Rectangle {
         ColorAnimation on color{
             from: "white"
             to: "black"
-            duration: 1000
+            duration: 3000
             onFinished: racineCredits.animationTerminee()
         }
     }

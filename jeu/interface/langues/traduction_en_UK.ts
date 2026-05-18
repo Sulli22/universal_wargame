@@ -23,66 +23,79 @@
         <translation type="vanished">Player : </translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/LayoutMenu.qml" line="51"/>
         <location filename="../composantsJeu/LayoutMenu.qml" line="51"/>
         <source>Pas d&apos;unite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/LayoutMenu.qml" line="59"/>
         <location filename="../composantsJeu/LayoutMenu.qml" line="59"/>
         <source>Joueur</source>
         <translation>Player</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/LayoutMenu.qml" line="94"/>
         <location filename="../composantsJeu/LayoutMenu.qml" line="94"/>
         <source>Stats Unité</source>
         <translation>Stats unit</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/LayoutMenu.qml" line="104"/>
         <location filename="../composantsJeu/LayoutMenu.qml" line="104"/>
         <source>Pas d&apos;unité</source>
         <translation>No unit</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/LayoutMenu.qml" line="120"/>
         <location filename="../composantsJeu/LayoutMenu.qml" line="120"/>
         <source>Constructions</source>
         <translation>Buildings</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/LayoutMenu.qml" line="134"/>
         <location filename="../composantsJeu/LayoutMenu.qml" line="134"/>
         <source>Munitions</source>
         <translation>Anmunitions</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/LayoutMenu.qml" line="145"/>
         <location filename="../composantsJeu/LayoutMenu.qml" line="145"/>
         <source>Provisions</source>
         <translation>Supplies</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/LayoutMenu.qml" line="156"/>
         <location filename="../composantsJeu/LayoutMenu.qml" line="156"/>
         <source>Infirmerie</source>
         <translation>Infirmary</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/LayoutMenu.qml" line="167"/>
         <location filename="../composantsJeu/LayoutMenu.qml" line="167"/>
         <source>Pont</source>
         <translation>Bridge</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/LayoutMenu.qml" line="189"/>
         <location filename="../composantsJeu/LayoutMenu.qml" line="189"/>
         <source>Déplacer</source>
         <translation>Move</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/LayoutMenu.qml" line="200"/>
         <location filename="../composantsJeu/LayoutMenu.qml" line="200"/>
         <source>Attaquer</source>
         <translation>Attack</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/LayoutMenu.qml" line="211"/>
         <location filename="../composantsJeu/LayoutMenu.qml" line="211"/>
         <source>Construire</source>
         <translation>Build</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/LayoutMenu.qml" line="277"/>
         <location filename="../composantsJeu/LayoutMenu.qml" line="277"/>
         <source>Joueur suivant</source>
         <translation>Next player</translation>
@@ -91,66 +104,79 @@
 <context>
     <name>Legende</name>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/Legende.qml" line="22"/>
         <location filename="../composantsJeu/Legende.qml" line="22"/>
         <source>Artillerie</source>
         <translation>Artillery</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/Legende.qml" line="28"/>
         <location filename="../composantsJeu/Legende.qml" line="28"/>
         <source>Bombardier</source>
         <translation>Bomber</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/Legende.qml" line="34"/>
         <location filename="../composantsJeu/Legende.qml" line="34"/>
         <source>Char d&apos;assaut</source>
         <translation>Tank</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/Legende.qml" line="40"/>
         <location filename="../composantsJeu/Legende.qml" line="40"/>
         <source>Chasseur</source>
         <translation>Hunter</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/Legende.qml" line="46"/>
         <location filename="../composantsJeu/Legende.qml" line="46"/>
         <source>Frégate</source>
         <translation>Frigate</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/Legende.qml" line="52"/>
         <location filename="../composantsJeu/Legende.qml" line="52"/>
         <source>Génie</source>
         <translation>Engineer</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/Legende.qml" line="58"/>
         <location filename="../composantsJeu/Legende.qml" line="58"/>
         <source>Infanterie</source>
         <translation>Infantry</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/Legende.qml" line="65"/>
         <location filename="../composantsJeu/Legende.qml" line="65"/>
         <source>Sous marin</source>
         <translation>Submarine</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/Legende.qml" line="78"/>
         <location filename="../composantsJeu/Legende.qml" line="78"/>
         <source>Dépot munitions</source>
         <translation>Supply depot</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/Legende.qml" line="84"/>
         <location filename="../composantsJeu/Legende.qml" line="84"/>
         <source>Dépot provisions</source>
         <translation>Supply depot</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/Legende.qml" line="90"/>
         <location filename="../composantsJeu/Legende.qml" line="90"/>
         <source>Infirmerie</source>
         <translation>Infirmary</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/Legende.qml" line="96"/>
         <location filename="../composantsJeu/Legende.qml" line="96"/>
         <source>Pont</source>
         <translation>Bridge</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/Legende.qml" line="105"/>
         <location filename="../composantsJeu/Legende.qml" line="105"/>
         <source>Retour</source>
         <translation>Back</translation>
@@ -159,16 +185,19 @@
 <context>
     <name>MenuPrincipal</name>
     <message>
+        <location filename="../../build/jeu/interface/pages/MenuPrincipal.qml" line="33"/>
         <location filename="../pages/MenuPrincipal.qml" line="33"/>
         <source>JOUER</source>
         <translation>PLAY</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/pages/MenuPrincipal.qml" line="43"/>
         <location filename="../pages/MenuPrincipal.qml" line="43"/>
         <source>PARAMETRES</source>
         <translation>SETTINGS</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/pages/MenuPrincipal.qml" line="53"/>
         <location filename="../pages/MenuPrincipal.qml" line="53"/>
         <source>QUITTER</source>
         <translation>QUIT</translation>
@@ -213,21 +242,25 @@
         <translation type="vanished">Choice of war</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/pages/PageChoixGuerre.qml" line="17"/>
         <location filename="../pages/PageChoixGuerre.qml" line="17"/>
         <source>Choix de la difficulté</source>
         <translation>Difficulty selection</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/pages/PageChoixGuerre.qml" line="36"/>
         <location filename="../pages/PageChoixGuerre.qml" line="36"/>
         <source>Facile</source>
         <translation>Easy</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/pages/PageChoixGuerre.qml" line="44"/>
         <location filename="../pages/PageChoixGuerre.qml" line="44"/>
         <source>Moyen</source>
         <translation>Medium</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/pages/PageChoixGuerre.qml" line="52"/>
         <location filename="../pages/PageChoixGuerre.qml" line="52"/>
         <source>Difficile</source>
         <translation>Hard</translation>
@@ -236,16 +269,19 @@
 <context>
     <name>PageJeu</name>
     <message>
+        <location filename="../../build/jeu/interface/pages/PageJeu.qml" line="82"/>
         <location filename="../pages/PageJeu.qml" line="82"/>
         <source>Aide</source>
         <translation>Help</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/pages/PageJeu.qml" line="88"/>
         <location filename="../pages/PageJeu.qml" line="88"/>
         <source>Paramètres</source>
         <translation>Settings</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/pages/PageJeu.qml" line="94"/>
         <location filename="../pages/PageJeu.qml" line="94"/>
         <source>Quitter la partie</source>
         <translation>Quit the game</translation>
@@ -302,11 +338,13 @@
 <context>
     <name>Parametres</name>
     <message>
+        <location filename="../../build/jeu/interface/pages/Parametres.qml" line="28"/>
         <location filename="../pages/Parametres.qml" line="28"/>
         <source>PARAMETRES</source>
         <translation>SETTINGS</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/pages/Parametres.qml" line="54"/>
         <location filename="../pages/Parametres.qml" line="54"/>
         <source>Retour</source>
         <translation>Back</translation>
@@ -315,6 +353,7 @@
 <context>
     <name>ParametresLangue</name>
     <message>
+        <location filename="../../build/jeu/interface/composantsParametres/ParametresLangue.qml" line="23"/>
         <location filename="../composantsParametres/ParametresLangue.qml" line="23"/>
         <source>LANGUE</source>
         <translation>LANGUAGE</translation>
@@ -323,11 +362,13 @@
 <context>
     <name>ParametresVolume</name>
     <message>
+        <location filename="../../build/jeu/interface/composantsParametres/ParametresVolume.qml" line="47"/>
         <location filename="../composantsParametres/ParametresVolume.qml" line="47"/>
         <source>Désactiver musique</source>
         <translation>Disable music</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsParametres/ParametresVolume.qml" line="56"/>
         <location filename="../composantsParametres/ParametresVolume.qml" line="56"/>
         <source>Désactiver bruitage</source>
         <translation>Disable sound effects</translation>
@@ -336,21 +377,25 @@
 <context>
     <name>PopupQuitter</name>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/PopupQuitter.qml" line="19"/>
         <location filename="../composantsJeu/PopupQuitter.qml" line="19"/>
         <source>Voulez vous vraiment quitter la partie ?</source>
         <translation>Do you really want to quit the game ?</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/PopupQuitter.qml" line="18"/>
         <location filename="../composantsJeu/PopupQuitter.qml" line="18"/>
         <source>Voulez vous vraiment quitter le jeu ?</source>
         <translation>Do you really want to quit ?</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/PopupQuitter.qml" line="29"/>
         <location filename="../composantsJeu/PopupQuitter.qml" line="29"/>
         <source>Quitter</source>
         <translation>Quit</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/PopupQuitter.qml" line="47"/>
         <location filename="../composantsJeu/PopupQuitter.qml" line="47"/>
         <source>Annuler</source>
         <translation>Cancel</translation>
@@ -359,6 +404,7 @@
 <context>
     <name>PopupRegles</name>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/PopupRegles.qml" line="45"/>
         <location filename="../composantsJeu/PopupRegles.qml" line="45"/>
         <source>Vous allez jouer les deux factions lors de cette bataille.
                         
@@ -367,6 +413,7 @@ L&apos;objectif est de réduire une équipe à moins de </source>
 The objective is to reduce a team to fewer than </translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/PopupRegles.qml" line="48"/>
         <location filename="../composantsJeu/PopupRegles.qml" line="48"/>
         <source>% de son effectif initial d&apos;unités.</source>
         <translation>% of its initial units count.</translation>
@@ -375,11 +422,13 @@ The objective is to reduce a team to fewer than </translation>
 <context>
     <name>PopupVictoire</name>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/PopupVictoire.qml" line="38"/>
         <location filename="../composantsJeu/PopupVictoire.qml" line="38"/>
         <source>VICTOIRE DE</source>
         <translation>VICTORY OF</translation>
     </message>
     <message>
+        <location filename="../../build/jeu/interface/composantsJeu/PopupVictoire.qml" line="55"/>
         <location filename="../composantsJeu/PopupVictoire.qml" line="55"/>
         <source>Retour au menu principal</source>
         <translation>Back to main menu</translation>
